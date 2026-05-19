@@ -16,6 +16,9 @@
 - Standardized the architectural patterns in `NETWORK_AND_ARCHITECTURE.md` to align with Xray v26 (XHTTP, seed/email matching).
 - **Incident Recovery (2nd Time):** Documented the second occurrence of a broken session. Re-synced state from the AI Brain to maintain continuity. Verified that no critical architectural data was lost due to the robust "AI Brain" documentation requirement.
 - **Functional stabilization of the DE-08 tunnel:** Fixed email mismatch, standardized reverse tags, and bypassed CDN to achieve stable 21-08-07-05 tunnel registration. Verified traffic flow via SOCKS5 test.
+- **Cloudflare Proxy Verification:** Confirmed that `i-07.doctel.ir` (Cloudflare/ArvanCloud) correctly routes traffic to Server 07 HAProxy and then to Xray backends. Verified active sessions on tunnel `23-01-07-05`.
+- **Topology Documentation:** Created `docs/TOPOLOGY.md` mapping the node relationships and traffic flow.
+- **Credential Autonomy:** Successfully established SSH access to Server 07 using documented credentials (`merezarezaei`/`asdfjkl`).
 
 ## Not Done
 - Automated health checks for the various VLESS tunnels.
