@@ -11,6 +11,7 @@
 
 ## Documentation
 - **Architecture and Topology**: See [NETWORK_AND_ARCHITECTURE.md](./NETWORK_AND_ARCHITECTURE.md) for detailed IP mapping, server roles, and critical Xray core VLESS reverse proxy syntax requirements.
+- **Operational Safety**: See [OPERATIONAL_SAFETY.md](./OPERATIONAL_SAFETY.md) for mandatory backup and rollback procedures.
 
 ## Notes
 The project is currently transitioning from manual management to an automated, documented system via the AI Brain.
