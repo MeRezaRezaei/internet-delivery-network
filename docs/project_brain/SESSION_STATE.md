@@ -25,7 +25,8 @@
 - Centralized management of Xray configs (currently scattered across nodes).
 
 ## Immediate Next Objective
-- Implement automated health checks for the active tunnels (08, 09, 01).
+- **Verify Internet via Cloudflare Tunnel:** Perform a SOCKS5 test on Server 07 to confirm that traffic routed through the Cloudflare/ArvanCloud reverse tunnel (`23-01-07-05`) successfully reaches the global internet via Server 09.
+- Implement automated health checks for all active tunnels.
 
 ## Known Constraints
 - Access to most nodes requires jumping through Server 04.
