@@ -36,7 +36,8 @@ To maintain the "Pro Internet" status of Server 07 and avoid direct commercial e
 1.  **Email Matching**: Both Portal and Bridge MUST have the same `email` field in the user object for the reverse tunnel to "register" correctly.
 2.  **Seed Matching**: Matching `seed` fields are required for stable session derivation in XHTTP/VLESS.
 3.  **Transport (XHTTP)**: Use `XHTTP` with `mode: "packet-up"` for maximum compatibility when fronting with CDNs (ArvanCloud/Cloudflare).
-4.  **Reverse Tag Placement**: 
+4.  **Path Pattern**: Use unique paths like `/c-[target]-[portal]-[intermediate]` (e.g., `/c-08-07-05`) for all production tunnels.
+5.  **Reverse Tag Placement**: 
     - **Portal**: The `reverse` tag is placed INSIDE the `clients` (user) object.
     - **Bridge**: The `reverse` tag is placed INSIDE the `settings` object of the outbound (not inside the user).
 
