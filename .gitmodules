@@ -1,0 +1,3 @@
+[submodule "ai-brain"]
+	path = ai-brain
+	url = https://github.com/MeRezaRezaei/ai-brain.git
