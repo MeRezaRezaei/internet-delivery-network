@@ -24,70 +24,82 @@ The network consists of a hybrid structure bridging restricted domestic servers 
 
 ---
 
-## Advanced Routing: The "Reverse-Reverse" Proxy
+## Advanced Routing: The "Reverse-Reverse" Proxy (v26 Standard)
 
-To maintain the "Pro Internet" status of Server 07 and avoid direct commercial exposure, the project utilizes a "Reverse-Reverse" proxy pattern using Xray-core's Simplified VLESS Reverse Proxy.
+To maintain the "Pro Internet" status of Server 07 and avoid direct commercial exposure, the project utilizes a "Reverse-Reverse" proxy pattern using Xray-core v26's **Simplified VLESS Reverse Proxy** over **XHTTP**.
 
-### The "Trick"
-Contrary to typical setups where the external server is the Portal, this architecture flips the roles:
-- **Server 07 (Iran, Gateway)** acts as the **Portal**. It listens for incoming connections from the Bridge.
-- **Server 09 (US, leo)** acts as the **Bridge**. It initiates a connection *out* to Server 07.
+### The "Trick" (v26 Alignment)
+- **Server 07 (Iran, Gateway)** acts as the **Portal**. It listens for incoming connections.
+- **Server 08/09/10 (External)** acts as the **Bridge**. It initiates a connection *out* to Server 07.
 
-### Why this works
-1. **Traffic Direction**: The Bridge (US) connects to the Portal (Iran). This established tunnel is then used to route traffic from Iran to the US.
-2. **Masking**: Traffic exiting to the global internet appears to originate from Server 09 (US), but it is carried over the "Pro" link of Server 07.
-3. **Safety**: Server 07 is not directly "selling" or "exiting" traffic, which protects its "Pro" status.
+### v26 Requirements & Tips
+1.  **Email Matching**: Both Portal and Bridge MUST have the same `email` field in the user object for the reverse tunnel to "register" correctly.
+2.  **Seed Matching**: Matching `seed` fields are required for stable session derivation in XHTTP/VLESS.
+3.  **Transport (XHTTP)**: Use `XHTTP` with `mode: "packet-up"` for maximum compatibility when fronting with CDNs (ArvanCloud/Cloudflare).
+4.  **Reverse Tag Placement**: 
+    - **Portal**: The `reverse` tag is placed INSIDE the `clients` (user) object.
+    - **Bridge**: The `reverse` tag is placed INSIDE the `settings` object of the outbound (not inside the user).
 
-### Configuration Details (Simplified Syntax)
+### Configuration Details (v26 Syntax)
 
 #### Portal (Server 07 - Iran)
 ```json
 {
-    "inbounds": [
-        {
-            "port": 6443,
-            "protocol": "vless",
-            "settings": {
-                "clients": [{
-                    "id": "...",
-                    "reverse": { "tag": "portal" } // Virtual tag for the tunnel
-                }]
-            }
+    "inbounds": [{
+        "port": 21075,
+        "protocol": "vless",
+        "settings": {
+            "clients": [{
+                "id": "UUID",
+                "email": "de08@reverse",
+                "seed": "SEED",
+                "reverse": { "tag": "reverse-out-08" }
+            }]
+        },
+        "streamSettings": {
+            "network": "XHTTP",
+            "xhttpSettings": { "path": "/path", "mode": "auto" }
         }
-    ],
+    }],
     "routing": {
         "rules": [
-            {
-                "type": "field",
-                "inboundTag": ["internal-user-inbound"], 
-                "outboundTag": "portal" // Pushes data DOWN to the US Bridge
-            }
+            { "type": "field", "inboundTag": ["socks-in"], "outboundTag": "reverse-out-08" },
+            { "type": "field", "inboundTag": ["reverse-out-08"], "outboundTag": "direct" }
         ]
     }
 }
 ```
 
-#### Bridge (Server 09 - US)
+#### Bridge (Server 08 - Germany)
 ```json
 {
-    "outbounds": [
-        {
-            "protocol": "vless",
-            "settings": {
-                "address": "185.204.197.242", // Server 07 IP
-                "port": 6443,
-                "reverse": { "tag": "bridge" } // Virtual tag for traffic FROM the tunnel
+    "outbounds": [{
+        "protocol": "vless",
+        "tag": "tunnel",
+        "settings": {
+            "vnext": [{
+                "address": "i-07.doctel.ir",
+                "port": 443,
+                "users": [{
+                    "id": "UUID",
+                    "email": "de08@reverse",
+                    "seed": "SEED"
+                }]
+            }],
+            "reverse": {
+                "tag": "reverse-in-08",
+                "sniffing": { "enabled": true, "destOverride": ["http", "tls"] }
             }
+        },
+        "streamSettings": {
+            "network": "XHTTP",
+            "security": "tls",
+            "tlsSettings": { "serverName": "i-07.doctel.ir", "allowInsecure": true },
+            "xhttpSettings": { "path": "/path", "mode": "packet-up" }
         }
-    ],
+    }],
     "routing": {
-        "rules": [
-            {
-                "type": "field",
-                "inboundTag": ["bridge"], // Traffic arriving FROM Iran
-                "outboundTag": "direct"   // Exits to Global Internet
-            }
-        ]
+        "rules": [{ "type": "field", "inboundTag": ["reverse-in-08"], "outboundTag": "direct" }]
     }
 }
 ```
