@@ -29,25 +29,27 @@ The network consists of a hybrid structure bridging restricted domestic servers 
 To maintain the "Pro Internet" status of Server 07 and avoid direct commercial exposure, the project utilizes a "Reverse-Reverse" proxy pattern using Xray-core v26's **Simplified VLESS Reverse Proxy** over **XHTTP**.
 
 ### The "Trick" (v26 Alignment)
-- **Server 07 (Iran, Gateway)** acts as the **Portal**. It listens for incoming connections.
+- **Server 07 (Iran, Gateway)** acts as the **Portal**. It listens for incoming connections (usually behind HAProxy).
 - **Server 08/09/10 (External)** acts as the **Bridge**. It initiates a connection *out* to Server 07.
 
-### v26 Requirements & Tips
+### v26 Requirements & Tips (Verified)
 1.  **Email Matching**: Both Portal and Bridge MUST have the same `email` field in the user object for the reverse tunnel to "register" correctly.
 2.  **Seed Matching**: Matching `seed` fields are required for stable session derivation in XHTTP/VLESS.
-3.  **Transport (XHTTP)**: Use `XHTTP` with `mode: "packet-up"` for maximum compatibility when fronting with CDNs (ArvanCloud/Cloudflare).
-4.  **Path Pattern**: Use unique paths like `/c-[target]-[portal]-[intermediate]` (e.g., `/c-08-07-05`) for all production tunnels.
+3.  **Transport (XHTTP)**: Use `XHTTP` with `mode: "packet-up"` on the Bridge side for maximum compatibility.
+4.  **Path Pattern**: Use unique paths like `/21-08-07-05` for all production tunnels.
 5.  **Reverse Tag Placement**: 
     - **Portal**: The `reverse` tag is placed INSIDE the `clients` (user) object.
-    - **Bridge**: The `reverse` tag is placed INSIDE the `settings` object of the outbound (not inside the user).
+    - **Bridge**: The `reverse` tag is placed INSIDE the `settings` object of the outbound (Simplified format is verified to work).
 
-### Configuration Details (v26 Syntax)
+### Configuration Details (v26 Verified)
 
 #### Portal (Server 07 - Iran)
 ```json
 {
+    "log": { "loglevel": "warning" },
     "inbounds": [{
         "port": 21075,
+        "listen": "127.0.0.1",
         "protocol": "vless",
         "settings": {
             "clients": [{
@@ -59,7 +61,7 @@ To maintain the "Pro Internet" status of Server 07 and avoid direct commercial e
         },
         "streamSettings": {
             "network": "XHTTP",
-            "xhttpSettings": { "path": "/path", "mode": "auto" }
+            "xhttpSettings": { "path": "/21-08-07-05" }
         }
     }],
     "routing": {
@@ -74,29 +76,24 @@ To maintain the "Pro Internet" status of Server 07 and avoid direct commercial e
 #### Bridge (Server 08 - Germany)
 ```json
 {
+    "log": { "loglevel": "warning" },
     "outbounds": [{
         "protocol": "vless",
         "tag": "tunnel",
         "settings": {
-            "vnext": [{
-                "address": "i-07.doctel.ir",
-                "port": 443,
-                "users": [{
-                    "id": "UUID",
-                    "email": "de08@reverse",
-                    "seed": "SEED"
-                }]
-            }],
-            "reverse": {
-                "tag": "reverse-in-08",
-                "sniffing": { "enabled": true, "destOverride": ["http", "tls"] }
-            }
+            "address": "185.204.197.242",
+            "port": 443,
+            "id": "UUID",
+            "email": "de08@reverse",
+            "encryption": "none",
+            "seed": "SEED",
+            "reverse": { "tag": "reverse-in-08" }
         },
         "streamSettings": {
             "network": "XHTTP",
             "security": "tls",
             "tlsSettings": { "serverName": "i-07.doctel.ir", "allowInsecure": true },
-            "xhttpSettings": { "path": "/path", "mode": "packet-up" }
+            "xhttpSettings": { "path": "/21-08-07-05", "mode": "packet-up" }
         }
     }],
     "routing": {
