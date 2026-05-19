@@ -33,5 +33,22 @@ If validation fails or unexpected behavior is observed:
 
 ---
 
-## 4. Documentation
-Append every significant operational change and its outcome (including rollbacks) to `docs/project_brain/CHANGELOG_AI.md`.
+## 5. High-Risk / Network-Critical Operations
+When modifying configurations that could sever the management connection (e.g., Xray configs on Gateway Server 07, Wireguard settings, or Mikrotik routing):
+
+### A. Emergency Handoff (PROGRESS.md)
+1.  **Initialize**: Create a `PROGRESS.md` file in the project root.
+2.  **Document State**: Before every high-risk command, update `PROGRESS.md` with:
+    - The exact command about to be run.
+    - The expected outcome.
+    - A step-by-step manual recovery guide (e.g., "Login via Public IP, run `cp backup config`, reload").
+3.  **Purpose**: If the Gemini session is disconnected, the user can use the content of `PROGRESS.md` in a Gemini web session to guide manual recovery.
+
+### B. Auto-Rollback (The 60-Second Test)
+Network changes MUST be applied with a scheduled automatic reversion to prevent permanent lockout.
+1.  **Backup**: Create a known-good backup.
+2.  **Armed Rollback**: Start a background process that will revert the change after a timeout.
+    - Example: `nohup bash -c "sleep 60 && cp /etc/xray/config.json.bak /etc/xray/config.json && systemctl reload xray" > /dev/null 2>&1 &`
+3.  **Apply**: Apply the new configuration and reload the service.
+4.  **Confirm**: Perform a connectivity check. If successful, **KILL the armed rollback process**.
+5.  **Failure Scenario**: If the connection is lost, the background process will trigger after 60 seconds, restoring access automatically.
