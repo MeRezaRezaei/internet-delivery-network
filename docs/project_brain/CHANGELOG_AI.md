@@ -16,8 +16,21 @@
     - Verified that `i-07.doctel.ir` (Cloudflare/ArvanCloud) correctly routes traffic to Server 07.
     - Confirmed HAProxy on Server 07 forwards path-based tunnels (e.g., `/23-01-07-05`) to Xray backends.
     - Validated active sessions on the US Bridge tunnel using HAProxy stats.
+- **Dual CDN Tunnels (Server 08):**
+    - Implemented and stabilized ArvanCloud and Cloudflare tunnels on Server 08.
+    - Identified Xray v26 requirement for simplified outbound syntax in VLESS Reverse Proxy.
+    - Added path-based routing to Server 07 HAProxy HTTP frontend.
+    - Verified dual internet delivery to Server 07 via SOCKS5 tests.
 - **Topology & Documentation:**
     - Created `docs/TOPOLOGY.md` to map node relationships, IPs, and traffic flows.
     - Updated project memory with SSH credentials and network roles.
 - **Operational Autonomy:**
     - Established autonomous SSH connection to Server 07 via mesh network using `merezarezaei` user and documented passwords.
+
+## 2026-05-20
+- **Session Startup:** Loaded full project brain and re-synchronized session state.
+- **Health Verification:**
+    - Verified direct connectivity to Server 07 (10.255.1.7).
+    - Confirmed port 21080 (German Bridge via Arvan) is functional on Server 07.
+    - Identified connectivity gaps in `idn-health-check.sh` when run remotely.
+

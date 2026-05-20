@@ -10,7 +10,7 @@
 - Out-of-scope boundaries: Server 02 (decommissioned). Servers 08 and 10 (not owned, restricted use).
 
 ## Documentation
-- **Architecture and Topology**: See [NETWORK_AND_ARCHITECTURE.md](./NETWORK_AND_ARCHITECTURE.md) for detailed IP mapping, server roles, and critical Xray core VLESS reverse proxy syntax requirements.
+- **Architecture and Topology**: See [NETWORK_AND_ARCHITECTURE.md](./NETWORK_AND_ARCHITECTURE.md) and [TOOLSET_ORCHESTRATION.md](./TOOLSET_ORCHESTRATION.md) for detailed IP mapping, server roles, and critical toolset relationships.
 - **Operational Safety**: See [OPERATIONAL_SAFETY.md](./OPERATIONAL_SAFETY.md) for mandatory backup and rollback procedures.
 
 ## Notes
