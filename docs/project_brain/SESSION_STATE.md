@@ -33,11 +33,11 @@
 - **Credential Recovery:** Captured MySQL and Marzban Admin credentials from Server 07 `.env` files.
 - **Infrastructure Shift (2026-05-20):** Recorded the migration of Server 07 to a Docker-based stack. Verified that Technitium DNS and MySQL are currently running natively while Marzban is containerized.
 - **Server 10 Tunnel Establishment (2026-05-20):** 
-    - Successfully established the srv10-srv07 tunnel using path `/24-10-07-06` (verified 'non-c' standard).
-    - Identified direct Wireguard management path to Server 10 at `10.1.0.4` (Hetzner DE).
-    - Configured Server 10 as a Bridge using Xray v26 Simplified Syntax and `packet-up` mode.
-    - Configured Server 07 as a Portal using standalone Xray instance `/usr/local/etc/xray/01-10-07-05.json`.
-    - **Verified**: `ifconfig.io` via SOCKS5 port 21010 on Server 07 returns `46.4.67.240` (srv10 public IP).
+    - Successfully established the srv10-srv07 tunnel using path `/24-10-07-06/xtls` (srv08 pattern).
+    - Port Mappings: Portal XTLS Port `5013`, Portal SOCKS Port `21010`.
+    - Integrated tunnel into Marzban `xray_config.json` on srv07 as a Reverse Portal.
+    - Updated srv07 HAProxy to route path `/24-10-07-06/xtls` to the new portal backend.
+    - Verified direct Wireguard management path to srv10 at `10.1.0.4`.
 - **Session Startup (2026-05-20):** Re-verified Server 07 connectivity and port 21080 tunnel functionality. Identified that `idn-health-check.sh` requires updates for remote execution and correct port mapping.
 
 ## Not Done
