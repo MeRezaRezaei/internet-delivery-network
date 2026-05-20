@@ -17,7 +17,8 @@
 | IDN-005 | P1 | Stabilize Server 07-08 Tunnel | done | IDN-004 | Tunnel 21-08-07-05 is active and passing traffic |
 | IDN-006 | P1 | Verify Cloudflare Proxy to srv07 | done | IDN-005 | Domain i-07.doctel.ir confirmed reaching srv07 Xray |
 | IDN-007 | P0 | Verify Internet Delivery to srv07 | done | IDN-006 | srv07 can reach google.com via the reverse tunnel |
-| IDN-008 | P2 | Automated Health Checks | todo | IDN-007 | Script exists to verify all tunnel statuses |
+| IDN-008 | P2 | Automated Health Checks | done | IDN-007 | Script exists to verify all tunnel statuses |
+| IDN-009 | P1 | Establish Server 10-07 Tunnel | doing | IDN-008 | Tunnel active on port 21010 (Portal side staged) |
 
 
 ## WIP Rule

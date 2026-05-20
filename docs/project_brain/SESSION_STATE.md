@@ -32,6 +32,10 @@
     - **Xray Integration**: Mapped XTLS/XHTTP inbounds (5011, 5012) and their corresponding SOCKS outbounds (21081, 24081).
 - **Credential Recovery:** Captured MySQL and Marzban Admin credentials from Server 07 `.env` files.
 - **Infrastructure Shift (2026-05-20):** Recorded the migration of Server 07 to a Docker-based stack. Verified that Technitium DNS and MySQL are currently running natively while Marzban is containerized.
+- **Server 10 Tunnel Staging (2026-05-20):** Successfully deployed the Portal components for the srv10-srv07 tunnel:
+    - Updated Marzban's `xray_config.json` with inbound port 65443 (de10@reverse) and SOCKS outbound port 21010.
+    - Updated srv07 HAProxy with path routing for `/c-10-07-05`.
+    - Portal is active and listening; Bridge side (srv10) configuration is pending due to SSH connectivity blockers.
 - **Session Startup (2026-05-20):** Re-verified Server 07 connectivity and port 21080 tunnel functionality. Identified that `idn-health-check.sh` requires updates for remote execution and correct port mapping.
 
 ## Not Done
