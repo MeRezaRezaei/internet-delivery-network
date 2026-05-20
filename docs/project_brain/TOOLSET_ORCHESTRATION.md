@@ -36,8 +36,23 @@ The Internet Delivery Network (IDN) operates on a tiered architecture bridging e
 
 ### D. Marzban (User & Node Management)
 - **Role:** Admin UI and dynamic user management.
+- **Deployment:** Containerized via Docker on srv07 and srv09.
 - **Function:** Manages the VLESS users that Xray uses for tunneling.
 - **Integration:** Communicates with Xray via the gRPC/REST API (e.g., ports 63053/60051). This allows adding/removing users without restarting Xray services.
+
+### E. MySQL (Persistence Layer)
+- **Role:** Centralized Database for Marzban.
+- **Deployment:** Docker container on srv07.
+- **Function:** Stores user data, traffic statistics, and node configurations. Replaces legacy file-based storage to ensure data integrity during orchestration.
+
+### F. Technitium DNS (The Stealth Resolver)
+- **Role:** Recursive DNS, DNS-over-HTTPS (DoH), and DNS-over-TLS (DoT) provider.
+- **Deployment:** Docker container on srv07.
+- **Function:** 
+    - Prevents DNS hijacking by resolving queries over encrypted tunnels.
+    - Provides advanced filtering and blocking to evade Iranian DPI/SNI detection.
+    - Acts as the primary resolver for Xray and other containerized services.
+- **Ports:** Typically listens on `53` (DNS), `5380` (Web UI), and `443/853` for DoH/DoT.
 
 ---
 

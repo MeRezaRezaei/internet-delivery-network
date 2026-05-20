@@ -3,18 +3,37 @@
 ## Infrastructure Topology
 
 The network consists of a hybrid structure bridging restricted domestic servers in Iran with unrestricted external servers via a tiered architecture. 
-
 ### Core Nodes (Wireguard Subnet: 10.255.1.x)
 - **01 shahriar** (95.38.180.145, 10.255.1.1) - Internal (Restricted)
-- **02 shahin** (OFFLINE/DELETED)
 - **03 bamdad** (188.121.119.237, 10.255.1.3) - Internal (Restricted)
 - **04 shiraz** (5.145.113.134, 10.255.1.4) - Internal (Restricted)
 - **05 mik** (62.220.123.35, 10.255.1.5) - Mikrotik Router (Manages Wireguard)
 - **06 modem** (94.101.133.80, 10.255.1.6) - Internal (Restricted)
-- **07 free** (185.204.197.242, 10.255.1.7) - **Gateway Node**. Has "Pro Internet" access (global internet privileges). Connected via Tailscale to nodes 8, 9, and 10.
+- **07 free** (185.204.197.242, 10.255.1.7) - **Gateway Node**.
+  - **Docker Stack**: Marzban (Portal Management).
+  - **Native Stack**: MySQL (Marzban DB), Technitium DNS (Primary Resolver).
+  - **Ports**: 5011 (XTLS/XHTTP 21-08-07-05), 5012 (XTLS/XHTTP 24-01-07-06).
 
-### External Nodes (via Tailscale on Server 07)
-- **08 DE Server** (Not owned)
+---
+
+## 3. Toolset Integration (srv07)
+
+### A. Technitium DNS
+- **Role**: Stealth resolver and blocking engine.
+- **Function**: Handles all recursive DNS queries for the IDN mesh. Prevents hijacking by forwarding queries over encrypted channels.
+- **Management**: Web UI on port `5380`.
+
+### B. Marzban Orchestration
+- **Role**: Dynamic Portal Management.
+- **Configuration**: `/opt/marzban/xray_config.json`.
+- **Traffic Path**: 
+  - External Bridge -> CDN -> srv07 HAProxy (443) -> srv07 Xray (5011/5012) -> Marzban managed clients.
+  - Marzban Xray then routes traffic to SOCKS outbounds (21081/24081) which represent the final delivery points.
+
+---
+
+## Advanced Routing: The "Reverse-Reverse" Proxy (v26 Standard)
+
 - **09 US Server** (Target testing environment)
 - **10 DE Server** (Not owned)
 

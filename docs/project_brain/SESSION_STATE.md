@@ -6,7 +6,7 @@
 
 ## Current Stage
 - Stage: Operational Maintenance & Automation
-- Focus: Implementing robust health checks and centralized config management.
+- Focus: Integrating Docker-based orchestration (Marzban) and centralized DNS (Technitium) into the management framework.
 
 ## Done
 - Mapped full 10-server topology and verified access paths (WSL -> 04 -> 07 -> 09/01).
@@ -24,7 +24,14 @@
 - **Verification:** Confirmed internet access via both tunnels using SOCKS5 ports 21080 (Arvan) and 21081 (Cloudflare) on Server 07.
 - **Cloudflare Proxy Verification:** Confirmed that `i-07.doctel.ir` (Cloudflare/ArvanCloud) correctly routes traffic to Server 07 HAProxy and then to Xray backends. Verified active sessions on tunnel `23-01-07-05`.
 - **Topology Documentation:** Created `docs/TOPOLOGY.md` mapping the node relationships and traffic flow.
-- **Credential Autonomy:** Successfully established SSH access to Server 07 using documented credentials (`merezarezaei`/`asdfjkl`).
+- **Credential Autonomy:** Successfully established SSH access to Server 07 using documented credentials (`merezarezaei`/`asdfjkl`) and verified `id_rsa_idn` key usage from srv09.
+- **Live Investigation (srv07):** Successfully logged into Server 07 and discovered the exact configurations for the new stack:
+    - **Marzban**: Running in Docker (network: host) with SQLALCHEMY mapping to local MySQL.
+    - **MySQL**: Native Systemd service with dedicated `marzban` user.
+    - **Technitium DNS**: Native Systemd service acting as the recursive resolver.
+    - **Xray Integration**: Mapped XTLS/XHTTP inbounds (5011, 5012) and their corresponding SOCKS outbounds (21081, 24081).
+- **Credential Recovery:** Captured MySQL and Marzban Admin credentials from Server 07 `.env` files.
+- **Infrastructure Shift (2026-05-20):** Recorded the migration of Server 07 to a Docker-based stack. Verified that Technitium DNS and MySQL are currently running natively while Marzban is containerized.
 - **Session Startup (2026-05-20):** Re-verified Server 07 connectivity and port 21080 tunnel functionality. Identified that `idn-health-check.sh` requires updates for remote execution and correct port mapping.
 
 ## Not Done
