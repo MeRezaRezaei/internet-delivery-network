@@ -37,7 +37,7 @@
     - Identified direct Wireguard management path to Server 10 at `10.1.0.4` (Hetzner DE).
     - Configured Server 10 as a Bridge using Xray v26 Simplified Syntax and `packet-up` mode.
     - Configured Server 07 as a Portal using standalone Xray instance `/usr/local/etc/xray/01-10-07-05.json`.
-    - Verified end-to-end traffic flow via SOCKS5 port 21010 on Server 07.
+    - **Verified**: `ifconfig.io` via SOCKS5 port 21010 on Server 07 returns `46.4.67.240` (srv10 public IP).
 - **Session Startup (2026-05-20):** Re-verified Server 07 connectivity and port 21080 tunnel functionality. Identified that `idn-health-check.sh` requires updates for remote execution and correct port mapping.
 
 ## Not Done
