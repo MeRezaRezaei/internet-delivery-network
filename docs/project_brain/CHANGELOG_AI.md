@@ -49,11 +49,16 @@
     - Verified clean Host-header routing in HAProxy, eliminating path and referer collisions.
 - **Marzban Subdomain Isolation:** (Merged into final fix above)
 - **Marzban Isolation Fix (Attempt 1):** (FAILED/REVERTED) Referer-based path isolation failed due to application root path collisions.
-- **HAProxy Refactor & Bug Fixes:**
-
     - Refactored Server 07 HAProxy backend naming to human-readable `bk_srvXX_vless/xtls` format.
     - Fixed Server 10 routing bug (aligned path to `/24-10-07-06`) and added port 5013 backend.
     - Standardized Marzban panel naming to `bk_marzban_main` and `bk_marzban_pubg`.
     - Verified live traffic routing via HAProxy logs.
+- **US Proxy & Domestic Nodes Connectivity Diagnostics:**
+    - Performed comprehensive, read-only analysis of srv09 (US Bridge) and domestic nodes.
+    - Mapped inside-to-inside connectivity: Verified 0% packet loss and low latency (<15ms) on private mesh network.
+    - Classified network tunnels into **Static Tunnels** (admin/staff access, zero-touch) and **Dynamic Tunnels** (Marzban-managed nodes, touchable).
+    - Identified a critical duplicate process bottleneck on srv09 (monolithic vs templated `xray` services running simultaneously).
+    - Mapped the private Mesh SSH interface: Found SSH is listening on **Port 2022** on the Mesh and Tailscale interfaces of srv09/srv08/srv10, causing standard port 22 connections to fail with `Connection refused`.
+    - Documented these findings permanently in the AI Brain for future internal remediation.
 
 

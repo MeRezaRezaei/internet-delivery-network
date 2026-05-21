@@ -70,14 +70,34 @@
     - Decommissioned legacy panels on Server 03 to resolve node conflicts.
     - Verified zero-downtime transition for existing 400+ user subscriptions.
 
+- **Domestic-US Proxy Diagnostics & Active Network Findings (2026-05-21):**
+    - Performed comprehensive read-only diagnostics across domestic nodes (srv01, srv03, srv04) and US bridge (srv09).
+    - **Tunnels Classification:**
+        * **Static Tunnels:** Extremely static, dedicated solely for admins/staff to access external services and servers. These must NOT be modified or tested.
+        * **Dynamic Tunnels:** Managed dynamically via Marzban nodes. We can touch and modify these configs (the configs series that work under Marzban or are generated/managed by the Marzban Xray node itself).
+    - **Zero-Touch Rules:**
+        * **Server 07 (Portal):** Absolutely DO NOT touch or test any configuration files or settings on srv07. It is our only gateway/way out.
+        * **Server 09 (Leo):** Do not touch or modify configurations on srv09 directly. The process of Antigravity from inside must fix the duplicate configs or alignment later. Added the duplicate Xray config conflict to the backlog for safe internal remediation.
+    - **Duplicate Process Bottleneck (srv09):** Identified that srv09 runs BOTH the monolithic `xray.service` (which loads all config files via `-confdir`) and individual template instances (`xray@*.service`). This causes duplicate connections, session flapping, and poor latency.
+    - **Private Mesh SSH Issue (Port 2022):**
+        * Investigated why direct SSH using the private Wireguard/Mesh network IP (`10.255.1.9`) to srv09/srv08/srv10 fails on the standard port 22.
+        * Discovered that SSH is explicitly configured to listen on **Port 2022** on the `mesh` and `tailscale` interfaces, which explains why standard port 22 connections fail with `Connection refused`.
+        * Added findings to the reference logs to clarify the SSH jump architecture and logical routes.
+    - **DNS Censorship Status:** Domestic servers fail to resolve CDN domains locally due to DNS censorship/hijacking. However, this is NOT a priority because clients fetch DNS via secure DNS-over-HTTPS (DoH). Technitium is running fine on srv07 but we will not force local DNS redirection on domestic nodes now.
+    - **Configuration Mismatches:**
+        * **srv03 (Bamdad):** HAProxy is configured perfectly for `/c-05-01-03` and `/c-06-02-03`, but srv09 uses `11-01-03-01.json` with path `/11-01-03-01`.
+        * **srv01 (Shahriar):** Local Xray has `/c-02-02-01` on port 1082, but srv09 has no outbound config and srv01 HAProxy has no routing rule.
+        * **srv04 (Shiraz):** SOCKS 1082 (`/c-08-02-04`) fails because srv09 has no outbound config and srv04 HAProxy has no routing rule.
+
 ## Not Done
-- Automated health checks for the various VLESS tunnels.
+- Safe remediation of the duplicate Xray process conflict on srv09 (must be fixed internally from inside).
+- Investigating credential authentication for SSH over Mesh port 2022 on external bridges (srv09/srv08/srv10).
 - Centralized management of Xray configs (currently scattered across nodes).
 
 ## Immediate Next Objective
-- **Fix/Automate Health Checks:** Update `idn-health-check.sh` to handle remote execution and ensure it correctly validates all tunnels listed in `NETWORK_AND_ARCHITECTURE.md`.
-- Implement a cron job or background service for continuous monitoring.
-
+- **Mesh Diagnostics Log & Handoff:**
+    - Document the findings perfectly in the project brain, commit and push.
+    - Transition the session state to a secure waiting stage for internal remediation.
 
 ## Known Constraints
 - Access to most nodes requires jumping through Server 04.
