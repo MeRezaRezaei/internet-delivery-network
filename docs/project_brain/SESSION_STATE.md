@@ -43,11 +43,13 @@
     - Created a permanent technical reference database in `docs/project_brain/xray_reference/`.
     - Documented ARCHITECTURE_AND_LOGIC, API_AND_PROTOBUF_MODELS, NEW_FEATURES_DEEP_DIVE (XHTTP, REALITY, Reverse), and a DEVELOPER_GUIDE.
     - Extracted exact protobuf models and handshake logic for REALITY and XHTTP modes.
-- **Marzban Path Isolation Fix (2026-05-21):**
-    - Resolved the critical bug where `/m` and `/m7` were showing the same panel.
-    - Implemented a robust "Isolation Engine" in HAProxy using domain-agnostic `Referer` matching.
-    - Added automatic trailing slash redirects to ensure consistent pathing and referer generation.
-    - Verified that root paths like `/dashboard`, `/api`, and `/statics` are correctly routed to their respective backends (Main vs PUBG) based on the entry point.
+- **Marzban Subdomain Isolation (2026-05-21):**
+    - Transitioned from unreliable path-based routing to robust subdomain-based isolation.
+    - `dash.new-state.ir` -> Migrated/PUBG Panel (400 Users, Port 8002).
+    - `panel.new-state.ir` -> Old/Legacy Panel (5 Users, Port 2020).
+    - Verified that both subdomains correctly route to independent backends via live logs and simulated requests.
+    - Cleaned up all path-based rewriting, referer logic, and optional slash redirects.
+- **Marzban Path Isolation Fix (Attempt 1):** (REVERTED) Path-based isolation proved unreliable due to application-level path collisions.
 - **HAProxy Refactor & Bug Fixes (2026-05-21):**
 
     - Refactored all HAProxy backend names on srv07 to a readable `bk_srvXX_vless/xtls` format.
