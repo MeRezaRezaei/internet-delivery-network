@@ -60,5 +60,10 @@
     - Identified a critical duplicate process bottleneck on srv09 (monolithic vs templated `xray` services running simultaneously).
     - Mapped the private Mesh SSH interface: Found SSH is listening on **Port 2022** on the Mesh and Tailscale interfaces of srv09/srv08/srv10, causing standard port 22 connections to fail with `Connection refused`.
     - Documented these findings permanently in the AI Brain for future internal remediation.
+- **Unbreakable Direct Tunnels Isolation & Safety Enforcement:**
+    - Connected to srv09 (US), de-server (DE), and Pubg-Sell (DE-PG) to extract exact configurations for the three direct management tunnels.
+    - Wrote physical static JSON backups for each of the three portal/bridge pairs inside `docs/project_brain/static_unbreakable_tunnels/`.
+    - Codified a strict, permanent **Zero-Touch Constraint Policy** inside `OPERATING_PROTOCOL.md`, `NETWORK_AND_ARCHITECTURE.md`, and `OPERATIONAL_SAFETY.md` to protect these tunnels from any edits, restarts, or interruptions.
+
 
 

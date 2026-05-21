@@ -4,6 +4,7 @@
 - **Management Only**: Server 07 is the only "Pro" gateway out of the network. It MUST NOT be used for client-facing traffic or as a pass-through for anti-censorship services for general users.
 - **Client Traffic Prohibition**: No client tunnels or proxies are allowed to terminate on Server 07's public IP.
 - **Staff Access Only**: Existing tunnels on Server 07 are strictly for staff management and operational maintenance, governed by company regulations.
+- **Unbreakable Tunnels Zero-Touch Mandate**: The three direct tunnels (`xray@mmd-pg-us`, `xray@mmd-pg`, and `xray@mmd-pg-de`) represent the core operational backbones of the network. They **MUST NEVER be modified, stopped, restarted, or interrupted under any conditions**. No active load testing, configuration changes, or service reloads may ever target these endpoints.
 - **Risk Mitigation**: The stability of Server 07 is critical for project continuity. Any configuration that risks its public IP reputation or accessibility is forbidden.
 
 ## GFW DPI Investigation Findings (2026-05-21)

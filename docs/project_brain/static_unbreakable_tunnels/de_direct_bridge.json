@@ -1,0 +1,52 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "reverse": {},
+    "outbounds": [
+        {
+            "tag": "direct",
+            "protocol": "freedom"
+        },
+        {
+            "protocol": "vless",
+            "settings": {
+                "address": "185.204.197.242",
+                "port": 8443,
+                "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+                "encryption": "mlkem768x25519plus.native.0rtt.eJw69NHG5_ij4EuYeULPt2nT5SQaX5lD76oS75qEejI",
+                "flow": "xtls-rprx-vision",
+                "packetEncoding": "xudp",
+                "seed": "a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7",
+                "reverse": {
+                    "tag": "bridge"
+                }
+            },
+            "streamSettings": {
+                "network": "XHTTP",
+                "security": "tls",
+                "tlsSettings": {
+                    "allowInsecure": true
+                },
+                "xhttpSettings": {
+                    "path": "/"
+                }
+            },
+            "mux": {
+                "enabled": false
+            }
+        }
+    ],
+    "routing": {
+        "domainStrategy": "UseIPv6v4",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "bridge"
+                ],
+                "outboundTag": "direct"
+            }
+        ]
+    }
+}

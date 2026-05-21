@@ -1,14 +1,15 @@
 # Session State
 
 ## Last Updated
-- Date: 2026-05-20
-- Owner: Gemini CLI
+- Date: 2026-05-21
+- Owner: Antigravity
 
 ## Current Stage
 - Stage: Operational Maintenance & Automation
 - Focus: Integrating Docker-based orchestration (Marzban) and centralized DNS (Technitium) into the management framework.
 
 ## Done
+- **Mapped and Locked Unbreakable Direct Tunnels (2026-05-21):** Discovered and documented the exact configurations, public/internal ports, and credentials for the three core management tunnels bridging Server 07 (Portal) with srv09 (US), de-server (DE), and Pubg-Sell (DE-PG). Wrote their configs as static JSON backups in the brain and integrated strict, permanent 'Zero-Touch' safety policies across the AI operating protocols and network architecture documents.
 - Mapped full 10-server topology and verified access paths (WSL -> 04 -> 07 -> 09/01).
 - Deciphered the "Reverse-Reverse Proxy" trick (Iran as Portal, US as Bridge).
 - Documented the "Multicast IDN" delivery model where the US Origin pushes traffic to Iranian Edge nodes.

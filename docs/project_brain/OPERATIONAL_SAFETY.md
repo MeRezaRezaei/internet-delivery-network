@@ -52,3 +52,13 @@ Network changes MUST be applied with a scheduled automatic reversion to prevent 
 3.  **Apply**: Apply the new configuration and reload the service.
 4.  **Confirm**: Perform a connectivity check. If successful, **KILL the armed rollback process**.
 5.  **Failure Scenario**: If the connection is lost, the background process will trigger after 60 seconds, restoring access automatically.
+
+---
+
+## 6. Unbreakable Direct Tunnels - Zero-Touch Policy
+The three direct management tunnels represent the absolute core infrastructure of this network and MUST NOT be manipulated:
+1.  **No Configuration Edits**: The configs in `/usr/local/etc/xray/` for `mmd-pg-us.json`, `mmd-pg.json`, and `mmd-pg-de.json` on srv07 and their respective bridge nodes are locked permanently.
+2.  **No Service Restarts**: Systemd services `xray@mmd-pg-us`, `xray@mmd-pg`, and `xray@mmd-pg-de` must never be stopped, restarted, or reloaded.
+3.  **No Connectivity Testing**: Never execute commands that direct heavy packet loads, port scans, or automated checks against their ports (`6443`, `7443`, `8443`, `9443`, `4443`, `5443`).
+4.  **Static References**: Reference static backup configurations in `docs/project_brain/static_unbreakable_tunnels/` for validation.
+
