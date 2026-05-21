@@ -43,7 +43,13 @@
     - **MySQL**: Implemented as the backend database for Marzban.
     - **Technitium DNS**: Deployed via Docker to provide recursive DNS and blocking/filtering capabilities for the IDN.
 - **Connectivity Analysis:** Identified and documented potential connectivity gaps following the infrastructure shift; prioritized remote health check refactoring.
+- **Marzban Isolation Fix:**
+    - Implemented a domain-agnostic "Isolation Engine" in HAProxy using `Referer` path matching (`/m/` vs `/m7/`).
+    - Fixed the bug where `/dashboard`, `/api`, and `/statics` were always defaulting to the PUBG panel.
+    - Added mandatory trailing slash redirects to ensure correct pathing.
+    - Verified strict backend isolation through live log analysis of simulated header-based requests.
 - **HAProxy Refactor & Bug Fixes:**
+
     - Refactored Server 07 HAProxy backend naming to human-readable `bk_srvXX_vless/xtls` format.
     - Fixed Server 10 routing bug (aligned path to `/24-10-07-06`) and added port 5013 backend.
     - Standardized Marzban panel naming to `bk_marzban_main` and `bk_marzban_pubg`.

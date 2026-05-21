@@ -43,7 +43,13 @@
     - Created a permanent technical reference database in `docs/project_brain/xray_reference/`.
     - Documented ARCHITECTURE_AND_LOGIC, API_AND_PROTOBUF_MODELS, NEW_FEATURES_DEEP_DIVE (XHTTP, REALITY, Reverse), and a DEVELOPER_GUIDE.
     - Extracted exact protobuf models and handshake logic for REALITY and XHTTP modes.
+- **Marzban Path Isolation Fix (2026-05-21):**
+    - Resolved the critical bug where `/m` and `/m7` were showing the same panel.
+    - Implemented a robust "Isolation Engine" in HAProxy using domain-agnostic `Referer` matching.
+    - Added automatic trailing slash redirects to ensure consistent pathing and referer generation.
+    - Verified that root paths like `/dashboard`, `/api`, and `/statics` are correctly routed to their respective backends (Main vs PUBG) based on the entry point.
 - **HAProxy Refactor & Bug Fixes (2026-05-21):**
+
     - Refactored all HAProxy backend names on srv07 to a readable `bk_srvXX_vless/xtls` format.
     - Fixed a critical routing bug for Server 10: aligned HAProxy path `/24-10-07-06` with Xray config.
     - Added the missing XTLS backend for srv10 on port 5013.
