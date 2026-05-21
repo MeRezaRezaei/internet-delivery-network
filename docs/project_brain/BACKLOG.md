@@ -19,6 +19,10 @@
 | IDN-007 | P0 | Verify Internet Delivery to srv07 | done | IDN-006 | srv07 can reach google.com via the reverse tunnel |
 | IDN-008 | P2 | Automated Health Checks | done | IDN-007 | Script exists to verify all tunnel statuses |
 | IDN-009 | P1 | Establish Server 10-07 Tunnel | done | IDN-008 | Tunnel active on port 21010 (Verified path /24-10-07-06) |
+| IDN-010 | P0 | Xray-core Deep Investigation | done | - | Technical reference database created in xray_reference/ |
+| IDN-011 | P0 | Migrate Marzban (srv03 -> srv07) | done | IDN-009 | Server 07 is orchestrator; srv03 is node; subs preserved |
+| IDN-012 | P1 | HAProxy Naming Refactor & Bug Fixes | done | IDN-011 | Backends renamed; srv10 path fixed; port 5013 added |
+
 
 
 ## WIP Rule

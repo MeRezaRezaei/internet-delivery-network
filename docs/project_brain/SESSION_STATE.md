@@ -38,7 +38,28 @@
     - Integrated tunnel into Marzban `xray_config.json` on srv07 as a Reverse Portal.
     - Updated srv07 HAProxy to route path `/24-10-07-06/xtls` to the new portal backend.
     - Verified direct Wireguard management path to srv10 at `10.1.0.4`.
+- **Xray-core Deep Investigation (2026-05-20):**
+    - Completed a massive reverse-engineering effort of the Xray-core codebase.
+    - Created a permanent technical reference database in `docs/project_brain/xray_reference/`.
+    - Documented ARCHITECTURE_AND_LOGIC, API_AND_PROTOBUF_MODELS, NEW_FEATURES_DEEP_DIVE (XHTTP, REALITY, Reverse), and a DEVELOPER_GUIDE.
+    - Extracted exact protobuf models and handshake logic for REALITY and XHTTP modes.
+- **HAProxy Refactor & Bug Fixes (2026-05-21):**
+    - Refactored all HAProxy backend names on srv07 to a readable `bk_srvXX_vless/xtls` format.
+    - Fixed a critical routing bug for Server 10: aligned HAProxy path `/24-10-07-06` with Xray config.
+    - Added the missing XTLS backend for srv10 on port 5013.
+    - Cleaned up the `is_tunnel` ACL in the HTTP frontend to ensure reliable redirection.
+    - Standardized Marzban backend names to `bk_marzban_main` (port 2020) and `bk_marzban_pubg` (port 8002).
 - **Session Startup (2026-05-20):** Re-verified Server 07 connectivity and port 21080 tunnel functionality. Identified that `idn-health-check.sh` requires updates for remote execution and correct port mapping.
+
+
+- **Marzban Migration (2026-05-21):**
+    - Successfully migrated the 400-user `pubg` Marzban panel from Server 03 to Server 07.
+    - Server 07 is now the primary orchestrator, managing nodes on srv01, srv03, and srv04.
+    - Implemented path-based routing in srv07 HAProxy:
+        - Migrated panel (400 users): Root paths (`/dashboard`, `/sub`, etc.).
+        - Legacy panel (5 users): Prefixed path (`/m7/`).
+    - Decommissioned legacy panels on Server 03 to resolve node conflicts.
+    - Verified zero-downtime transition for existing 400+ user subscriptions.
 
 ## Not Done
 - Automated health checks for the various VLESS tunnels.

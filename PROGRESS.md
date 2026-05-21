@@ -13,18 +13,17 @@
 - **Risk Level**: High (Potential to break connectivity if HAProxy is misconfigured)
 
 ### Plan
-1.  **Server 07 (Portal)**: 
-    - Add `seed`: `a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7`
-    - Standardize tag to `portal` (or unique `portal-08`).
-    - Remove `mode: auto` from `xhttpSettings`.
-2.  **Server 08 (Bridge)**:
-    - Change `address` to Origin IP `185.204.197.242` to bypass CDN.
-    - Set `serverName` to `i-07.doctel.ir`.
-    - Add matching `seed`.
-    - Align `reverse` tag placement.
+1.  **HAProxy Naming Refactor**:
+    - Standardized backend names to `bk_srvXX_vless` and `bk_srvXX_xtls`.
+    - Renamed Marzban backends to `bk_marzban_main` (2020) and `bk_marzban_pubg` (8002).
+2.  **Bug Fixes**:
+    - Aligned srv10 tunnel path to `/24-10-07-06`.
+    - Added missing srv10 XTLS backend on port 5013.
+    - Cleaned up `is_tunnel` ACL in `main_http`.
 3.  **Validation**:
-    - Check for `portal` registration in Server 07 logs.
-    - Test SOCKS5 connectivity on Server 07 port 21080.
+    - Ran `haproxy -c` syntax check (Passed).
+    - Next: Apply and Reload.
+
 
 ### Safety Measures
 -   Always backup existing `.json` configs.
