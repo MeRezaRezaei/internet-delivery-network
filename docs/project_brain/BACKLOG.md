@@ -23,7 +23,8 @@
 | IDN-011 | P0 | Migrate Marzban (srv03 -> srv07) | done | IDN-009 | Server 07 is orchestrator; srv03 is node; subs preserved |
 | IDN-012 | P1 | HAProxy Naming Refactor & Bug Fixes | done | IDN-011 | Backends renamed; srv10 path fixed; port 5013 added |
 | IDN-013 | P0 | Diagnose Domestic US Proxy Bottlenecks | done | IDN-012 | Root causes and connectivity parameters mapped |
-| IDN-014 | P1 | Remediate srv09 Xray Conflicts & Align SSH | todo | IDN-013 | Monolithic service stopped, template active; Mesh SSH verified |
+| IDN-014 | P1 | Remediate srv09 Xray Conflicts & Align SSH | done | IDN-013 | Monolithic service stopped, template active; Mesh SSH verified |
+| IDN-015 | P0 | Establish Stable SOCKS Outbounds on Domestic Nodes | done | IDN-014 | Verified active SOCKS connections on srv01, srv03, srv04 |
 
 ## WIP Rule
 - Max doing items: 2

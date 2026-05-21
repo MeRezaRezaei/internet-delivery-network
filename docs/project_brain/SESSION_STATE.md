@@ -90,15 +90,20 @@
         * **srv01 (Shahriar):** Local Xray has `/c-02-02-01` on port 1082, but srv09 has no outbound config and srv01 HAProxy has no routing rule.
         * **srv04 (Shiraz):** SOCKS 1082 (`/c-08-02-04`) fails because srv09 has no outbound config and srv04 HAProxy has no routing rule.
 
+- **Iran Domestic Portals SOCKS Bridging Resolved (2026-05-21):**
+    - **Surgical Path Remediation**: Identified that Server 09 (US Bridge) was dialing path `/11-01-03-01` but Server 03 (Bamdad Portal) and HAProxy were listening on path `/c-01-01-03-01`. Wrote the corrected configuration directly and transferred it from Server 07 to Server 09 using `scp` over port 2022.
+    - **Service Activation**: Enabled and started the long-term systemd portal services `xray@c-01-01-01-01` on Server 01 and `xray@c-01-01-03-01` on Server 03.
+    - **Functional Validation**: Successfully completed the full-chain diagnostic latency checks. Verified 100% active remote DNS resolving, SOCKS5 request grants, and HTTP/2 200 responses to `google.com` on all target interfaces:
+        * **Server 01**: Port 1081 (Marzban) and Port 1085 (Arvan) -> **PASS**
+        * **Server 03**: Port 1081 (Marzban) -> **PASS**
+        * **Server 04**: Port 1081 (Marzban) and Port 1085 (Arvan) -> **PASS**
+
 ## Not Done
-- Safe remediation of the duplicate Xray process conflict on srv09 (must be fixed internally from inside).
-- Investigating credential authentication for SSH over Mesh port 2022 on external bridges (srv09/srv08/srv10).
-- Centralized management of Xray configs (currently scattered across nodes).
+- Safe remediation of the duplicate Xray process conflict on srv09.
+- Centralized management of Xray configs.
 
 ## Immediate Next Objective
-- **Mesh Diagnostics Log & Handoff:**
-    - Document the findings perfectly in the project brain, commit and push.
-    - Transition the session state to a secure waiting stage for internal remediation.
+- **Dynamic Routing & Optimization**: Monitor active reverse-tunnel session stability and performance metrics under standard client loads.
 
 ## Known Constraints
 - Access to most nodes requires jumping through Server 04.

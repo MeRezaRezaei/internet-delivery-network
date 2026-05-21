@@ -64,6 +64,12 @@
     - Connected to srv09 (US), de-server (DE), and Pubg-Sell (DE-PG) to extract exact configurations for the three direct management tunnels.
     - Wrote physical static JSON backups for each of the three portal/bridge pairs inside `docs/project_brain/static_unbreakable_tunnels/`.
     - Codified a strict, permanent **Zero-Touch Constraint Policy** inside `OPERATING_PROTOCOL.md`, `NETWORK_AND_ARCHITECTURE.md`, and `OPERATIONAL_SAFETY.md` to protect these tunnels from any edits, restarts, or interruptions.
+- **Iran Domestic Portals SOCKS Tunnels Stabilization (2026-05-21):**
+    - **Server 03 Path Alignment**: Fixed the path mismatch on Server 09 (US Bridge) for Server 03 from `/11-01-03-01` to `/c-01-01-03-01` to match Server 03's HAProxy path rule and xray portal config. Executed configuration file transfer via `scp` from Server 07 to Server 09 over port 2022.
+    - **Server 01 Naming Streamlining**: Cleaned up the redundant `c-` prefix from Server 01. Renamed configuration files to `01-01-01-01.json` and `01-01-01-05.json`, stripped the prefix from path settings, and updated the HAProxy config using a precise global `sed` replacement (with validation passing cleanly). Discarded old services and enabled/started `xray@01-01-01-01` and `xray@01-01-01-05`.
+    - **Server 09 Bridge Alignment**: Updated the `01-01-01-01.json` config on Server 09 to target the correct Marzban domain address `i-01.docreverse.ir` (instead of the obsolete `i-01.m3600.ir`) and updated paths to remove the redundant `c-`.
+    - **Domestic Services Launch**: Enabled and started systemd portal services natively (`xray@c-01-01-03-01` on Server 03).
+    - **100% SOCKS Verification**: Ran complete diagnostic latency suite. Confirmed active SOCKS5 proxy internet access on Server 01 (1081/1085), Server 03 (1081), and Server 04 (1081/1085) with remote DNS resolving successfully.
 
 
 
