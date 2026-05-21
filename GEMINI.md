@@ -31,12 +31,17 @@ Maintain synchronization between the codebase and the documentation in `docs/pro
 - **Rule of Timeout**: ALL remote commands MUST include a timeout to prevent agent hangs. 
     - SSH: `-o ConnectTimeout=5`
     - Curl: `--max-time 10`
-- **SSH Jumps Rule**: Accessing restricted nodes (srv07, srv09) REQUIRES jumping through Server 04.
-    - srv04: `10.255.1.4` (Jump Host)
-    - srv07: `10.255.1.7` (Portal)
-- **Pass and Key SSH Rule**: Use `sshpass -p 'asdfjkl'` for the srv04 password and the identity file `~/.ssh/id_rsa_idn` for the target node.
-    - Example: `ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn -o ProxyCommand="sshpass -p 'asdfjkl' ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -W %h:%p merezarezaei@10.255.1.4" merezarezaei@10.255.1.7 "uptime"`
-- **Commit & Push**: After updating the AI Brain, ALWAYS commit and push the changes to ensure the next agent has the latest state.
+- **SSH Jumps Rule (Hierarchy)**: 
+    - **Outsiders** (e.g., srv09, Agent): Have direct Wireguard/Tailscale access to the Gateway (**srv07**).
+    - **Insiders** (e.g., srv01, srv03, srv04, srv06): MUST be reached by jumping through **Server 07**. 
+    - **NO REVERSE JUMPS**: Do not jump through srv04 to reach srv07. srv07 is the entry point.
+- **Pass and Key SSH Rule**: 
+    - Use identity file `~/.ssh/id_rsa_idn` for direct access to **srv07**.
+    - For jumps from srv07 to insiders, use the documented passwords (`asdfjkl`) if keys are not present.
+    - Example (Direct to srv07): `ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn merezarezaei@10.255.1.7 "uptime"`
+    - Example (Jump to srv04 via srv07): `ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn -J merezarezaei@10.255.1.7 merezarezaei@10.255.1.4 "uptime"`
+- **Commit & Push**: After updating the AI Brain, ALWAYS commit and push the changes.
+
 
 ## Autonomous Connectivity
 Agents MUST use `sshpass` and documented credentials from `PRIVATE_MEMORY.md` or `NETWORK_AND_ARCHITECTURE.md` to avoid interactive password prompts and ensure execution speed.

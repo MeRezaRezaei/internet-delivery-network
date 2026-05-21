@@ -20,9 +20,16 @@ Do not treat ad-hoc host execution as authoritative if this file defines another
 
 ## Connection Boilerplates
 
-### Server 07 (via Jump srv04)
-Use the following command to execute commands on Server 07 without hanging:
+### Gateway (srv07) - Direct Access
+Use direct Wireguard/Tailscale IP for the gateway:
 ```bash
-ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn -o ProxyCommand="sshpass -p 'asdfjkl' ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -W %h:%p merezarezaei@10.255.1.4" merezarezaei@10.255.1.7 "COMMAND"
+ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn merezarezaei@10.255.1.7 "COMMAND"
 ```
+
+### Insiders (srv01, srv04, etc.) - via Gateway srv07
+Jump through the gateway to reach restricted internal nodes:
+```bash
+ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn -J merezarezaei@10.255.1.7 merezarezaei@10.255.1.4 "COMMAND"
+```
+
 

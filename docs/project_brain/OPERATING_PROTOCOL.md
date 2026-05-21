@@ -28,9 +28,10 @@
 
 ## Mandatory SSH & Network Execution Rules
 - **Rule of Timeout**: ALL remote commands MUST include a strict timeout (e.g., `-o ConnectTimeout=5` or `--max-time 10`) to prevent hanging the agent and wasting context.
-- **SSH Jumps Rule**: Accessing restricted nodes (srv07, srv09) REQUIRES jumping through Server 04 (10.255.1.4).
-- **Pass and Key SSH Rule**: Use `sshpass -p 'asdfjkl'` for the srv04 jump host and explicitly specify the identity file `~/.ssh/id_rsa_idn` for target portals like Server 07.
+- **SSH Jumps Rule (Hierarchy)**: srv07 is the ONLY gateway to insiders. Outsiders use direct Wireguard to srv07. To reach srv01, srv03, srv04, etc., jump through srv07. NO REVERSE JUMPS (e.g., jumping through 04 to reach 07).
+- **Pass and Key SSH Rule**: Use identity file `~/.ssh/id_rsa_idn` for srv07. Use documented passwords (`asdfjkl`) for secondary hops if keys are missing.
 - **Commit & Push**: After updating the AI Brain, ALWAYS commit and push the changes.
+
 
 
 ## Stop conditions
