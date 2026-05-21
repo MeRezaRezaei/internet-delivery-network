@@ -26,6 +26,13 @@
 4. Review
 5. Document
 
+## Mandatory SSH & Network Execution Rules
+- **Rule of Timeout**: ALL remote commands MUST include a strict timeout (e.g., `-o ConnectTimeout=5` or `--max-time 10`) to prevent hanging the agent and wasting context.
+- **SSH Jumps Rule**: Accessing restricted nodes (srv07, srv09) REQUIRES jumping through Server 04 (10.255.1.4).
+- **Pass and Key SSH Rule**: Use `sshpass -p 'asdfjkl'` for the srv04 jump host and explicitly specify the identity file `~/.ssh/id_rsa_idn` for target portals like Server 07.
+- **Commit & Push**: After updating the AI Brain, ALWAYS commit and push the changes.
+
+
 ## Stop conditions
 - Conflicting requirements affecting safety/business invariants.
 - Need to break locked decisions without explicit approval.

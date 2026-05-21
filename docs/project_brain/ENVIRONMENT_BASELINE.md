@@ -17,3 +17,12 @@ Define the authoritative runtime and test environment.
 
 ## Rule
 Do not treat ad-hoc host execution as authoritative if this file defines another baseline.
+
+## Connection Boilerplates
+
+### Server 07 (via Jump srv04)
+Use the following command to execute commands on Server 07 without hanging:
+```bash
+ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn -o ProxyCommand="sshpass -p 'asdfjkl' ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -W %h:%p merezarezaei@10.255.1.4" merezarezaei@10.255.1.7 "COMMAND"
+```
+

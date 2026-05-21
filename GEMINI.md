@@ -26,4 +26,18 @@ Maintain synchronization between the codebase and the documentation in `docs/pro
     2. Update `PRIVATE_MEMORY.md` with active credentials and local paths.
     3. State the exact next command or goal for the successor agent.
     4. Close the session gracefully.
-- **Autonomous Connectivity:** Agents MUST use `sshpass` and documented credentials from `PRIVATE_MEMORY.md` or `NETWORK_AND_ARCHITECTURE.md` to avoid interactive password prompts and ensure execution speed.
+
+## Mandatory Execution & Network Rules
+- **Rule of Timeout**: ALL remote commands MUST include a timeout to prevent agent hangs. 
+    - SSH: `-o ConnectTimeout=5`
+    - Curl: `--max-time 10`
+- **SSH Jumps Rule**: Accessing restricted nodes (srv07, srv09) REQUIRES jumping through Server 04.
+    - srv04: `10.255.1.4` (Jump Host)
+    - srv07: `10.255.1.7` (Portal)
+- **Pass and Key SSH Rule**: Use `sshpass -p 'asdfjkl'` for the srv04 password and the identity file `~/.ssh/id_rsa_idn` for the target node.
+    - Example: `ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn -o ProxyCommand="sshpass -p 'asdfjkl' ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -W %h:%p merezarezaei@10.255.1.4" merezarezaei@10.255.1.7 "uptime"`
+- **Commit & Push**: After updating the AI Brain, ALWAYS commit and push the changes to ensure the next agent has the latest state.
+
+## Autonomous Connectivity
+Agents MUST use `sshpass` and documented credentials from `PRIVATE_MEMORY.md` or `NETWORK_AND_ARCHITECTURE.md` to avoid interactive password prompts and ensure execution speed.
+
