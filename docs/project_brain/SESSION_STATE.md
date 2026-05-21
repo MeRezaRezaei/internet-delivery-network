@@ -43,12 +43,13 @@
     - Created a permanent technical reference database in `docs/project_brain/xray_reference/`.
     - Documented ARCHITECTURE_AND_LOGIC, API_AND_PROTOBUF_MODELS, NEW_FEATURES_DEEP_DIVE (XHTTP, REALITY, Reverse), and a DEVELOPER_GUIDE.
     - Extracted exact protobuf models and handshake logic for REALITY and XHTTP modes.
-- **Marzban Subdomain Isolation (2026-05-21):**
-    - Transitioned from unreliable path-based routing to robust subdomain-based isolation.
-    - `dash.new-state.ir` -> Migrated/PUBG Panel (400 Users, Port 8002).
-    - `panel.new-state.ir` -> Old/Legacy Panel (5 Users, Port 2020).
-    - Verified that both subdomains correctly route to independent backends via live logs and simulated requests.
-    - Cleaned up all path-based rewriting, referer logic, and optional slash redirects.
+- **Marzban Subdomain & Subscription Resolution (2026-05-21):**
+    - Achieved 100% isolation using subdomain-based routing.
+    - **dash.new-state.ir** -> Migrated/PUBG Panel (400 Users, Port 8002).
+    - **panel.new-state.ir** -> Old/Legacy Panel (5 Users, Port 2020).
+    - Updated `XRAY_SUBSCRIPTION_URL_PREFIX` in both instances to match their respective subdomains.
+    - Simplified HAProxy to use clean Host-header routing, removing all unreliable path-based logic.
+- **Marzban Subdomain Isolation (2026-05-21):** (Merged into final resolution above)
 - **Marzban Path Isolation Fix (Attempt 1):** (REVERTED) Path-based isolation proved unreliable due to application-level path collisions.
 - **HAProxy Refactor & Bug Fixes (2026-05-21):**
 

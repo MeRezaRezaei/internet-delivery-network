@@ -43,12 +43,11 @@
     - **MySQL**: Implemented as the backend database for Marzban.
     - **Technitium DNS**: Deployed via Docker to provide recursive DNS and blocking/filtering capabilities for the IDN.
 - **Connectivity Analysis:** Identified and documented potential connectivity gaps following the infrastructure shift; prioritized remote health check refactoring.
-- **Marzban Subdomain Isolation:**
-    - Replaced failed path-based isolation (`/m/` and `/m7/`) with robust subdomain isolation.
-    - Configured `dash.new-state.ir` to route to the Migrated/PUBG panel (Port 8002).
-    - Configured `panel.new-state.ir` to route to the Old/Legacy panel (Port 2020).
-    - Verified 100% backend isolation using live HAProxy logs and Host-header simulation.
-    - Simplified HAProxy config by removing all prefix-stripping and referer logic.
+- **Marzban Subdomain & Subscription Fix:**
+    - Finalized strict isolation using `dash.new-state.ir` (PUBG/8002) and `panel.new-state.ir` (Main/2020).
+    - Updated application-level `XRAY_SUBSCRIPTION_URL_PREFIX` to align with the new subdomains.
+    - Verified clean Host-header routing in HAProxy, eliminating path and referer collisions.
+- **Marzban Subdomain Isolation:** (Merged into final fix above)
 - **Marzban Isolation Fix (Attempt 1):** (FAILED/REVERTED) Referer-based path isolation failed due to application root path collisions.
 - **HAProxy Refactor & Bug Fixes:**
 
