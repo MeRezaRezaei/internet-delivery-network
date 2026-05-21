@@ -1,8 +1,16 @@
 # Operating Protocol
 
-## Command Timeout Rule
-- **Mandatory Timeouts**: Every shell command MUST have an explicit timeout (e.g., `timeout 10s ...` or `ssh -o ConnectTimeout=5 ...`).
-- **Maximum Wait**: Never wait more than 30 seconds for any network-dependent command.
+## Server 07 (Portal) Non-Negotiable Mandates
+- **Management Only**: Server 07 is the only "Pro" gateway out of the network. It MUST NOT be used for client-facing traffic or as a pass-through for anti-censorship services for general users.
+- **Client Traffic Prohibition**: No client tunnels or proxies are allowed to terminate on Server 07's public IP.
+- **Staff Access Only**: Existing tunnels on Server 07 are strictly for staff management and operational maintenance, governed by company regulations.
+- **Risk Mitigation**: The stability of Server 07 is critical for project continuity. Any configuration that risks its public IP reputation or accessibility is forbidden.
+
+## GFW DPI Investigation Findings (2026-05-21)
+- **Hard Block Policy**: Direct incoming connections from US/EU IPs to Iranian server IPs (non-fronted) are blocked by default at the GFW/Provider level.
+- **CDN Fronting Requirement**: Successful communication with Iranian nodes from outside requires valid CDN fronting (e.g., ArvanCloud) with matching SNI.
+- **Domain Fronting Defense**: Cross-tenant domain fronting (spoofing SNI) is actively blocked by CDN edge security (403 Forbidden).
+
 - **Fail Fast**: If a node is unresponsive, document the failure immediately and attempt the next logical step or an alternative path.
 
 ## Session start
