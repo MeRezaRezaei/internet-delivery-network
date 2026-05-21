@@ -32,4 +32,11 @@ Jump through the gateway to reach restricted internal nodes:
 ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn -J merezarezaei@10.255.1.7 merezarezaei@10.255.1.4 "COMMAND"
 ```
 
+### External Bridges (srv08, srv09, srv10) - Port 2022 via srv07
+Jump through the gateway to reach external bridges on their customized SSH Port 2022:
+```bash
+ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_idn -o "ProxyCommand=ssh -i ~/.ssh/id_rsa_idn -W %h:%p merezarezaei@10.255.1.7" -p 2022 merezarezaei@10.255.1.9 "COMMAND"
+```
+
+
 
