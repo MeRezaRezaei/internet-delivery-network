@@ -27,11 +27,26 @@
 - **Operational Autonomy:**
     - Established autonomous SSH connection to Server 07 via mesh network using `merezarezaei` user and documented passwords.
 
-## 2026-05-20
+## 2026-05-21
+- **Marzban Migration:**
+    - Migrated the 400-user `pubg` panel from Server 03 to Server 07.
+    - Integrated the migrated panel into Server 07's native MySQL.
+    - Refactored Server 07 HAProxy for dual-panel orchestration:
+        - Primary (400 users) on root paths.
+        - Legacy (5 users) on `/m7/` path with transparent rewriting.
+    - Decommissioned srv03 panels and verified srv03 node connectivity to srv07.
+    - Confirmed srv01 and srv04 node stability from the new central hub.
+    - Stored all migration backups on the US management server.
 - **Session Startup:** Loaded full project brain and re-synchronized session state.
 - **Infrastructure Synchronization (srv07):** Updated management documentation to reflect the migration of Server 07 to a Docker-based stack:
     - **Marzban**: Deployed via Docker for advanced user and node management.
     - **MySQL**: Implemented as the backend database for Marzban.
     - **Technitium DNS**: Deployed via Docker to provide recursive DNS and blocking/filtering capabilities for the IDN.
 - **Connectivity Analysis:** Identified and documented potential connectivity gaps following the infrastructure shift; prioritized remote health check refactoring.
+- **HAProxy Refactor & Bug Fixes:**
+    - Refactored Server 07 HAProxy backend naming to human-readable `bk_srvXX_vless/xtls` format.
+    - Fixed Server 10 routing bug (aligned path to `/24-10-07-06`) and added port 5013 backend.
+    - Standardized Marzban panel naming to `bk_marzban_main` and `bk_marzban_pubg`.
+    - Verified live traffic routing via HAProxy logs.
+
 
