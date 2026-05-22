@@ -22,7 +22,7 @@ import argparse
 # ===================================================================
 # INVENTORY CONFIGURATION
 # ===================================================================
-TUNNEL_IDS = ["05"]
+TUNNEL_IDS = [f"{i:02d}" for i in range(1, 25)]
 OUTSIDE_SERVERS = ["01", "02", "03"]
 CDNS = ["01", "02", "03", "04", "05", "06"]
 
@@ -251,8 +251,8 @@ backend bk_mmd_pg_de
                         # Local Xray is a VLESS backend on loopback, binding to derived reverse tunnel port
                         cfg.append(f"    server local_xray_{reverse_port} {target_ip}:{reverse_port} check maxconn 5000\n")
                     else:
-                        # Remote mesh target server over Wireguard on Port 443 with transparent SSL verification bypass
-                        cfg.append(f"    server remote_mesh_{ins} {target_ip}:443 ssl verify none check maxconn 5000\n")
+                        # Remote mesh target server over Wireguard directly to the peer's derived reverse tunnel port (no SSL)
+                        cfg.append(f"    server remote_mesh_{ins}_{reverse_port} {target_ip}:{reverse_port} check maxconn 5000\n")
 
                     # 2. XTLS / User Connection Backend
                     cfg.append(f"backend bk_{backend_tag}_xtls")
@@ -268,8 +268,8 @@ backend bk_mmd_pg_de
                         # Local XTLS backend on loopback, binding to derived XTLS user port
                         cfg.append(f"    server local_xtls_{xtls_port} {target_ip}:{xtls_port} check maxconn 5000\n")
                     else:
-                        # Remote mesh target server over Wireguard on Port 443 with transparent SSL verification bypass
-                        cfg.append(f"    server remote_mesh_{ins} {target_ip}:443 ssl verify none check maxconn 5000\n")
+                        # Remote mesh target server over Wireguard directly to the peer's derived XTLS user port (no SSL)
+                        cfg.append(f"    server remote_mesh_{ins}_{xtls_port} {target_ip}:{xtls_port} check maxconn 5000\n")
 
     return "\n".join(cfg)
 

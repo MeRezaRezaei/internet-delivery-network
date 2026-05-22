@@ -17,8 +17,8 @@
 
 - ID: D-003
 - Date: 2026-05-22
-- Decision: Implemented 3-Port Deterministic Multicast formula for all mesh config generations.
-- Rationale: Enables 100% collision-free, loop-free, and self-documenting port allocation where any port number clearly encodes its type, tunnel ID, outside server ID, inside server ID, and CDN ID.
-- Impact: Derived ports: Type 1 (Reverse Tunnel): `10000 + (T*1000) + (O*100) + (I*10) + C`, Type 2 (User XTLS): `20000 + (T*1000) + (O*100) + (I*10) + C`, Type 3 (SOCKS Delivery): `30000 + (T*1000) + (O*100) + (I*10) + C`. All target inside nodes (01-06) HAProxy configs compiled.
+- Decision: Implemented 3-Port Deterministic Multicast formula with incremental/sequential database tunnel IDs (01-24), 3 outside servers (01-03), and direct plain-TCP peer-to-peer mesh routing over WireGuard.
+- Rationale: Enables 100% collision-free, loop-free, and self-documenting port allocation where any port number clearly encodes its type, tunnel ID, outside server ID, inside server ID, and CDN ID. Bypassing port 443 SSL between mesh servers eliminates CPU overhead and connection handshake latency over the secure WireGuard private network.
+- Impact: Derived ports: Type 1 (Reverse Tunnel): `10000 + (T*1000) + (O*100) + (I*10) + C`, Type 2 (User XTLS): `20000 + (T*1000) + (O*100) + (I*10) + C`, Type 3 (SOCKS Delivery): `30000 + (T*1000) + (O*100) + (I*10) + C`. Remote peers route directly to the target's derived plain-TCP port over WireGuard (e.g. target_ip:13221) rather than jumping through secondary SSL ports. Compiled 6 inside node configs with 2592 dynamic combinations each.
 - Supersedes: None
 
