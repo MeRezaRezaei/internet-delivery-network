@@ -1,55 +1,37 @@
 #!/usr/bin/env python3
 """
-Multicast Mesh Xray Unified Config Generator
+Dynamic Multicast Mesh Xray Unified Config Generator
 Author: Antigravity
 
-This script generates a unified, replicated Xray JSON configuration for the IDN mesh.
-It implements the direct reverse proxy routing pattern, eliminating SOCKS5 bridging.
+This script generates a highly optimized, dynamic, single-port CDN-style Xray JSON configuration
+for the IDN mesh. It eliminates TCP port bloat by consolidating listeners:
+1. IN_REVERSE_PORTAL (Port 10001) - Loopback VLESS inbound for all 384 bridge reverse tunnels.
+2. IN_XTLS_USER (Port 20001) - Loopback VLESS inbound for all 384 user XTLS connections.
 
-For each scenario (/{tunnel_id}-{outside_server_id}-{inside_server_id}-{cdn_id}):
-1. XTLS User Inbound (IN_{T}_{O}_{I}_{C}_XTLS) on Type 2 port (20000 + T*1000 + O*100 + I*10 + C)
-2. Reverse Portal Inbound (IN_{T}_{O}_{I}_{C}_REVERSE_PORTAL) on Type 1 port (10000 + T*1000 + O*100 + I*10 + C)
-3. Routing rule to directly pass user traffic from XTLS Inbound to the reverse proxy outbound tag.
-4. Routing rule to route reverse-out proxy channel traffic to DIRECT.
+Traffic is dynamically routed in memory based on client emails:
+- Users matching `{T}_{O}_{I}_{C}@user` route to `reverse-out-{T}_{O}_{I}_{C}`.
+- Bridge channels route natively to DIRECT.
 """
 
 import os
 import json
 
 # ===================================================================
-# INVENTORY CONFIGURATION (Filtered to Active Nodes only for performance)
+# INVENTORY CONFIGURATION (Active Matrix matching generate_haproxy)
 # ===================================================================
-# Tunnel IDs 01 to 24 sequentially matching MySQL database auto-increment keys
 TUNNEL_IDS = [f"{i:02d}" for i in range(1, 25)]
-# Active Outside servers
 OUTSIDE_SERVERS = ["01", "03"]
-# Active Inside servers
 INSIDE_SERVERS = ["01", "03", "04", "05"]
-# Active CDNs
 CDNS = ["01", "05"]
-
 
 # Common Credentials
 UUID = "58764c09-99c3-4496-9591-9cff83e4c7b7"
 SEED = "a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7"
 
 # ===================================================================
-# PORT DERIVATION FORMULAS
-# ===================================================================
-def get_derived_reverse_port(t, o, i, c):
-    return 10000 + (int(t) * 1000) + (int(o) * 100) + (int(i) * 10) + int(c)
-
-def get_derived_xtls_port(t, o, i, c):
-    return 20000 + (int(t) * 1000) + (int(o) * 100) + (int(i) * 10) + int(c)
-
-# ===================================================================
 # CONFIG GENERATOR
 # ===================================================================
 def generate_unified_xray():
-    inbounds = []
-    routing_rules = []
-    exclude_tags = []
-    # Pre-populate list of combinations
     combinations = []
     for t in TUNNEL_IDS:
         for o in OUTSIDE_SERVERS:
@@ -57,96 +39,97 @@ def generate_unified_xray():
                 for c in CDNS:
                     combinations.append((t, o, i, c))
 
-    print(f"[*] Generating {len(combinations)} scenario combinations...")
+    print(f"[*] Generating dynamic configuration for {len(combinations)} active scenario combinations...")
 
+    reverse_clients = []
+    user_clients = []
+    routing_rules = []
+    reverse_out_tags = []
 
-    for idx, (t, o, i, c) in enumerate(combinations):
+    for t, o, i, c in combinations:
         tag_suffix = f"{t}_{o}_{i}_{c}"
-        
-        xtls_tag = f"IN_{tag_suffix}_XTLS"
-        reverse_tag = f"IN_{tag_suffix}_REVERSE_PORTAL"
         outbound_tag = f"reverse-out-{t}_{o}_{i}_{c}"
-        
-        reverse_port = get_derived_reverse_port(t, o, i, c)
-        xtls_port = get_derived_xtls_port(t, o, i, c)
-        
-        # 1. XTLS Inbound for general users
-        xtls_inbound = {
-            "tag": xtls_tag,
-            "port": xtls_port,
-            "listen": "0.0.0.0",
-            "protocol": "vless",
-            "settings": {
-                "clients": [],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "xhttp",
-                "xhttpSettings": {
-                    "path": f"/{t}-{o}-{i}-{c}/xtls",
-                    "mode": "auto"
-                }
+        reverse_out_tags.append(outbound_tag)
+
+        # 1. Add Bridge Reverse Portal client object
+        reverse_clients.append({
+            "id": UUID,
+            "email": f"{tag_suffix}@reverse",
+            "seed": SEED,
+            "reverse": {
+                "tag": outbound_tag
             }
-        }
-        inbounds.append(xtls_inbound)
-        
-        # 2. Reverse Portal Inbound for the Bridge registration
-        reverse_inbound = {
-            "tag": reverse_tag,
-            "port": reverse_port,
-            "listen": "127.0.0.1",
-            "protocol": "vless",
-            "settings": {
-                "clients": [
-                    {
-                        "id": UUID,
-                        "email": f"{t}_{o}_{i}_{c}@reverse",
-                        "seed": SEED,
-                        "reverse": {
-                            "tag": outbound_tag
-                        }
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "xhttp",
-                "xhttpSettings": {
-                    "path": f"/{t}-{o}-{i}-{c}",
-                    "mode": "auto"
-                }
-            }
-        }
-        inbounds.append(reverse_inbound)
-        
-        # Keep track of excluded tags for Marzban configuration
-        exclude_tags.append(reverse_tag)
-        
-        # 3. Routing Rules: Route XTLS Inbound directly to the registered reverse proxy outbound
+        })
+
+        # 2. Add User VLESS client object
+        user_clients.append({
+            "id": UUID,
+            "email": f"{tag_suffix}@user",
+            "seed": SEED
+        })
+
+        # 3. User Routing Rule: Map user email to its dynamic reverse outbound tag
         routing_rules.append({
             "type": "field",
-            "inboundTag": [xtls_tag],
+            "user": [f"{tag_suffix}@user"],
             "outboundTag": outbound_tag
         })
-        
-        # 4. Routing Rules: Route incoming traffic from the reverse proxy channel to DIRECT
-        routing_rules.append({
-            "type": "field",
-            "inboundTag": [outbound_tag],
-            "outboundTag": "DIRECT"
-        })
 
-    # Add standard final block rule
+    # 4. Consolidated Reverse Channel routing rule to DIRECT
+    routing_rules.append({
+        "type": "field",
+        "inboundTag": reverse_out_tags,
+        "outboundTag": "DIRECT"
+    })
+
+    # 5. Fallback final block rule
     routing_rules.append({
         "type": "field",
         "port": "0-65535",
         "outboundTag": "BLOCK"
     })
 
-    # Assemble Xray unified config JSON structure
+    # Assemble dynamic inbounds
+    inbounds = [
+        {
+            "tag": "IN_REVERSE_PORTAL",
+            "port": 10001,
+            "listen": "127.0.0.1",
+            "protocol": "vless",
+            "settings": {
+                "clients": reverse_clients,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "xhttpSettings": {
+                    "path": "/reverse",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_XTLS_USER",
+            "port": 20001,
+            "listen": "127.0.0.1",
+            "protocol": "vless",
+            "settings": {
+                "clients": user_clients,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "xhttpSettings": {
+                    "path": "/xtls",
+                    "mode": "auto"
+                }
+            }
+        }
+    ]
+
     xray_config = {
         "log": {
-            "loglevel": "debug"
+            "loglevel": "warning"
         },
         "inbounds": inbounds,
         "outbounds": [
@@ -165,6 +148,9 @@ def generate_unified_xray():
         }
     }
 
+    # In single-port mode, only the single loopback reverse portal needs to be excluded
+    exclude_tags = ["IN_REVERSE_PORTAL"]
+
     return xray_config, exclude_tags
 
 # ===================================================================
@@ -178,7 +164,7 @@ if __name__ == "__main__":
     
     # 1. Save unified Xray config
     config_file = os.path.join(out_dir, "xray_unified.json")
-    print(f"[*] Writing unified Xray configuration to: {config_file}")
+    print(f"[*] Writing dynamic Xray configuration to: {config_file}")
     with open(config_file, "w", encoding="utf-8") as f:
         json.dump(config, f, indent=2)
     print("    -> Config file written successfully!")

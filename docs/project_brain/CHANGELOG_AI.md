@@ -102,12 +102,14 @@
     - Implemented a Direct Reverse Proxy routing pattern mapping `IN_{T}_{O}_{I}_{C}_XTLS` directly to the portal's reverse outbound tag (`reverse-out-{T}_{O}_{I}_{C}`), completely eliminating SOCKS5 local loopbacks and double-encryption overhead.
     - Structured the 768 inbounds (384 user-facing XTLS on Type 2 ports and 384 Reverse Portals on Type 1 ports) and 769 routing rules to share the exact same configuration on all nodes, allowing dynamic registration without port conflicts.
     - Compiled and exported all 768 Reverse Portal inbound tags to `configs/xray/generated/exclude_tags.txt` and `configs/xray/generated/exclude_tags_csv.txt` for integration into the Marzban dynamic exclude tag variable.
-- **Dynamic CDN-Style Single-Port Architecture Proposal:**
-    - Formulated a highly scalable, dynamic CDN-style single-port architecture design to resolve server resource exhaustion and HAProxy bloat.
-    - Designed Xray single-port consolidation: dropping Xray loopback listeners from 768 down to exactly **2 ports** (port 10001 for reverse portal registrations and port 20001 for user XTLS connections), using unique client emails (`{T}_{O}_{I}_{C}@user` and `{T}_{O}_{I}_{C}@reverse`) and sequential in-memory routing rules.
-    - Designed HAProxy dynamic path routing: extracting `{inside_server_id}` from paths via HAProxy field extractors, looking up Target IPs in `/etc/haproxy/inside_servers.map`, and forwarding remotely over the WireGuard mesh on port 80 (HTTP) to bypass double-SSL overhead, or rewriting paths to route locally.
-    - Aligned with the server's exact SSL cert path `/opt/node/certs/ssl_bundle.pem` on port 443 and removed unsupported QUIC bindings.
-    - Wrote the complete `implementation_plan.md` artifact and requested user feedback.
+- **Dynamic CDN-Style Single-Port Architecture Release:**
+    - Successfully refactored and deployed the highly scalable, dynamic, CDN-style single-port architecture, resolving server resource exhaustion and port bloat.
+    - **HAProxy Generator Refactored (`generate_haproxy.py`)**: Transitions HAProxy configurations from over 6,000 lines per node to a highly optimized **204 lines** using dynamic path matching and map lookups.
+    - **Map Lookup Integration**: Created the dynamic lookup map `inside_servers.map` which resolves peer WireGuard IPs dynamically at runtime. If a requested node ID is remote, HAProxy routes it over plain HTTP (port 80) over WireGuard mesh to bypass SSL overhead; if local, it rewrites the path (to `/reverse` or `/xtls`) and routes it locally to Xray loopback ports.
+    - **SSL & Healthcheck Alignment**: Standardized all inside node SSL configurations to use exactly `incoming_https` binding on port 443 with `/opt/node/certs/ssl_bundle.pem` (ALPN h2,http/1.1; no QUIC) and the precise healthcheck return status `OK_NEW`.
+    - **Xray Generator Refactored (`generate_xray.py`)**: Consolidates 384 active scenario combinations into exactly **2 loopback listeners** (port 10001 for reverse portal registrations and port 20001 for user XTLS connections) using unique VLESS client emails and in-memory routing rules. Excluded the loopback tags from Marzban using a single csv exclude list.
+    - **Compilation & Verification**: Generated all node configuration assets, verified SOCKS5 elimination, verified compact files, and updated the AI Brain.
+
 
 
 

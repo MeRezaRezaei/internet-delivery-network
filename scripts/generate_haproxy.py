@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 """
-Multicast Mesh HAProxy Config Generator
+Dynamic Multicast Mesh HAProxy Config Generator
 Author: Antigravity
 
-This script automatically generates customized, high-performance HAProxy configurations
-for every inside server in the IDN mesh. It implements the "Multicast Routing" pattern
-where paths serve as keys:
+This script automatically generates customized, high-performance, dynamic HAProxy configurations
+for every inside server in the IDN mesh. It implements the dynamic "CDN-style" path routing:
     /{tunnel_id}-{outside_server_id}-{inside_server_id}-{cdn_id}
     or
     /{tunnel_id}/{outside_server_id}/{inside_server_id}/{cdn_id}
 
-If the {inside_server_id} in the path matches the current node itself, HAProxy routes
-the traffic locally to Xray (127.0.0.1). Otherwise, it automatically routes the traffic
-across the Wireguard mesh to the target inside server's private IP (10.255.1.x), making
-the entire routing fabric independent and dynamic!
+It extracts the {inside_server_id} from the path at runtime and looks it up in a high-performance
+map file (`/etc/haproxy/inside_servers.map`). If the target is the current node, it rewrites the path
+and routes it locally to Xray (port 10001 for reverse portal, 20001 for user XTLS). Otherwise, it routes
+the traffic dynamically over the secure WireGuard network (`10.255.1.x`) on Port 80, bypassing SSL overhead!
 """
 
 import os
@@ -22,10 +21,6 @@ import argparse
 # ===================================================================
 # INVENTORY CONFIGURATION
 # ===================================================================
-TUNNEL_IDS = [f"{i:02d}" for i in range(1, 25)]
-OUTSIDE_SERVERS = ["01", "02", "03"]
-CDNS = ["01", "02", "03", "04", "05", "06"]
-
 INSIDE_SERVERS = {
     "01": "10.255.1.1",  # shahriar
     "02": "10.255.1.2",  # server 2
@@ -48,44 +43,15 @@ SUBDOMAINS = {
 }
 
 # ===================================================================
-# PORT DERIVATION FORMULAS
-# ===================================================================
-def get_derived_reverse_port(tunnel_id, outside_id, inside_id, cdn_id):
-    """
-    Type 1: Bridge-to-Portal (Reverse Tunnel) Listening Port
-    Formula: 10000 + (T * 1000) + (O * 100) + (I * 10) + C
-    E.g. Tunnel 05, Outside 01, Inside 03, CDN 01 -> Port 15131
-    """
-    return 10000 + (int(tunnel_id) * 1000) + (int(outside_id) * 100) + (int(inside_id) * 10) + int(cdn_id)
-
-def get_derived_xtls_port(tunnel_id, outside_id, inside_id, cdn_id):
-    """
-    Type 2: User XTLS Port (User-to-HAProxy/Xray)
-    Formula: 20000 + (T * 1000) + (O * 100) + (I * 10) + C
-    E.g. Tunnel 05, Outside 01, Inside 03, CDN 01 -> Port 25131
-    """
-    return 20000 + (int(tunnel_id) * 1000) + (int(outside_id) * 100) + (int(inside_id) * 10) + int(cdn_id)
-
-def get_derived_socks_port(tunnel_id, outside_id, inside_id, cdn_id):
-    """
-    Type 3: SOCKS Delivery Port
-    Formula: 30000 + (T * 1000) + (O * 100) + (I * 10) + C
-    E.g. Tunnel 05, Outside 01, Inside 03, CDN 01 -> Port 35131
-    """
-    return 30000 + (int(tunnel_id) * 1000) + (int(outside_id) * 100) + (int(inside_id) * 10) + int(cdn_id)
-
-# ===================================================================
 # CONFIG TEMPLATE GENERATOR
 # ===================================================================
 def generate_haproxy_cfg(node_id):
     if node_id not in INSIDE_SERVERS:
         raise ValueError(f"Node ID {node_id} is not in inside servers inventory!")
-
-    node_ip = INSIDE_SERVERS[node_id]
     
     cfg = []
     
-    # 1. Global Section (Premium performance tunings)
+    # 1. Global Section (Premium performance tunings aligned to server limitations)
     cfg.append("""global
     log stdout format raw local0
     maxconn 20000
@@ -97,7 +63,6 @@ def generate_haproxy_cfg(node_id):
     tune.bufsize 65536
     tune.maxrewrite 8192
     tune.h2.initial-window-size 2147483647
-    tune.quic.fe.max-idle-timeout 60000
 
     # Modern Security Ciphers
     ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
@@ -123,7 +88,7 @@ def generate_haproxy_cfg(node_id):
     timeout tunnel 1h
 """)
 
-    # 3. HTTP Frontend (Redirects or transparent routing)
+    # 3. HTTP Frontend (Port 80)
     cfg.append(f"""# ---------------------------------------------------------------------
 # FRONTEND: HTTP (Port 80)
 # ---------------------------------------------------------------------
@@ -131,27 +96,49 @@ frontend main_http
     bind :::80 v4v6
     mode http
 
-    # Dynamic Redirect to HTTPS except for reverse tunnels that bypass SSL
-    http-request redirect scheme https if !{{ ssl_fc }}
+    # Exclude WireGuard Mesh source IPs from HTTPS redirect (Enables plain-text mesh jumps)
+    acl is_mesh src 10.255.1.0/24
+    http-request redirect scheme https if !{{ ssl_fc }} !is_mesh
+
+    # --- Dynamic Mesh Routing on Port 80 ---
+    # 1. Check if path is dynamic tunnel or XTLS proxy
+    acl is_xtls path -m reg ^/[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}/xtls$|^/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}/xtls$
+    acl is_reverse path -m reg ^/[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}$|^/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}$
+
+    # 2. Extract inside_server_id segment
+    # Dash-separated: /05-01-03-01 -> field(2,/) gives 05-01-03-01 -> field(3,-) gives 03
+    http-request set-var(txn.inside_id) path,field(2,/),field(3,-) if {{ path -m reg ^/[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}} }}
+    # Slash-separated: /05/01/03/01 -> field(4,/) gives 03
+    http-request set-var(txn.inside_id) path,field(4,/) if {{ path -m reg ^/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}} }}
+
+    # 3. Look up target server's WireGuard IP
+    http-request set-var(txn.target_ip) var(txn.inside_id),map(/etc/haproxy/inside_servers.map)
+
+    # 4. Check if target is this node itself
+    acl is_local var(txn.inside_id) -m str {node_id}
+
+    # 5. Route dynamic paths accordingly
+    use_backend bk_local_xtls if is_xtls is_local
+    use_backend bk_local_reverse if is_reverse is_local
+    use_backend bk_remote_mesh if is_xtls || is_reverse
 """)
 
-    # 4. HTTPS Frontend (Unified entrypoint)
+    # 4. HTTPS Frontend (Port 443 - SSL Aligned)
     cfg.append(f"""# ---------------------------------------------------------------------
-# FRONTEND: HTTPS & QUIC / HTTP/3 (Port 443)
+# FRONTEND: HTTPS (Port 443 - Native SSL Aligned)
 # ---------------------------------------------------------------------
-frontend main_https
-    bind :::443 v4v6 ssl crt /etc/ssl/private/selfsigned.pem crt /etc/ssl/private/ehraz.pem alpn h2,http/1.1
+frontend incoming_https
+    bind :::443 v4v6 ssl crt /opt/node/certs/ssl_bundle.pem alpn h2,http/1.1
     mode http
     
-    # HTTP/3 QUIC Bindings for modern low-latency clients
-    bind quic4@:443 ssl crt /etc/ssl/private/selfsigned.pem crt /etc/ssl/private/ehraz.pem alpn h3
-    bind quic6@:443 ssl crt /etc/ssl/private/selfsigned.pem crt /etc/ssl/private/ehraz.pem alpn h3
-    http-response set-header Alt-Svc "h3=\\":443\\"; ma=31536000"
-
     option forwardfor
     http-request set-header X-Forwarded-Proto https
     http-request set-header X-Forwarded-Host %[hdr(host)]
     http-request set-header X-Forwarded-Port 443
+
+    # Healthcheck endpoint
+    acl is_health_check path_beg /healthcheck
+    http-request return status 200 content-type "text/plain" string "OK_NEW" if is_health_check
 
     # --- Static Unbreakable Admin Tunnels ---
     use_backend bk_mmd_pg_us if {{ path_beg /mmd-pg-us }}
@@ -166,30 +153,32 @@ frontend main_https
         domain_safe = domain.replace(".", "_").replace("-", "_")
         cfg.append(f"    acl is_{domain_safe} hdr(host) -i {domain}\n    use_backend bk_{domain_safe} if is_{domain_safe}")
 
-    cfg.append("\n    # --- Dynamic Combinatorial Path Routing (Radix Tree Match) ---")
+    cfg.append(f"""
+    # --- Dynamic Combinatorial Path Routing (Map-based Radix Match) ---
+    # 1. Parse path patterns
+    acl is_xtls path -m reg ^/[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}/xtls$|^/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}/xtls$
+    acl is_reverse path -m reg ^/[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}$|^/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}$
 
-    # Generate ACLs and backend routing maps for all combinations
-    # Supports both '-' and '/' delimiters in paths!
-    for tunnel in TUNNEL_IDS:
-        for out in OUTSIDE_SERVERS:
-            for ins in INSIDE_SERVERS.keys():
-                for cdn in CDNS:
-                    path_key_dash = f"{tunnel}-{out}-{ins}-{cdn}"
-                    path_key_slash = f"{tunnel}/{out}/{ins}/{cdn}"
-                    backend_name = f"bk_{tunnel}_{out}_{ins}_{cdn}"
-                    
-                    # 1. Reverse Tunnels / VLESS Tunnels
-                    cfg.append(f"    use_backend {backend_name}_vless if {{ path_beg /{path_key_dash} }} || {{ path_beg /{path_key_slash} }}")
-                    
-                    # 2. XTLS / User Tunnels
-                    cfg.append(f"    use_backend {backend_name}_xtls if {{ path_beg /{path_key_dash}/xtls }} || {{ path_beg /{path_key_slash}/xtls }}")
+    # 2. Extract inside_server_id segment
+    http-request set-var(txn.inside_id) path,field(2,/),field(3,-) if {{ path -m reg ^/[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}}-[0-9]{{2}} }}
+    http-request set-var(txn.inside_id) path,field(4,/) if {{ path -m reg ^/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}}/[0-9]{{2}} }}
 
-    cfg.append("""
+    # 3. Look up target server's WireGuard IP
+    http-request set-var(txn.target_ip) var(txn.inside_id),map(/etc/haproxy/inside_servers.map)
+
+    # 4. Check if target is local to this node
+    acl is_local var(txn.inside_id) -m str {node_id}
+
+    # 5. Dynamic routing logic
+    use_backend bk_local_xtls if is_xtls is_local
+    use_backend bk_local_reverse if is_reverse is_local
+    use_backend bk_remote_mesh if is_xtls || is_reverse
+
     # Fallback to local default resolver / doh backend
     default_backend bk_fallback
 """)
 
-    # 5. Static & Subdomain Backends Section
+    # 5. Static, Subdomain and local backends
     cfg.append("""# ===================================================================
 # BACKENDS: STATICS & SUBDOMAINS
 # ===================================================================
@@ -217,59 +206,30 @@ backend bk_mmd_pg_de
     server srv_{domain_safe} {target}
 """)
 
-    cfg.append("\n# ===================================================================")
-    cfg.append(f"# BACKENDS: COMBINATORIAL MULTICAST MESH (Generated for Node {node_id})")
-    cfg.append("# ===================================================================")
+    cfg.append(f"""
+# ===================================================================
+# BACKENDS: DYNAMIC CDN-STYLE ROUTING (Shared/Local for Node {node_id})
+# ===================================================================
+backend bk_local_xtls
+    mode http
+    # Rewrite original scenarios (e.g. /05-01-03-01/xtls) to unified loopback path
+    http-request set-path /xtls
+    server local_xray_xtls 127.0.0.1:20001
 
-    # Generate backends for all combinations
-    for tunnel in TUNNEL_IDS:
-        for out in OUTSIDE_SERVERS:
-            for ins in INSIDE_SERVERS.keys():
-                for cdn in CDNS:
-                    backend_tag = f"{tunnel}_{out}_{ins}_{cdn}"
-                    
-                    # Determine target routing (Local Loopback vs Remote Wireguard Jump)
-                    is_local = (ins == node_id)
-                    target_ip = "127.0.0.1" if is_local else INSIDE_SERVERS[ins]
-                    
-                    # Derive 3-port scenario mapping
-                    reverse_port = get_derived_reverse_port(tunnel, out, ins, cdn)
-                    xtls_port = get_derived_xtls_port(tunnel, out, ins, cdn)
-                    socks_port = get_derived_socks_port(tunnel, out, ins, cdn)
+backend bk_local_reverse
+    mode http
+    # Rewrite original reverse tunnels (e.g. /05-01-03-01) to unified loopback path
+    http-request set-path /reverse
+    server local_xray_reverse 127.0.0.1:10001
 
-                    # 1. Reverse / VLESS Backend
-                    cfg.append(f"backend bk_{backend_tag}_vless")
-                    cfg.append("    mode http")
-                    cfg.append("    no option http-buffer-request")
-                    cfg.append("    timeout tunnel 1h")
-                    cfg.append("    option splice-auto")
-                    cfg.append("    option http-keep-alive")
-                    cfg.append("    option forwardfor")
-                    cfg.append(f"    # Scenario Ports: Reverse={reverse_port}, XTLS={xtls_port}, SOCKS={socks_port}")
-                    
-                    if is_local:
-                        # Local Xray is a VLESS backend on loopback, binding to derived reverse tunnel port
-                        cfg.append(f"    server local_xray_{reverse_port} {target_ip}:{reverse_port} check maxconn 5000\n")
-                    else:
-                        # Remote mesh target server over Wireguard directly to the peer's derived reverse tunnel port (no SSL)
-                        cfg.append(f"    server remote_mesh_{ins}_{reverse_port} {target_ip}:{reverse_port} check maxconn 5000\n")
-
-                    # 2. XTLS / User Connection Backend
-                    cfg.append(f"backend bk_{backend_tag}_xtls")
-                    cfg.append("    mode http")
-                    cfg.append("    no option http-buffer-request")
-                    cfg.append("    timeout tunnel 1h")
-                    cfg.append("    option splice-auto")
-                    cfg.append("    option http-keep-alive")
-                    cfg.append("    option forwardfor")
-                    cfg.append(f"    # Scenario Ports: Reverse={reverse_port}, XTLS={xtls_port}, SOCKS={socks_port}")
-                    
-                    if is_local:
-                        # Local XTLS backend on loopback, binding to derived XTLS user port
-                        cfg.append(f"    server local_xtls_{xtls_port} {target_ip}:{xtls_port} check maxconn 5000\n")
-                    else:
-                        # Remote mesh target server over Wireguard directly to the peer's derived XTLS user port (no SSL)
-                        cfg.append(f"    server remote_mesh_{ins}_{xtls_port} {target_ip}:{xtls_port} check maxconn 5000\n")
+backend bk_remote_mesh
+    mode http
+    # Dynamically target the resolved WireGuard IP of the peer node
+    http-request set-dst var(txn.target_ip)
+    # Target peer's HAProxy HTTP port 80 over WireGuard secure network
+    http-request set-dst-port int(80)
+    server remote_haproxy 0.0.0.0:80
+""")
 
     return "\n".join(cfg)
 
@@ -277,7 +237,7 @@ backend bk_mmd_pg_de
 # MAIN INVOCATION ENTRYPOINT
 # ===================================================================
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Multicast HAProxy Config Compiler")
+    parser = argparse.ArgumentParser(description="Dynamic HAProxy Config Compiler")
     parser.add_argument("--node", type=str, default="all", help="Target inside node ID (01, 03, 04, 05, 06, 07 or 'all')")
     parser.add_argument("--outdir", type=str, default="configs/haproxy/generated", help="Output directory for generated files")
     
@@ -286,17 +246,26 @@ if __name__ == "__main__":
     out_dir = os.path.abspath(args.outdir)
     os.makedirs(out_dir, exist_ok=True)
     
+    # 1. Compile the inside_servers.map lookup table file
+    map_file_path = os.path.join(out_dir, "inside_servers.map")
+    print(f"[*] Compiling shared map file to: {map_file_path}")
+    map_lines = []
+    for s_id, s_ip in sorted(INSIDE_SERVERS.items()):
+        map_lines.append(f"{s_id} {s_ip}")
+    with open(map_file_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(map_lines) + "\n")
+    print("    -> Map file generated successfully!")
+
+    # 2. Compile node-specific configurations
     targets = INSIDE_SERVERS.keys() if args.node == "all" else [args.node]
-    
-    print(f"[*] Starting compilation. Output directory: {out_dir}")
-    print(f"[*] Compiling paths matrix: {len(TUNNEL_IDS)} tunnels x {len(OUTSIDE_SERVERS)} bridges x {len(INSIDE_SERVERS)} nodes x {len(CDNS)} CDNs = {len(TUNNEL_IDS)*len(OUTSIDE_SERVERS)*len(INSIDE_SERVERS)*len(CDNS)} combinations.")
+    print(f"[*] Starting HAProxy compilation. Output directory: {out_dir}")
     
     for t_node in targets:
-        print(f"[+] Compiling HAProxy configuration for Node {t_node} (IP: {INSIDE_SERVERS[t_node]})...")
+        print(f"[+] Compiling dynamic HAProxy configuration for Node {t_node} (IP: {INSIDE_SERVERS[t_node]})...")
         config_content = generate_haproxy_cfg(t_node)
         file_path = os.path.join(out_dir, f"haproxy_node_{t_node}.cfg")
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(config_content)
         print(f"    -> Compiled successfully! Saved to: {file_path}")
             
-    print("[*] Compilation complete.")
+    print("[*] All processes completed successfully.")
