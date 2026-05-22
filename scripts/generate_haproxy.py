@@ -48,23 +48,31 @@ SUBDOMAINS = {
 }
 
 # ===================================================================
-# PORT DERIVATION FORMULA
+# PORT DERIVATION FORMULAS
 # ===================================================================
-def get_derived_vless_port(tunnel_id, inside_id, cdn_id):
+def get_derived_reverse_port(tunnel_id, outside_id, inside_id, cdn_id):
     """
-    Derives the local SOCKS/VLESS port: {tunnel_id}{inside_id}{cdn_id}
-    E.g. tunnel 21, inside 07, cdn 05 -> Port 21075
-    E.g. tunnel 05, inside 01, cdn 03 -> Port 5013
+    Type 1: Bridge-to-Portal (Reverse Tunnel) Listening Port
+    Formula: 10000 + (T * 1000) + (O * 100) + (I * 10) + C
+    E.g. Tunnel 05, Outside 01, Inside 03, CDN 01 -> Port 15131
     """
-    return int(f"{tunnel_id}{inside_id}{cdn_id}")
+    return 10000 + (int(tunnel_id) * 1000) + (int(outside_id) * 100) + (int(inside_id) * 10) + int(cdn_id)
 
-def get_derived_xtls_port(inside_id, cdn_id):
+def get_derived_xtls_port(tunnel_id, outside_id, inside_id, cdn_id):
     """
-    Derives the local XTLS listening port: 5000 + {inside_id}{cdn_id}
-    E.g. inside 07, cdn 05 -> Port 5075
-    E.g. inside 01, cdn 03 -> Port 5013
+    Type 2: User XTLS Port (User-to-HAProxy/Xray)
+    Formula: 20000 + (T * 1000) + (O * 100) + (I * 10) + C
+    E.g. Tunnel 05, Outside 01, Inside 03, CDN 01 -> Port 25131
     """
-    return 5000 + int(f"{inside_id}{cdn_id}")
+    return 20000 + (int(tunnel_id) * 1000) + (int(outside_id) * 100) + (int(inside_id) * 10) + int(cdn_id)
+
+def get_derived_socks_port(tunnel_id, outside_id, inside_id, cdn_id):
+    """
+    Type 3: SOCKS Delivery Port
+    Formula: 30000 + (T * 1000) + (O * 100) + (I * 10) + C
+    E.g. Tunnel 05, Outside 01, Inside 03, CDN 01 -> Port 35131
+    """
+    return 30000 + (int(tunnel_id) * 1000) + (int(outside_id) * 100) + (int(inside_id) * 10) + int(cdn_id)
 
 # ===================================================================
 # CONFIG TEMPLATE GENERATOR
@@ -224,9 +232,10 @@ backend bk_mmd_pg_de
                     is_local = (ins == node_id)
                     target_ip = "127.0.0.1" if is_local else INSIDE_SERVERS[ins]
                     
-                    # Derive ports
-                    vless_port = get_derived_vless_port(tunnel, ins, cdn)
-                    xtls_port = get_derived_xtls_port(ins, cdn)
+                    # Derive 3-port scenario mapping
+                    reverse_port = get_derived_reverse_port(tunnel, out, ins, cdn)
+                    xtls_port = get_derived_xtls_port(tunnel, out, ins, cdn)
+                    socks_port = get_derived_socks_port(tunnel, out, ins, cdn)
 
                     # 1. Reverse / VLESS Backend
                     cfg.append(f"backend bk_{backend_tag}_vless")
@@ -236,10 +245,11 @@ backend bk_mmd_pg_de
                     cfg.append("    option splice-auto")
                     cfg.append("    option http-keep-alive")
                     cfg.append("    option forwardfor")
+                    cfg.append(f"    # Scenario Ports: Reverse={reverse_port}, XTLS={xtls_port}, SOCKS={socks_port}")
                     
                     if is_local:
-                        # Local Xray is a VLESS backend on loopback
-                        cfg.append(f"    server local_xray_{vless_port} {target_ip}:{vless_port} check maxconn 5000\n")
+                        # Local Xray is a VLESS backend on loopback, binding to derived reverse tunnel port
+                        cfg.append(f"    server local_xray_{reverse_port} {target_ip}:{reverse_port} check maxconn 5000\n")
                     else:
                         # Remote mesh target server over Wireguard on Port 443 with transparent SSL verification bypass
                         cfg.append(f"    server remote_mesh_{ins} {target_ip}:443 ssl verify none check maxconn 5000\n")
@@ -252,9 +262,10 @@ backend bk_mmd_pg_de
                     cfg.append("    option splice-auto")
                     cfg.append("    option http-keep-alive")
                     cfg.append("    option forwardfor")
+                    cfg.append(f"    # Scenario Ports: Reverse={reverse_port}, XTLS={xtls_port}, SOCKS={socks_port}")
                     
                     if is_local:
-                        # Local XTLS backend on loopback
+                        # Local XTLS backend on loopback, binding to derived XTLS user port
                         cfg.append(f"    server local_xtls_{xtls_port} {target_ip}:{xtls_port} check maxconn 5000\n")
                     else:
                         # Remote mesh target server over Wireguard on Port 443 with transparent SSL verification bypass
