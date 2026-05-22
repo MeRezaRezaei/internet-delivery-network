@@ -102,6 +102,12 @@
     - Implemented a Direct Reverse Proxy routing pattern mapping `IN_{T}_{O}_{I}_{C}_XTLS` directly to the portal's reverse outbound tag (`reverse-out-{T}_{O}_{I}_{C}`), completely eliminating SOCKS5 local loopbacks and double-encryption overhead.
     - Structured the 768 inbounds (384 user-facing XTLS on Type 2 ports and 384 Reverse Portals on Type 1 ports) and 769 routing rules to share the exact same configuration on all nodes, allowing dynamic registration without port conflicts.
     - Compiled and exported all 768 Reverse Portal inbound tags to `configs/xray/generated/exclude_tags.txt` and `configs/xray/generated/exclude_tags_csv.txt` for integration into the Marzban dynamic exclude tag variable.
+- **Dynamic CDN-Style Single-Port Architecture Proposal:**
+    - Formulated a highly scalable, dynamic CDN-style single-port architecture design to resolve server resource exhaustion and HAProxy bloat.
+    - Designed Xray single-port consolidation: dropping Xray loopback listeners from 768 down to exactly **2 ports** (port 10001 for reverse portal registrations and port 20001 for user XTLS connections), using unique client emails (`{T}_{O}_{I}_{C}@user` and `{T}_{O}_{I}_{C}@reverse`) and sequential in-memory routing rules.
+    - Designed HAProxy dynamic path routing: extracting `{inside_server_id}` from paths via HAProxy field extractors, looking up Target IPs in `/etc/haproxy/inside_servers.map`, and forwarding remotely over the WireGuard mesh on port 80 (HTTP) to bypass double-SSL overhead, or rewriting paths to route locally.
+    - Aligned with the server's exact SSL cert path `/opt/node/certs/ssl_bundle.pem` on port 443 and removed unsupported QUIC bindings.
+    - Wrote the complete `implementation_plan.md` artifact and requested user feedback.
 
 
 

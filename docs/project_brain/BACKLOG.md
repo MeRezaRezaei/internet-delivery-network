@@ -32,6 +32,7 @@
 | IDN-020 | P1 | Develop CLI Orchestrator (idn-ctl) | todo | IDN-019 | Python script compiles, validates, and deploys configs |
 | IDN-021 | P1 | Multicast Config Generator Alignment | done | IDN-017 | Realigned HAProxy config generator to user's 6-node matrix and compiled all configs |
 | IDN-022 | P0 | Unified Xray Config Compilation | done | IDN-021 | Compiled unified, replicated 2592 scenario Xray JSON config bypassing SOCKS5 |
+| IDN-023 | P0 | Dynamic CDN-Style Refactor | doing | IDN-022 | Refactored HAProxy and Xray generator scripts and successfully validated dynamic config outputs |
 
 
 ## WIP Rule

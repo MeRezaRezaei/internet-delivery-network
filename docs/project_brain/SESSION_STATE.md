@@ -6,7 +6,7 @@
 
 ## Current Stage
 - Stage: Operational Maintenance & Automation
-- Focus: Integrating Docker-based orchestration (Marzban) and centralized DNS (Technitium) into the management framework.
+- Focus: Refining HAProxy and Xray configurations into a dynamic, CDN-style single-port architecture to resolve server resource degradation and SSL/QUIC constraints.
 
 ## Done
 - **Unified Replicated Xray Configuration Compilation & SOCKS5 Bypass (2026-05-22):** Generated a filtered unified Xray config (`configs/xray/generated/xray_unified.json`) containing **384 active scenario combinations** (768 inbounds, 769 routing rules) across active outside servers ("01", "03"), active inside nodes ("01", "03", "04", "05"), and active CDNs ("01", "05") to match Marzban processing limits. It implements direct reverse proxy routing (VLESS over XHTTP reverse proxy), completely bypassing SOCKS5 loopbacks and reducing connection latency. Compiled and exported 768 reverse portal inbound tags to `configs/xray/generated/exclude_tags.txt` and `configs/xray/generated/exclude_tags_csv.txt` for Marzban tag exclusion settings.
