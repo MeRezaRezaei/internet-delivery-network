@@ -30,6 +30,8 @@
 | IDN-018 | P1 | Centralized Config Database Design | done | IDN-017 | Detailed architectural DB proposal created |
 | IDN-019 | P1 | Implement Centralized MySQL Config DB | todo | IDN-018 | Tables created and populated on srv07 MySQL |
 | IDN-020 | P1 | Develop CLI Orchestrator (idn-ctl) | todo | IDN-019 | Python script compiles, validates, and deploys configs |
+| IDN-021 | P1 | Multicast Config Generator Alignment | done | IDN-017 | Realigned HAProxy config generator to user's 6-node matrix and compiled all configs |
+
 
 ## WIP Rule
 - Max doing items: 2
