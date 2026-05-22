@@ -27,6 +27,9 @@
 | IDN-015 | P0 | Establish Stable SOCKS Outbounds on Domestic Nodes | done | IDN-014 | Verified active SOCKS connections on srv01, srv03, srv04 |
 | IDN-016 | P1 | Reorganize and Clean Up Repository Root | done | - | Files sorted into keys/, configs/, scripts/ and tracked |
 | IDN-017 | P1 | Analyze Misunderstandings & Upgrade Brain with Prompts | done | IDN-016 | Prompts created in PROMPT_LIBRARY.md to block critical pitfalls |
+| IDN-018 | P1 | Centralized Config Database Design | done | IDN-017 | Detailed architectural DB proposal created |
+| IDN-019 | P1 | Implement Centralized MySQL Config DB | todo | IDN-018 | Tables created and populated on srv07 MySQL |
+| IDN-020 | P1 | Develop CLI Orchestrator (idn-ctl) | todo | IDN-019 | Python script compiles, validates, and deploys configs |
 
 ## WIP Rule
 - Max doing items: 2
