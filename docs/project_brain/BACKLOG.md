@@ -31,6 +31,7 @@
 | IDN-019 | P1 | Implement Centralized MySQL Config DB | todo | IDN-018 | Tables created and populated on srv07 MySQL |
 | IDN-020 | P1 | Develop CLI Orchestrator (idn-ctl) | todo | IDN-019 | Python script compiles, validates, and deploys configs |
 | IDN-021 | P1 | Multicast Config Generator Alignment | done | IDN-017 | Realigned HAProxy config generator to user's 6-node matrix and compiled all configs |
+| IDN-022 | P0 | Unified Xray Config Compilation | done | IDN-021 | Compiled unified, replicated 2592 scenario Xray JSON config bypassing SOCKS5 |
 
 
 ## WIP Rule

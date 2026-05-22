@@ -21,4 +21,9 @@
 - Rationale: Enables 100% collision-free, loop-free, and self-documenting port allocation where any port number clearly encodes its type, tunnel ID, outside server ID, inside server ID, and CDN ID. Bypassing port 443 SSL between mesh servers eliminates CPU overhead and connection handshake latency over the secure WireGuard private network.
 - Impact: Derived ports: Type 1 (Reverse Tunnel): `10000 + (T*1000) + (O*100) + (I*10) + C`, Type 2 (User XTLS): `20000 + (T*1000) + (O*100) + (I*10) + C`, Type 3 (SOCKS Delivery): `30000 + (T*1000) + (O*100) + (I*10) + C`. Remote peers route directly to the target's derived plain-TCP port over WireGuard (e.g. target_ip:13221) rather than jumping through secondary SSL ports. Compiled 6 inside node configs with 2592 dynamic combinations each.
 - Supersedes: None
-
+- ID: D-004
+- Date: 2026-05-22
+- Decision: Integrated Direct Reverse Proxy routing (VLESS reverse tunnel over XHTTP) into the unified, replicated Xray configuration on all Marzban edge nodes, completely bypassing SOCKS5 bridging.
+- Rationale: Eliminating the local SOCKS loopback hop (`Iran XTLS -> SOCKS Out -> Local SOCKS In -> Reverse Portal`) directly targets the registered reverse proxy outbound tag `reverse-out-{T}_{O}_{I}_{C}`. This reduces latency, saves CPU cycles, and simplifies the codebase. Gathering all portal inbound tags and adding them to the Marzban `exclude` variable prevents dynamic credential injection into these tunnel registration ports, keeping the configuration lightweight.
+- Impact: Generated `configs/xray/generated/xray_unified.json` containing 5184 inbounds (2592 XTLS, 2592 Reverse Portals) and 5185 routing rules. Compiled `configs/xray/generated/exclude_tags.txt` and `configs/xray/generated/exclude_tags_csv.txt` for Marzban configuration integration.
+- Supersedes: None
