@@ -1,0 +1,77 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "inbounds": [
+        {
+            "tag": "socks",
+            "port": 10707,
+            "listen": "0.0.0.0",
+            "protocol": "mixed",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ],
+                "routeOnly": false
+            },
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "allowTransparent": false
+            }
+        }
+        
+    ],
+    "outbounds": [
+        {
+            "tag": "proxy",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "100.100.5.100",
+                        "ota": false,
+                        "port": 10808,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            },
+            "mux": {
+                "enabled": false,
+                "concurrency": -1
+            }
+        },
+        {
+            "tag": "direct",
+            "protocol": "freedom"
+        },
+        {
+            "tag": "block",
+            "protocol": "blackhole"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "IPOnDemand",
+        "rules": [
+            {
+                "type": "field",
+                "port": "0-65535",
+                "outboundTag": "proxy"
+            }
+        ]
+    }
+
+}

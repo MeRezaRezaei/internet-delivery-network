@@ -1,7 +1,7 @@
 # Session State
 
 ## Last Updated
-- Date: 2026-05-21
+- Date: 2026-05-22
 - Owner: Antigravity
 
 ## Current Stage
@@ -9,6 +9,7 @@
 - Focus: Integrating Docker-based orchestration (Marzban) and centralized DNS (Technitium) into the management framework.
 
 ## Done
+- **Repository Reorganization and Cleanup (2026-05-22):** Cleaned up and structured the repository root by reorganizing loose keys, config backups, and scripts into dedicated directories (`keys/`, `configs/haproxy/`, `configs/xray/backups/`, and `scripts/`). Removed empty folders and garbage files (`null`), updated `.gitignore` rules, and synchronized the entire setup with Git.
 - **Mapped and Locked Unbreakable Direct Tunnels (2026-05-21):** Discovered and documented the exact configurations, public/internal ports, and credentials for the three core management tunnels bridging Server 07 (Portal) with srv09 (US), de-server (DE), and Pubg-Sell (DE-PG). Wrote their configs as static JSON backups in the brain and integrated strict, permanent 'Zero-Touch' safety policies across the AI operating protocols and network architecture documents.
 - Mapped full 10-server topology and verified access paths (WSL -> 04 -> 07 -> 09/01).
 - Deciphered the "Reverse-Reverse Proxy" trick (Iran as Portal, US as Bridge).

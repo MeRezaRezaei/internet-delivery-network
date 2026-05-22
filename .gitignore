@@ -1,1 +1,11 @@
 docs/project_brain/PRIVATE_MEMORY.md
+
+# OS/System files
+.DS_Store
+Thumbs.db
+
+# Temporary/Backup files
+*.bak
+*.tmp
+*.log
+null

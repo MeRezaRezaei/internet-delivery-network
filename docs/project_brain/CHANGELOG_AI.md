@@ -71,5 +71,16 @@
     - **Domestic Services Launch**: Enabled and started systemd portal services natively (`xray@c-01-01-03-01` on Server 03).
     - **100% SOCKS Verification**: Ran complete diagnostic latency suite. Confirmed active SOCKS5 proxy internet access on Server 01 (1081/1085), Server 03 (1081), and Server 04 (1081/1085) with remote DNS resolving successfully.
 
+## 2026-05-22
+- **Repository Reorganization and Cleanup:**
+    - Cleaned up and structured the repository root by reorganizing loose keys, config backups, and scripts into dedicated directories.
+    - Created `keys/` and moved WireGuard and SSH keys into it.
+    - Created `configs/haproxy/` and moved HAProxy backup configurations into it.
+    - Created `configs/xray/backups/` and moved Xray/Marzban JSON config backups into it.
+    - Created `scripts/` and `scripts/scratch/` and moved all diagnostic and scratch scripts into them.
+    - Cleaned up empty folders and garbage files (`null`).
+    - Updated `.gitignore` rules to prevent future file clutter.
+    - Synchronized all structural changes in Git tracking.
+
 
 
