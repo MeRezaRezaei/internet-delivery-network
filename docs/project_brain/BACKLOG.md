@@ -26,6 +26,7 @@
 | IDN-014 | P1 | Remediate srv09 Xray Conflicts & Align SSH | done | IDN-013 | Monolithic service stopped, template active; Mesh SSH verified |
 | IDN-015 | P0 | Establish Stable SOCKS Outbounds on Domestic Nodes | done | IDN-014 | Verified active SOCKS connections on srv01, srv03, srv04 |
 | IDN-016 | P1 | Reorganize and Clean Up Repository Root | done | - | Files sorted into keys/, configs/, scripts/ and tracked |
+| IDN-017 | P1 | Analyze Misunderstandings & Upgrade Brain with Prompts | done | IDN-016 | Prompts created in PROMPT_LIBRARY.md to block critical pitfalls |
 
 ## WIP Rule
 - Max doing items: 2

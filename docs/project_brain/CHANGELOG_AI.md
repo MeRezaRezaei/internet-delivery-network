@@ -81,6 +81,9 @@
     - Cleaned up empty folders and garbage files (`null`).
     - Updated `.gitignore` rules to prevent future file clutter.
     - Synchronized all structural changes in Git tracking.
+- **Project Brain Upgrade - Prompt Library & Guardrails:**
+    - Conducted a thorough analysis of past session misunderstandings and user corrections.
+    - Upgraded `PROMPT_LIBRARY.md` to establish strict **Correction Prevention Guardrails** targeting four core historical risks: Zero-Touch management tunnel protection, Xray v26 simplified outbound syntax, Marzban multi-panel subdomain isolation, and Mesh SSH Port 2022 routing parameters.
 
 
 

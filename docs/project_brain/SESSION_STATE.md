@@ -10,6 +10,7 @@
 
 ## Done
 - **Repository Reorganization and Cleanup (2026-05-22):** Cleaned up and structured the repository root by reorganizing loose keys, config backups, and scripts into dedicated directories (`keys/`, `configs/haproxy/`, `configs/xray/backups/`, and `scripts/`). Removed empty folders and garbage files (`null`), updated `.gitignore` rules, and synchronized the entire setup with Git.
+- **Project Brain Upgrade - Prompt Library & Guardrails (2026-05-22):** Conducted a deep analysis of historical session misalignments and corrections. Successfully upgraded `PROMPT_LIBRARY.md` to define strict **Correction Prevention Guardrails** covering: Zero-Touch critical tunnel protection, Xray v26 simplified outbound syntax, Marzban multi-panel subdomain isolation, and Mesh SSH Port 2022 routing requirements.
 - **Mapped and Locked Unbreakable Direct Tunnels (2026-05-21):** Discovered and documented the exact configurations, public/internal ports, and credentials for the three core management tunnels bridging Server 07 (Portal) with srv09 (US), de-server (DE), and Pubg-Sell (DE-PG). Wrote their configs as static JSON backups in the brain and integrated strict, permanent 'Zero-Touch' safety policies across the AI operating protocols and network architecture documents.
 - Mapped full 10-server topology and verified access paths (WSL -> 04 -> 07 -> 09/01).
 - Deciphered the "Reverse-Reverse Proxy" trick (Iran as Portal, US as Bridge).
