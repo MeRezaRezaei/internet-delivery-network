@@ -14,3 +14,11 @@
 - Rationale: Server 07 is the primary "Pro" exit point for the network. Exposing it to client traffic or anti-censorship payloads carries an unacceptable risk of losing our only reliable path out.
 - Impact: No client-facing tunnels or proxies shall be deployed on Server 07. All client traffic must be routed via other Iranian nodes (e.g., Server 01, 03, 04) which are in turn bridged to external nodes.
 - Supersedes: None
+
+- ID: D-003
+- Date: 2026-05-22
+- Decision: Implemented 3-Port Deterministic Multicast formula for all mesh config generations.
+- Rationale: Enables 100% collision-free, loop-free, and self-documenting port allocation where any port number clearly encodes its type, tunnel ID, outside server ID, inside server ID, and CDN ID.
+- Impact: Derived ports: Type 1 (Reverse Tunnel): `10000 + (T*1000) + (O*100) + (I*10) + C`, Type 2 (User XTLS): `20000 + (T*1000) + (O*100) + (I*10) + C`, Type 3 (SOCKS Delivery): `30000 + (T*1000) + (O*100) + (I*10) + C`. All target inside nodes (01-06) HAProxy configs compiled.
+- Supersedes: None
+
