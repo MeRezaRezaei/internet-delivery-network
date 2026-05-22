@@ -17,16 +17,17 @@ import os
 import json
 
 # ===================================================================
-# INVENTORY CONFIGURATION
+# INVENTORY CONFIGURATION (Filtered to Active Nodes only for performance)
 # ===================================================================
 # Tunnel IDs 01 to 24 sequentially matching MySQL database auto-increment keys
 TUNNEL_IDS = [f"{i:02d}" for i in range(1, 25)]
-# 3 Outside servers
-OUTSIDE_SERVERS = ["01", "02", "03"]
-# 6 Inside servers
-INSIDE_SERVERS = ["01", "02", "03", "04", "05", "06"]
-# 6 CDNs
-CDNS = ["01", "02", "03", "04", "05", "06"]
+# Active Outside servers
+OUTSIDE_SERVERS = ["01", "03"]
+# Active Inside servers
+INSIDE_SERVERS = ["01", "03", "04", "05"]
+# Active CDNs
+CDNS = ["01", "05"]
+
 
 # Common Credentials
 UUID = "58764c09-99c3-4496-9591-9cff83e4c7b7"
@@ -48,9 +49,6 @@ def generate_unified_xray():
     inbounds = []
     routing_rules = []
     exclude_tags = []
-
-    print("[*] Generating 2592 scenario combinations...")
-
     # Pre-populate list of combinations
     combinations = []
     for t in TUNNEL_IDS:
@@ -58,6 +56,9 @@ def generate_unified_xray():
             for i in INSIDE_SERVERS:
                 for c in CDNS:
                     combinations.append((t, o, i, c))
+
+    print(f"[*] Generating {len(combinations)} scenario combinations...")
+
 
     for idx, (t, o, i, c) in enumerate(combinations):
         tag_suffix = f"{t}_{o}_{i}_{c}"

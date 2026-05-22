@@ -98,10 +98,11 @@
     - Optimized the internal mesh routing by replacing redundant SSL-terminated HAProxy-to-HAProxy port 443 connections with direct, high-performance plain-TCP routing over the WireGuard secure private network (`10.255.1.x`) targeting the target peer's specific derived port (e.g., target_ip:13221), bypassing secondary SSL handshake overhead completely.
     - Successfully compiled and verified optimized configs for all 6 target inside nodes (`01` through `06`) under Git tracking.
 - **Unified Replicated Xray Configuration Compiler & SOCKS5 Bypass:**
-    - Executed `scripts/generate_xray.py` compiler to generate the unified Xray JSON configuration (`configs/xray/generated/xray_unified.json`) representing 2592 scenario combinations.
+    - Executed and refined the `scripts/generate_xray.py` compiler to generate a unified Xray JSON configuration (`configs/xray/generated/xray_unified.json`) filtered to **384 active scenario combinations** (outside servers "01"/"03", inside nodes "01"/"03"/"04"/"05", CDNs "01"/"05") to match Marzban processing limits.
     - Implemented a Direct Reverse Proxy routing pattern mapping `IN_{T}_{O}_{I}_{C}_XTLS` directly to the portal's reverse outbound tag (`reverse-out-{T}_{O}_{I}_{C}`), completely eliminating SOCKS5 local loopbacks and double-encryption overhead.
-    - Structured the 5184 inbounds (2592 user-facing XTLS on Type 2 ports and 2592 Reverse Portals on Type 1 ports) to share the exact same configuration on all nodes, allowing dynamic registration without port conflicts.
-    - Compiled and exported all 2592 Reverse Portal inbound tags to `configs/xray/generated/exclude_tags.txt` and `configs/xray/generated/exclude_tags_csv.txt` for integration into the Marzban dynamic exclude tag variable.
+    - Structured the 768 inbounds (384 user-facing XTLS on Type 2 ports and 384 Reverse Portals on Type 1 ports) and 769 routing rules to share the exact same configuration on all nodes, allowing dynamic registration without port conflicts.
+    - Compiled and exported all 768 Reverse Portal inbound tags to `configs/xray/generated/exclude_tags.txt` and `configs/xray/generated/exclude_tags_csv.txt` for integration into the Marzban dynamic exclude tag variable.
+
 
 
 
