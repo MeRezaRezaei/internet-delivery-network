@@ -1,14 +1,16 @@
 # Session State
 
 ## Last Updated
-- Date: 2026-05-22
+- Date: 2026-05-23
 - Owner: Antigravity
 
 ## Current Stage
-- Stage: Operational Maintenance & Automation
-- Focus: Refining HAProxy and Xray configurations into a dynamic, CDN-style single-port architecture to resolve server resource degradation and SSL/QUIC constraints.
+- Stage: Speed Aggregation & Performance Tuning
+- Focus: Generating parallel multi-channel VLESS tunnels to bypass single-stream bottlenecks and evading GFW DPI throttling.
 
 ## Done
+- **100-Tunnel Speed Aggregation Engine (2026-05-23):** Developed a parallel-stream configuration generator (`generate_100_tunnels.py`) generating 100 concurrent VLESS reverse outbounds. Deployed client load-balancing selectors (`balancer_100`) on the Portal side, distributing connection load dynamically to aggregate speeds and bypass Cloudflare/ArvanCloud TCP single-stream throttling. Successfully generated production-ready configs for `100-10-01-05` (using `i-01.doctel.ir`) and `100-10-04-05` (using `i-04.doctel.ir`).
+- **Dynamic HAProxy Regex Sub-Path Alignment (2026-05-23):** Patched the dynamic HAProxy generator script to align regex patterns for `is_xtls` and `is_reverse` to support trailing wildcard sub-paths using `($|/.*)` instead of strict end-anchored `/` matchers. This resolved the 404 routing fallbacks under `bk_fallback` on nodes running VLESS over XTLS/XHTTP.
 - **Dynamic CDN-Style Refactor & SSL Alignment (2026-05-22):** Refactored the mesh generators (`generate_haproxy.py` and `generate_xray.py`) to transition the IDN from high-overhead port-multiplying to a dynamic, single-port CDN-style map-routing system. HAProxy dynamically parses incoming tunnel paths (slash/dash separated formats) and looks them up in `/etc/haproxy/inside_servers.map` to route traffic dynamically over WireGuard plain-HTTP (port 80) for remote nodes, or local loopbacks (ports 10001/20001) for local nodes. Implemented exact standard port 443 SSL-aligned frontend (`incoming_https` using `/opt/node/certs/ssl_bundle.pem`, h2/http/1.1 ALPN, and healthcheck status `OK_NEW`). Successfully compiled and validated configurations for all target nodes.
 
 - **Unified Replicated Xray Configuration Compilation & SOCKS5 Bypass (2026-05-22):** Generated a filtered unified Xray config (`configs/xray/generated/xray_unified.json`) containing **384 active scenario combinations** (768 inbounds, 769 routing rules) across active outside servers ("01", "03"), active inside nodes ("01", "03", "04", "05"), and active CDNs ("01", "05") to match Marzban processing limits. It implements direct reverse proxy routing (VLESS over XHTTP reverse proxy), completely bypassing SOCKS5 loopbacks and reducing connection latency. Compiled and exported 768 reverse portal inbound tags to `configs/xray/generated/exclude_tags.txt` and `configs/xray/generated/exclude_tags_csv.txt` for Marzban tag exclusion settings.

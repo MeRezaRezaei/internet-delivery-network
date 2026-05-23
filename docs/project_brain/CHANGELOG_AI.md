@@ -108,10 +108,16 @@
     - **Map Lookup Integration**: Created the dynamic lookup map `inside_servers.map` which resolves peer WireGuard IPs dynamically at runtime. If a requested node ID is remote, HAProxy routes it over plain HTTP (port 80) over WireGuard mesh to bypass SSL overhead; if local, it rewrites the path (to `/reverse` or `/xtls`) and routes it locally to Xray loopback ports.
     - **SSL & Healthcheck Alignment**: Standardized all inside node SSL configurations to use exactly `incoming_https` binding on port 443 with `/opt/node/certs/ssl_bundle.pem` (ALPN h2,http/1.1; no QUIC) and the precise healthcheck return status `OK_NEW`.
     - **Xray Generator Refactored (`generate_xray.py`)**: Consolidates 384 active scenario combinations into exactly **2 loopback listeners** (port 10001 for reverse portal registrations and port 20001 for user XTLS connections) using unique VLESS client emails and in-memory routing rules. Excluded the loopback tags from Marzban using a single csv exclude list.
-    - **Compilation & Verification**: Generated all node configuration assets, verified SOCKS5 elimination, verified compact files, and updated the AI Brain.
+- **Compilation & Verification**: Generated all node configuration assets, verified SOCKS5 elimination, verified compact files, and updated the AI Brain.
 
-
-
-
-
+## 2026-05-23
+- **Dynamic HAProxy Regex Sub-Path Alignment:**
+    - Identified a critical routing bug in `scripts/generate_haproxy.py` where regex paths used strict end-anchored `/` matchers (e.g. `($|/)`), causing requests with trailing session and packet IDs to fall back to `bk_fallback` and return 404.
+    - Patched the regex matchers in both the HTTP and HTTPS frontends to support trailing wildcard sub-paths using `($|/.*)`, allowing nested paths to route correctly to local loopback backends.
+    - Successfully regenerated and validated compact HAProxy configs for all 6 target inside nodes.
+- **100-Tunnel Speed Aggregator Development:**
+    - Developed a parallel-stream configuration generator (`scripts/generate_100_tunnels.py`) supporting dynamic CLI arguments (`--domain`, `--path`, `--key`, `--count`) to bypass GFW/CDN single-stream throttling.
+    - Generated a parallel 100-channel concurrent VLESS reverse tunnel Bridge configuration for `100-10-01-05` (targeting `i-01.doctel.ir` and path `/100-10-01-05`).
+    - Compiled the second-round parallel 100-channel VLESS reverse tunnel Bridge configuration for `100-10-04-05` (targeting `i-04.doctel.ir` and path `/100-10-04-05`).
+    - Configured matching client load-balancing selectors (`balancer_100` with random strategy) and routing filters on the Portal side to aggregate connection load.
 
