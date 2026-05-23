@@ -119,5 +119,5 @@
     - Developed a parallel-stream configuration generator (`scripts/generate_100_tunnels.py`) supporting dynamic CLI arguments (`--domain`, `--path`, `--key`, `--count`) to bypass GFW/CDN single-stream throttling.
     - Generated a parallel 100-channel concurrent VLESS reverse tunnel Bridge configuration for `100-10-01-05` (targeting `i-01.doctel.ir` and path `/100-10-01-05`).
     - Compiled the second-round parallel 100-channel VLESS reverse tunnel Bridge configuration for `100-10-04-05` (targeting `i-04.doctel.ir` and path `/100-10-04-05`).
+    - Compiled the third-round parallel 100-channel VLESS reverse tunnel Bridge configuration for `100-10-03-05` (targeting `i-03.doctel.ir` and path `/100-10-03-05`).
     - Configured matching client load-balancing selectors (`balancer_100` with random strategy) and routing filters on the Portal side to aggregate connection load.
-

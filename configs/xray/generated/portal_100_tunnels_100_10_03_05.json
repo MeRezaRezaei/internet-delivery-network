@@ -1,0 +1,877 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "tag": "socks-in",
+      "port": 10800,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      }
+    },
+    {
+      "tag": "IN_REVERSE_PORTAL_100",
+      "port": 15100,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_001@reverse",
+            "reverse": {
+              "tag": "reverse-out-001"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_002@reverse",
+            "reverse": {
+              "tag": "reverse-out-002"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_003@reverse",
+            "reverse": {
+              "tag": "reverse-out-003"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_004@reverse",
+            "reverse": {
+              "tag": "reverse-out-004"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_005@reverse",
+            "reverse": {
+              "tag": "reverse-out-005"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_006@reverse",
+            "reverse": {
+              "tag": "reverse-out-006"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_007@reverse",
+            "reverse": {
+              "tag": "reverse-out-007"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_008@reverse",
+            "reverse": {
+              "tag": "reverse-out-008"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_009@reverse",
+            "reverse": {
+              "tag": "reverse-out-009"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_010@reverse",
+            "reverse": {
+              "tag": "reverse-out-010"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_011@reverse",
+            "reverse": {
+              "tag": "reverse-out-011"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_012@reverse",
+            "reverse": {
+              "tag": "reverse-out-012"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_013@reverse",
+            "reverse": {
+              "tag": "reverse-out-013"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_014@reverse",
+            "reverse": {
+              "tag": "reverse-out-014"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_015@reverse",
+            "reverse": {
+              "tag": "reverse-out-015"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_016@reverse",
+            "reverse": {
+              "tag": "reverse-out-016"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_017@reverse",
+            "reverse": {
+              "tag": "reverse-out-017"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_018@reverse",
+            "reverse": {
+              "tag": "reverse-out-018"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_019@reverse",
+            "reverse": {
+              "tag": "reverse-out-019"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_020@reverse",
+            "reverse": {
+              "tag": "reverse-out-020"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_021@reverse",
+            "reverse": {
+              "tag": "reverse-out-021"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_022@reverse",
+            "reverse": {
+              "tag": "reverse-out-022"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_023@reverse",
+            "reverse": {
+              "tag": "reverse-out-023"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_024@reverse",
+            "reverse": {
+              "tag": "reverse-out-024"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_025@reverse",
+            "reverse": {
+              "tag": "reverse-out-025"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_026@reverse",
+            "reverse": {
+              "tag": "reverse-out-026"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_027@reverse",
+            "reverse": {
+              "tag": "reverse-out-027"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_028@reverse",
+            "reverse": {
+              "tag": "reverse-out-028"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_029@reverse",
+            "reverse": {
+              "tag": "reverse-out-029"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_030@reverse",
+            "reverse": {
+              "tag": "reverse-out-030"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_031@reverse",
+            "reverse": {
+              "tag": "reverse-out-031"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_032@reverse",
+            "reverse": {
+              "tag": "reverse-out-032"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_033@reverse",
+            "reverse": {
+              "tag": "reverse-out-033"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_034@reverse",
+            "reverse": {
+              "tag": "reverse-out-034"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_035@reverse",
+            "reverse": {
+              "tag": "reverse-out-035"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_036@reverse",
+            "reverse": {
+              "tag": "reverse-out-036"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_037@reverse",
+            "reverse": {
+              "tag": "reverse-out-037"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_038@reverse",
+            "reverse": {
+              "tag": "reverse-out-038"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_039@reverse",
+            "reverse": {
+              "tag": "reverse-out-039"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_040@reverse",
+            "reverse": {
+              "tag": "reverse-out-040"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_041@reverse",
+            "reverse": {
+              "tag": "reverse-out-041"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_042@reverse",
+            "reverse": {
+              "tag": "reverse-out-042"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_043@reverse",
+            "reverse": {
+              "tag": "reverse-out-043"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_044@reverse",
+            "reverse": {
+              "tag": "reverse-out-044"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_045@reverse",
+            "reverse": {
+              "tag": "reverse-out-045"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_046@reverse",
+            "reverse": {
+              "tag": "reverse-out-046"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_047@reverse",
+            "reverse": {
+              "tag": "reverse-out-047"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_048@reverse",
+            "reverse": {
+              "tag": "reverse-out-048"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_049@reverse",
+            "reverse": {
+              "tag": "reverse-out-049"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_050@reverse",
+            "reverse": {
+              "tag": "reverse-out-050"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_051@reverse",
+            "reverse": {
+              "tag": "reverse-out-051"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_052@reverse",
+            "reverse": {
+              "tag": "reverse-out-052"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_053@reverse",
+            "reverse": {
+              "tag": "reverse-out-053"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_054@reverse",
+            "reverse": {
+              "tag": "reverse-out-054"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_055@reverse",
+            "reverse": {
+              "tag": "reverse-out-055"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_056@reverse",
+            "reverse": {
+              "tag": "reverse-out-056"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_057@reverse",
+            "reverse": {
+              "tag": "reverse-out-057"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_058@reverse",
+            "reverse": {
+              "tag": "reverse-out-058"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_059@reverse",
+            "reverse": {
+              "tag": "reverse-out-059"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_060@reverse",
+            "reverse": {
+              "tag": "reverse-out-060"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_061@reverse",
+            "reverse": {
+              "tag": "reverse-out-061"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_062@reverse",
+            "reverse": {
+              "tag": "reverse-out-062"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_063@reverse",
+            "reverse": {
+              "tag": "reverse-out-063"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_064@reverse",
+            "reverse": {
+              "tag": "reverse-out-064"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_065@reverse",
+            "reverse": {
+              "tag": "reverse-out-065"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_066@reverse",
+            "reverse": {
+              "tag": "reverse-out-066"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_067@reverse",
+            "reverse": {
+              "tag": "reverse-out-067"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_068@reverse",
+            "reverse": {
+              "tag": "reverse-out-068"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_069@reverse",
+            "reverse": {
+              "tag": "reverse-out-069"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_070@reverse",
+            "reverse": {
+              "tag": "reverse-out-070"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_071@reverse",
+            "reverse": {
+              "tag": "reverse-out-071"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_072@reverse",
+            "reverse": {
+              "tag": "reverse-out-072"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_073@reverse",
+            "reverse": {
+              "tag": "reverse-out-073"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_074@reverse",
+            "reverse": {
+              "tag": "reverse-out-074"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_075@reverse",
+            "reverse": {
+              "tag": "reverse-out-075"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_076@reverse",
+            "reverse": {
+              "tag": "reverse-out-076"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_077@reverse",
+            "reverse": {
+              "tag": "reverse-out-077"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_078@reverse",
+            "reverse": {
+              "tag": "reverse-out-078"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_079@reverse",
+            "reverse": {
+              "tag": "reverse-out-079"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_080@reverse",
+            "reverse": {
+              "tag": "reverse-out-080"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_081@reverse",
+            "reverse": {
+              "tag": "reverse-out-081"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_082@reverse",
+            "reverse": {
+              "tag": "reverse-out-082"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_083@reverse",
+            "reverse": {
+              "tag": "reverse-out-083"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_084@reverse",
+            "reverse": {
+              "tag": "reverse-out-084"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_085@reverse",
+            "reverse": {
+              "tag": "reverse-out-085"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_086@reverse",
+            "reverse": {
+              "tag": "reverse-out-086"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_087@reverse",
+            "reverse": {
+              "tag": "reverse-out-087"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_088@reverse",
+            "reverse": {
+              "tag": "reverse-out-088"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_089@reverse",
+            "reverse": {
+              "tag": "reverse-out-089"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_090@reverse",
+            "reverse": {
+              "tag": "reverse-out-090"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_091@reverse",
+            "reverse": {
+              "tag": "reverse-out-091"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_092@reverse",
+            "reverse": {
+              "tag": "reverse-out-092"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_093@reverse",
+            "reverse": {
+              "tag": "reverse-out-093"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_094@reverse",
+            "reverse": {
+              "tag": "reverse-out-094"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_095@reverse",
+            "reverse": {
+              "tag": "reverse-out-095"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_096@reverse",
+            "reverse": {
+              "tag": "reverse-out-096"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_097@reverse",
+            "reverse": {
+              "tag": "reverse-out-097"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_098@reverse",
+            "reverse": {
+              "tag": "reverse-out-098"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_099@reverse",
+            "reverse": {
+              "tag": "reverse-out-099"
+            }
+          },
+          {
+            "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+            "email": "tunnel_100_10_03_05_100@reverse",
+            "reverse": {
+              "tag": "reverse-out-100"
+            }
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "xhttpSettings": {
+          "path": "/100-10-03-05",
+          "mode": "auto"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "block"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "balancers": [
+      {
+        "tag": "balancer_100",
+        "selector": [
+          "reverse-out-"
+        ],
+        "strategy": "random"
+      }
+    ],
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "socks-in"
+        ],
+        "balancerTag": "balancer_100"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "reverse-out-001",
+          "reverse-out-002",
+          "reverse-out-003",
+          "reverse-out-004",
+          "reverse-out-005",
+          "reverse-out-006",
+          "reverse-out-007",
+          "reverse-out-008",
+          "reverse-out-009",
+          "reverse-out-010",
+          "reverse-out-011",
+          "reverse-out-012",
+          "reverse-out-013",
+          "reverse-out-014",
+          "reverse-out-015",
+          "reverse-out-016",
+          "reverse-out-017",
+          "reverse-out-018",
+          "reverse-out-019",
+          "reverse-out-020",
+          "reverse-out-021",
+          "reverse-out-022",
+          "reverse-out-023",
+          "reverse-out-024",
+          "reverse-out-025",
+          "reverse-out-026",
+          "reverse-out-027",
+          "reverse-out-028",
+          "reverse-out-029",
+          "reverse-out-030",
+          "reverse-out-031",
+          "reverse-out-032",
+          "reverse-out-033",
+          "reverse-out-034",
+          "reverse-out-035",
+          "reverse-out-036",
+          "reverse-out-037",
+          "reverse-out-038",
+          "reverse-out-039",
+          "reverse-out-040",
+          "reverse-out-041",
+          "reverse-out-042",
+          "reverse-out-043",
+          "reverse-out-044",
+          "reverse-out-045",
+          "reverse-out-046",
+          "reverse-out-047",
+          "reverse-out-048",
+          "reverse-out-049",
+          "reverse-out-050",
+          "reverse-out-051",
+          "reverse-out-052",
+          "reverse-out-053",
+          "reverse-out-054",
+          "reverse-out-055",
+          "reverse-out-056",
+          "reverse-out-057",
+          "reverse-out-058",
+          "reverse-out-059",
+          "reverse-out-060",
+          "reverse-out-061",
+          "reverse-out-062",
+          "reverse-out-063",
+          "reverse-out-064",
+          "reverse-out-065",
+          "reverse-out-066",
+          "reverse-out-067",
+          "reverse-out-068",
+          "reverse-out-069",
+          "reverse-out-070",
+          "reverse-out-071",
+          "reverse-out-072",
+          "reverse-out-073",
+          "reverse-out-074",
+          "reverse-out-075",
+          "reverse-out-076",
+          "reverse-out-077",
+          "reverse-out-078",
+          "reverse-out-079",
+          "reverse-out-080",
+          "reverse-out-081",
+          "reverse-out-082",
+          "reverse-out-083",
+          "reverse-out-084",
+          "reverse-out-085",
+          "reverse-out-086",
+          "reverse-out-087",
+          "reverse-out-088",
+          "reverse-out-089",
+          "reverse-out-090",
+          "reverse-out-091",
+          "reverse-out-092",
+          "reverse-out-093",
+          "reverse-out-094",
+          "reverse-out-095",
+          "reverse-out-096",
+          "reverse-out-097",
+          "reverse-out-098",
+          "reverse-out-099",
+          "reverse-out-100"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "port": "0-65535",
+        "outboundTag": "block"
+      }
+    ]
+  }
+}
