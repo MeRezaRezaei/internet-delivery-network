@@ -187,12 +187,6 @@ def generate_portal_config(path, key, count):
             "inboundTag": ["socks-in"],
             "balancerTag": "balancer_100"
         },
-        # Route established reverse tunnel traffic directly to the Internet
-        {
-            "type": "field",
-            "inboundTag": reverse_out_tags,
-            "outboundTag": "direct"
-        },
         # Block anything else
         {
             "type": "field",
