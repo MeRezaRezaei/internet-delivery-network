@@ -21,7 +21,7 @@ UUID = "58764c09-99c3-4496-9591-9cff83e4c7b7"
 PORTAL_LISTEN_PORT = 15100
 PORTAL_SOCKS_PORT = 10800
 
-def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", dialer_proxy=""):
+def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", dialer_proxy="tor"):
     outbounds = [
         {
             "protocol": "freedom",
@@ -232,7 +232,7 @@ if __name__ == "__main__":
     parser.add_argument("--count", type=int, default=100, help="Number of concurrent tunnels")
     parser.add_argument("--outdir", type=str, default="configs/xray/generated", help="Output directory")
     parser.add_argument("--bridge-tag-mode", type=str, choices=["unified", "unique"], default="unified", help="Bridge reverse tag mode (unified or unique)")
-    parser.add_argument("--dialer-proxy", type=str, default="", help="Dialer proxy outbound tag (e.g. tor, socks)")
+    parser.add_argument("--dialer-proxy", type=str, default="tor", help="Dialer proxy outbound tag (e.g. tor, socks)")
     
     args = parser.parse_args()
     

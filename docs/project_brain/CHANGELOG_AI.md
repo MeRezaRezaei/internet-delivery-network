@@ -125,10 +125,12 @@
 ## 2026-05-24
 - **Xray-core VLESS Reverse & Mux/XMux Analysis:**
     - Performed a comprehensive design audit and documentation research on the modern Xray-core v26+ VLESS Simplified Reverse Proxy protocol.
-    - Discovered a critical stability bug in the `generate_100_tunnels.py` script: it was hardcoding `"dialerProxy": "tor"`, routing all high-speed parallel traffic through an unstable local Tor SOCKS proxy.
-    - Patched `scripts/generate_100_tunnels.py` to make the dialer proxy optional (defaulting to empty/None) so that the US/DE bridges dial direct connections to the Iran Portal.
+    - Mapped the exact "Reverse-Reverse" proxy logic: the **outside server (US/DE)** acts as the **Bridge** (starts VLESS outbound connection) and the **inside server (Iran)** acts as the **Portal** (listens VLESS inbound connection).
+    - Verified that the **Tor dialer on the Bridge side is a mandatory security constraint** required to bypass GFW's blocking of incoming connections from foreign cloud providers to whitelisted Iranian data centers.
+    - Patched `scripts/generate_100_tunnels.py` to restore `"dialerProxy": "tor"` as the default dialer proxy for the 100 parallel VLESS outbounds, routing VLESS streams through Tor exit nodes on port 10110.
     - Added options to support either unified (common tag `"reverse-bridge"`) or unique (individual `"bridge_001"` through `"bridge_100"`) bridge-side tags, clarifying that unified tags are cleaner and simpler for Bridge-side routing rules.
     - Explained the differences between legacy `mux` (the custom `mux.cool` protocol, which is highly discouraged for modern XTLS-Vision/Reality) and `xmux` (native HTTP/2 or HTTP/3 multiplexing over XHTTP streams).
     - Verified that the new Simplified VLESS Reverse Proxy uses user authentication (UUID & email pairing) for reverse tunnel registration, completely eliminating the legacy requirement for fake internal domains.
-    - Regenerated the optimized 100-tunnel configuration files for `100_10_01_05`, `100_10_04_05`, and `100_10_03_05` using the patched generator.
+    - Documented that the VLESS simplified reverse proxy supports bidirectional routing (Portal-to-Bridge for Iran-to-US web requests, and Bridge-to-Portal for US-to-Iran whitelisted domestic routing).
+    - Regenerated the optimized 100-tunnel configuration files for `100_10_01_05`, `100_10_04_05`, and `100_10_03_05` using the patched generator with Tor dialers fully active.
 

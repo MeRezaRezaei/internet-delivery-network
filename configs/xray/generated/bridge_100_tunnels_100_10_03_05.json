@@ -31,7 +31,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -58,7 +59,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -85,7 +87,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -112,7 +115,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -139,7 +143,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -166,7 +171,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -193,7 +199,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -220,7 +227,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -247,7 +255,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -274,7 +283,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -301,7 +311,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -328,7 +339,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -355,7 +367,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -382,7 +395,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -409,7 +423,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -436,7 +451,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -463,7 +479,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -490,7 +507,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -517,7 +535,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -544,7 +563,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -571,7 +591,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -598,7 +619,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -625,7 +647,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -652,7 +675,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -679,7 +703,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -706,7 +731,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -733,7 +759,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -760,7 +787,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -787,7 +815,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -814,7 +843,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -841,7 +871,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -868,7 +899,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -895,7 +927,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -922,7 +955,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -949,7 +983,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -976,7 +1011,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1003,7 +1039,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1030,7 +1067,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1057,7 +1095,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1084,7 +1123,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1111,7 +1151,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1138,7 +1179,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1165,7 +1207,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1192,7 +1235,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1219,7 +1263,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1246,7 +1291,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1273,7 +1319,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1300,7 +1347,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1327,7 +1375,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1354,7 +1403,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1381,7 +1431,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1408,7 +1459,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1435,7 +1487,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1462,7 +1515,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1489,7 +1543,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1516,7 +1571,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1543,7 +1599,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1570,7 +1627,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1597,7 +1655,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1624,7 +1683,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1651,7 +1711,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1678,7 +1739,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1705,7 +1767,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1732,7 +1795,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1759,7 +1823,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1786,7 +1851,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1813,7 +1879,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1840,7 +1907,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1867,7 +1935,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1894,7 +1963,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1921,7 +1991,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1948,7 +2019,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -1975,7 +2047,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2002,7 +2075,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2029,7 +2103,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2056,7 +2131,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2083,7 +2159,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2110,7 +2187,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2137,7 +2215,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2164,7 +2243,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2191,7 +2271,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2218,7 +2299,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2245,7 +2327,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2272,7 +2355,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2299,7 +2383,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2326,7 +2411,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2353,7 +2439,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2380,7 +2467,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2407,7 +2495,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2434,7 +2523,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2461,7 +2551,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2488,7 +2579,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2515,7 +2607,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2542,7 +2635,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2569,7 +2663,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2596,7 +2691,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2623,7 +2719,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2650,7 +2747,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2677,7 +2775,8 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
       }
     },
@@ -2704,8 +2803,21 @@
         "sockopt": {
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
-          "tcpKeepAliveInterval": 15
+          "tcpKeepAliveInterval": 15,
+          "dialerProxy": "tor"
         }
+      }
+    },
+    {
+      "tag": "tor",
+      "protocol": "socks",
+      "settings": {
+        "servers": [
+          {
+            "address": "127.0.0.1",
+            "port": 10110
+          }
+        ]
       }
     }
   ],
