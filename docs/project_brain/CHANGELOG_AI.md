@@ -159,3 +159,8 @@
     - **UDP/XUDP & Evasion**: Analyzed XUDP encapsulation, showing how QUIC (H3) handles UDP packet loss natively, and how XMUX's randomized connection rotation (e.g. `hMaxReusableSecs: 300` resetting connections every 5 mins) successfully resets GFW's UDP QoS throttling.
     - **Single vs. Pool Throughput Proof**: Analyzed the user's single-tunnel 10,000 concurrency theory, mathematically proving that a single physical tunnel is choked by CDN/ISP TCP-rate limiting (typically 5-15 Mbps), whereas the 100-tunnel Active-Active engine balance multiplexed SOCKS streams over 100 independent physical connections to achieve aggregated 1+ Gbps throughput.
     - **Reference Document**: Created the comprehensive deep dive and comparison artifact [xhttp_xmux_deep_dive.md](file:///C:/Users/MeRezaRezaei/.gemini/antigravity/brain/715e8ed1-55d5-44fa-8544-5265b3cc2d3b/xhttp_xmux_deep_dive.md).
+- **CDN-Optimized Direct VLESS Reverse Bridge Config Design**:
+    - Designed and wrote `configs/xray/bridge_direct_cdn.json` to allow direct, high-performance VLESS reverse tunnel connections from the Bridge to the Portal without HAProxy interference.
+    - Configured XHTTP in **H2 (`stream-up`) mode** over TLS to enable native multiplexing and masquerade as gRPC uplink, bypassing CDN buffer limitations.
+    - Set the Bridge `maxConcurrency: 128` to support a high volume of parallel SOCKS streams and connection swaps (`hMaxReusableSecs: 900`, `hMaxRequestTimes: 1500`) to reset GFW's UDP QoS throttling.
+    - Integrated system-aligned Tor dialer proxy (`"dialerProxy": "tor"`, port `10110`) to handle large volume connections safely.

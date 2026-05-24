@@ -37,6 +37,7 @@
 | IDN-026 | P0 | Observatory & isolated UUIDs in 100-Tunnel Generator | done | IDN-025 | Generator updated with deterministic unique UUIDs, Observatory, and leastPing balancer |
 | IDN-027 | P0 | Empirically Analyze High-Concurrency VLESS Reverse Proxy & Client-Mux | done | IDN-026 | Run loopback simulation, prove traffic demultiplexing, and output analysis |
 | IDN-028 | P0 | Research and Analyze XHTTP & XMUX Deep-Dive Protocols | done | IDN-027 | Study Xray H2/H3 evasion, UDP encapsulation, and single-tunnel vs pool aggregation |
+| IDN-029 | P0 | Create CDN-Optimized Direct VLESS Reverse Bridge Config | done | IDN-028 | Write high-performance TLS H2 Bridge config with Tor dialer |
 
 ## WIP Rule
 - Max doing items: 2

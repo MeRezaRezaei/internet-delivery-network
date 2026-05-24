@@ -9,6 +9,11 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **CDN-Optimized Direct VLESS Reverse Bridge Config Created (2026-05-24):**
+    - Designed and wrote `configs/xray/bridge_direct_cdn.json` to allow direct, high-performance VLESS reverse tunnel connections from the Bridge to the Portal without HAProxy interference.
+    - Configured XHTTP in **H2 (`stream-up`) mode** over TLS to enable native multiplexing and masquerade as gRPC uplink, bypassing CDN buffer limitations.
+    - Set the Bridge `maxConcurrency: 128` to support a high volume of parallel SOCKS streams and connection swaps (`hMaxReusableSecs: 900`, `hMaxRequestTimes: 1500`) to reset GFW's UDP QoS throttling.
+    - Integrated system-aligned Tor dialer proxy (`"dialerProxy": "tor"`, port `10110`) to handle large volume connections safely.
 - **Xray-core XHTTP & XMUX Deep-Dive Research & Aggregation Comparison (2026-05-24):**
     - Performed a highly comprehensive technical study of the Xray-core XHTTP transport layer and the modern XMUX multiplexing engine based on official developer discussions and source code analysis.
     - **Mapped legacy Mux vs. XMUX**: Clarified that legacy `mux.cool` is strictly forbidden under XHTTP due to double-multiplexing conflicts, while `XMUX` is native and fully optimized for H2/H3.
