@@ -123,6 +123,14 @@
     - Configured matching client load-balancing selectors (`balancer_100` with random strategy) and routing filters on the Portal side to aggregate connection load.
 
 ## 2026-05-24
+- **VLESS Simplified Reverse Proxy load-balancing and dynamic pruning breakthrough:**
+    - Designed and executed automated loopback tests (`test_reverse_pool.py`) inside the local WSL2 environment under native Xray-core `v26.2.6` to empirically investigate reverse proxy load distribution and dynamic pruning.
+    - **Active-Passive vs. Active-Active Mechanics**:
+        - **Shared Tag (Active-Passive)**: Shared dynamic reverse tags pool VLESS connections natively under a single outbound handler. Traffic is routed 100% through the first active tunnel (standby active-passive).
+        - **Unique Tags + Balancer (Active-Active)**: Using unique client tags combined with a Portal routing balancer enables true active-active speed aggregation across concurrent streams.
+    - **Identified Critical UUID Collision Bug**: Discovered that if all dynamic channels share the same VLESS UUID, the inbound authentication logic matches all connections to the first client entry. This forces all tunnels to pool under the first tag (`reverse-out-001`), destroying active-active load balancing. **Unification of UUIDs is a bug; distinct unique client UUIDs are mandatory for active-active speed aggregation.**
+    - **Identified Balancer Outage Bug**: Discovered that Xray does **not** automatically unregister dynamic virtual outbound handlers from the `OutboundManager` when a Bridge connection severs or a Tor circuit drops. The balancer continues to route connections to the dead handler, causing request drops and flakiness.
+    - **Developed the Observatory + leastPing Solution**: Successfully proved that configuring a root-level `observatory` with a short `probeInterval` (e.g. 5 seconds) and changing the balancer strategy from `roundRobin`/`random` to `leastPing` allows the Portal to actively monitor tunnel health and instantly prune stalled/dead dynamic outbounds. Completed Phase 2 with **zero request drops** and perfect dynamic pruning!
 - **Xray-core VLESS Reverse & Mux/XMux Analysis & Active Tag Fixes:**
     - Performed a comprehensive design audit and documentation research on the modern Xray-core v26+ VLESS Simplified Reverse Proxy protocol.
     - Mapped the exact "Reverse-Reverse" proxy logic: the **outside server (US/DE)** acts as the **Bridge** (VLESS outbound connection as the active initiator) and the **inside server (Iran)** acts as the **Portal** (listens VLESS inbound connection and acts as SOCKS5 entrypoint).
