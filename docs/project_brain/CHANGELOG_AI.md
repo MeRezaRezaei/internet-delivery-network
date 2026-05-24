@@ -121,3 +121,14 @@
     - Compiled the second-round parallel 100-channel VLESS reverse tunnel Bridge configuration for `100-10-04-05` (targeting `i-04.doctel.ir` and path `/100-10-04-05`).
     - Compiled the third-round parallel 100-channel VLESS reverse tunnel Bridge configuration for `100-10-03-05` (targeting `i-03.doctel.ir` and path `/100-10-03-05`).
     - Configured matching client load-balancing selectors (`balancer_100` with random strategy) and routing filters on the Portal side to aggregate connection load.
+
+## 2026-05-24
+- **Xray-core VLESS Reverse & Mux/XMux Analysis:**
+    - Performed a comprehensive design audit and documentation research on the modern Xray-core v26+ VLESS Simplified Reverse Proxy protocol.
+    - Discovered a critical stability bug in the `generate_100_tunnels.py` script: it was hardcoding `"dialerProxy": "tor"`, routing all high-speed parallel traffic through an unstable local Tor SOCKS proxy.
+    - Patched `scripts/generate_100_tunnels.py` to make the dialer proxy optional (defaulting to empty/None) so that the US/DE bridges dial direct connections to the Iran Portal.
+    - Added options to support either unified (common tag `"reverse-bridge"`) or unique (individual `"bridge_001"` through `"bridge_100"`) bridge-side tags, clarifying that unified tags are cleaner and simpler for Bridge-side routing rules.
+    - Explained the differences between legacy `mux` (the custom `mux.cool` protocol, which is highly discouraged for modern XTLS-Vision/Reality) and `xmux` (native HTTP/2 or HTTP/3 multiplexing over XHTTP streams).
+    - Verified that the new Simplified VLESS Reverse Proxy uses user authentication (UUID & email pairing) for reverse tunnel registration, completely eliminating the legacy requirement for fake internal domains.
+    - Regenerated the optimized 100-tunnel configuration files for `100_10_01_05`, `100_10_04_05`, and `100_10_03_05` using the patched generator.
+

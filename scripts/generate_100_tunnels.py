@@ -21,7 +21,7 @@ UUID = "58764c09-99c3-4496-9591-9cff83e4c7b7"
 PORTAL_LISTEN_PORT = 15100
 PORTAL_SOCKS_PORT = 10800
 
-def generate_bridge_config(domain, path, key, count):
+def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", dialer_proxy=""):
     outbounds = [
         {
             "protocol": "freedom",
@@ -34,10 +34,11 @@ def generate_bridge_config(domain, path, key, count):
     # Generate parallel VLESS bridge outbounds
     for i in range(1, count + 1):
         tunnel_tag = f"tunnel_{i:03d}"
-        bridge_tag = f"bridge_{i:03d}"
-        inbound_tags.append(bridge_tag)
+        bridge_tag = "reverse-bridge" if bridge_tag_mode == "unified" else f"bridge_{i:03d}"
+        if bridge_tag not in inbound_tags:
+            inbound_tags.append(bridge_tag)
         
-        outbounds.append({
+        vless_outbound = {
             "protocol": "vless",
             "tag": tunnel_tag,
             "settings": {
@@ -58,27 +59,45 @@ def generate_bridge_config(domain, path, key, count):
                     "mode": "packet-up"
                 },
                 "sockopt": {
-                    "dialerProxy": "tor",
                     "domainStrategy": "AsIs",
                     "tcpKeepAliveIdle": 30,
                     "tcpKeepAliveInterval": 15
                 }
             }
-        })
-        
-    # Add Tor Socks proxy outbound
-    outbounds.append({
-        "tag": "tor",
-        "protocol": "socks",
-        "settings": {
-            "servers": [
-                {
-                    "address": "127.0.0.1",
-                    "port": 10110
-                }
-            ]
         }
-    })
+        
+        if dialer_proxy:
+            vless_outbound["streamSettings"]["sockopt"]["dialerProxy"] = dialer_proxy
+            
+        outbounds.append(vless_outbound)
+        
+    # Add dialer proxy outbound if specified
+    if dialer_proxy == "tor":
+        outbounds.append({
+            "tag": "tor",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 10110
+                    }
+                ]
+            }
+        })
+    elif dialer_proxy:
+        outbounds.append({
+            "tag": dialer_proxy,
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 1080
+                    }
+                ]
+            }
+        })
     
     routing_rules = [
         {
@@ -212,6 +231,8 @@ if __name__ == "__main__":
     parser.add_argument("--key", type=str, default="100_10_01_05", help="Key prefix for VLESS emails")
     parser.add_argument("--count", type=int, default=100, help="Number of concurrent tunnels")
     parser.add_argument("--outdir", type=str, default="configs/xray/generated", help="Output directory")
+    parser.add_argument("--bridge-tag-mode", type=str, choices=["unified", "unique"], default="unified", help="Bridge reverse tag mode (unified or unique)")
+    parser.add_argument("--dialer-proxy", type=str, default="", help="Dialer proxy outbound tag (e.g. tor, socks)")
     
     args = parser.parse_args()
     
@@ -219,13 +240,15 @@ if __name__ == "__main__":
     os.makedirs(out_dir, exist_ok=True)
     
     print(f"[*] Configuration parameters:")
-    print(f"    - Domain: {args.domain}")
-    print(f"    - Path:   {args.path}")
-    print(f"    - Key:    {args.key}")
-    print(f"    - Count:  {args.count}")
+    print(f"    - Domain:          {args.domain}")
+    print(f"    - Path:            {args.path}")
+    print(f"    - Key:             {args.key}")
+    print(f"    - Count:           {args.count}")
+    print(f"    - Bridge Tag Mode: {args.bridge_tag_mode}")
+    print(f"    - Dialer Proxy:    {args.dialer_proxy if args.dialer_proxy else 'None (Direct connection)'}")
     
     # Generate Bridge Config
-    bridge_cfg = generate_bridge_config(args.domain, args.path, args.key, args.count)
+    bridge_cfg = generate_bridge_config(args.domain, args.path, args.key, args.count, args.bridge_tag_mode, args.dialer_proxy)
     bridge_file = os.path.join(out_dir, f"bridge_100_tunnels_{args.key}.json")
     print(f"[*] Writing Bridge config to: {bridge_file}")
     with open(bridge_file, "w", encoding="utf-8") as f:

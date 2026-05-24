@@ -18,7 +18,7 @@
         "email": "tunnel_100_10_03_05_001@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_001"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -29,7 +29,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -46,7 +45,7 @@
         "email": "tunnel_100_10_03_05_002@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_002"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -57,7 +56,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -74,7 +72,7 @@
         "email": "tunnel_100_10_03_05_003@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_003"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -85,7 +83,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -102,7 +99,7 @@
         "email": "tunnel_100_10_03_05_004@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_004"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -113,7 +110,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -130,7 +126,7 @@
         "email": "tunnel_100_10_03_05_005@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_005"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -141,7 +137,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -158,7 +153,7 @@
         "email": "tunnel_100_10_03_05_006@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_006"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -169,7 +164,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -186,7 +180,7 @@
         "email": "tunnel_100_10_03_05_007@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_007"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -197,7 +191,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -214,7 +207,7 @@
         "email": "tunnel_100_10_03_05_008@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_008"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -225,7 +218,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -242,7 +234,7 @@
         "email": "tunnel_100_10_03_05_009@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_009"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -253,7 +245,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -270,7 +261,7 @@
         "email": "tunnel_100_10_03_05_010@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_010"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -281,7 +272,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -298,7 +288,7 @@
         "email": "tunnel_100_10_03_05_011@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_011"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -309,7 +299,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -326,7 +315,7 @@
         "email": "tunnel_100_10_03_05_012@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_012"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -337,7 +326,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -354,7 +342,7 @@
         "email": "tunnel_100_10_03_05_013@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_013"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -365,7 +353,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -382,7 +369,7 @@
         "email": "tunnel_100_10_03_05_014@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_014"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -393,7 +380,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -410,7 +396,7 @@
         "email": "tunnel_100_10_03_05_015@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_015"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -421,7 +407,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -438,7 +423,7 @@
         "email": "tunnel_100_10_03_05_016@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_016"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -449,7 +434,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -466,7 +450,7 @@
         "email": "tunnel_100_10_03_05_017@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_017"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -477,7 +461,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -494,7 +477,7 @@
         "email": "tunnel_100_10_03_05_018@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_018"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -505,7 +488,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -522,7 +504,7 @@
         "email": "tunnel_100_10_03_05_019@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_019"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -533,7 +515,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -550,7 +531,7 @@
         "email": "tunnel_100_10_03_05_020@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_020"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -561,7 +542,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -578,7 +558,7 @@
         "email": "tunnel_100_10_03_05_021@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_021"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -589,7 +569,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -606,7 +585,7 @@
         "email": "tunnel_100_10_03_05_022@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_022"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -617,7 +596,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -634,7 +612,7 @@
         "email": "tunnel_100_10_03_05_023@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_023"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -645,7 +623,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -662,7 +639,7 @@
         "email": "tunnel_100_10_03_05_024@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_024"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -673,7 +650,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -690,7 +666,7 @@
         "email": "tunnel_100_10_03_05_025@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_025"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -701,7 +677,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -718,7 +693,7 @@
         "email": "tunnel_100_10_03_05_026@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_026"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -729,7 +704,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -746,7 +720,7 @@
         "email": "tunnel_100_10_03_05_027@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_027"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -757,7 +731,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -774,7 +747,7 @@
         "email": "tunnel_100_10_03_05_028@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_028"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -785,7 +758,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -802,7 +774,7 @@
         "email": "tunnel_100_10_03_05_029@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_029"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -813,7 +785,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -830,7 +801,7 @@
         "email": "tunnel_100_10_03_05_030@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_030"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -841,7 +812,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -858,7 +828,7 @@
         "email": "tunnel_100_10_03_05_031@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_031"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -869,7 +839,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -886,7 +855,7 @@
         "email": "tunnel_100_10_03_05_032@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_032"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -897,7 +866,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -914,7 +882,7 @@
         "email": "tunnel_100_10_03_05_033@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_033"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -925,7 +893,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -942,7 +909,7 @@
         "email": "tunnel_100_10_03_05_034@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_034"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -953,7 +920,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -970,7 +936,7 @@
         "email": "tunnel_100_10_03_05_035@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_035"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -981,7 +947,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -998,7 +963,7 @@
         "email": "tunnel_100_10_03_05_036@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_036"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1009,7 +974,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1026,7 +990,7 @@
         "email": "tunnel_100_10_03_05_037@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_037"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1037,7 +1001,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1054,7 +1017,7 @@
         "email": "tunnel_100_10_03_05_038@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_038"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1065,7 +1028,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1082,7 +1044,7 @@
         "email": "tunnel_100_10_03_05_039@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_039"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1093,7 +1055,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1110,7 +1071,7 @@
         "email": "tunnel_100_10_03_05_040@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_040"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1121,7 +1082,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1138,7 +1098,7 @@
         "email": "tunnel_100_10_03_05_041@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_041"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1149,7 +1109,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1166,7 +1125,7 @@
         "email": "tunnel_100_10_03_05_042@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_042"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1177,7 +1136,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1194,7 +1152,7 @@
         "email": "tunnel_100_10_03_05_043@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_043"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1205,7 +1163,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1222,7 +1179,7 @@
         "email": "tunnel_100_10_03_05_044@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_044"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1233,7 +1190,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1250,7 +1206,7 @@
         "email": "tunnel_100_10_03_05_045@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_045"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1261,7 +1217,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1278,7 +1233,7 @@
         "email": "tunnel_100_10_03_05_046@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_046"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1289,7 +1244,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1306,7 +1260,7 @@
         "email": "tunnel_100_10_03_05_047@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_047"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1317,7 +1271,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1334,7 +1287,7 @@
         "email": "tunnel_100_10_03_05_048@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_048"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1345,7 +1298,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1362,7 +1314,7 @@
         "email": "tunnel_100_10_03_05_049@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_049"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1373,7 +1325,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1390,7 +1341,7 @@
         "email": "tunnel_100_10_03_05_050@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_050"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1401,7 +1352,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1418,7 +1368,7 @@
         "email": "tunnel_100_10_03_05_051@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_051"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1429,7 +1379,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1446,7 +1395,7 @@
         "email": "tunnel_100_10_03_05_052@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_052"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1457,7 +1406,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1474,7 +1422,7 @@
         "email": "tunnel_100_10_03_05_053@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_053"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1485,7 +1433,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1502,7 +1449,7 @@
         "email": "tunnel_100_10_03_05_054@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_054"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1513,7 +1460,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1530,7 +1476,7 @@
         "email": "tunnel_100_10_03_05_055@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_055"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1541,7 +1487,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1558,7 +1503,7 @@
         "email": "tunnel_100_10_03_05_056@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_056"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1569,7 +1514,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1586,7 +1530,7 @@
         "email": "tunnel_100_10_03_05_057@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_057"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1597,7 +1541,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1614,7 +1557,7 @@
         "email": "tunnel_100_10_03_05_058@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_058"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1625,7 +1568,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1642,7 +1584,7 @@
         "email": "tunnel_100_10_03_05_059@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_059"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1653,7 +1595,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1670,7 +1611,7 @@
         "email": "tunnel_100_10_03_05_060@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_060"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1681,7 +1622,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1698,7 +1638,7 @@
         "email": "tunnel_100_10_03_05_061@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_061"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1709,7 +1649,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1726,7 +1665,7 @@
         "email": "tunnel_100_10_03_05_062@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_062"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1737,7 +1676,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1754,7 +1692,7 @@
         "email": "tunnel_100_10_03_05_063@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_063"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1765,7 +1703,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1782,7 +1719,7 @@
         "email": "tunnel_100_10_03_05_064@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_064"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1793,7 +1730,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1810,7 +1746,7 @@
         "email": "tunnel_100_10_03_05_065@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_065"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1821,7 +1757,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1838,7 +1773,7 @@
         "email": "tunnel_100_10_03_05_066@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_066"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1849,7 +1784,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1866,7 +1800,7 @@
         "email": "tunnel_100_10_03_05_067@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_067"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1877,7 +1811,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1894,7 +1827,7 @@
         "email": "tunnel_100_10_03_05_068@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_068"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1905,7 +1838,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1922,7 +1854,7 @@
         "email": "tunnel_100_10_03_05_069@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_069"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1933,7 +1865,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1950,7 +1881,7 @@
         "email": "tunnel_100_10_03_05_070@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_070"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1961,7 +1892,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -1978,7 +1908,7 @@
         "email": "tunnel_100_10_03_05_071@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_071"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -1989,7 +1919,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2006,7 +1935,7 @@
         "email": "tunnel_100_10_03_05_072@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_072"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2017,7 +1946,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2034,7 +1962,7 @@
         "email": "tunnel_100_10_03_05_073@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_073"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2045,7 +1973,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2062,7 +1989,7 @@
         "email": "tunnel_100_10_03_05_074@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_074"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2073,7 +2000,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2090,7 +2016,7 @@
         "email": "tunnel_100_10_03_05_075@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_075"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2101,7 +2027,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2118,7 +2043,7 @@
         "email": "tunnel_100_10_03_05_076@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_076"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2129,7 +2054,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2146,7 +2070,7 @@
         "email": "tunnel_100_10_03_05_077@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_077"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2157,7 +2081,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2174,7 +2097,7 @@
         "email": "tunnel_100_10_03_05_078@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_078"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2185,7 +2108,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2202,7 +2124,7 @@
         "email": "tunnel_100_10_03_05_079@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_079"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2213,7 +2135,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2230,7 +2151,7 @@
         "email": "tunnel_100_10_03_05_080@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_080"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2241,7 +2162,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2258,7 +2178,7 @@
         "email": "tunnel_100_10_03_05_081@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_081"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2269,7 +2189,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2286,7 +2205,7 @@
         "email": "tunnel_100_10_03_05_082@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_082"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2297,7 +2216,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2314,7 +2232,7 @@
         "email": "tunnel_100_10_03_05_083@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_083"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2325,7 +2243,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2342,7 +2259,7 @@
         "email": "tunnel_100_10_03_05_084@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_084"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2353,7 +2270,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2370,7 +2286,7 @@
         "email": "tunnel_100_10_03_05_085@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_085"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2381,7 +2297,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2398,7 +2313,7 @@
         "email": "tunnel_100_10_03_05_086@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_086"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2409,7 +2324,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2426,7 +2340,7 @@
         "email": "tunnel_100_10_03_05_087@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_087"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2437,7 +2351,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2454,7 +2367,7 @@
         "email": "tunnel_100_10_03_05_088@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_088"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2465,7 +2378,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2482,7 +2394,7 @@
         "email": "tunnel_100_10_03_05_089@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_089"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2493,7 +2405,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2510,7 +2421,7 @@
         "email": "tunnel_100_10_03_05_090@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_090"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2521,7 +2432,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2538,7 +2448,7 @@
         "email": "tunnel_100_10_03_05_091@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_091"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2549,7 +2459,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2566,7 +2475,7 @@
         "email": "tunnel_100_10_03_05_092@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_092"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2577,7 +2486,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2594,7 +2502,7 @@
         "email": "tunnel_100_10_03_05_093@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_093"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2605,7 +2513,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2622,7 +2529,7 @@
         "email": "tunnel_100_10_03_05_094@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_094"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2633,7 +2540,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2650,7 +2556,7 @@
         "email": "tunnel_100_10_03_05_095@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_095"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2661,7 +2567,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2678,7 +2583,7 @@
         "email": "tunnel_100_10_03_05_096@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_096"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2689,7 +2594,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2706,7 +2610,7 @@
         "email": "tunnel_100_10_03_05_097@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_097"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2717,7 +2621,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2734,7 +2637,7 @@
         "email": "tunnel_100_10_03_05_098@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_098"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2745,7 +2648,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2762,7 +2664,7 @@
         "email": "tunnel_100_10_03_05_099@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_099"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2773,7 +2675,6 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -2790,7 +2691,7 @@
         "email": "tunnel_100_10_03_05_100@reverse",
         "encryption": "none",
         "reverse": {
-          "tag": "bridge_100"
+          "tag": "reverse-bridge"
         }
       },
       "streamSettings": {
@@ -2801,23 +2702,10 @@
           "mode": "packet-up"
         },
         "sockopt": {
-          "dialerProxy": "tor",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
         }
-      }
-    },
-    {
-      "tag": "tor",
-      "protocol": "socks",
-      "settings": {
-        "servers": [
-          {
-            "address": "127.0.0.1",
-            "port": 10110
-          }
-        ]
       }
     }
   ],
@@ -2827,106 +2715,7 @@
       {
         "type": "field",
         "inboundTag": [
-          "bridge_001",
-          "bridge_002",
-          "bridge_003",
-          "bridge_004",
-          "bridge_005",
-          "bridge_006",
-          "bridge_007",
-          "bridge_008",
-          "bridge_009",
-          "bridge_010",
-          "bridge_011",
-          "bridge_012",
-          "bridge_013",
-          "bridge_014",
-          "bridge_015",
-          "bridge_016",
-          "bridge_017",
-          "bridge_018",
-          "bridge_019",
-          "bridge_020",
-          "bridge_021",
-          "bridge_022",
-          "bridge_023",
-          "bridge_024",
-          "bridge_025",
-          "bridge_026",
-          "bridge_027",
-          "bridge_028",
-          "bridge_029",
-          "bridge_030",
-          "bridge_031",
-          "bridge_032",
-          "bridge_033",
-          "bridge_034",
-          "bridge_035",
-          "bridge_036",
-          "bridge_037",
-          "bridge_038",
-          "bridge_039",
-          "bridge_040",
-          "bridge_041",
-          "bridge_042",
-          "bridge_043",
-          "bridge_044",
-          "bridge_045",
-          "bridge_046",
-          "bridge_047",
-          "bridge_048",
-          "bridge_049",
-          "bridge_050",
-          "bridge_051",
-          "bridge_052",
-          "bridge_053",
-          "bridge_054",
-          "bridge_055",
-          "bridge_056",
-          "bridge_057",
-          "bridge_058",
-          "bridge_059",
-          "bridge_060",
-          "bridge_061",
-          "bridge_062",
-          "bridge_063",
-          "bridge_064",
-          "bridge_065",
-          "bridge_066",
-          "bridge_067",
-          "bridge_068",
-          "bridge_069",
-          "bridge_070",
-          "bridge_071",
-          "bridge_072",
-          "bridge_073",
-          "bridge_074",
-          "bridge_075",
-          "bridge_076",
-          "bridge_077",
-          "bridge_078",
-          "bridge_079",
-          "bridge_080",
-          "bridge_081",
-          "bridge_082",
-          "bridge_083",
-          "bridge_084",
-          "bridge_085",
-          "bridge_086",
-          "bridge_087",
-          "bridge_088",
-          "bridge_089",
-          "bridge_090",
-          "bridge_091",
-          "bridge_092",
-          "bridge_093",
-          "bridge_094",
-          "bridge_095",
-          "bridge_096",
-          "bridge_097",
-          "bridge_098",
-          "bridge_099",
-          "bridge_100"
+          "reverse-bridge"
         ],
         "outboundTag": "direct"
       }
