@@ -33,6 +33,8 @@ To prevent critical errors, session disruptions, or infrastructure lockouts, eve
 *   **Pitfall**: 
     1. Legacy outbound formats (using the nested `vnext` syntax) will fail to register on the Bridge side in v26.
     2. Path or name mismatches (e.g., dial paths with mismatched prefixes like `/c-01-01-03-01` vs `/11-01-03-01`) will prevent the reverse tunnel from establishing.
+    3. Mismatched reverse proxy tag directions (e.g., treating Portal's virtual outbounds as inbounds, or Bridge's virtual inbounds as outbounds).
+    4. Adding incorrect Portal-side `"inboundTag": ["reverse-out-xxx"]` rules. Since VLESS inbound + `reverse` registers a virtual **outbound**, it *cannot* match as an `"inboundTag"` in routing rules.
 *   **Prompt Instruction**:
     ```text
     TECHNICAL CHECK: Ensure that:
@@ -40,7 +42,12 @@ To prevent critical errors, session disruptions, or infrastructure lockouts, eve
     2. The 'email' and 'seed' fields match perfectly between Portal and Bridge.
     3. The tunnel path (e.g., '/24-10-07-06/xtls') and SOCKS port settings align exactly between srv07's HAProxy backend routing rules, srv07's Xray inbound, and the Bridge node's outbound config.
     4. There are no redundant/mismatched prefixes (e.g. 'c-') left in names or paths.
+    5. Directional Tag Matching and Routing Rules:
+       - Portal Side (Iran / VLESS Inbound): Placed inside VLESS inbound client settings. Registers a virtual OUTBOUND. SOCKS/User traffic routes TO it via `"outboundTag": "reverse-out"`. NEVER match it as an `"inboundTag"`.
+       - Bridge Side (US/DE / VLESS Outbound): Placed inside VLESS outbound settings. Registers a virtual INBOUND. Egress traffic exiting the system from the tunnel routes FROM it via `"inboundTag": ["reverse-bridge"]` to `"outboundTag": "direct"`.
+    6. Initiator Rule: The Bridge is the active initiator and dials automatically. The Portal is the listener. Once established, the virtual outbound on the Portal is dynamically registered.
     ```
+
 
 ### Guardrail 3: Marzban Multi-Panel Subdomain Isolation
 *   **Context**: Server 07 runs multiple Marzban panels (the PUBG panel with 400+ users on port 8002 and the legacy panel on port 2020).

@@ -36,14 +36,52 @@ REALITY is a revolutionary stealth technology that eliminates the "server finger
 The "Simplified" version of the reverse proxy is integrated directly into protocol workers, making it much easier to deploy than the traditional `app/reverse` standalone config.
 
 ### 3.1 Portal and Bridge
-*   **Portal (Server Side)**: Waits for an incoming connection from the "Bridge". Once established, it can "call back" to the bridge to tunnel traffic from the Internet into the private network.
-*   **Bridge (Client Side)**: Sited inside a private network. It initiates a connection to the Portal (usually via VLESS + Mux).
+*   **Portal (Server Side / Inside Iran)**: Acts as the passive listener. It waits for an incoming connection from the Bridge. 
+*   **Bridge (Client Side / Outside US/DE)**: Acts as the active initiator. It connects to the Portal automatically via VLESS outbound configurations to establish and maintain the reverse tunnels.
 *   **Scaling Logic**:
-    *   The Bridge monitors the number of active connections on its reverse tunnel.
-    *   If the load exceeds a threshold (e.g., more than 16 connections per worker), it automatically initiates *another* Mux worker to the Portal to increase bandwidth.
-    *   This "Simplified" logic removes the need for complex internal domain mapping in many cases.
+    *   The Bridge monitors active connections. If load limits are reached, it dynamically opens additional tunnels/Mux channels to scale bandwidth.
 
-### 3.2 Code Reference
+### 3.2 Directional Tag Registration & Routing Rules
+Configuring the `reverse` block inside different protocol handlers changes its nature entirely, defining whether it acts as a virtual inbound or outbound.
+
+#### Portal Side (VLESS Inbound)
+When `reverse` is placed inside the client object of a VLESS inbound (Portal side):
+```json
+"settings": {
+  "clients": [
+    {
+      "id": "YOUR_UUID",
+      "email": "channel@reverse",
+      "reverse": { "tag": "reverse-out-tag" }
+    }
+  ]
+}
+```
+*   **Registration**: Registers a virtual **OUTBOUND** with the tag `"reverse-out-tag"`.
+*   **Routing Rule**: Since it is a virtual outbound, you route incoming SOCKS/User traffic **TO** it using:
+    ```json
+    { "type": "field", "inboundTag": ["socks-in"], "outboundTag": "reverse-out-tag" }
+    ```
+*   **Pitfall**: Never match `"reverse-out-tag"` as an `"inboundTag"` in Portal routing rules. Since it is a virtual outbound, it never receives incoming requests on the Portal side.
+
+#### Bridge Side (VLESS Outbound)
+When `reverse` is placed inside the settings of a VLESS outbound (Bridge side):
+```json
+"settings": {
+  "address": "portal.domain.com",
+  "port": 443,
+  "id": "YOUR_UUID",
+  "reverse": { "tag": "reverse-in-tag" }
+}
+```
+*   **Registration**: Registers a virtual **INBOUND** with the tag `"reverse-in-tag"`.
+*   **Routing Rule**: Since it is a virtual inbound, egress traffic exiting the tunnel enters Xray's routing system under this tag. You must route it **FROM** this tag to the internet using:
+    ```json
+    { "type": "field", "inboundTag": ["reverse-in-tag"], "outboundTag": "direct" }
+    ```
+
+### 3.3 Code Reference
 *   `proxy/vless/inbound/inbound.go`: Implements the `Portal` logic.
 *   `proxy/vless/outbound/outbound.go`: Implements the `Bridge` logic.
 *   Uses `session.ContextWithIsReverseMux` to signal the core that a connection is a management tunnel.
+
