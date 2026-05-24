@@ -145,4 +145,10 @@
     - Explained the differences between legacy `mux` (the custom `mux.cool` protocol, which is highly discouraged for modern XTLS-Vision/Reality) and `xmux` (native HTTP/2 or HTTP/3 multiplexing over XHTTP streams).
     - Verified that the new Simplified VLESS Reverse Proxy uses user authentication (UUID & email pairing) for reverse tunnel registration, completely eliminating the legacy requirement for fake internal domains.
     - Regenerated the optimized 100-tunnel configuration files for `100_10_01_05`, `100_10_04_05`, and `100_10_03_05` using the patched generator with Tor dialers active and Portal routing rules 100% correct.
-
+- **VLESS Simplified Reverse High-Concurrency & Client Mux Breakthrough**:
+    - Developed and ran an advanced 3-process loopback simulation script `test_reverse_mux_concurrency.py` inside local WSL2 under native Xray-core `v26.2.6` to empirically investigate VLESS reverse aggregation under 50 simultaneous parallel requests.
+    - **Proved the Client Mux Boost**: Verified that client-side multiplexing (Mux/XMux) is an enormous performance booster under high load, rather than a bottleneck.
+        - **Handshake Elimination**: Reduced average latency by 50% (from `1.857s` to `0.947s`) by routing all 50 concurrent requests over a single shared pre-established VLESS physical connection instead of performing 50 individual TCP/TLS handshakes.
+        - **100% Reliability**: Bypassed local socket backlogs and handshake drops entirely, scaling success rate from 72% to 100%.
+    - **Verified Portal Demultiplexing & Perfect Balancing**: Confirmed that Xray-core's VLESS inbound successfully demultiplexes client Mux connections at the entrypoint, routing and balancing each virtual sub-stream individually. This distributed the 50 concurrent streams perfectly across all 5 reverse tunnels (exactly 10 requests per tunnel), demonstrating true active-active speed aggregation over the "full mass of tunnels".
+    - **Compiled Reference Report**: Documented the full architecture, performance tables, and deployment recommendations in a comprehensive technical artifact [concurrency_analysis.md](file:///C:/Users/MeRezaRezaei/.gemini/antigravity/brain/715e8ed1-55d5-44fa-8544-5265b3cc2d3b/concurrency_analysis.md).

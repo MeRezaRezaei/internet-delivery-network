@@ -35,6 +35,7 @@
 | IDN-024 | P0 | Patched HAProxy Regex Sub-Paths | done | IDN-023 | Aligned HAProxy regex filters to match nested path routes and sub-paths |
 | IDN-025 | P0 | 100-Tunnel Generator Deployment | done | IDN-024 | Created dynamic generator producing Bridge and Portal 100-channel config outputs |
 | IDN-026 | P0 | Observatory & isolated UUIDs in 100-Tunnel Generator | done | IDN-025 | Generator updated with deterministic unique UUIDs, Observatory, and leastPing balancer |
+| IDN-027 | P0 | Empirically Analyze High-Concurrency VLESS Reverse Proxy & Client-Mux | done | IDN-026 | Run loopback simulation, prove traffic demultiplexing, and output analysis |
 
 ## WIP Rule
 - Max doing items: 2
