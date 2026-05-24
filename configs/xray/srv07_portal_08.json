@@ -39,8 +39,7 @@
     "outbounds": [ { "protocol": "freedom", "tag": "direct" } ],
     "routing": {
         "rules": [
-            { "type": "field", "inboundTag": ["socks-in", "wg-in"], "outboundTag": "reverse-out-08" },
-            { "type": "field", "inboundTag": ["reverse-out-08"], "outboundTag": "direct" }
+            { "type": "field", "inboundTag": ["socks-in", "wg-in"], "outboundTag": "reverse-out-08" }
         ]
     }
 }

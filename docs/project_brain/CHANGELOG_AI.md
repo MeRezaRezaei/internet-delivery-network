@@ -123,11 +123,13 @@
     - Configured matching client load-balancing selectors (`balancer_100` with random strategy) and routing filters on the Portal side to aggregate connection load.
 
 ## 2026-05-24
-- **Xray-core VLESS Reverse & Mux/XMux Analysis:**
+- **Xray-core VLESS Reverse & Mux/XMux Analysis & Active Tag Fixes:**
     - Performed a comprehensive design audit and documentation research on the modern Xray-core v26+ VLESS Simplified Reverse Proxy protocol.
-    - Mapped the exact "Reverse-Reverse" proxy logic: the **outside server (US/DE)** acts as the **Bridge** (starts VLESS outbound connection) and the **inside server (Iran)** acts as the **Portal** (listens VLESS inbound connection).
+    - Mapped the exact "Reverse-Reverse" proxy logic: the **outside server (US/DE)** acts as the **Bridge** (VLESS outbound connection as the active initiator) and the **inside server (Iran)** acts as the **Portal** (listens VLESS inbound connection and acts as SOCKS5 entrypoint).
     - Verified the VLESS Simplified Reverse Proxy directional behaviors: configuring a `reverse` block in a VLESS inbound (Portal) makes it a virtual **outbound**, while configuring it in a VLESS outbound (Bridge) makes it a virtual **inbound**.
-    - Discovered and corrected a critical routing rule bug on the Portal (Iran) side: deleted the invalid `"inboundTag": ["reverse-out-001", ...], "outboundTag": "direct"` rule since `reverse-out-001` is a virtual outbound tag and cannot be matched as an inbound tag. This cleaned and optimized the Portal configuration files.
+    - Discovered and corrected a critical routing rule bug on the Portal (Iran) side: deleted all invalid `"inboundTag": ["reverse-out-xxx"], "outboundTag": "direct"` rules. Since the Portal's `reverse-out-xxx` tags are virtual **outbounds** registered by the VLESS inbound, they can *never* receive incoming request streams and cannot be matched as `"inboundTag"`s in Portal routing rules.
+    - Patched `scripts/generate_xray.py` and regenerated `configs/xray/generated/xray_unified.json` to purge these invalid routing rules, keeping the dynamic consolidated configs 100% correct.
+    - Refactored static configuration templates `configs/xray/srv07_portal_08.json` and `configs/xray/srv07_portal_10.json` to purge the incorrect outbound-as-inbound routing rules.
     - Verified that the **Tor dialer on the Bridge side is a mandatory security constraint** required to bypass GFW's blocking of incoming connections from foreign cloud providers to whitelisted Iranian data centers.
     - Patched `scripts/generate_100_tunnels.py` to restore `"dialerProxy": "tor"` as the default dialer proxy for the 100 parallel VLESS outbounds, routing VLESS streams through Tor exit nodes on port 10110.
     - Added options to support either unified (common tag `"reverse-bridge"`) or unique (individual `"bridge_001"` through `"bridge_100"`) bridge-side tags, clarifying that unified tags are cleaner and simpler for Bridge-side routing rules.

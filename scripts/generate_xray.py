@@ -75,12 +75,6 @@ def generate_unified_xray():
             "outboundTag": outbound_tag
         })
 
-    # 4. Consolidated Reverse Channel routing rule to DIRECT
-    routing_rules.append({
-        "type": "field",
-        "inboundTag": reverse_out_tags,
-        "outboundTag": "DIRECT"
-    })
 
     # 5. Fallback final block rule
     routing_rules.append({
