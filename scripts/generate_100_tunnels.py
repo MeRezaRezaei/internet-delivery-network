@@ -15,6 +15,7 @@ reverse connections, bypassing standard single-stream TCP limitations and GFW th
 import json
 import os
 import argparse
+import uuid
 
 # Common Credentials
 UUID = "58764c09-99c3-4496-9591-9cff83e4c7b7"
@@ -38,13 +39,14 @@ def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", 
         if bridge_tag not in inbound_tags:
             inbound_tags.append(bridge_tag)
         
+        tunnel_uuid = str(uuid.uuid5(uuid.NAMESPACE_DNS, f"tunnel_{key}_{i:03d}"))
         vless_outbound = {
             "protocol": "vless",
             "tag": tunnel_tag,
             "settings": {
                 "address": domain,
                 "port": 443,
-                "id": UUID,
+                "id": tunnel_uuid,
                 "email": f"tunnel_{key}_{i:03d}@reverse",
                 "encryption": "none",
                 "reverse": {
@@ -120,7 +122,7 @@ def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", 
     }
     return config
 
-def generate_portal_config(path, key, count):
+def generate_portal_config(path, key, count, probe_url="https://www.google.com/generate_204", probe_interval="10s"):
     clients = []
     reverse_out_tags = []
     
@@ -129,8 +131,9 @@ def generate_portal_config(path, key, count):
         outbound_tag = f"reverse-out-{i:03d}"
         reverse_out_tags.append(outbound_tag)
         
+        tunnel_uuid = str(uuid.uuid5(uuid.NAMESPACE_DNS, f"tunnel_{key}_{i:03d}"))
         clients.append({
-            "id": UUID,
+            "id": tunnel_uuid,
             "email": f"tunnel_{key}_{i:03d}@reverse",
             "reverse": {
                 "tag": outbound_tag
@@ -176,7 +179,10 @@ def generate_portal_config(path, key, count):
             "selector": [
                 "reverse-out-"
             ],
-            "strategy": "random"
+            "strategy": {
+                "type": "leastPing"
+            },
+            "fallbackTag": "direct"
         }
     ]
     
@@ -198,6 +204,13 @@ def generate_portal_config(path, key, count):
     config = {
         "log": {
             "loglevel": "warning"
+        },
+        "observatory": {
+            "subjectSelector": [
+                "reverse-out-"
+            ],
+            "probeUrl": probe_url,
+            "probeInterval": probe_interval
         },
         "inbounds": inbounds,
         "outbounds": [
@@ -227,6 +240,8 @@ if __name__ == "__main__":
     parser.add_argument("--outdir", type=str, default="configs/xray/generated", help="Output directory")
     parser.add_argument("--bridge-tag-mode", type=str, choices=["unified", "unique"], default="unified", help="Bridge reverse tag mode (unified or unique)")
     parser.add_argument("--dialer-proxy", type=str, default="tor", help="Dialer proxy outbound tag (e.g. tor, socks)")
+    parser.add_argument("--probe-url", type=str, default="https://www.google.com/generate_204", help="Observatory probe URL")
+    parser.add_argument("--probe-interval", type=str, default="10s", help="Observatory probe interval")
     
     args = parser.parse_args()
     
@@ -240,6 +255,8 @@ if __name__ == "__main__":
     print(f"    - Count:           {args.count}")
     print(f"    - Bridge Tag Mode: {args.bridge_tag_mode}")
     print(f"    - Dialer Proxy:    {args.dialer_proxy if args.dialer_proxy else 'None (Direct connection)'}")
+    print(f"    - Probe URL:       {args.probe_url}")
+    print(f"    - Probe Interval:  {args.probe_interval}")
     
     # Generate Bridge Config
     bridge_cfg = generate_bridge_config(args.domain, args.path, args.key, args.count, args.bridge_tag_mode, args.dialer_proxy)
@@ -249,7 +266,7 @@ if __name__ == "__main__":
         json.dump(bridge_cfg, f, indent=2)
         
     # Generate Portal Config
-    portal_cfg = generate_portal_config(args.path, args.key, args.count)
+    portal_cfg = generate_portal_config(args.path, args.key, args.count, args.probe_url, args.probe_interval)
     portal_file = os.path.join(out_dir, f"portal_100_tunnels_{args.key}.json")
     print(f"[*] Writing Portal config to: {portal_file}")
     with open(portal_file, "w", encoding="utf-8") as f:
