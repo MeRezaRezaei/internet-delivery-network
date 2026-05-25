@@ -9,6 +9,13 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **XHTTP Padding & Obfuscation Integration (2026-05-25):**
+    - Created a specialized obfuscation reference inside the project under `docs/project_brain/xray_reference/XHTTP_OBFUSCATION.md` detailing how `xPaddingBytes` and `xPaddingObfsMode` reshape packet sizes and entropy to defeat DPI heuristics.
+    - Wrote the high-security test Bridge template `configs/xray/bridge_obfs_test.json` containing 90s connection rotation, heavy random padding (`"500-1500"`), and non-zero entropy obfuscation enabled.
+    - Wrote the matching test Portal template `configs/xray/portal_obfs_test.json` terminated directly in Xray on port 443 with Server 01's native certificate paths.
+- **Server 01 WireGuard Connectivity Established (2026-05-25):**
+    - Established remote SSH access to the primary domestic node Server 01 (`10.255.1.1`) over the WireGuard mesh network.
+    - Verified its environment (Ubuntu 24.04 noble, x86_64, systemd Xray) and volume bindings for the Marzban node container.
 - **Empirical GFW Border Diagnostics & Structural Block Proof (2026-05-25):**
     - Created an automated diagnostic tool `scripts/gfw_diagnostic_test.py` and successfully deployed it over the active WireGuard mesh network to Server 01 (`10.255.1.1`) and the Germany server (`100.100.3.100`).
     - Verified GFW's SNI-to-IP cross-checking mechanism, demonstrating that SNI spoofing/domain fronting is actively blocked at the border gateway.

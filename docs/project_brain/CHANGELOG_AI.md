@@ -1,6 +1,13 @@
 # AI Changelog
 
 ## 2026-05-25
+- **XHTTP Padding & Obfuscation Design and Templates**:
+    - Formulated a comprehensive architectural reference under `docs/project_brain/xray_reference/XHTTP_OBFUSCATION.md` detailing the theoretical mechanisms of `xPaddingBytes` (packet size masking) and `xPaddingObfsMode` (non-zero entropy traffic shaping) to prevent GFW deep-packet-inspection.
+    - Designed and wrote `configs/xray/bridge_obfs_test.json` containing the high-security test Bridge config (integrating `"xPaddingBytes": "500-1500"`, `"xPaddingObfsMode": true`, and a 90-second dynamic physical connection rotation threshold).
+    - Designed and wrote `configs/xray/portal_obfs_test.json` containing the matching Portal config with TLS terminated directly in Xray on port 443 using Server 01's native certificate paths (`/opt/node/ssl_cert.pem` and `/opt/node/ssl_key.pem`).
+- **Domestic Server 01 Access Established**:
+    - Configured Tailscale-over-WireGuard access to the primary domestic node Server 01 (`10.255.1.1`) as root.
+    - Successfully verified its native environment (Ubuntu 24.04 noble, x86_64, running systemd Xray) and volume bindings for the Marzban node container.
 - **Empirical Proof of GFW SNI Cross-Checking & Dynamic IP-Level Blocking**:
     - Created an automated diagnostic tool `scripts/gfw_diagnostic_test.py` and deployed it over the restored WireGuard mesh network to Server 01 (`10.255.1.1`) and the Germany server (`100.100.3.100`).
     - **SNI Cross-Checking Verified**: Confirmed that GFW border gateways parse plaintext SNI headers and cross-check them against the destination IP. Connecting with a spoofed whitelisted bank domain (`asan.shaparak.ir`) or a blocked domain (`www.youtube.com`) directly to your domestic IP instantly times out due to GFW drop filters blocking SNI mismatch (domain fronting defense).
