@@ -9,6 +9,9 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **Server 07 Gateway Protection (2026-05-25):**
+    - Stopped, disabled, and completely purged the `xray@test` service and all testing files from the Germany host.
+    - Verified 100% safe state with no active test connections targeting Server 07.
 - **XHTTP Padding & Obfuscation Integration (2026-05-25):**
     - Created a specialized obfuscation reference inside the project under `docs/project_brain/xray_reference/XHTTP_OBFUSCATION.md` detailing how `xPaddingBytes` and `xPaddingObfsMode` reshape packet sizes and entropy to defeat DPI heuristics.
     - Wrote the high-security test Bridge template `configs/xray/bridge_obfs_test.json` containing 90s connection rotation, heavy random padding (`"500-1500"`), and non-zero entropy obfuscation enabled.

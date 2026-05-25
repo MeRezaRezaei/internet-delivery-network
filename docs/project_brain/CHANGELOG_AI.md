@@ -1,6 +1,9 @@
 # AI Changelog
 
 ## 2026-05-25
+- **Strict Server 07 Protection & Service Deactivation**:
+    - Terminated, disabled, and completely removed the temporary test service `xray@test` and `/usr/local/etc/xray/test.json` on the Germany server.
+    - Guaranteed 100% isolation of Server 07's public IP (`i-07.menudigi.ir`) to safeguard its corporate gateway integrity and protect it from GFW reputation mapping.
 - **XHTTP Padding & Obfuscation Design and Templates**:
     - Formulated a comprehensive architectural reference under `docs/project_brain/xray_reference/XHTTP_OBFUSCATION.md` detailing the theoretical mechanisms of `xPaddingBytes` (packet size masking) and `xPaddingObfsMode` (non-zero entropy traffic shaping) to prevent GFW deep-packet-inspection.
     - Designed and wrote `configs/xray/bridge_obfs_test.json` containing the high-security test Bridge config (integrating `"xPaddingBytes": "500-1500"`, `"xPaddingObfsMode": true`, and a 90-second dynamic physical connection rotation threshold).
