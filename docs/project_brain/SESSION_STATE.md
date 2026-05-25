@@ -9,6 +9,10 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **XHTTP Padding CDN Diagnostics and Root Cause Analysis (2026-05-25):**
+    - Performed a deep code-level and discussion-backed investigation into the `transport/internet/splithttp: invalid padding () length:0` error.
+    - Identified the exact root cause: the default XHTTP padding placement (`queryInHeader` inside `Referer`) gets actively stripped or filtered by the CDN (ArvanCloud/Cloudflare) edge filters, yielding an empty `()` padding value of `length:0` which fails Xray's strict range validation.
+    - Designed the perfect permanent bypass: shifting the obfuscation `"xPaddingPlacement"` to `"header"` and using a custom header `"X-Padding"` or `"X-Obfs-Padding"` that CDNs do not strip.
 - **Server 07 Gateway Protection (2026-05-25):**
     - Stopped, disabled, and completely purged the `xray@test` service and all testing files from the Germany host.
     - Verified 100% safe state with no active test connections targeting Server 07.

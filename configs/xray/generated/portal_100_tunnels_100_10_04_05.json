@@ -785,7 +785,7 @@
         },
         "xhttpSettings": {
           "path": "/",
-          "mode": "auto",
+          "mode": "packet-up",
           "extra": {
             "xmux": {
               "maxConcurrency": 1000,
