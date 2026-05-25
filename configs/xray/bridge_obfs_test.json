@@ -38,7 +38,7 @@
                         // 1. Dynamic XMUX connection recycling to bypass GFW sliding-window block
                         "xmux": {
                             "maxConcurrency": 1000,
-                            "maxConnections": 10000,
+                            "maxConnections": 0,
                             "cMaxReuseTimes": 0,
                             "hMaxRequestTimes": 10000,
                             "hMaxReusableSecs": 90, // Rotate every 90 seconds to reset flow analysis
