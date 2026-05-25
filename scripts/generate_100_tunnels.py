@@ -16,11 +16,42 @@ import json
 import os
 import argparse
 import uuid
+import datetime
+from cryptography import x509
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.x509.oid import NameOID
 
 # Common Credentials
-UUID = "58764c09-99c3-4496-9591-9cff83e4c7b7"
-PORTAL_LISTEN_PORT = 15100
+UUID_NAMESPACE = uuid.NAMESPACE_DNS
 PORTAL_SOCKS_PORT = 10800
+
+def generate_new_tls_cert(domain):
+    """Generates a valid X.509 certificate and returns it in the format Xray expects."""
+    key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+    subject = issuer = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, domain)])
+    cert = (
+        x509.CertificateBuilder()
+        .subject_name(subject)
+        .issuer_name(issuer)
+        .public_key(key.public_key())
+        .serial_number(x509.random_serial_number())
+        .not_valid_before(datetime.datetime.utcnow())
+        .not_valid_after(datetime.datetime.utcnow() + datetime.timedelta(days=3650))
+        .add_extension(x509.SubjectAlternativeName([x509.DNSName(domain)]), critical=False)
+        .sign(key, hashes.SHA256())
+    )
+    
+    key_pem = key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption()
+    ).decode('utf-8')
+    cert_pem = cert.public_bytes(serialization.Encoding.PEM).decode('utf-8')
+    
+    # Return as properly formatted arrays, explicitly keeping the PEM framing headers
+    return [line for line in cert_pem.strip().split('\n')], \
+           [line for line in key_pem.strip().split('\n')]
 
 def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", dialer_proxy="tor"):
     outbounds = [
@@ -39,7 +70,7 @@ def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", 
         if bridge_tag not in inbound_tags:
             inbound_tags.append(bridge_tag)
         
-        tunnel_uuid = str(uuid.uuid5(uuid.NAMESPACE_DNS, f"tunnel_{key}_{i:03d}"))
+        tunnel_uuid = str(uuid.uuid5(UUID_NAMESPACE, f"tunnel_{key}_{i:03d}"))
         vless_outbound = {
             "protocol": "vless",
             "tag": tunnel_tag,
@@ -59,7 +90,9 @@ def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", 
                 "tlsSettings": {
                     "allowInsecure": True,
                     "serverName": domain,
-                    "alpn": ["h2"]
+                    "alpn": [
+                        "h2"
+                    ]
                 },
                 "xhttpSettings": {
                     "path": path,
@@ -128,7 +161,7 @@ def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", 
     
     config = {
         "log": {
-            "loglevel": "warning"
+            "loglevel": "debug"
         },
         "inbounds": [],
         "outbounds": outbounds,
@@ -139,7 +172,7 @@ def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", 
     }
     return config
 
-def generate_portal_config(path, key, count, probe_url="https://www.google.com/generate_204", probe_interval="10s"):
+def generate_portal_config(path, key, count, probe_url, probe_interval, cert_data, key_data):
     clients = []
     reverse_out_tags = []
     
@@ -148,7 +181,7 @@ def generate_portal_config(path, key, count, probe_url="https://www.google.com/g
         outbound_tag = f"reverse-out-{i:03d}"
         reverse_out_tags.append(outbound_tag)
         
-        tunnel_uuid = str(uuid.uuid5(uuid.NAMESPACE_DNS, f"tunnel_{key}_{i:03d}"))
+        tunnel_uuid = str(uuid.uuid5(UUID_NAMESPACE, f"tunnel_{key}_{i:03d}"))
         clients.append({
             "id": tunnel_uuid,
             "email": f"tunnel_{key}_{i:03d}@reverse",
@@ -185,16 +218,26 @@ def generate_portal_config(path, key, count, probe_url="https://www.google.com/g
                 "tlsSettings": {
                     "certificates": [
                         {
-                            "certificateFile": "/opt/node/certs/ssl_bundle.pem",
-                            "keyFile": "/opt/node/certs/ssl_bundle.pem"
+                            "certificate": cert_data,
+                            "key": key_data
                         }
                     ],
-                    "alpn": ["h2"]
+                    "alpn": [
+                        "h2"
+                    ]
                 },
                 "xhttpSettings": {
                     "path": path,
                     "mode": "auto",
                     "extra": {
+                        "xmux": {
+                            "maxConcurrency": 1000,
+                            "maxConnections": 0,
+                            "cMaxReuseTimes": 0,
+                            "hMaxRequestTimes": 10000,
+                            "hMaxReusableSecs": 90,
+                            "hKeepAlivePeriod": 15
+                        },
                         "xPaddingBytes": "500-1500",
                         "xPaddingObfsMode": True
                     }
@@ -218,23 +261,23 @@ def generate_portal_config(path, key, count, probe_url="https://www.google.com/g
     ]
     
     routing_rules = [
-        # Route socks-in traffic into the load balancer
         {
             "type": "field",
-            "inboundTag": ["socks-in"],
+            "inboundTag": [
+                "IN_REVERSE_PORTAL_100"
+            ],
             "balancerTag": "balancer_100"
         },
-        # Block anything else
         {
             "type": "field",
             "port": "0-65535",
-            "outboundTag": "block"
+            "outboundTag": "direct"
         }
     ]
     
     config = {
         "log": {
-            "loglevel": "warning"
+            "loglevel": "debug"
         },
         "observatory": {
             "subjectSelector": [
@@ -296,8 +339,12 @@ if __name__ == "__main__":
     with open(bridge_file, "w", encoding="utf-8") as f:
         json.dump(bridge_cfg, f, indent=2)
         
+    # Generate TLS Cert dynamically
+    print("[*] Generating programmatic X.509 RSA Certificate...")
+    cert_data, key_data = generate_new_tls_cert(args.domain)
+
     # Generate Portal Config
-    portal_cfg = generate_portal_config(args.path, args.key, args.count, args.probe_url, args.probe_interval)
+    portal_cfg = generate_portal_config(args.path, args.key, args.count, args.probe_url, args.probe_interval, cert_data, key_data)
     portal_file = os.path.join(out_dir, f"portal_100_tunnels_{args.key}.json")
     print(f"[*] Writing Portal config to: {portal_file}")
     with open(portal_file, "w", encoding="utf-8") as f:

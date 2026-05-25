@@ -785,7 +785,12 @@
         },
         "xhttpSettings": {
           "path": "/",
-          "mode": "packet-up",
+          "mode": "auto",
+          "noPadding": false,
+          "xPaddingPlacement": "header",
+          "xPaddingHeader": "X-Padding",
+          "xPaddingObfsMode": true,
+          "xPaddingBytes": "500-1500",
           "extra": {
             "xmux": {
               "maxConcurrency": 1000,
@@ -793,12 +798,11 @@
               "cMaxReuseTimes": 0,
               "hMaxRequestTimes": 10000,
               "hMaxReusableSecs": 90,
-              "hKeepAlivePeriod": 15,
-              "xPaddingPlacement": "header",
-              "xPaddingHeader": "X-Padding",
-              "xPaddingBytes": "500-1500"
+              "hKeepAlivePeriod": 15
             }
-          }
+          },
+          "scMaxConcurrentPosts": 10,
+          "scMinPostsIntervalMs": 100
         }
       }
     }
@@ -838,7 +842,7 @@
       {
         "type": "field",
         "port": "0-65535",
-        "outboundTag": "block"
+        "outboundTag": "direct"
       }
     ]
   }
