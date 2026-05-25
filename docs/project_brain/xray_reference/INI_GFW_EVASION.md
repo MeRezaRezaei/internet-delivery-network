@@ -67,3 +67,22 @@ For testing and real-scenario validation under Tailscale:
 *   **United States Server (US)**: `100.100.5.100`
 
 By establishing isolated test tunnels directly between these nodes over their secure Tailscale IP addresses (bypassing public CDN fronting for initial baseline profiling), we can analyze real-time throughput, latency, and XMUX overhead under pure network conditions before introducing GFW and CDN variables.
+---
+
+## 5. Empirical GFW Border Diagnostic Test Results (2026-05-25)
+
+We executed our automated diagnostic test suite (`scripts/gfw_diagnostic_test.py`) from the Germany server (`100.100.3.100`) directly targeting Server 01's public IP (`95.38.180.145:443`) to empirically map GFW's border gateway behaviors:
+
+### 5.1 TLS Handshake SNI Cross-Checking (Domain Fronting Defense)
+*   **Real SNI Match (`i-07.menudigi.ir`)**: Handshake **succeeded in 0.1812s** (TCP connection established in 0.1654s).
+*   **Spoofed SNI (`asan.shaparak.ir`)**: Handshake **TIMED OUT**.
+*   **Blocked SNI (`www.youtube.com`)**: Handshake **TIMED OUT**.
+*   **Discovery**: GFW actively intercepts the plaintext SNI during the TLS Client Hello and cross-checks it against the target destination IP. If a domestic IP (Asiatech) is queried with an SNI of a high-security whitelisted service (like Shaparak) that does not reside on that IP, the connection is instantly dropped. SNI spoofing/domain fronting is blocked.
+
+### 5.2 Dynamic IP-Level Block heuristic (Sliding Window Block)
+*   **Observations**: During back-to-back testing, subsequent handshakes to the legitimate domain (`i-07.menudigi.ir`) also timed out.
+*   **Discovery**: GFW's flow-analysis firewall keeps track of active sessions. When a suspicious/persistent TLS tunnel signature is detected on a source-destination pair, GFW dynamically triggers a temporary IP-level block on the `[Source IP (outside) -> Destination IP (inside)]` pair. All TCP SYN/TLS handshakes are silently dropped at the border gateway routers for 1 to 5 minutes until the timer expires.
+
+### 5.3 CDN Routing & Transit Exposure
+*   **The Leak**: Even with HTTPS active on both sides of the CDN, standard CDNs do not have dedicated private transits into Iran. The foreign CDN edge outside Iran must forward incoming Bridge requests by establishing a direct connection over the public internet to the Portal's public IP inside Iran.
+*   **The Inspection**: This transit connection crossing the GFW border gateway exposes the source (CDN foreign edge), destination (domestic Portal IP), and SNI. GFW inspects this metadata, correlates the symmetric traffic volume, and throttles the TCP session at the border ASN.
