@@ -4595,10 +4595,11 @@
               "cMaxReuseTimes": 0,
               "hMaxRequestTimes": 10000,
               "hMaxReusableSecs": 90,
-              "hKeepAlivePeriod": 15
-            },
-            "xPaddingBytes": "500-1500",
-            "xPaddingObfsMode": true
+              "hKeepAlivePeriod": 15,
+              "xPaddingPlacement": "header",
+              "xPaddingHeader": "X-Padding",
+              "xPaddingBytes": "500-1500"
+            }
           }
         },
         "sockopt": {
