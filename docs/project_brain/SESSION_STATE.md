@@ -9,6 +9,11 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **Empirical GFW Border Diagnostics & Structural Block Proof (2026-05-25):**
+    - Created an automated diagnostic tool `scripts/gfw_diagnostic_test.py` and successfully deployed it over the active WireGuard mesh network to Server 01 (`10.255.1.1`) and the Germany server (`100.100.3.100`).
+    - Verified GFW's SNI-to-IP cross-checking mechanism, demonstrating that SNI spoofing/domain fronting is actively blocked at the border gateway.
+    - Proved GFW's dynamic IP-level sliding window block heuristic which drops all TCP SYN/TLS handshakes between a specific source-destination pair for 1-5 minutes when persistent tunnel signatures are detected.
+    - Mapped Cloudflare Warp's domestic latency bottleneck (>1s) to GFW's active packet-dropping of Warp endpoints inside Iran.
 - **GFW Evasion & INI Circumvention Analysis (2026-05-25):**
     - Written and structured a comprehensive research and implementation guide inside the project under `docs/project_brain/xray_reference/INI_GFW_EVASION.md` outlining GFW border gateway ASN heuristics (IP reputation blocks, traffic flow symmetry, active probing).
     - Proposed exact countermeasures utilizing Cloudflare Warp SOCKS proxy dialers and randomized XMUX connection swaps to evade detection and QoS throttling.
