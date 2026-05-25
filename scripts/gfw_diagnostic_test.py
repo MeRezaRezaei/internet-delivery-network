@@ -6,6 +6,23 @@ import sys
 import argparse
 import urllib.request
 import urllib.error
+import sys
+
+# ==============================================================================
+# CRITICAL SECURITY MANDATE: SERVER 07 ABSOLUTE ZERO-TOUCH POLICY
+# ==============================================================================
+# Server 07 is the core, irreplaceable "Pro" management gateway.
+# Under no circumstances should this script or any tool touch Server 07.
+# Targets starting with i-07, or IPs 185.204.197.242, 10.255.1.7 are strictly banned.
+# ==============================================================================
+BANNED_IDENTIFIERS = ["185.204.197.242", "10.255.1.7", "i-07"]
+
+def enforce_safety_mandate(target_ip, sni_domain, url_target):
+    for banned in BANNED_IDENTIFIERS:
+        if banned in str(target_ip) or banned in str(sni_domain) or banned in str(url_target):
+            print(f"\n[FATAL ERROR] SECURITY MANDATE VIOLATION: Attempted to touch Server 07 ({banned})!")
+            print("Server 07 is strictly locked. Execution aborted immediately to prevent network lockout.\n")
+            sys.exit(1)
 
 def test_sni_handshake(target_ip, target_port, sni_domain, timeout=5):
     """
@@ -104,13 +121,15 @@ def test_throughput_throttling(cdn_url, duration_secs=30):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="GFW & INI Border Gateway Diagnostic Tester")
     parser.add_argument("--mode", choices=["handshake", "throughput", "all"], default="all", help="Test mode")
-    parser.add_argument("--ip", default="95.38.180.145", help="Target public IP inside Iran")
+    parser.add_argument("--ip", default="95.38.180.145", help="Target public IP inside Iran (Server 01)")
     parser.add_argument("--port", type=int, default=443, help="Target TLS Port")
-    parser.add_argument("--sni", default="i-07.menudigi.ir", help="SNI Domain name to test")
-    parser.add_argument("--url", default="https://i-07.menudigi.ir/", help="HTTPS URL for throughput testing")
+    parser.add_argument("--sni", default="i-01.doctel.ir", help="SNI Domain name to test (Server 01 domain)")
+    parser.add_argument("--url", default="https://i-01.doctel.ir/healthcheck", help="HTTPS URL for throughput testing (Server 01 healthcheck)")
     parser.add_argument("--time", type=int, default=15, help="Throughput test duration in seconds")
     
     args = parser.parse_args()
+    
+    enforce_safety_mandate(args.ip, args.sni, args.url)
     
     if args.mode in ["handshake", "all"]:
         # Test 1: Real SNI

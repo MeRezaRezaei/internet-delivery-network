@@ -19,11 +19,10 @@
 - **Server 01 WireGuard Connectivity Established (2026-05-25):**
     - Established remote SSH access to the primary domestic node Server 01 (`10.255.1.1`) over the WireGuard mesh network.
     - Verified its environment (Ubuntu 24.04 noble, x86_64, systemd Xray) and volume bindings for the Marzban node container.
-- **Empirical GFW Border Diagnostics & Structural Block Proof (2026-05-25):**
-    - Created an automated diagnostic tool `scripts/gfw_diagnostic_test.py` and successfully deployed it over the active WireGuard mesh network to Server 01 (`10.255.1.1`) and the Germany server (`100.100.3.100`).
-    - Verified GFW's SNI-to-IP cross-checking mechanism, demonstrating that SNI spoofing/domain fronting is actively blocked at the border gateway.
-    - Proved GFW's dynamic IP-level sliding window block heuristic which drops all TCP SYN/TLS handshakes between a specific source-destination pair for 1-5 minutes when persistent tunnel signatures are detected.
-    - Mapped Cloudflare Warp's domestic latency bottleneck (>1s) to GFW's active packet-dropping of Warp endpoints inside Iran.
+- **Empirical GFW Border Diagnostics & GFW-CDN Handshake Verification (2026-05-25) [VERIFIED ON SERVER 01]:**
+    - Corrected the previous testing error by re-deploying `scripts/gfw_diagnostic_test.py` and running tests from Germany (`100.100.3.100`) strictly against **Server 01 (`95.38.180.145`)** using the authorized domain **`i-01.doctel.ir`**.
+    - **Verified SNI Handshake Interception**: Proved that the GFW-CDN edge actively terminates/rejects handshakes with a direct **`SSLV3_ALERT_HANDSHAKE_FAILURE`** when unrecognized or spoofed SNIs (`asan.shaparak.ir` or `www.youtube.com`) are supplied. 
+    - **Verified Tunnel Routing**: Successfully verified that curling `i-01.doctel.ir` routes through the CDN to Server 01's HAProxy backend, returning an expected `503 Service Unavailable` due to no active Xray reverse tunnel registration currently running. This confirms the network route to Server 01 is 100% functional and unblocked!
 - **GFW Evasion & INI Circumvention Analysis (2026-05-25):**
     - Written and structured a comprehensive research and implementation guide inside the project under `docs/project_brain/xray_reference/INI_GFW_EVASION.md` outlining GFW border gateway ASN heuristics (IP reputation blocks, traffic flow symmetry, active probing).
     - Proposed exact countermeasures utilizing Cloudflare Warp SOCKS proxy dialers and randomized XMUX connection swaps to evade detection and QoS throttling.
