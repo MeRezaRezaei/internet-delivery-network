@@ -56,9 +56,26 @@ def generate_bridge_config(domain, path, key, count, bridge_tag_mode="unified", 
             "streamSettings": {
                 "network": "xhttp",
                 "security": "tls",
+                "tlsSettings": {
+                    "allowInsecure": True,
+                    "serverName": domain,
+                    "alpn": ["h2"]
+                },
                 "xhttpSettings": {
                     "path": path,
-                    "mode": "packet-up"
+                    "mode": "packet-up",
+                    "extra": {
+                        "xmux": {
+                            "maxConcurrency": 1000,
+                            "maxConnections": 0,
+                            "cMaxReuseTimes": 0,
+                            "hMaxRequestTimes": 10000,
+                            "hMaxReusableSecs": 90,
+                            "hKeepAlivePeriod": 15
+                        },
+                        "xPaddingBytes": "500-1500",
+                        "xPaddingObfsMode": True
+                    }
                 },
                 "sockopt": {
                     "domainStrategy": "AsIs",
@@ -152,10 +169,10 @@ def generate_portal_config(path, key, count, probe_url="https://www.google.com/g
                 "udp": True
             }
         },
-        # 2. VLESS Reverse Portal Listener receiving the connections
+        # 2. VLESS Reverse Portal Listener receiving the connections on Port 443 directly
         {
             "tag": "IN_REVERSE_PORTAL_100",
-            "port": PORTAL_LISTEN_PORT,
+            "port": 443,
             "listen": "0.0.0.0",
             "protocol": "vless",
             "settings": {
@@ -164,9 +181,23 @@ def generate_portal_config(path, key, count, probe_url="https://www.google.com/g
             },
             "streamSettings": {
                 "network": "xhttp",
+                "security": "tls",
+                "tlsSettings": {
+                    "certificates": [
+                        {
+                            "certificateFile": "/opt/node/certs/ssl_bundle.pem",
+                            "keyFile": "/opt/node/certs/ssl_bundle.pem"
+                        }
+                    ],
+                    "alpn": ["h2"]
+                },
                 "xhttpSettings": {
                     "path": path,
-                    "mode": "auto"
+                    "mode": "auto",
+                    "extra": {
+                        "xPaddingBytes": "500-1500",
+                        "xPaddingObfsMode": True
+                    }
                 }
             }
         }
@@ -234,14 +265,14 @@ def generate_portal_config(path, key, count, probe_url="https://www.google.com/g
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="100-Tunnel SPEED AGGREGATOR Generator")
     parser.add_argument("--domain", type=str, default="i-01.doctel.ir", help="CDN endpoint domain")
-    parser.add_argument("--path", type=str, default="/100-10-01-05", help="XHTTP request path")
+    parser.add_argument("--path", type=str, default="/", help="XHTTP request path")
     parser.add_argument("--key", type=str, default="100_10_01_05", help="Key prefix for VLESS emails")
     parser.add_argument("--count", type=int, default=100, help="Number of concurrent tunnels")
     parser.add_argument("--outdir", type=str, default="configs/xray/generated", help="Output directory")
     parser.add_argument("--bridge-tag-mode", type=str, choices=["unified", "unique"], default="unified", help="Bridge reverse tag mode (unified or unique)")
-    parser.add_argument("--dialer-proxy", type=str, default="tor", help="Dialer proxy outbound tag (e.g. tor, socks)")
+    parser.add_argument("--dialer-proxy", type=str, default="", help="Dialer proxy outbound tag (e.g. tor, socks)")
     parser.add_argument("--probe-url", type=str, default="https://www.google.com/generate_204", help="Observatory probe URL")
-    parser.add_argument("--probe-interval", type=str, default="10s", help="Observatory probe interval")
+    parser.add_argument("--probe-interval", type=str, default="5s", help="Observatory probe interval")
     
     args = parser.parse_args()
     

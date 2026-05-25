@@ -7,7 +7,7 @@
       "reverse-out-"
     ],
     "probeUrl": "https://www.google.com/generate_204",
-    "probeInterval": "10s"
+    "probeInterval": "5s"
   },
   "inbounds": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "tag": "IN_REVERSE_PORTAL_100",
-      "port": 15100,
+      "port": 443,
       "listen": "0.0.0.0",
       "protocol": "vless",
       "settings": {
@@ -732,9 +732,25 @@
       },
       "streamSettings": {
         "network": "xhttp",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "/opt/node/certs/ssl_bundle.pem",
+              "keyFile": "/opt/node/certs/ssl_bundle.pem"
+            }
+          ],
+          "alpn": [
+            "h2"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-04-05",
-          "mode": "auto"
+          "path": "/",
+          "mode": "auto",
+          "extra": {
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         }
       }
     }
