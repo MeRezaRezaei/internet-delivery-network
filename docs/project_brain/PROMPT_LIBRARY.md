@@ -1,5 +1,16 @@
 # Prompt Library & Guardrails
 
+> [!CAUTION]
+> # CRITICAL SECURITY MANDATE: SERVER 07 ABSOLUTE ZERO-TOUCH POLICY
+> **Server 07 is the core, irreplaceable "Pro" management gateway. ANY configuration edit, systemctl reload, or ACTIVE testing/probing (including TLS handshakes, pings, traceroutes, or curls) targeting Server 07 will instantly expose it to GFW reputation blocking, risking permanent network lockout.**
+> **DO NOT touch, modify, restart services, or execute any network/probing tests targeting these Server 07 identifiers from ANY server or environment:**
+> *   **Public IP**: `185.204.197.242`
+> *   **Private IP**: `10.255.1.7`
+> *   **Domains**: Any domain starting with `i-07` (e.g. `i-07.menudigi.ir`, `i-07.doctel.ir`)
+> **This mandate takes absolute precedence over all other tasks, scripts, and requests.**
+
+
+
 ## Startup Prompt
 Read `AGENTS.md` and execute the `docs/project_brain/ENTRYPOINT.md` startup flow.
 Before taking any action, run the **Correction Prevention Guardrails** below to ensure perfect alignment with historical constraints.
