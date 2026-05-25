@@ -1,7 +1,7 @@
 # Session State
 
 ## Last Updated
-- Date: 2026-05-24
+- Date: 2026-05-25
 - Owner: Antigravity
 
 ## Current Stage
@@ -9,6 +9,13 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **Direct CDN VLESS Reverse Portal Configuration with Native TLS Termination (2026-05-25):**
+    - Designed and wrote `configs/xray/portal_direct_cdn.json` to allow direct, high-performance TLS termination on port 443 inside Xray, bypassing HAProxy completely.
+    - Integrated standard Marzban node self-signed certificate paths (`/var/lib/marzban-node/ssl_cert.pem` and `/var/lib/marzban-node/ssl_key.pem`) under the `streamSettings.tlsSettings` block.
+    - Embedded the root-level `observatory` (10s interval) and `leastPing` balancer to monitor and distribute user mixed SOCKS traffic dynamically over the VLESS reverse outbounds.
+- **Architectural Resolution of the "Two Mux vs. One Mux" Conundrum (2026-05-25):**
+    - Theoretically resolved and clarified that in a VLESS Simplified Reverse Proxy, there is strictly **only ONE multiplexing layer**, which is initiated and configured on the **Bridge outbound (`XMUX` in XHTTP settings)**.
+    - Showed that the Portal's virtual outbound `reverse-out-XXX` does not execute physical multiplexing; it simply decapsulates user-facing streams and injects them as virtual sub-streams into the pre-existing, Bridge-multiplexed channels. Thus, Portal-side outbound Mux is impossible and unnecessary.
 - **CDN-Optimized Direct VLESS Reverse Bridge Config Created (2026-05-24):**
     - Designed and wrote `configs/xray/bridge_direct_cdn.json` to allow direct, high-performance VLESS reverse tunnel connections from the Bridge to the Portal without HAProxy interference.
     - Configured XHTTP in **H2 (`stream-up`) mode** over TLS to enable native multiplexing and masquerade as gRPC uplink, bypassing CDN buffer limitations.

@@ -1,5 +1,15 @@
 # AI Changelog
 
+## 2026-05-25
+- **Architectural Resolution of the "Two Mux vs. One Mux" Conundrum**:
+    - Theoretically analyzed and proved that in a VLESS Simplified Reverse Proxy setup, there is **strictly only ONE multiplexing layer**.
+    - Clarified that multiplexing (`XMUX` in XHTTP settings) is initiated and configured entirely on the **Bridge outbound side**.
+    - Detailed how the Portal's virtual outbound `reverse-out-XXX` simply receives and injects users' demultiplexed SOCKS streams as virtual sub-streams into the pre-established reverse channel, bypassing any need or possibility of Portal-side physical Mux.
+- **Direct-to-CDN VLESS Reverse Portal Template**:
+    - Created `configs/xray/portal_direct_cdn.json` listening directly on `0.0.0.0:443` with native TLS termination.
+    - Integrated standard Marzban node self-signed certificate paths (`/var/lib/marzban-node/ssl_cert.pem` and `/var/lib/marzban-node/ssl_key.pem`) under the `streamSettings.tlsSettings` block.
+    - Configured the root-level `observatory` (10s interval) and `leastPing` balancer to monitor health and dynamically load-balance users' incoming mixed SOCKS traffic across the active reverse outbounds.
+
 ## 2026-05-19
 - **Bootstrap:** Initialized project brain docs from template.
 - **Context:** Established 'Internet Delivery Network' as the placeholder product name.
