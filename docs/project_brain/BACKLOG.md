@@ -39,6 +39,7 @@
 | IDN-028 | P0 | Research and Analyze XHTTP & XMUX Deep-Dive Protocols | done | IDN-027 | Study Xray H2/H3 evasion, UDP encapsulation, and single-tunnel vs pool aggregation |
 | IDN-029 | P0 | Create CDN-Optimized Direct VLESS Reverse Bridge Config | done | IDN-028 | Write high-performance TLS H2 Bridge config with Tor dialer |
 | IDN-030 | P0 | Create CDN-Optimized Direct VLESS Reverse Portal Config | done | IDN-029 | Design and compile Portal configuration with native port 443 TLS termination |
+| IDN-031 | P0 | Establish and Verify High-Obfuscation SplitHTTP VLESS Reverse Tunnel | done | IDN-030 | Establish test VLESS tunnel over ArvanCloud CDN to Server 01 and measure latency/success |
 
 ## WIP Rule
 - Max doing items: 2

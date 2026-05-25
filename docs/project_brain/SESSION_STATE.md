@@ -16,6 +16,13 @@
     - Created a specialized obfuscation reference inside the project under `docs/project_brain/xray_reference/XHTTP_OBFUSCATION.md` detailing how `xPaddingBytes` and `xPaddingObfsMode` reshape packet sizes and entropy to defeat DPI heuristics.
     - Wrote the high-security test Bridge template `configs/xray/bridge_obfs_test.json` containing 90s connection rotation, heavy random padding (`"500-1500"`), and non-zero entropy obfuscation enabled.
     - Wrote the matching test Portal template `configs/xray/portal_obfs_test.json` terminated directly in Xray on port 443 with Server 01's native certificate paths.
+- **Successful SplitHTTP VLESS Obfuscation Reverse Tunnel Test (2026-05-25):**
+    - Stopped HAProxy on Server 01 and deployed the custom test Portal configuration `/usr/local/etc/xray/obfs_test.json` terminated directly in Xray on port 443 with standard SSL bundle certificate paths.
+    - Deployed and configured the matching test Bridge configuration on Germany (`100.100.3.100`) targeting Server 01's ArvanCloud edge domain `i-01.doctel.ir`.
+    - Integrated GFW-proof parameters including `"xPaddingBytes": "500-1500"`, `"xPaddingObfsMode": true` and a 90-second XMUX connection rotation threshold.
+    - Empirically proved that SplitHTTP `"packet-up"` mode is **required** to bypass ArvanCloud's streaming/request body buffering limitations.
+    - Verified **100% functional SOCKS5 internet access** through port `10800` on Server 01. 
+    - Measured latency and stability: Succeeded with `HTTP 200` in 2.89s and proved **self-healing** resilience against transient GFW/CDN packet drops (which temporarily threw a 502 Bad Gateway at the edge but Xray instantly re-established and completed subsequent requests).
 - **Server 01 WireGuard Connectivity Established (2026-05-25):**
     - Established remote SSH access to the primary domestic node Server 01 (`10.255.1.1`) over the WireGuard mesh network.
     - Verified its environment (Ubuntu 24.04 noble, x86_64, systemd Xray) and volume bindings for the Marzban node container.

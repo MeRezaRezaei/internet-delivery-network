@@ -39,8 +39,8 @@
                 "tlsSettings": {
                     "certificates": [
                         {
-                            "certificateFile": "/opt/node/ssl_cert.pem",
-                            "keyFile": "/opt/node/ssl_key.pem"
+                            "certificateFile": "/opt/node/certs/ssl_bundle.pem",
+                            "keyFile": "/opt/node/certs/ssl_bundle.pem"
                         }
                     ],
                     "alpn": ["h2"]
