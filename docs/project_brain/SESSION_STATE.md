@@ -9,6 +9,15 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **GFW Evasion & INI Circumvention Analysis (2026-05-25):**
+    - Written and structured a comprehensive research and implementation guide inside the project under `docs/project_brain/xray_reference/INI_GFW_EVASION.md` outlining GFW border gateway ASN heuristics (IP reputation blocks, traffic flow symmetry, active probing).
+    - Proposed exact countermeasures utilizing Cloudflare Warp SOCKS proxy dialers and randomized XMUX connection swaps to evade detection and QoS throttling.
+- **High-Capacity XMUX Bridge Config Created (2026-05-25):**
+    - Designed and wrote `configs/xray/bridge_high_mux.json` executing the user-requested extreme VLESS reverse outbound settings with `"maxConcurrency": 1000` and `"maxConnections": 10000`.
+    - Integrated a local Warp SOCKS dialer on port `10808` to protect and obfuscate the outbound cloud IP from GFW reputation blocks.
+- **Tailscale Host and Xray-core Environment Probing (2026-05-25):**
+    - Established Tailscale SSH links to Germany (`100.100.3.100`) and United States (`100.100.5.100`) testing nodes.
+    - Verified the system Xray version on Germany is `v26.3.27` running natively on `linux/arm64`, and examined the active reverse tunnel config (`21-08-07-06.json`) and docker stack.
 - **Direct CDN VLESS Reverse Portal Configuration with Native TLS Termination (2026-05-25):**
     - Designed and wrote `configs/xray/portal_direct_cdn.json` to allow direct, high-performance TLS termination on port 443 inside Xray, bypassing HAProxy completely.
     - Integrated standard Marzban node self-signed certificate paths (`/var/lib/marzban-node/ssl_cert.pem` and `/var/lib/marzban-node/ssl_key.pem`) under the `streamSettings.tlsSettings` block.

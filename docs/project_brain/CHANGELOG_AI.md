@@ -1,6 +1,15 @@
 # AI Changelog
 
 ## 2026-05-25
+- **GFW Evasion & INI Circumvention Analysis**:
+    - Compiled a comprehensive architectural guide under `docs/project_brain/xray_reference/INI_GFW_EVASION.md` analyzing the threat model of the whitelist-based Iranian National Information Network (INI / NIN).
+    - Outlined the mechanisms GFW uses to target reverse tunnels (IP reputation, traffic symmetry, active probing) and documented bypass strategies using Cloudflare Warp and connection rotation.
+- **High-Capacity XMUX Bridge Template**:
+    - Created `configs/xray/bridge_high_mux.json` implementing the extreme multiplexing configuration (`maxConcurrency: 1000`, `maxConnections: 10000`) and a local Warp SOCKS dialer on port `10808` to protect the cloud IP.
+- **SSH Connectivity & Host Verification**:
+    - Established Tailscale SSH connections to both DE (`100.100.3.100`) and US (`100.100.5.100`) test environments.
+    - Verified the system Xray version on the DE server is `v26.3.27` running natively on `linux/arm64`.
+    - Examined the current live reverse proxy configuration `21-08-07-06.json` and Docker container stacks (including Marzban and Warp).
 - **Architectural Resolution of the "Two Mux vs. One Mux" Conundrum**:
     - Theoretically analyzed and proved that in a VLESS Simplified Reverse Proxy setup, there is **strictly only ONE multiplexing layer**.
     - Clarified that multiplexing (`XMUX` in XHTTP settings) is initiated and configured entirely on the **Bridge outbound side**.
