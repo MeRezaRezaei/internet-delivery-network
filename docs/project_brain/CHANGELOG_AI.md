@@ -1,12 +1,13 @@
 # AI Changelog
 
 ## 2026-05-26
-- **Server 04 Local Loopback Tunnel Connection Success**:
+- **Server 04 Local Loopback Tunnel Connection Success & Clashing Resolution**:
     - Identified a routing direction mismatch: in a simplified reverse proxy, a client with a `reverse` block cannot be used directly as a forward proxy target from the Bridge's SOCKS inbound (throwing a `safety reasons: not allowed to use forward proxy` crash).
     - Shifted the testing SOCKS inbound to the Portal side (`portal_cdn_loopback_srv04.json`) on port `10800` routing to `reverse-out-loopback`. Adjusted the Bridge SOCKS port to `10801` to prevent any local port conflicts.
-    - Transferred and redeployed both configs to `/usr/local/etc/xray/` on Server 04 and successfully launched both in background.
-    - Verified 100% active tunnel registration: Xray logs on both Portal and Bridge confirmed a successful connection (`udp:reverse:0` and `v1.rvs.cool:0` registered cleanly over VLESS-over-XHTTP H2 packet-up mode!).
-    - Verified successful local routing: A SOCKS request to port `10800` (Portal SOCKS inbound) successfully detoured to `reverse-out-loopback`, traveled through the reverse tunnel to the Bridge, decapsulated under inbound `reverse-bridge-test`, and detoured to the `direct` (freedom) outbound.
+    - Discovered a critical port clash on Server 04: a zombie Xray process (`474540`) and the active Marzban Node container (`node_node_1`) were actively clashing on port `8443`, triggering connection failures and sporadic `unexpected status 400` errors.
+    - Stopped the `node_node_1` container and killed all duplicate/stray Xray processes on Server 04 to clean the slate and leave port `8443` completely clear.
+    - Relaunched the clean Portal and Bridge loopback configurations in the background, achieving instant, stable reverse tunnel registration (`udp:reverse:0` and `v1.rvs.cool:0` registered cleanly over VLESS-over-XHTTP H2 packet-up mode!).
+    - Verified successful domestic routing: Ran `curl --socks5-hostname 127.0.0.1:10800 https://iran.ir` (routing SOCKS request to Portal -> detoured to reverse tunnel -> Bridge -> freedom direct outbound) which successfully resolved, dialed, and returned a clean HTTP response!
 - **XHTTP/XMUX Padding & Upload Crash Resolution**:
     - Fixed the active SplitHTTP `invalid padding length:0` crash by adding `"xPaddingPlacement": "header"` and `"xPaddingHeader": "X-Padding"` under `streamSettings.xhttpSettings.extra` in the configuration generator script. Custom headers bypass CDN edge-stripping.
     - Resolved the `strconv.ParseUint` sequence parsing UUID crash by explicitly setting `"mode": "packet-up"` on both Portal and Bridge templates, aligning path extraction structures.
