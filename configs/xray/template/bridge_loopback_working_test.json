@@ -2,29 +2,29 @@
   "log": {
     "loglevel": "debug"
   },
-  "inbounds": [
-    {
-      "tag": "socks-in-test",
-      "port": 10801,
-      "listen": "127.0.0.1",
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": true
-      }
-    }
-  ],
   "outbounds": [
     {
       "protocol": "freedom",
       "tag": "direct"
     },
     {
+      "tag": "warp",
+      "protocol": "socks",
+      "settings": {
+        "servers": [
+          {
+            "address": "127.0.0.1",
+            "port": 10110
+          }
+        ]
+      }
+    },
+    {
       "protocol": "vless",
       "tag": "tunnel-loopback",
       "settings": {
-        "address": "127.0.0.1",
-        "port": 8443,
+        "address": "i-01.doctel.ir",
+        "port": 443,
         "id": "d532a842-8783-4d15-93b3-dc8963947be9",
         "email": "loopback_test@reverse",
         "encryption": "none",
@@ -37,10 +37,9 @@
         "security": "tls",
         "tlsSettings": {
           "allowInsecure": true,
-          "serverName": "i-04.doctel.ir",
+          "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2",
-            "http/1.1"
+            "h2"
           ]
         },
         "xhttpSettings": {
@@ -62,6 +61,7 @@
           }
         },
         "sockopt": {
+          "dialerProxy": "warp",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15
@@ -75,15 +75,13 @@
       {
         "type": "field",
         "inboundTag": [
-          "socks-in-test"
+          "reverse-bridge-test"
         ],
-        "outboundTag": "tunnel-loopback"
+        "outboundTag": "direct"
       },
       {
         "type": "field",
-        "inboundTag": [
-          "reverse-bridge-test"
-        ],
+        "port": "0-65535",
         "outboundTag": "direct"
       }
     ]
