@@ -5,7 +5,7 @@
   "inbounds": [
     {
       "tag": "socks-in-test",
-      "port": 10800,
+      "port": 10801,
       "listen": "127.0.0.1",
       "protocol": "socks",
       "settings": {
@@ -23,8 +23,8 @@
       "protocol": "vless",
       "tag": "tunnel-loopback",
       "settings": {
-        "address": "i-04.doctel.ir",
-        "port": 443,
+        "address": "127.0.0.1",
+        "port": 8443,
         "id": "d532a842-8783-4d15-93b3-dc8963947be9",
         "email": "loopback_test@reverse",
         "encryption": "none",

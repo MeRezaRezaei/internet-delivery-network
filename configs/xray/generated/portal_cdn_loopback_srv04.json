@@ -5,7 +5,7 @@
   "inbounds": [
     {
       "tag": "IN_REVERSE_PORTAL_TEST",
-      "port": 443,
+      "port": 8443,
       "listen": "0.0.0.0",
       "protocol": "vless",
       "settings": {
@@ -51,6 +51,17 @@
         }
       }
     }
+  ,
+    {
+      "tag": "socks-in-test",
+      "port": 10800,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      }
+    }
   ],
   "outbounds": [
     {
@@ -64,9 +75,9 @@
       {
         "type": "field",
         "inboundTag": [
-          "IN_REVERSE_PORTAL_TEST"
+          "socks-in-test"
         ],
-        "outboundTag": "direct"
+        "outboundTag": "reverse-out-loopback"
       }
     ]
   }

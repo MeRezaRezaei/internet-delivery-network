@@ -1,6 +1,12 @@
 # AI Changelog
 
 ## 2026-05-26
+- **Server 04 Local Loopback Tunnel Connection Success**:
+    - Identified a routing direction mismatch: in a simplified reverse proxy, a client with a `reverse` block cannot be used directly as a forward proxy target from the Bridge's SOCKS inbound (throwing a `safety reasons: not allowed to use forward proxy` crash).
+    - Shifted the testing SOCKS inbound to the Portal side (`portal_cdn_loopback_srv04.json`) on port `10800` routing to `reverse-out-loopback`. Adjusted the Bridge SOCKS port to `10801` to prevent any local port conflicts.
+    - Transferred and redeployed both configs to `/usr/local/etc/xray/` on Server 04 and successfully launched both in background.
+    - Verified 100% active tunnel registration: Xray logs on both Portal and Bridge confirmed a successful connection (`udp:reverse:0` and `v1.rvs.cool:0` registered cleanly over VLESS-over-XHTTP H2 packet-up mode!).
+    - Verified successful local routing: A SOCKS request to port `10800` (Portal SOCKS inbound) successfully detoured to `reverse-out-loopback`, traveled through the reverse tunnel to the Bridge, decapsulated under inbound `reverse-bridge-test`, and detoured to the `direct` (freedom) outbound.
 - **XHTTP/XMUX Padding & Upload Crash Resolution**:
     - Fixed the active SplitHTTP `invalid padding length:0` crash by adding `"xPaddingPlacement": "header"` and `"xPaddingHeader": "X-Padding"` under `streamSettings.xhttpSettings.extra` in the configuration generator script. Custom headers bypass CDN edge-stripping.
     - Resolved the `strconv.ParseUint` sequence parsing UUID crash by explicitly setting `"mode": "packet-up"` on both Portal and Bridge templates, aligning path extraction structures.

@@ -9,6 +9,12 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **Server 04 Local Loopback Tunnel Connection Success (2026-05-26) [VERIFIED ON SERVER 04]:**
+    - Identified that simplified reverse proxy clients with a `reverse` tag are strictly prohibited from being targeted for forward proxy SOCKS requests directly from the Bridge outbound (yielding safety exceptions: `safety reasons: not allowed to use forward proxy`).
+    - Successfully re-architected the test loopback configuration by moving the testing SOCKS inbound to the Portal side (`portal_cdn_loopback_srv04.json`) on port `10800` routing to `reverse-out-loopback`. Shifted the Bridge SOCKS port to `10801` to eliminate host-level port conflicts.
+    - Transferred, deployed, and executed both Portal and Bridge control configurations in the background on Server 04.
+    - Verified **100% active reverse tunnel registration**: Portal logs show clean registration of `v1.rvs.cool:0` and `udp:reverse:0` over XHTTP H2 `packet-up` mode.
+    - Verified **successful tunnel loopback routing**: SOCKS requests to the Portal on port `10800` are correctly detoured to `reverse-out-loopback`, traveled through the reverse tunnel to the Bridge, decapsulated under inbound `reverse-bridge-test`, and routed to the `direct` (freedom) outbound.
 - **XHTTP Padding & Upload Error Resolutions (2026-05-26):**
     - Patched the configuration generator `scripts/generate_100_tunnels.py` to enforce `"mode": "packet-up"` on both sides and inject the custom obfuscation header keys (`"xPaddingPlacement": "header"`, `"xPaddingHeader": "X-Padding"`) to bypass CDN parameter-stripping and avoid the `invalid padding length:0` and `ParseUint` UUID parsing crashes.
     - Integrated robust **UUID and SSL Certificate Persistence** in the generator script, allowing it to parse, extract, and reuse existing certificates and client UUIDs from target portal config files, avoiding redundant manual edits when regenerating configs.

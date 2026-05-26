@@ -42,6 +42,7 @@
 | IDN-031 | P0 | Establish and Verify High-Obfuscation SplitHTTP VLESS Reverse Tunnel | done | IDN-030 | Establish test VLESS tunnel over ArvanCloud CDN to Server 01 and measure latency/success |
 | IDN-032 | P0 | Patch 100-Tunnel Generator with Persistence, Fast Connection Rotation, and Debug logging | done | IDN-026 | Generator supports full UUID/SSL reuse, rotates connections after 1k requests, and sets loglevel debug |
 | IDN-033 | P0 | Deploy and Validate Server 04 CDN Loopback control configs | done | IDN-032 | portal_cdn_loopback and bridge_cdn_loopback successfully staging-staged and validated with xray -test on Server 04 |
+| IDN-034 | P0 | Execute and Verify Server 04 local loopback tunnel | done | IDN-033 | VLESS reverse tunnel successfully registered and traffic routed locally |
 
 
 ## WIP Rule
