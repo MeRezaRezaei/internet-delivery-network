@@ -1,0 +1,306 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "inbounds": [
+        {
+            "tag": "in-de-direct",
+            "port": 3080,
+            "listen": "::",
+            "protocol": "mixed",
+            "settings": {
+                "auth": "password",
+                "accounts": [
+                    {
+                        "user": "MeRezaRezaei",
+                        "pass": "Rez@9011438678"
+                    }
+                ],
+                "udp": true
+            }
+        },
+        {
+            "tag": "in-de-warp",
+            "port": 3090,
+            "listen": "::",
+            "protocol": "mixed",
+            "settings": {
+                "auth": "password",
+                "accounts": [
+                    {
+                        "user": "MeRezaRezaei",
+                        "pass": "Rez@9011438678"
+                    }
+                ],
+                "udp": true
+            }
+        },
+        {
+            "tag": "in-depg-direct",
+            "port": 4080,
+            "listen": "::",
+            "protocol": "mixed",
+            "settings": {
+                "auth": "password",
+                "accounts": [
+                    {
+                        "user": "MeRezaRezaei",
+                        "pass": "Rez@9011438678"
+                    }
+                ],
+                "udp": true
+            }
+        },
+        {
+            "tag": "in-depg-warp",
+            "port": 4090,
+            "listen": "::",
+            "protocol": "mixed",
+            "settings": {
+                "auth": "password",
+                "accounts": [
+                    {
+                        "user": "MeRezaRezaei",
+                        "pass": "Rez@9011438678"
+                    }
+                ],
+                "udp": true
+            }
+        },
+        {
+            "tag": "in-us-direct",
+            "port": 5080,
+            "listen": "::",
+            "protocol": "mixed",
+            "settings": {
+                "auth": "password",
+                "accounts": [
+                    {
+                        "user": "MeRezaRezaei",
+                        "pass": "Rez@9011438678"
+                    }
+                ],
+                "udp": true
+            }
+        },
+        {
+            "tag": "in-us-warp",
+            "port": 5090,
+            "listen": "::",
+            "protocol": "mixed",
+            "settings": {
+                "auth": "password",
+                "accounts": [
+                    {
+                        "user": "MeRezaRezaei",
+                        "pass": "Rez@9011438678"
+                    }
+                ],
+                "udp": true
+            }
+        },
+        {
+            "tag": "direct-mixed",
+            "port": 1080,
+            "listen": "::",
+            "protocol": "mixed",
+            "settings": {
+                "auth": "password",
+                "accounts": [
+                    {
+                        "user": "MeRezaRezaei",
+                        "pass": "Rez@9011438678"
+                    }
+                ],
+                "udp": true
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ],
+                "routeOnly": true
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "out-de-direct",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "100.100.3.100",
+                        "port": 1080,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "out-de-warp",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "100.100.3.100",
+                        "port": 1090,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "out-depg-direct",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "100.100.4.100",
+                        "port": 1080,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "out-depg-warp",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "100.100.4.100",
+                        "port": 1090,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "out-us-direct",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "100.100.5.100",
+                        "port": 1080,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "out-us-warp",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "100.100.5.100",
+                        "port": 1090,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "tag": "blocked",
+            "protocol": "blackhole",
+            "settings": {}
+        }
+    ],
+    "routing": {
+        "domainStrategy": "IPIfNonMatch",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "in-de-direct"
+                ],
+                "outboundTag": "out-de-direct"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "in-de-warp"
+                ],
+                "outboundTag": "out-de-warp"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "in-depg-direct"
+                ],
+                "outboundTag": "out-depg-direct"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "in-depg-warp"
+                ],
+                "outboundTag": "out-depg-warp"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "in-us-direct"
+                ],
+                "outboundTag": "out-us-direct"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "in-us-warp"
+                ],
+                "outboundTag": "out-us-warp"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "direct-mixed"
+                ],
+                "outboundTag": "direct"
+            },
+            {
+                "type": "field",
+                "port": "0-65535",
+                "outboundTag": "direct"
+            }
+        ]
+    }
+}
