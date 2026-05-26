@@ -1,5 +1,20 @@
 # AI Changelog
 
+## 2026-05-26
+- **XHTTP/XMUX Padding & Upload Crash Resolution**:
+    - Fixed the active SplitHTTP `invalid padding length:0` crash by adding `"xPaddingPlacement": "header"` and `"xPaddingHeader": "X-Padding"` under `streamSettings.xhttpSettings.extra` in the configuration generator script. Custom headers bypass CDN edge-stripping.
+    - Resolved the `strconv.ParseUint` sequence parsing UUID crash by explicitly setting `"mode": "packet-up"` on both Portal and Bridge templates, aligning path extraction structures.
+- **UUID & SSL Certificate Persistence/Reuse**:
+    - Integrated robust file-parsing persistence logic in `scripts/generate_100_tunnels.py` to automatically load and preserve existing client UUIDs and dynamically generated TLS certificates/keys from target configuration files when regenerating configs.
+    - Prevented redundant configuration synchronization and mismatch breaks when fine-tuning other settings like padding, concurrency, or connection rotation limits.
+- **DPI/GFW Evasion Connection Rotation Tuning**:
+    - Decreased the XMUX physical request rotation limit `"hMaxRequestTimes"` from `10000` to `1000` on the Bridge side. This forces graceful connection retirement and rotation after a few megabytes of data exchange, resetting GFW UDP QoS throttles.
+    - Enforced `"loglevel": "debug"` in all generated config files to provide clear transport and obfuscation diagnostics.
+- **Server 04 CDN Loopback Test Deployment & Remote Syntax Validation**:
+    - Staged `portal_cdn_loopback_srv04.json` and `bridge_cdn_loopback_srv04.json` with inline dynamically generated certificates.
+    - Deployed both control configurations to `/usr/local/etc/xray/` on Server 04 using nested `scp` through Server 07.
+    - Verified syntax on Server 04 using `xray -test`, returning `Configuration OK` for both. They are fully prepared for real-time domestic-loopback logs diagnostics.
+
 ## 2026-05-25
 - **XHTTP Padding CDN Diagnostics and Root Cause Analysis**:
     - Performed a deep code-level and discussion-backed investigation into the `transport/internet/splithttp: invalid padding () length:0` error.
