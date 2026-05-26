@@ -11,16 +11,6 @@
   },
   "inbounds": [
     {
-      "tag": "socks-in",
-      "port": 10800,
-      "listen": "127.0.0.1",
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": true
-      }
-    },
-    {
       "tag": "IN_REVERSE_PORTAL_100",
       "port": 443,
       "listen": "0.0.0.0",
@@ -737,58 +727,16 @@
           "certificates": [
             {
               "certificate": [
-                "-----BEGIN CERTIFICATE-----",
-                "MIIC3TCCAcWgAwIBAgIUTvsVYhzjQGjr6wAd0ZdYfBY73AQwDQYJKoZIhvcNAQEL",
-                "BQAwGTEXMBUGA1UEAwwOaS0wMS5kb2N0ZWwuaXIwHhcNMjYwNTI1MjExODAxWhcN",
-                "MzYwNTIyMjExODAxWjAZMRcwFQYDVQQDDA5pLTAxLmRvY3RlbC5pcjCCASIwDQYJ",
-                "KoZIhvcNAQEBBQADggEPADCCAQoCggEBALGyTwc5MguC2O4I/9hcp9EKTTAZD4rV",
-                "RttVt2lqeqQeSI664QcO8eyxpQ2t2gYooW7kh/Kl5qOJ/rTw/ta1qjB6JTUip1Iu",
-                "izSbs5JmE1R6hOIWUra4xHZFeMqz9G8svzxZmfhDsMLB9xIjxvaK+3ft8EPtQ4eY",
-                "g7jhGj8dyAqYByofx2lI7gGm+mF+Rx129S68pz85Q3/FqD64PaMYMs3oZoxbArDJ",
-                "FXnaNgHli5ITWLyH2PoRTmTurX8HhPX8h5BHYwlhDOpreBSnPeP99FGEmfLr3jXc",
-                "GSOUv65l4INJ9WPV5JhJcpuQi/VS9iPKJlzHaEzYT31NILDoE6RXUtsCAwEAAaMd",
-                "MBswGQYDVR0RBBIwEIIOaS0wMS5kb2N0ZWwuaXIwDQYJKoZIhvcNAQELBQADggEB",
-                "AFt+JF5n9Q43ezMtxMHUbp5al6mwYrTqW15fEutAjMSsuyyhWMg2+fPI98plSN8q",
-                "HVCHLbWqDesMJx65FqkM6mbQ72JPDEJs24qGzd8palAbHUKXoC3BhDYGzbDswDyu",
-                "bZckyMelnIBMM0YL2z4BCWO5RVBKX4R22r2RXOrweqI7V71qe83HI8u6aW3RH/z9",
-                "WPo3VNVhUE5eZWgmXwRVpEsy7h+PrapTp7nWNmCZCVOwrczixCrJfR9v1czM/TUq",
-                "+xnfZ2fholDaKR1RaNiGbYBbheL7R7RnAogGgrvt9510LuDI+oLApIaZswZQyr3f",
-                "YJAk9ckhDT2nRC0/jEAPC2Y=",
-                "-----END CERTIFICATE-----"
+                "-----BEGIN CERTIFICATE-----\nMIIC3TCCAcWgAwIBAgIUSicwiNnosIRWdKUvrpyNdIP7LQowDQYJKoZIhvcNAQEL\nBQAwGTEXMBUGA1UEAwwOaS0wMS5kb2N0ZWwuaXIwHhcNMjYwNTI1MjE0MjE5WhcN\nMzYwNTIyMjE0MjE5WjAZMRcwFQYDVQQDDA5pLTAxLmRvY3RlbC5pcjCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBALGSu8MPKJ7W/asJgfEy70AOQRDTlzpP\neLxCGqUmU7CayK0mHEEhX5iuYDCHiO5LvOUTXLOcA0vjYhzODeiTURKGhPiSBCd5\nC3exyYJ98jcrnA9OvlO8JhvLJ0Na8sHD3VNLX9lTLNcW+IyCAKCwq/2l1IO3EGRE\ntydv0u9Sjf3YJXOvYlK9wUiGShUhoZZ9QOl4LDS8uFhg6Bs+l+BiigTkcN3xV69s\nS2CRWRjGAUC347bo4EWjvchtSVeUh1LIGroqbfDJeXGQ43HcYOtHcYagVWPxYEqg\ncZHodreDJ0zlJnuaHQVI+Ilu84sq0EBkOm+1E/kLMKdLAxHbWiq/sikCAwEAAaMd\nMBswGQYDVR0RBBIwEIIOaS0wMS5kb2N0ZWwuaXIwDQYJKoZIhvcNAQELBQADggEB\nAAfWOjNJcoahzsdCG2zRJoqZ4F3/ldl8x7KILJ0YmxgHGTSa9bJcGTnnKjRDgLcQ\nSvYv8E0nPXA+v86/MSgasMQzqPzpYHgmhD61ETC6wmA9iPP5YvDIH0C07nIrCX+T\nCRnqWj0BrnEoSmJ2K1ms2sTwdtHiMcQYuRW73+m2WRocv59wivYh0uPbi362PYtk\n0eJ5zb5IzoYoAj0rUaR8tQ53fZBHNvEYwXBJABIEP5fx0g5KXyUiOalmAQ51ttY2\nhEqdD6cyhop5WMgPPWAfgPDgtv/sn9Yv4SYJtguLt1cWPjX8PpabKfCSSgHctBY/\nc/o0LdDO7u7pgxYJZ3OCpWM=\n-----END CERTIFICATE-----\n"
               ],
               "key": [
-                "-----BEGIN RSA PRIVATE KEY-----",
-                "MIIEowIBAAKCAQEAsbJPBzkyC4LY7gj/2Fyn0QpNMBkPitVG21W3aWp6pB5Ijrrh",
-                "Bw7x7LGlDa3aBiihbuSH8qXmo4n+tPD+1rWqMHolNSKnUi6LNJuzkmYTVHqE4hZS",
-                "trjEdkV4yrP0byy/PFmZ+EOwwsH3EiPG9or7d+3wQ+1Dh5iDuOEaPx3ICpgHKh/H",
-                "aUjuAab6YX5HHXb1LrynPzlDf8WoPrg9oxgyzehmjFsCsMkVedo2AeWLkhNYvIfY",
-                "+hFOZO6tfweE9fyHkEdjCWEM6mt4FKc94/30UYSZ8uveNdwZI5S/rmXgg0n1Y9Xk",
-                "mElym5CL9VL2I8omXMdoTNhPfU0gsOgTpFdS2wIDAQABAoIBAAfI7IkVT+R3izfD",
-                "zCr3RYuKcdRBciVeb6LB+sLoXSQd3DGTQrLeTD9W5F4Y4jwygSlhuLUANf5Z2Cn8",
-                "LuX1goBqMYFw7wynfltugNZRQ4KIID85bs6TggPpH5VzKdUfDD0WyICQZ/ONr4cr",
-                "axbiWDRVB8QqEQh6kuFsIeFnABxlTEBHDKR7ccRVW7MJoT1ppsRhg5qj6v2bgV4P",
-                "Fz7iFP5NEuuraGh24eeOFV2rxsrHMcdHeobIFGB9M+E83PYV5Euch4rbCCv6Tp2F",
-                "tNq8YvfIITcvfWW7Jj2OzlNA1zoLo+43ifS8+d0p/3td2uxWJ9DJPVrh9dntClGC",
-                "pZ7fvS0CgYEA6DAxgme+wjiq6ACH5l2I4omvKg6vr0DB9GunBDAOeS4w5bykLS3j",
-                "rOYPJSEF8/8+KZOUg9PAPBUjCCi1bdmLInE3sKZM0tal380YejdhnyJmroyc+Ogs",
-                "c2eQ5X4kQMeuGCxAls0B2JSeHB4crTzIZoojRQT2li37q6LucHnwklUCgYEAw+uB",
-                "FR99k7Gkhrrl26+bq7gBHJVRks1sBk8NICEsLrgn+gGDBhYjAG0oQzPmjM9NBzuA",
-                "yonXlqrHUXw80nm8GA4XbOUs1U7b0VQ0dDDvk847twDlvHZXCZPq5bM0yU65RmWX",
-                "/ji/Vm34uYQF8qKzkfBqnZIn1EbXsvksdo2IYG8CgYEAlUK18RDkTlLDe1UsB+lF",
-                "H+xG0JCUW+MTTB8QRN7nzvrksCsul2SSogla3xF1lD8XJP8cUAqF35nu5UXWLAHX",
-                "MZL6q/KcHEWkaFSeUaLcfMJOpBL8rf4C5UVEnmMSxxoWTq/T7Z1ofGQ9p/Grmaoj",
-                "YdeXiL0CD9ULnnClO2UIQ+kCgYBZnvI2UmhkVl+Xjgk1nDgOriY8CAX/rF5c6G5t",
-                "ox8N5AnNcEGaWCf8uvIvA5/UC8QFqe95NuLathZlLPq5oRwsuM14b8E5dlBRij5Q",
-                "ZE5Dg5SHWy68LjoUVIigOIDOEWfpTvHfReAozjd3zW/XFRwlhx+OItx7W0iyQw9W",
-                "z9lxmwKBgA9US77gB+OAsssCX8XsyJTdim2VGWLO0gzA/yCbdGZ17Fd6yeObG4Pe",
-                "jMitU+hMQK9Jatgnuxl4F1QaRApCoi+Y4ZwmDLf9bd2iBis64q5I4oGyvtWvLVmu",
-                "FHCbvXVDbhdh0qzAqYJALJE9/0/0cSauV+zDRNzSJxoywf80C/U/",
-                "-----END RSA PRIVATE KEY-----"
+                "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAsZK7ww8ontb9qwmB8TLvQA5BENOXOk94vEIapSZTsJrIrSYc\nQSFfmK5gMIeI7ku85RNcs5wDS+NiHM4N6JNREoaE+JIEJ3kLd7HJgn3yNyucD06+\nU7wmG8snQ1rywcPdU0tf2VMs1xb4jIIAoLCr/aXUg7cQZES3J2/S71KN/dglc69i\nUr3BSIZKFSGhln1A6XgsNLy4WGDoGz6X4GKKBORw3fFXr2xLYJFZGMYBQLfjtujg\nRaO9yG1JV5SHUsgauipt8Ml5cZDjcdxg60dxhqBVY/FgSqBxkeh2t4MnTOUme5od\nBUj4iW7ziyrQQGQ6b7UT+Qswp0sDEdtaKr+yKQIDAQABAoIBAAIw+h2yXHE3XHqF\nm8Om+gJbmqxzPADFdcs28p66nhpGErdmSr94Ara+4iN/LK6qIxrdlg2GXZkMZYvO\n9Cd8V+oHXHE31hLJoN1ZhY/Vb42EPYEH2vvsDLlXlLS1VN0UxnCuc7CaIOnHmAod\n2ZWiEIFJEFoOwoZGPc9gByWaanOpN6Lmk+Voe9aTOMKCoLaDzGZ67gCaaJijMQqx\nUYhjTIsWhPPueEbFFUKzEN3McyT010wSch3ykjnM12fPKI4fu8U9xzmfYk3+AsWV\nsCnzOnKssqjQVP1Uqrzv/r0qz8mP4sZKxTGYjEUt+/igquNE8J3wy7HB7UbWJwcB\nvXNZgX0CgYEA72lCeleYdnssecyy2PYYrHw+/Sg99mNOcJ4PUJ1tb2+JY4h/cVIy\nc1WY20Pyk1KafsMxXZNIcdXjWi1ONrz3B+iUPj8H6EUbGaZMXYrDO9ULUjri18WI\n9JrzLP+86804Fd8eqKzNJfzK0LenxZDFk7/jVUoHcjhNrg4N9kpuNTUCgYEAveCT\nHQFvcT4teK/RZMr2sFoga5OG2Gq7rbuWPXZytkbVnlLbowYktJSPslcjsJdPFvP0\n2+o+wN6nn6qcTDj6z4/4AdPoXbJBedbP9Ew2iC66BUsWWcdvn0am45VBdYtVRv/c\nZhCNl0jmj64JkMKCHp0DUcccvVJJQ98UEhoZq6UCgYBUCfHw+iClrnUdSDKboD9n\nBLIjsWWWwKM/OuyLUsegb1md28NIpx7Yh3qBtWdIOZ3L037XpySt+PO2quKiqlBY\nsVagRwXijaeGqG50A4qmzRENS2hnb4q0ulOUPy005LPEUa70bLwSkpsrCtzUqA4C\n4D/Pp43XlVYHPB3Aj74B5QKBgGRa46Y68fm6UTIuSs+o7kU6/VOeP3D2yIcEVF3b\n0rlAKvto86jwQEopEuHBaJ2W+zg4bDwnTE+H3rRm6gDnRLibcQsWQwPyiOSqgnKu\nLUxA1hSiIQgGfpqCLwauBlDn+YRzCrvvF8bTwvhBldCq3Tbs6ao5QJlXel2i8+q1\nXMf5AoGBAJR/y1iprbA9UXDo0lcyVKW1+mh6NhSJSHmFgMrUw+kvut+FfHTplihM\nQ89T/0PzGOJ0GKpqCQb0RVpAUDzxT9lH5jhbcKSjHZwzgg0wyoaRr1pobR+hJuHO\nkjISfjGayRR+oPKvWwz+PY5OhJ7VYikyu9u/ikYkcRMXYDFny2TH\n-----END RSA PRIVATE KEY-----\n"
               ]
             }
           ],
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {

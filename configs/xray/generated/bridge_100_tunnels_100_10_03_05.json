@@ -1,6 +1,6 @@
 {
   "log": {
-    "loglevel": "warning"
+    "loglevel": "debug"
   },
   "inbounds": [],
   "outbounds": [
@@ -24,9 +24,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -52,9 +74,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -80,9 +124,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -108,9 +174,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -136,9 +224,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -164,9 +274,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -192,9 +324,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -220,9 +374,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -248,9 +424,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -276,9 +474,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -304,9 +524,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -332,9 +574,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -360,9 +624,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -388,9 +674,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -416,9 +724,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -444,9 +774,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -472,9 +824,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -500,9 +874,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -528,9 +924,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -556,9 +974,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -584,9 +1024,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -612,9 +1074,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -640,9 +1124,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -668,9 +1174,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -696,9 +1224,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -724,9 +1274,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -752,9 +1324,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -780,9 +1374,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -808,9 +1424,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -836,9 +1474,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -864,9 +1524,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -892,9 +1574,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -920,9 +1624,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -948,9 +1674,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -976,9 +1724,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1004,9 +1774,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1032,9 +1824,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1060,9 +1874,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1088,9 +1924,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1116,9 +1974,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1144,9 +2024,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1172,9 +2074,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1200,9 +2124,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1228,9 +2174,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1256,9 +2224,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1284,9 +2274,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1312,9 +2324,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1340,9 +2374,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1368,9 +2424,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1396,9 +2474,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1424,9 +2524,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1452,9 +2574,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1480,9 +2624,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1508,9 +2674,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1536,9 +2724,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1564,9 +2774,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1592,9 +2824,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1620,9 +2874,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1648,9 +2924,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1676,9 +2974,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1704,9 +3024,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1732,9 +3074,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1760,9 +3124,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1788,9 +3174,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1816,9 +3224,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1844,9 +3274,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1872,9 +3324,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1900,9 +3374,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1928,9 +3424,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1956,9 +3474,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -1984,9 +3524,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2012,9 +3574,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2040,9 +3624,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2068,9 +3674,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2096,9 +3724,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2124,9 +3774,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2152,9 +3824,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2180,9 +3874,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2208,9 +3924,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2236,9 +3974,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2264,9 +4024,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2292,9 +4074,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2320,9 +4124,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2348,9 +4174,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2376,9 +4224,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2404,9 +4274,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2432,9 +4324,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2460,9 +4374,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2488,9 +4424,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2516,9 +4474,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2544,9 +4524,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2572,9 +4574,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2600,9 +4624,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2628,9 +4674,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2656,9 +4724,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2684,9 +4774,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2712,9 +4824,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2740,9 +4874,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2768,9 +4924,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",
@@ -2796,9 +4974,31 @@
       "streamSettings": {
         "network": "xhttp",
         "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-03.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "packet-up"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 1000,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         },
         "sockopt": {
           "domainStrategy": "AsIs",

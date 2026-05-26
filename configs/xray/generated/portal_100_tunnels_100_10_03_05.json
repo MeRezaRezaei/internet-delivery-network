@@ -1,28 +1,18 @@
 {
   "log": {
-    "loglevel": "warning"
+    "loglevel": "debug"
   },
   "observatory": {
     "subjectSelector": [
       "reverse-out-"
     ],
     "probeUrl": "https://www.google.com/generate_204",
-    "probeInterval": "10s"
+    "probeInterval": "5s"
   },
   "inbounds": [
     {
-      "tag": "socks-in",
-      "port": 10800,
-      "listen": "127.0.0.1",
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": true
-      }
-    },
-    {
       "tag": "IN_REVERSE_PORTAL_100",
-      "port": 15100,
+      "port": 443,
       "listen": "0.0.0.0",
       "protocol": "vless",
       "settings": {
@@ -732,9 +722,32 @@
       },
       "streamSettings": {
         "network": "xhttp",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificate": [
+                "-----BEGIN CERTIFICATE-----\nMIIC3TCCAcWgAwIBAgIUIa8E191mSXM+IrvbGZz0GdM4S3QwDQYJKoZIhvcNAQEL\nBQAwGTEXMBUGA1UEAwwOaS0wMy5kb2N0ZWwuaXIwHhcNMjYwNTI2MDQxODEzWhcN\nMzYwNTIzMDQxODEzWjAZMRcwFQYDVQQDDA5pLTAzLmRvY3RlbC5pcjCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBALTLZoJ3bKd3ixUNTeveem71mgY5nbIQ\nkcnRCVmmm7MY1+SSvIRu/P/FYpk0afde8G4+nfXrsXXadUr1MLUZmrLWoSKkZQQU\nc3YBrX+EVcpKjDsOmNTfYuBCXgnMLELWzUZF/rCSuEfKbufi6aI+ODu+XP0PxYPu\nJbBjgNeeB7H7fVJNTgMkF5fXW/amgRuzU4sLYVFHSD12Z7LcEEXNvOn0zo+yOPqq\n20TsAEmHw9uhA0osrulzhHph/cXwtSL27Ql0mWhDzf/2G6mXbJfH9bd5z6AtAv1O\nnMC1e42Yr+Y9hKUZJpk2p+9OCuwt+tLf6BibBmmtam6+NAnpcfWXCmMCAwEAAaMd\nMBswGQYDVR0RBBIwEIIOaS0wMy5kb2N0ZWwuaXIwDQYJKoZIhvcNAQELBQADggEB\nABQHltbvxjpRcfFcIQilmUBLr+eG+4PetDpqj/rbdk61UfCPO/h5wO7PO6QcL9B4\ngtiV/oOPWYAhVCfWDevPctskwnsqT0CoAiGCLbVnC2dSrB0uGqzibS0fM4N+ZWqA\nvb8fmlmF8NctG2Hxf1hd6nBILRj9FM0R2a4QceZLpw5TuOJ0opglBnR59sXp3exG\nsm1+rdysxRFzLnLlSwm9Yb+2A8JeN3TQeke7iyJfGqAGjzogH5wDb6zcEn3zilYV\nqHs/D7wXZcvEKBbKpsWivwe2eZhmTwoPTBrxLpSSogDRvgTxpeWCkhXBMmaxPKTD\nozvYiUXJLYNszO0L5vXxfms=\n-----END CERTIFICATE-----\n"
+              ],
+              "key": [
+                "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEAtMtmgndsp3eLFQ1N6956bvWaBjmdshCRydEJWaabsxjX5JK8\nhG78/8VimTRp917wbj6d9euxddp1SvUwtRmastahIqRlBBRzdgGtf4RVykqMOw6Y\n1N9i4EJeCcwsQtbNRkX+sJK4R8pu5+Lpoj44O75c/Q/Fg+4lsGOA154Hsft9Uk1O\nAyQXl9db9qaBG7NTiwthUUdIPXZnstwQRc286fTOj7I4+qrbROwASYfD26EDSiyu\n6XOEemH9xfC1IvbtCXSZaEPN//YbqZdsl8f1t3nPoC0C/U6cwLV7jZiv5j2EpRkm\nmTan704K7C360t/oGJsGaa1qbr40Celx9ZcKYwIDAQABAoIBAAi8PSc3mvXadktd\nmbK4TKUY08jSNtbYKxsbsP52aNZ18FR4bIhfjnTTNijd2fLcUPSarOopaakelYU6\nJJDTfGCAs0dntwPD8zIz8YyUOcrs4CqoUWUTqATa4A1MIqVWGJP5JM2mQSYi10n3\n8j7nD7N/RqHphasSshp8LEj+tzN3tMaCn2ztbjX9HCmQN8juXqh2AFgNwNa/8Gn7\n5M00exADZvn8iTuUZzxghh1tSKTUwL+yO5H3oOvIvvG6uUJQiweMa48GCTSOaVz0\nGVRAkkq7g2rUmjBo0e64wRmjx2rKfDSWlNRQg94roWa2GgWng4t7K9eFNgnzizkn\nnluPPTECgYEA9RnW1fm7uqaS2l657ucrMu0v7xaFJ+gj9fYtts9VNt6pa9jR5s4s\nLqtM39DZlup2oXQkrpVaBmiRAdmnHAteZ3maH76ZF0wkKYrW3GTNvxpFH4Pn26ia\nW1OogxzO+GEWctXuin+RTGYvDJaJmvdGw4msdq2QoqTPXG7XQoZOZxMCgYEAvNWD\n2qpNtobZDJhB1fuaeOofdCpWsK8pCadQDzzipztmobPiSLSWs1P963sIeaftVjLD\ndmNxvstOCPD2h4FHKZd/WkyGMWt0AkKHn+U2E5VCGKhLYJGzs9H45QFujtlH+W2a\nJNw3G9qnnjiT3OgLr51OGILoypr0Xba7uBdQqXECgYATcJ83jX00Sq3vIABDUJZ+\njY11uyWIisL/aS0rCLrLhVGOuj27vrKGaRPJ1LjNXX9XQuz9496mD3kg2nCEquor\n7tsolWdzD5j2qopsJJqlA6Jj44RqSa8kezgsXgaUcK7lIM6wsXmGw7wLlY0Ie4Bj\nVfIV36JPJB9GR4xPPHPPfQKBgBtV0TuDMbK9fIgNNmKShH8CbUE0q83x3T/vf3Bl\nQO4ydB3uW1BpC/Ozses3qTdrLrkuqgrmRF35MjerIhTlivajXqUktLxMsMNu/BES\nbiyRi7rkCd1V2iyqtZv5BBcbrwaVbh3t3vBiS6dky0rMMHzgiaCUurwxiDRUsoHo\nph2RAoGAXSZVar3nVeL7c7kIkm+P08a6p40IHQQHuE3/1keggkADdJmTlLYuFOM3\nrdJJis63O/3Xaic8fsAJz0B1VTrwg56RGYEznTI0F64RWYgsssxkRLfG+qUG1bnc\nJ5L9aXjPfbz/YeDn/LuNPU9zTRTvebBMj/IZ1oMbZNKDAydD39A=\n-----END RSA PRIVATE KEY-----\n"
+              ]
+            }
+          ],
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
         "xhttpSettings": {
-          "path": "/100-10-03-05",
-          "mode": "auto"
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         }
       }
     }
@@ -767,14 +780,14 @@
       {
         "type": "field",
         "inboundTag": [
-          "socks-in"
+          "IN_REVERSE_PORTAL_100"
         ],
         "balancerTag": "balancer_100"
       },
       {
         "type": "field",
         "port": "0-65535",
-        "outboundTag": "block"
+        "outboundTag": "direct"
       }
     ]
   }

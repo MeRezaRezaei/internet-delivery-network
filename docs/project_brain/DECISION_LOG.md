@@ -27,3 +27,18 @@
 - Rationale: Eliminating the local SOCKS loopback hop (`Iran XTLS -> SOCKS Out -> Local SOCKS In -> Reverse Portal`) directly targets the registered reverse proxy outbound tag `reverse-out-{T}_{O}_{I}_{C}`. This reduces latency, saves CPU cycles, and simplifies the codebase. Gathering all portal inbound tags and adding them to the Marzban `exclude` variable prevents dynamic credential injection into these tunnel registration ports, keeping the configuration lightweight.
 - Impact: Generated `configs/xray/generated/xray_unified.json` filtered to **384 active scenario combinations** (768 inbounds, 769 routing rules) across active outside servers ("01", "03"), active inside nodes ("01", "03", "04", "05"), and active CDNs ("01", "05"). Compiled `configs/xray/generated/exclude_tags.txt` and `configs/xray/generated/exclude_tags_csv.txt` containing 768 portal tags for Marzban.
 - Supersedes: None
+
+- ID: D-005
+- Date: 2026-05-26
+- Decision: Implemented programmatic TLS certificate generation and inline PEM list injection in VLESS Portal configurations.
+- Rationale: Eliminates filesystem permission errors and Docker isolation mapping boundaries inside Xray/Marzban execution contexts. Formatting PEM outputs as single-element lists containing the entire multiline string bypasses strict parser padding/character concatenation aborts.
+- Impact: Guaranteed out-of-the-box self-contained Portal configurations with native SSL terminated directly inside Xray.
+- Supersedes: None
+
+- ID: D-006
+- Date: 2026-05-26
+- Decision: Transitioned XHTTP/XMUX obfuscation padding to custom HTTP headers ("X-Padding") and lowered the request rotation quota to 1,000 requests.
+- Rationale: Prevents CDNs from stripping query-based padding (which triggers Xray's `invalid padding length:0` crash). Enforcing `packet-up` mode on both Bridge and Portal aligns the path sequence parser and avoids `strconv.ParseUint` crashes. Lowering the XMUX request limit to 1,000 forces rapid connection rotation to evade timing analysis and reset GFW UDP QoS throttles.
+- Impact: Solved active SplitHTTP reverse tunnel crashes and enabled resilient domestic/international CDN traversal.
+- Supersedes: D-001 (Refined padding placement and modes)
+

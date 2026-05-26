@@ -1,7 +1,7 @@
 # Session State
 
 ## Last Updated
-- Date: 2026-05-25
+- Date: 2026-05-26
 - Owner: Antigravity
 
 ## Current Stage
@@ -9,6 +9,18 @@
 - Focus: Implementing isolated multi-channel dynamic VLESS tunnels with unique UUIDs and Observatory-based leastPing load balancing to achieve stable active-active speed aggregation without drops.
 
 ## Done
+- **XHTTP Padding & Upload Error Resolutions (2026-05-26):**
+    - Patched the configuration generator `scripts/generate_100_tunnels.py` to enforce `"mode": "packet-up"` on both sides and inject the custom obfuscation header keys (`"xPaddingPlacement": "header"`, `"xPaddingHeader": "X-Padding"`) to bypass CDN parameter-stripping and avoid the `invalid padding length:0` and `ParseUint` UUID parsing crashes.
+    - Integrated robust **UUID and SSL Certificate Persistence** in the generator script, allowing it to parse, extract, and reuse existing certificates and client UUIDs from target portal config files, avoiding redundant manual edits when regenerating configs.
+    - Decreased the XMUX physical connection request quota `"hMaxRequestTimes"` from `10000` to `1000` to force graceful connection retirement and rotation after a few megabytes of data exchange, resetting GFW UDP QoS throttles.
+    - Enforced `"loglevel": "debug"` in all generated config files to provide clear transport and obfuscation diagnostics during development.
+    - Regenerated perfect, unified 100-channel configurations for Server 01 (`100_10_01_05`), Server 04 (`100_10_04_05`), and Server 03 (`100_10_03_05`) leveraging full persistence.
+- **Server 04 CDN Loopback Control Test Configuration & Deployment (2026-05-26) [VERIFIED ON SERVER 04]:**
+    - Designed and staged Server 04 CDN loopback configurations `portal_cdn_loopback_srv04.json` and `bridge_cdn_loopback_srv04.json` with embedded certificates.
+    - Transferred and deployed these test configurations directly to `/usr/local/etc/xray/` on Server 04 using nested `scp` through Server 07.
+    - Executed remote validation tests using `xray -test` on Server 04, confirming both the Portal and Bridge loopback configurations return `Configuration OK` and are ready for real-time local execution.
+- **VLESS Simplified Reverse Routing Alignment (2026-05-26):**
+    - Clarified the directional VLESS simplified reverse routing behavior: normal user clients and reverse bridge tunnel connections share the exact same VLESS inbound (port 443). Users are successfully routed to the balancer while bridge connections are registered as dynamic reverse outbounds.
 - **XHTTP Padding CDN Diagnostics and Root Cause Analysis (2026-05-25):**
     - Performed a deep code-level and discussion-backed investigation into the `transport/internet/splithttp: invalid padding () length:0` error.
     - Identified the exact root cause: the default XHTTP padding placement (`queryInHeader` inside `Referer`) gets actively stripped or filtered by the CDN (ArvanCloud/Cloudflare) edge filters, yielding an empty `()` padding value of `length:0` which fails Xray's strict range validation.

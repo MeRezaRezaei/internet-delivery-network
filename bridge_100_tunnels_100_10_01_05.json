@@ -28,7 +28,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -74,7 +75,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -120,7 +122,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -166,7 +169,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -212,7 +216,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -258,7 +263,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -304,7 +310,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -350,7 +357,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -396,7 +404,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -442,7 +451,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -488,7 +498,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -534,7 +545,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -580,7 +592,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -626,7 +639,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -672,7 +686,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -718,7 +733,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -764,7 +780,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -810,7 +827,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -856,7 +874,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -902,7 +921,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -948,7 +968,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -994,7 +1015,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1040,7 +1062,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1086,7 +1109,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1132,7 +1156,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1178,7 +1203,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1224,7 +1250,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1270,7 +1297,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1316,7 +1344,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1362,7 +1391,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1408,7 +1438,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1454,7 +1485,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1500,7 +1532,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1546,7 +1579,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1592,7 +1626,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1638,7 +1673,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1684,7 +1720,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1730,7 +1767,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1776,7 +1814,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1822,7 +1861,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1868,7 +1908,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1914,7 +1955,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -1960,7 +2002,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2006,7 +2049,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2052,7 +2096,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2098,7 +2143,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2144,7 +2190,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2190,7 +2237,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2236,7 +2284,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2282,7 +2331,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2328,7 +2378,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2374,7 +2425,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2420,7 +2472,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2466,7 +2519,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2512,7 +2566,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2558,7 +2613,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2604,7 +2660,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2650,7 +2707,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2696,7 +2754,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2742,7 +2801,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2788,7 +2848,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2834,7 +2895,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2880,7 +2942,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2926,7 +2989,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -2972,7 +3036,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3018,7 +3083,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3064,7 +3130,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3110,7 +3177,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3156,7 +3224,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3202,7 +3271,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3248,7 +3318,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3294,7 +3365,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3340,7 +3412,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3386,7 +3459,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3432,7 +3506,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3478,7 +3553,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3524,7 +3600,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3570,7 +3647,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3616,7 +3694,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3662,7 +3741,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3708,7 +3788,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3754,7 +3835,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3800,7 +3882,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3846,7 +3929,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3892,7 +3976,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3938,7 +4023,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -3984,7 +4070,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4030,7 +4117,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4076,7 +4164,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4122,7 +4211,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4168,7 +4258,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4214,7 +4305,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4260,7 +4352,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4306,7 +4399,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4352,7 +4446,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4398,7 +4493,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4444,7 +4540,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4490,7 +4587,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4536,7 +4634,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
@@ -4582,7 +4681,8 @@
           "allowInsecure": true,
           "serverName": "i-01.doctel.ir",
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {

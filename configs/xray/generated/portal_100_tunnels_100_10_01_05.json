@@ -1,6 +1,6 @@
 {
   "log": {
-    "loglevel": "warning"
+    "loglevel": "debug"
   },
   "observatory": {
     "subjectSelector": [
@@ -10,16 +10,6 @@
     "probeInterval": "5s"
   },
   "inbounds": [
-    {
-      "tag": "socks-in",
-      "port": 10800,
-      "listen": "127.0.0.1",
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": true
-      }
-    },
     {
       "tag": "IN_REVERSE_PORTAL_100",
       "port": 443,
@@ -737,82 +727,27 @@
           "certificates": [
             {
               "certificate": [
-                "-----BEGIN CERTIFICATE-----",
-                "MIIDCzCCAfOgAwIBAgIUejiOYETqKZnicWnBomDFiAFIRMgwDQYJKoZIhvcNAQEL",
-                "BQAwFTETMBEGA1UECgwKQ0ROLU9yaWdpbjAeFw0yNjA1MjUxNzUyNDJaFw0zNjA1",
-                "MjIxNzUyNDJaMBUxEzARBgNVBAoMCkNETi1PcmlnaW4wggEiMA0GCSqGSIb3DQEB",
-                "AQUAA4IBDwAwggEKAoIBAQDUxPenwxXIn7cRZpzbBvvNEUpTJnZgXDA2eQcGXsjD",
-                "LDWS7f8+O3oduaS0ZoH3TLjcMmhRYuaLewTA5LrOyXZJ4Xz0PyhCy9xV2x5QsFVU",
-                "2zPUapCJuT30o7Ql1I6pNUfZ6+17WwD6sBSHGb+D2m8kMdL/Np1UZEk3AM7i2oaP",
-                "44aqwaUr796kNp0F4pTspex+Wu8Oz+CN7eysngDH4NhfVV3d6T/itAMkrmoy+05u",
-                "yxM5+CP6BCIXJp2pIMweVBUU8du6AI7UUPnQw5Ebiw/d+qO86Pdu/jJaxq3EG3SX",
-                "4D3OGABBMIlxjXAeXUd5YouX5sHLva6ZNn8TD2UJLZwHAgMBAAGjUzBRMB0GA1Ud",
-                "DgQWBBTXF1ZJEZXfA49yINJm0gT5yypZ7DAfBgNVHSMEGDAWgBTXF1ZJEZXfA49y",
-                "INJm0gT5yypZ7DAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQCg",
-                "Io6V9JBsqNvaFAZQLN7dF1wPDXUCaFvatNFql0nPa5MdEM2ed5GlKR3YVdrGAocz",
-                "bT58prH/RHAejQsAoXn4kLilhQJgTFQBJoqzOc3KMqQABKAslRZ3x0nbTPNx/3m/",
-                "yJqPOZSJFDuOP8Wflw26Od3tCZBlf3H9VGfHPnYhZkaQ3tgR/hRPVacguZzVmULW",
-                "xg2YDQRNfEPE3JWoy2bYjGM7lpjkB0fX6pisuWUMyETLgkl7gVLca7sOEH69MYLL",
-                "CmhNdm5YqtUobEFrQxEkHCZ8PAIigBaVjxdl9c8mrzo3YOGw8p0JJ+yrSONvcIHq",
-                "2QOi+vsRTuVMhUen0/ON",
-                "-----END CERTIFICATE-----"
+                "-----BEGIN CERTIFICATE-----\nMIIC3TCCAcWgAwIBAgIUJeuHGukFzoe3ZAvsXnRDVnmfKMwwDQYJKoZIhvcNAQEL\nBQAwGTEXMBUGA1UEAwwOaS0wMS5kb2N0ZWwuaXIwHhcNMjYwNTI2MDQxODA4WhcN\nMzYwNTIzMDQxODA4WjAZMRcwFQYDVQQDDA5pLTAxLmRvY3RlbC5pcjCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK+SydkAAD7jLmf3guUnCN7ibTmCrtrU\nm3ajSVAoXPJm+4sbGCTftngNJcUa6ZDOXpVS4iZFoAondgnWUz0/ndczTiGcpwvH\n8C0TwnQu5g9lbSH7YFF5pSh7l8VLuhp6cuRytVDyksFnUFoQXBZrQNx+McU3fIQy\nOmsMZ8gm+HZJlxYbpQuSYSJqC2sF3RCyBj0SP23/hQk548ZuIJImxeNguB7+/jHp\nVelQmAN8x3tWzEwqilzwRoFJiYXnt9RRc6ghnEH+LBZ/NnkiXGz1HVXCDCqQghLv\nuja38c7H3jYofwhoS+3V9EWwfVzuKJprGnEAkbl2S/AancJnytZaQk0CAwEAAaMd\nMBswGQYDVR0RBBIwEIIOaS0wMS5kb2N0ZWwuaXIwDQYJKoZIhvcNAQELBQADggEB\nAFB3bSr1MQfGZUU+67H1J6ZurzE6SguqF34nDFUXZW9646BFWazTF6PVb94T5/H0\nDESJtVFRDv5BKo4eDYUhcHhmDb4EOk0BENlSpVI9LDVRIEPpNwNv7dFG9ifM0oy6\nb2T6h84FKEYftyGLg9oZkuGoQFeavGMZckXifwGvlqiS07fJL/8XaxEj+MAtYkm/\nFvnTSwifZzemgyyf+CUajsqdeOj7DtfdnwvP6rLgee8P2TQIyTJYyyQSuuea/+TE\nXb4HMr2T1dyupcKZzTfql6vlJUWuUFM8jrugpaGL7g2Nz85SQQTTekpXXGYlBDsj\npdBYqLPv2NBF9FCDx1IV+nY=\n-----END CERTIFICATE-----\n"
               ],
               "key": [
-                "-----BEGIN PRIVATE KEY-----",
-                "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDUxPenwxXIn7cR",
-                "ZpzbBvvNEUpTJnZgXDA2eQcGXsjDLDWS7f8+O3oduaS0ZoH3TLjcMmhRYuaLewTA",
-                "5LrOyXZJ4Xz0PyhCy9xV2x5QsFVU2zPUapCJuT30o7Ql1I6pNUfZ6+17WwD6sBSH",
-                "Gb+D2m8kMdL/Np1UZEk3AM7i2oaP44aqwaUr796kNp0F4pTspex+Wu8Oz+CN7eys",
-                "ngDH4NhfVV3d6T/itAMkrmoy+05uyxM5+CP6BCIXJp2pIMweVBUU8du6AI7UUPnQ",
-                "w5Ebiw/d+qO86Pdu/jJaxq3EG3SX4D3OGABBMIlxjXAeXUd5YouX5sHLva6ZNn8T",
-                "D2UJLZwHAgMBAAECggEAZNEd3iagtEsFlh+ulFQHTSBzvNmdPsR/7dfEHd8ctupE",
-                "SmYuSwEouFwGMJrf21vFvkS+TE4WGqJEWtgmsiQgwhovuJYSkDADq8TjZO1gyZAC",
-                "S5Tg/vlA46IMEt7YaFIARUC26vvwh1iWqXtoVWRTxG09YsOwodPRI1hlL3XHS/bw",
-                "2RvciN9BzisnVE2AiKARH0UcsyG84xpscN4QAtDIHVKfgwBHAcYLLFEbhXJ037HO",
-                "9DbfE739I0qNnaXGE8JLPjk31ekHxOgyrIpLnuojA4q1sMLK2mnllyS03M0wsBEM",
-                "wHqL8QFWkH8czEPLyjEr1+WqNHsyQjP2yTCS5iZ5cQKBgQDuFRKZDFcbzPRf20m6",
-                "W1APKhOFw+Zkn7ZqYrm+FOv5bCGKHJCg9smZM1P7OktRveR2VKine3jAo650e354",
-                "SyFI4zyO87YAC1hvSeixBWlCMUWlBdwJ6sXle7IiIPvIQzlO0/U7W1dedl6iqEqr",
-                "wivoW0g83eU9TePwugPKD0GIdwKBgQDkyDZwV4IVv+7isM3UfKFTnPaCuhr+CC6u",
-                "/QrlcyvqYzFpwDfwIqI8QKHF2lAuy7qZCZW2kSzLxgzp1cfKKj32wcgthFqgrLgx",
-                "dEtS9myTWzPVLs4DlnDceHEpKhysKNiz+taUiw5/J/+9fnGLOVauX6fL/m7SDp39",
-                "yncXh9H88QKBgEdnDH/YIpvU2QmSk8cPMbCKlvZMLWHKQIQhfcFTNv5D/r8UGBAe",
-                "U5HdwfcboZEvWUBf3YD1V962eFC45NIg/ieE9xmMX+4dePVPfjjw/YN7kX6PhlF3",
-                "FsjfUypHKBwEhUBt8yNNHqPW7kTsIhDnGBIEpmKSzfiXzp/YueA0uRu7AoGAKEY6",
-                "lyJAizWjhxKa2WorOD3sg2zhrZChLzrqfSP+Oh/GJhipgEOIjdTO5bad4O8KZUBz",
-                "s5Tw7tppkYyJxEQVbmgEpkajcZ+WOVaAoBUzXelzQXcg2y7TpWwqd5WrQH9cTqq8",
-                "tZ+ZKLdQ5PnqYRjx8nZyYo3i0mWyWGgY+PJ2+/ECgYEAqVLr35Z/S6+PYo0p3Ujg",
-                "qvzahZs+beLjxHJcf34JsF69R0i+Jp2dgMd7t6b6bF/ILISBZfyS3lADJIDG/ZzO",
-                "XBxlLtc4bCYb5oitx5zc5H3QgsfmDXFMQZmwsij0XygOe7KMMdFqMDOxlodLy3FN",
-                "6R/jqI3sIFyUi7vHlglEj50=",
-                "-----END PRIVATE KEY-----"
+                "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEAr5LJ2QAAPuMuZ/eC5ScI3uJtOYKu2tSbdqNJUChc8mb7ixsY\nJN+2eA0lxRrpkM5elVLiJkWgCid2CdZTPT+d1zNOIZynC8fwLRPCdC7mD2VtIftg\nUXmlKHuXxUu6Gnpy5HK1UPKSwWdQWhBcFmtA3H4xxTd8hDI6awxnyCb4dkmXFhul\nC5JhImoLawXdELIGPRI/bf+FCTnjxm4gkibF42C4Hv7+MelV6VCYA3zHe1bMTCqK\nXPBGgUmJhee31FFzqCGcQf4sFn82eSJcbPUdVcIMKpCCEu+6NrfxzsfeNih/CGhL\n7dX0RbB9XO4ommsacQCRuXZL8BqdwmfK1lpCTQIDAQABAoIBAAprgko8K0eQMRVf\nhae28NpVgtj6bgkzvARG/Zdhxd5nCT/AvGaX1lr6oMa5aao77TYchKpz0GM541ID\nI86LQ4FdnKH3C5zx4UmzlgNSMzovsVHmetlrCEfGSgQeEe33XXE8c5FZzCbpTEYE\nGYsFE4Tigm6rc9repkPrKQ+ibHWMoFz75sFjE+ECQqaowoi/m+OBFyM4SO2bBFV7\n3TfgseAcl3wbALMlVHWD5MNpjcH9ODJuuOHS774ARydI4v1XH6hWrbX5kTkF7pd7\nGlVOfQQY4AOK/ztRR7GG04jnNN9sOIlBcXdx/nrN2l0T2JdVkkwEcRt/NvovX+lw\nwXN7iYECgYEA2CnvzdIjIDY4rQP23AAEBgs0SOmvtfNuTQInz/Fui7c0yI+eydB4\nNbDp2LKoqIVpxARKfRqjn2BiyPWTgyGVt2YYq46E723uUOqT3vFxqdQCW2QTBvHy\nOz3qO7/TGn3/P2vrfXqdYYJVnEgoFKpxN2lWdFBwAh0y5PaWRY/LDsECgYEAz+3l\n5KHdvrIQ8VjZBT560Wxp6oR7PT05WEWxdCdbRnXbd3YzfnMDbtFGHbY7zm3hkVZT\n3wTFdTWh/rEradTaRnIgPJRSwNDFUDiVzufUQTdQx43Je6J8n4gfF2Nzad52D6Gf\naYZxR9ejVYSmo3mfzlMCux1g0rMPEyTTmdxtoo0CgYB1Yoij53pFsswiQGXc4HFO\n6uSwt55Am3oJfaMrC/uxCYMzarKa+4db+L90esiWAyUFWiMtPrseAFSEtr8tVZ6c\n4meBOjq8XqEs9cXpKopD5CqHgJfIjLizLRM28RttZoCm6y8Ni/lNC178KD8Dwe8L\nXTuinE/HBh4uMi42hjiJwQKBgDe6fjw5+fGrTgkxk/Do3wgUM4sMeO9f4me7PiVw\nivEmk2zAPGruroPcCRvbhMn9/0/xwEbsw3N3rXRSzdzulJX+7o7t/gP5sHigwd4T\nmnrkNX1WjiLZ2Ob1F8gv+nXsjt3/pnck9mWX8QnxpKv55A/rhbba1+GA5lBuNVxu\njN/dAoGAR6AR7rhXeMHwn4CvyfEvelFLWTV2AwzHMyYKLsxOiabOzL0AYJ4FGzpu\nD4nMrMuT/gIY3i59YJmUSSZqSICaJ7flTmPY+Z7VSoMVg6O/XMXijkEcZ9xOozvx\nEQoeCcQj3x8az+dAHTt4P+JwAeIlJRgLv3hhNk+21lHeypak9Tg=\n-----END RSA PRIVATE KEY-----\n"
               ]
             }
           ],
           "alpn": [
-            "h2"
+            "h2",
+            "http/1.1"
           ]
         },
         "xhttpSettings": {
           "path": "/",
-          "mode": "auto",
-          "noPadding": false,
-          "xPaddingPlacement": "header",
-          "xPaddingHeader": "X-Padding",
-          "xPaddingObfsMode": true,
-          "xPaddingBytes": "500-1500",
+          "mode": "packet-up",
           "extra": {
-            "xmux": {
-              "maxConcurrency": 1000,
-              "maxConnections": 0,
-              "cMaxReuseTimes": 0,
-              "hMaxRequestTimes": 10000,
-              "hMaxReusableSecs": 90,
-              "hKeepAlivePeriod": 15
-            }
-          },
-          "scMaxConcurrentPosts": 10,
-          "scMinPostsIntervalMs": 100
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
         }
       }
     }
@@ -845,14 +780,14 @@
       {
         "type": "field",
         "inboundTag": [
-          "socks-in"
+          "IN_REVERSE_PORTAL_100"
         ],
         "balancerTag": "balancer_100"
       },
       {
         "type": "field",
         "port": "0-65535",
-        "outboundTag": "block"
+        "outboundTag": "direct"
       }
     ]
   }

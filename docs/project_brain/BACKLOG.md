@@ -40,6 +40,9 @@
 | IDN-029 | P0 | Create CDN-Optimized Direct VLESS Reverse Bridge Config | done | IDN-028 | Write high-performance TLS H2 Bridge config with Tor dialer |
 | IDN-030 | P0 | Create CDN-Optimized Direct VLESS Reverse Portal Config | done | IDN-029 | Design and compile Portal configuration with native port 443 TLS termination |
 | IDN-031 | P0 | Establish and Verify High-Obfuscation SplitHTTP VLESS Reverse Tunnel | done | IDN-030 | Establish test VLESS tunnel over ArvanCloud CDN to Server 01 and measure latency/success |
+| IDN-032 | P0 | Patch 100-Tunnel Generator with Persistence, Fast Connection Rotation, and Debug logging | done | IDN-026 | Generator supports full UUID/SSL reuse, rotates connections after 1k requests, and sets loglevel debug |
+| IDN-033 | P0 | Deploy and Validate Server 04 CDN Loopback control configs | done | IDN-032 | portal_cdn_loopback and bridge_cdn_loopback successfully staging-staged and validated with xray -test on Server 04 |
+
 
 ## WIP Rule
 - Max doing items: 2
