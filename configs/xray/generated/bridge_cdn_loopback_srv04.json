@@ -20,6 +20,24 @@
       "tag": "direct"
     },
     {
+      "protocol": "socks",
+      "tag": "socks-out",
+      "settings": {
+        "servers": [
+          {
+            "address": "10.255.1.7",
+            "port": 5080,
+            "users": [
+              {
+                "user": "MeRezaRezaei",
+                "pass": "Rez@9011438678"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "protocol": "vless",
       "tag": "tunnel-loopback",
       "settings": {
@@ -72,6 +90,14 @@
   "routing": {
     "domainStrategy": "AsIs",
     "rules": [
+      {
+        "type": "field",
+        "domain": [
+          "google.com",
+          "domain:google.com"
+        ],
+        "outboundTag": "socks-out"
+      },
       {
         "type": "field",
         "inboundTag": [
