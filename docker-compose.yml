@@ -7,3 +7,12 @@ services:
       - "10085:10085"
     volumes:
       - ./infra/configs/xray/test_api_config.json:/etc/xray/config.json
+
+  xray_2:
+    image: teddysun/xray
+    container_name: xray-api-test-2
+    restart: always
+    ports:
+      - "10087:10087"
+    volumes:
+      - ./infra/configs/xray/test_api_config_2.json:/etc/xray/config.json

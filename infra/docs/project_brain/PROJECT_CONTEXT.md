@@ -14,7 +14,7 @@
 ## Overview
 - Product name: Internet Delivery Network (IDN)
 - Primary objective: Build a multicast Internet Delivery Network (similar to a CDN, but for internet access) to provide on-demand, uncensored global internet access in Iran, circumventing the restrictive "pro internet" (whitelist-based National Information Network).
-- Tech stack: Xray-core (VLESS Reverse Proxy), Wireguard, Tailscale, Mikrotik RouterOS, Marzban (Docker), Technitium DNS (Docker), MySQL (Docker).
+- Tech stack: Laravel 13 (PHP 8.5), Xray-core (VLESS Reverse Proxy), Wireguard, Tailscale, Mikrotik RouterOS, Marzban (Docker), Technitium DNS (Docker), MySQL (Docker).
 - Runtime model (Docker/cloud/local): Distributed Linux servers and routers.
 - Deployment target: A hybrid network of domestic Iranian servers (restricted) and external servers (unrestricted), bridged primarily via Server 07.
 - Critical business invariants: High availability, dynamic tunneling, stealth (evading DPI and whitelisting mechanisms), secure delivery. Server 07 cannot be used for selling access directly; it is a gateway.

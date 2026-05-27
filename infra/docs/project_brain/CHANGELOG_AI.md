@@ -1,6 +1,14 @@
 # AI Changelog
 
 ## 2026-05-27
+- **Xray-Laravel API Integration**:
+    - Developed a native Laravel library for the Xray-core gRPC API.
+    - Generated native PHP classes from Xray-core protobuf files to ensure 100% compatibility.
+    - Implemented a multi-core `XrayManager` and `Xray` Facade for simultaneous management of multiple instances.
+    - Created `XrayService` with helper methods for common tasks like querying stats and managing inbounds.
+    - Set up a Docker-based testing environment with two API-enabled Xray instances.
+    - Verified connectivity and functionality through a comprehensive feature test suite (`XrayApiTest`).
+    - Installed and enabled `grpc` and `protobuf` PHP extensions on the host system.
 - **Xray API Test Environment Setup**:
     - Orchestrated a local Xray API testing environment using Docker Compose.
     - Created `docker-compose.yml` in the root with `teddysun/xray` image, mapping port 10085 for gRPC API.
