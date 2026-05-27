@@ -1,0 +1,9 @@
+services:
+  xray:
+    image: teddysun/xray
+    container_name: xray-api-test
+    restart: always
+    ports:
+      - "10085:10085"
+    volumes:
+      - ./infra/configs/xray/test_api_config.json:/etc/xray/config.json

@@ -15,6 +15,12 @@
 - Impact: No client-facing tunnels or proxies shall be deployed on Server 07. All client traffic must be routed via other Iranian nodes (e.g., Server 01, 03, 04) which are in turn bridged to external nodes.
 - Supersedes: None
 
+- ID: D-006
+- Date: 2026-05-27
+- Decision: Adopted Laravel 13 as the central management and orchestration framework for the IDN.
+- Rationale: The project has outgrown manual script execution. Laravel provides a structured environment for managing the database, CLI commands, and eventually a web-based dashboard for network monitoring and tunnel management.
+- Impact: All infrastructure files moved to `infra/`. Scripts are now executed through Artisan commands. Future logic will favor Eloquent models over flat-file management.
+
 - ID: D-003
 - Date: 2026-05-22
 - Decision: Implemented 3-Port Deterministic Multicast formula with incremental/sequential database tunnel IDs (01-24), 3 outside servers (01-03), and direct plain-TCP peer-to-peer mesh routing over WireGuard.
@@ -41,4 +47,10 @@
 - Rationale: Prevents CDNs from stripping query-based padding (which triggers Xray's `invalid padding length:0` crash). Enforcing `packet-up` mode on both Bridge and Portal aligns the path sequence parser and avoids `strconv.ParseUint` crashes. Lowering the XMUX request limit to 1,000 forces rapid connection rotation to evade timing analysis and reset GFW UDP QoS throttles.
 - Impact: Solved active SplitHTTP reverse tunnel crashes and enabled resilient domestic/international CDN traversal.
 - Supersedes: D-001 (Refined padding placement and modes)
+
+- ID: D-007
+- Date: 2026-05-27
+- Decision: Deployed a containerized Xray API testing environment using `teddysun/xray` and Docker Compose.
+- Rationale: Provides an isolated environment to test `HandlerService` and `StatsService` via gRPC without impacting the host or production services. Using Docker ensures consistent environment and easy cleanup.
+- Impact: Port 10085 exposed for gRPC API; Port 10086 for simulated traffic. Config managed via `infra/configs/xray/test_api_config.json`.
 

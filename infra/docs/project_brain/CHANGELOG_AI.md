@@ -1,5 +1,20 @@
 # AI Changelog
 
+## 2026-05-27
+- **Xray API Test Environment Setup**:
+    - Orchestrated a local Xray API testing environment using Docker Compose.
+    - Created `docker-compose.yml` in the root with `teddysun/xray` image, mapping port 10085 for gRPC API.
+    - Designed and deployed `infra/configs/xray/test_api_config.json` with `HandlerService` and `StatsService` enabled.
+    - Configured a `dokodemo-door` inbound on port 10085 for the API and a `vless` inbound on port 10086 for traffic simulation.
+    - Verified successful container startup and protocol binding via Docker logs and `ps`.
+- **Laravel 13 Transformation & Project Restructuring**:
+    - Initialized a fresh Laravel 13 project with PHP 8.5 as the primary orchestration layer for the IDN.
+    - Restructured the repository by moving all network infrastructure (configs, scripts, keys, docs) into a dedicated `infra/` directory to isolate the application layer.
+    - Integrated legacy infrastructure scripts into the Artisan CLI (`idn:generate-xray`, `idn:health-check`) via a new `IDNBaseCommand` wrapper and `IDNServiceProvider`.
+    - Resolved critical system environment issues by switching to official Ubuntu and Composer repositories, bypassing broken Iranian mirrors (`liara.ir`, `arvancloud.ir`).
+    - Cleared corrupted composer cache and updated to version `2.9.8` to resolve `GithubActionError` crashes.
+    - Updated root `GEMINI.md` to point to the new project brain location at `infra/docs/project_brain/`.
+
 ## 2026-05-26
 - **Server 04 Local Loopback Tunnel Connection Success & Clashing Resolution**:
     - Identified a routing direction mismatch: in a simplified reverse proxy, a client with a `reverse` block cannot be used directly as a forward proxy target from the Bridge's SOCKS inbound (throwing a `safety reasons: not allowed to use forward proxy` crash).

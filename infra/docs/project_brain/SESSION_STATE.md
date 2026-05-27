@@ -16,6 +16,11 @@
     - Implemented `idn:generate-xray` and `idn:health-check` Artisan commands.
     - Restructured all files into context-appropriate directories (`infra/configs`, `infra/scripts`, `infra/keys`).
     - Successfully resolved apt and composer mirror issues.
+- **Xray API Test Environment Setup (2026-05-27):**
+    - Created `docker-compose.yml` in the root for Xray service using `teddysun/xray`.
+    - Created `infra/configs/xray/test_api_config.json` with `HandlerService` and `StatsService` enabled.
+    - Configured API inbound on port 10085 and VLESS inbound on port 10086.
+    - Successfully launched the container and verified Xray-core v26 startup logs.
 - **Server 04 Local Loopback Tunnel Connection Success (2026-05-26) [VERIFIED ON SERVER 04]:**
     - Identified that simplified reverse proxy clients with a `reverse` tag are strictly prohibited from being targeted for forward proxy SOCKS requests directly from the Bridge outbound (yielding safety exceptions: `safety reasons: not allowed to use forward proxy`).
     - Successfully re-architected the test loopback configuration by moving the testing SOCKS inbound to the Portal side (`portal_cdn_loopback_srv04.json`) on port `10800` routing to `reverse-out-loopback`. Shifted the Bridge SOCKS port to `10801` to eliminate host-level port conflicts.
