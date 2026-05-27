@@ -32,8 +32,8 @@ return [
         ],
 
         'secondary' => [
-            'host' => '127.0.0.1',
-            'port' => 10087,
+            'host' => env('XRAY_SECONDARY_HOST', 'xray_2'),
+            'port' => env('XRAY_SECONDARY_PORT', 10087),
             'secure' => false,
         ],
 

@@ -5,10 +5,15 @@
 - Owner: Antigravity
 
 ## Current Stage
-- Stage: Laravel-Driven Network Management
-- Focus: Building the centralized IDN Dashboard and implementing automated configuration management using the new Laravel-Xray API integration.
+- Stage: Containerized Development Environment
+- Focus: Transitioning the entire project to a Docker-based workflow to ensure platform independence and ease of orchestration.
 
 ## Done
+- **Dockerization of Development Environment (2026-05-27):**
+    - Created `docker/Dockerfile` based on `php:8.5-cli` with `grpc`, `protobuf`, and Laravel extensions.
+    - Orchestrated `app`, `xray`, and `xray_2` services in `docker-compose.yml`.
+    - Implemented a `Makefile` for simplified environment management.
+    - Realigned `config/xray.php` to use Docker service discovery.
 - **Xray-Laravel API Integration (2026-05-27):**
     - Established high-performance gRPC communication between Laravel and Xray-core.
     - Supported simultaneous multi-core management via `Xray::connection('name')`.
