@@ -5,10 +5,16 @@
 - Owner: Antigravity
 
 ## Current Stage
-- Stage: Containerized Development Environment
-- Focus: Transitioning the entire project to a Docker-based workflow to ensure platform independence and ease of orchestration.
+- Stage: Control Plane Orchestration & Real-time Management
+- Focus: Implementing the 'Hot Reload' mechanism via Redis signaling and gRPC API to manage a global fleet of Xray nodes without restarts.
 
 ## Done
+- **IDN Control Plane Foundation (2026-05-27):**
+    - Developed `XrayApiClient` with high-level gRPC wrappers for Stats and Handler services.
+    - Implemented `ControlPlaneManager` for dual-Redis synchronization and signal processing.
+    - Created `DryRunService` to validate configuration changes on isolated instances before deployment.
+    - Added `idn:control-plane:listen` Artisan command for real-time Redis Pub/Sub orchestration.
+    - Enhanced Docker stack with Redis and `xray_dry_run` services.
 - **Dockerization of Development Environment (2026-05-27):**
     - Created `docker/Dockerfile` based on `php:8.5-cli` with `grpc`, `protobuf`, and Laravel extensions.
     - Orchestrated `app`, `xray`, and `xray_2` services in `docker-compose.yml`.

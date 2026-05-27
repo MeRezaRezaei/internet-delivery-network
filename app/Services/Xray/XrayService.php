@@ -5,20 +5,18 @@ namespace App\Services\Xray;
 use Grpc\ChannelCredentials;
 use Xray\App\Proxyman\Command\HandlerServiceClient;
 use Xray\App\Stats\Command\StatsServiceClient;
-use Xray\App\Stats\Command\GetStatsRequest;
 use Xray\App\Stats\Command\QueryStatsRequest;
-use Xray\App\Proxyman\Command\AddInboundRequest;
+use Xray\App\Stats\Command\SysStatsRequest;
 use Xray\App\Proxyman\Command\RemoveInboundRequest;
-use Xray\App\Proxyman\Command\AddOutboundRequest;
-use Xray\App\Proxyman\Command\RemoveOutboundRequest;
-use Xray\Core\InboundHandlerConfig;
-use Xray\Core\OutboundHandlerConfig;
+use Xray\App\Proxyman\Command\AddInboundRequest;
+use Xray\App\Proxyman\InboundHandlerConfig;
+use Exception;
 
 class XrayService
 {
-    protected $config;
-    protected $handlerClient;
-    protected $statsClient;
+    protected array $config;
+    protected ?HandlerServiceClient $handler = null;
+    protected ?StatsServiceClient $stats = null;
 
     public function __construct(array $config)
     {
@@ -26,124 +24,127 @@ class XrayService
     }
 
     /**
-     * Get the HandlerServiceClient instance.
-     *
-     * @return HandlerServiceClient
+     * Get the HandlerService client.
      */
-    public function handler()
+    public function handler(): HandlerServiceClient
     {
-        if (!$this->handlerClient) {
-            $this->handlerClient = new HandlerServiceClient(
-                "{$this->config['host']}:{$this->config['port']}",
-                [
-                    'credentials' => $this->getCredentials(),
-                ]
-            );
+        if (!$this->handler) {
+            $hostname = "{$this->config['host']}:{$this->config['port']}";
+            $this->handler = new HandlerServiceClient($hostname, [
+                'credentials' => ChannelCredentials::createInsecure(),
+            ]);
         }
-        return $this->handlerClient;
+        return $this->handler;
     }
 
     /**
-     * Get the StatsServiceClient instance.
-     *
-     * @return StatsServiceClient
+     * Get the StatsService client.
      */
-    public function stats()
+    public function stats(): StatsServiceClient
     {
-        if (!$this->statsClient) {
-            $this->statsClient = new StatsServiceClient(
-                "{$this->config['host']}:{$this->config['port']}",
-                [
-                    'credentials' => $this->getCredentials(),
-                ]
-            );
+        if (!$this->stats) {
+            $hostname = "{$this->config['host']}:{$this->config['port']}";
+            $this->stats = new StatsServiceClient($hostname, [
+                'credentials' => ChannelCredentials::createInsecure(),
+            ]);
         }
-        return $this->statsClient;
+        return $this->stats;
     }
 
-    protected function getCredentials()
-    {
-        if ($this->config['secure']) {
-            return ChannelCredentials::createSsl();
-        }
-        return ChannelCredentials::createInsecure();
-    }
-
-    // --- Helper Methods ---
+    // --- High-level API methods ---
 
     /**
-     * Get stats for a specific user/inbound.
-     *
-     * @param string $name
-     * @param bool $reset
-     * @return \Xray\App\Stats\Command\Stat|null
+     * Get system statistics.
      */
-    public function getStat(string $name, bool $reset = false)
+    public function getSysStats(): array
     {
-        $request = new GetStatsRequest();
-        $request->setName($name);
-        $request->setReset($reset);
-
-        list($response, $status) = $this->stats()->GetStats($request)->wait();
-
-        if ($status->code !== 0) {
-            return null;
-        }
-
-        return $response->getStat();
+        $request = new SysStatsRequest();
+        list($response, $status) = $this->stats()->SysStats($request)->wait();
+        $this->ensureSuccess($status);
+        
+        return [
+            'uptime' => $response->getUptime(),
+            'num_goroutine' => $response->getNumGoroutine(),
+            'alloc' => $response->getAlloc(),
+            'total_alloc' => $response->getTotalAlloc(),
+            'sys' => $response->getSys(),
+            'mallocs' => $response->getMallocs(),
+            'frees' => $response->getFrees(),
+            'live_objects' => $response->getLiveObjects(),
+            'num_gc' => $response->getNumGC(),
+            'pause_total_ns' => $response->getPauseTotalNs(),
+        ];
     }
 
     /**
-     * Query stats with a pattern.
-     *
-     * @param string $pattern
-     * @param bool $reset
-     * @return \Google\Protobuf\Internal\RepeatedField
+     * Query stats by pattern.
      */
-    public function queryStats(string $pattern = "", bool $reset = false)
+    public function queryStats(string $pattern = "", bool $reset = false): array
     {
         $request = new QueryStatsRequest();
         $request->setPattern($pattern);
         $request->setReset($reset);
 
         list($response, $status) = $this->stats()->QueryStats($request)->wait();
+        $this->ensureSuccess($status);
 
-        if ($status->code !== 0) {
-            return [];
+        $stats = [];
+        if ($response) {
+            foreach ($response->getStat() as $stat) {
+                $stats[$stat->getName()] = $stat->getValue();
+            }
         }
-
-        return $response->getStat();
+        return $stats;
     }
 
     /**
-     * Add an inbound handler.
-     *
-     * @param \Xray\Core\InboundHandlerConfig $inbound
-     * @return bool
+     * Remove an inbound.
      */
-    public function addInbound($inbound)
-    {
-        $request = new AddInboundRequest();
-        $request->setInbound($inbound);
-
-        list($response, $status) = $this->handler()->AddInbound($request)->wait();
-
-        return $status->code === 0;
-    }
-
-    /**
-     * Remove an inbound handler by tag.
-     *
-     * @param string $tag
-     * @return bool
-     */
-    public function removeInbound(string $tag)
+    public function removeInbound(string $tag): bool
     {
         $request = new RemoveInboundRequest();
         $request->setTag($tag);
 
         list($response, $status) = $this->handler()->RemoveInbound($request)->wait();
+        $this->ensureSuccess($status);
 
-        return $status->code === 0;
+        return true;
+    }
+
+    /**
+     * Add an inbound (Native Protobuf Object).
+     */
+    public function addInbound(InboundHandlerConfig $inbound): bool
+    {
+        $request = new AddInboundRequest();
+        $request->setInbound($inbound);
+
+        list($response, $status) = $this->handler()->AddInbound($request)->wait();
+        $this->ensureSuccess($status);
+
+        return true;
+    }
+
+    /**
+     * Validate the connection.
+     */
+    public function ping(): bool
+    {
+        try {
+            $this->getSysStats();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Ensure gRPC call success.
+     */
+    protected function ensureSuccess($status): void
+    {
+        if ($status->code !== 0) {
+            throw new Exception("Xray gRPC Error [{$status->code}]: {$status->details}");
+        }
     }
 }

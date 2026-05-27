@@ -16,6 +16,9 @@ RUN apt-get update && apt-get install -y \
 # Install PHP extensions
 RUN docker-php-ext-install zip bcmath pdo_mysql
 
+# Install redis extension
+RUN pecl install redis && docker-php-ext-enable redis
+
 # Install grpc and protobuf via pecl
 RUN pecl channel-update pecl.php.net \
     && MAKEFLAGS="-j$(nproc)" pecl install grpc \

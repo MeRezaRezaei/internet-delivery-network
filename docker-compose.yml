@@ -20,10 +20,13 @@ services:
       - DB_DATABASE=idn_db
       - DB_USERNAME=idn_user
       - DB_PASSWORD=idn_password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     depends_on:
       - xray
       - xray_2
       - mysql
+      - redis
     networks:
       - idn-network
 
@@ -50,8 +53,19 @@ services:
     networks:
       - idn-network
 
+  xray_dry_run:
+    image: teddysun/xray
+    container_name: xray-api-dry-run
+    restart: always
+    ports:
+      - "10089:10089"
+    volumes:
+      - ./infra/configs/xray/test_api_config.json:/etc/xray/config.json
+    networks:
+      - idn-network
+
   mysql:
-    image: mysql:8.0
+...    image: mysql:8.0
     container_name: idn-mysql
     restart: always
     environment:
@@ -63,6 +77,15 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - idn-network
+
+  redis:
+    image: redis:alpine
+    container_name: idn-redis
+    restart: always
+    ports:
+      - "6379:6379"
     networks:
       - idn-network
 

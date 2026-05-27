@@ -28,5 +28,8 @@ test:
 shell:
 	docker compose exec app bash
 
+listen:
+	docker compose exec app php artisan idn:control-plane:listen
+
 logs:
 	docker compose logs -f
