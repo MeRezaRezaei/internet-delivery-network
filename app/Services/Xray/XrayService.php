@@ -9,6 +9,7 @@ use Xray\App\Stats\Command\QueryStatsRequest;
 use Xray\App\Stats\Command\SysStatsRequest;
 use Xray\App\Proxyman\Command\RemoveInboundRequest;
 use Xray\App\Proxyman\Command\AddInboundRequest;
+use Xray\App\Proxyman\Command\ListInboundsRequest;
 use Xray\App\Proxyman\InboundHandlerConfig;
 use Exception;
 
@@ -17,50 +18,48 @@ class XrayService
     protected array $config;
     protected ?HandlerServiceClient $handler = null;
     protected ?StatsServiceClient $stats = null;
+    
+    // Default timeout for gRPC calls in microseconds (5 seconds)
+    protected const DEFAULT_TIMEOUT = 5000000; 
 
     public function __construct(array $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * Get the HandlerService client.
-     */
+    protected function getOptions(): array
+    {
+        return [
+            'credentials' => ChannelCredentials::createInsecure(),
+            'grpc.timeout' => self::DEFAULT_TIMEOUT,
+        ];
+    }
+
     public function handler(): HandlerServiceClient
     {
         if (!$this->handler) {
             $hostname = "{$this->config['host']}:{$this->config['port']}";
-            $this->handler = new HandlerServiceClient($hostname, [
-                'credentials' => ChannelCredentials::createInsecure(),
-            ]);
+            $this->handler = new HandlerServiceClient($hostname, $this->getOptions());
         }
         return $this->handler;
     }
 
-    /**
-     * Get the StatsService client.
-     */
     public function stats(): StatsServiceClient
     {
         if (!$this->stats) {
             $hostname = "{$this->config['host']}:{$this->config['port']}";
-            $this->stats = new StatsServiceClient($hostname, [
-                'credentials' => ChannelCredentials::createInsecure(),
-            ]);
+            $this->stats = new StatsServiceClient($hostname, $this->getOptions());
         }
         return $this->stats;
     }
 
-    // --- High-level API methods ---
+    // --- High-level API methods with Validation ---
 
-    /**
-     * Get system statistics.
-     */
     public function getSysStats(): array
     {
         $request = new SysStatsRequest();
         list($response, $status) = $this->stats()->SysStats($request)->wait();
-        $this->ensureSuccess($status);
+        $this->ensureSuccess($status, "SysStats");
         
         return [
             'uptime' => $response->getUptime(),
@@ -76,9 +75,6 @@ class XrayService
         ];
     }
 
-    /**
-     * Query stats by pattern.
-     */
     public function queryStats(string $pattern = "", bool $reset = false): array
     {
         $request = new QueryStatsRequest();
@@ -86,7 +82,7 @@ class XrayService
         $request->setReset($reset);
 
         list($response, $status) = $this->stats()->QueryStats($request)->wait();
-        $this->ensureSuccess($status);
+        $this->ensureSuccess($status, "QueryStats");
 
         $stats = [];
         if ($response) {
@@ -97,37 +93,51 @@ class XrayService
         return $stats;
     }
 
-    /**
-     * Remove an inbound.
-     */
+    public function addInbound(InboundHandlerConfig $inbound): bool
+    {
+        $tag = $inbound->getTag();
+        $request = new AddInboundRequest();
+        $request->setInbound($inbound);
+
+        list($response, $status) = $this->handler()->AddInbound($request)->wait();
+        $this->ensureSuccess($status, "AddInbound [{$tag}]");
+
+        // --- Post-Apply Verification ---
+        if (!$this->verifyInboundActive($tag)) {
+            throw new Exception("AddInbound success reported by gRPC, but inbound [{$tag}] is not active in the core. Check OS port bindings.");
+        }
+
+        return true;
+    }
+
     public function removeInbound(string $tag): bool
     {
         $request = new RemoveInboundRequest();
         $request->setTag($tag);
 
         list($response, $status) = $this->handler()->RemoveInbound($request)->wait();
-        $this->ensureSuccess($status);
+        $this->ensureSuccess($status, "RemoveInbound [{$tag}]");
 
         return true;
     }
 
     /**
-     * Add an inbound (Native Protobuf Object).
+     * Verify if an inbound tag actually exists in the running core.
      */
-    public function addInbound(InboundHandlerConfig $inbound): bool
+    public function verifyInboundActive(string $tag): bool
     {
-        $request = new AddInboundRequest();
-        $request->setInbound($inbound);
+        $request = new ListInboundsRequest();
+        list($response, $status) = $this->handler()->ListInbounds($request)->wait();
+        
+        if ($status->code !== 0) return false;
 
-        list($response, $status) = $this->handler()->AddInbound($request)->wait();
-        $this->ensureSuccess($status);
+        foreach ($response->getInbound() as $inbound) {
+            if ($inbound->getTag() === $tag) return true;
+        }
 
-        return true;
+        return false;
     }
 
-    /**
-     * Validate the connection.
-     */
     public function ping(): bool
     {
         try {
@@ -138,13 +148,19 @@ class XrayService
         }
     }
 
-    /**
-     * Ensure gRPC call success.
-     */
-    protected function ensureSuccess($status): void
+    protected function ensureSuccess($status, string $context): void
     {
         if ($status->code !== 0) {
-            throw new Exception("Xray gRPC Error [{$status->code}]: {$status->details}");
+            // Map common gRPC codes to helpful exceptions
+            $msg = "Xray gRPC Error in {$context} [Code {$status->code}]: {$status->details}";
+            
+            if ($status->code === 14) {
+                $msg = "Xray Node Unreachable: {$this->config['host']}:{$this->config['port']} is down or gRPC is disabled.";
+            } elseif ($status->code === 4) {
+                $msg = "Xray gRPC Timeout: Node took too long to respond to {$context}.";
+            }
+
+            throw new Exception($msg);
         }
     }
 }

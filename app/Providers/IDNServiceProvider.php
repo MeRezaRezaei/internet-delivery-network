@@ -25,6 +25,10 @@ class IDNServiceProvider extends ServiceProvider
                 $app->make(\App\Services\ControlPlane\DryRunService::class)
             );
         });
+
+        $this->app->singleton(\App\Services\ControlPlane\NodeMonitorService::class, function ($app) {
+            return new \App\Services\ControlPlane\NodeMonitorService();
+        });
     }
 
     /**

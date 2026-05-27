@@ -17,53 +17,66 @@ class ControlPlaneManager
     }
 
     /**
-     * Process a control signal from Redis.
+     * Process a batch of control signals transactionally.
+     * Every signal in the batch is dry-run before ANY are applied to production.
      */
-    public function processSignal(array $signal): void
+    public function processBatch(array $batch): void
     {
-        $action = $signal['action'] ?? null;
-        $node = $signal['node'] ?? 'local';
-        $payload = $signal['payload'] ?? [];
+        $node = $batch['node'] ?? 'local';
+        $signals = $batch['signals'] ?? [];
 
-        Log::info("Control Plane: Processing {$action} for node {$node}");
+        Log::info("Control Plane: Starting TRANSACTIONAL batch for node {$node} with " . count($signals) . " signals.");
 
         try {
-            switch ($action) {
-                case 'ADD_INBOUND':
-                    $this->handleAddInbound($node, $payload);
-                    break;
-                case 'REMOVE_INBOUND':
-                    $this->handleRemoveInbound($node, $payload);
-                    break;
-                default:
-                    throw new Exception("Unknown action: {$action}");
+            // 1. Dry Run Phase (Validate all)
+            $hydratedSignals = [];
+            foreach ($signals as $index => $signalData) {
+                $action = $signalData['action'] ?? null;
+                $payload = $signalData['payload'] ?? [];
+                
+                if ($action === 'ADD_INBOUND') {
+                    $inbound = \App\Utils\XrayProtobufHydrator::hydrateInbound($payload);
+                    $this->dryRun->validateInbound($inbound);
+                    $hydratedSignals[$index] = ['inbound' => $inbound];
+                }
             }
 
-            // Update sync state in second Redis channel/hash
-            $this->updateNodeState($node, $action, "SUCCESS");
-            
+            // 2. Execution Phase (Apply all)
+            foreach ($signals as $index => $signalData) {
+                $action = $signalData['action'] ?? null;
+                $payload = $signalData['payload'] ?? [];
+
+                switch ($action) {
+                    case 'ADD_INBOUND':
+                        Xray::connection($node)->addInbound($hydratedSignals[$index]['inbound']);
+                        break;
+                    case 'REMOVE_INBOUND':
+                        Xray::connection($node)->removeInbound($payload['tag']);
+                        break;
+                    default:
+                        throw new Exception("Unknown action in batch: {$action}");
+                }
+            }
+
+            $this->updateNodeState($node, "BATCH_APPLIED", "SUCCESS");
+            Log::info("Control Plane: Batch successfully applied to {$node}.");
+
         } catch (Exception $e) {
-            Log::error("Control Plane Failure: " . $e->getMessage());
-            $this->updateNodeState($node, $action, "FAILED", $e->getMessage());
+            Log::error("Control Plane Transaction Failed: " . $e->getMessage());
+            $this->updateNodeState($node, "BATCH_FAILED", "FAILED", $e->getMessage());
             throw $e;
         }
     }
 
-    protected function handleAddInbound(string $node, array $payload): void
+    /**
+     * Legacy single signal processor (proxies to batch).
+     */
+    public function processSignal(array $signal): void
     {
-        $inbound = \App\Utils\XrayProtobufHydrator::hydrateInbound($payload);
-        
-        // 1. Dry Run Validation
-        $this->dryRun->validateInbound($inbound);
-
-        // 2. Real Application
-        Xray::connection($node)->addInbound($inbound);
-    }
-
-    protected function handleRemoveInbound(string $node, array $payload): void
-    {
-        $tag = $payload['tag'] ?? throw new Exception("Missing inbound tag.");
-        Xray::connection($node)->removeInbound($tag);
+        $this->processBatch([
+            'node' => $signal['node'] ?? 'local',
+            'signals' => [$signal]
+        ]);
     }
 
     protected function updateNodeState(string $node, string $action, string $status, ?string $error = null): void

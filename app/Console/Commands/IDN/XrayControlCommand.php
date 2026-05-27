@@ -5,31 +5,37 @@ namespace App\Console\Commands\IDN;
 use App\Facades\Xray;
 use Illuminate\Console\Command;
 use App\Utils\XrayProtobufHydrator;
+use App\Services\ControlPlane\NodeMonitorService;
+use Illuminate\Support\Facades\Redis;
 
 class XrayControlCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     */
     protected $signature = 'idn:xray-ctl 
-                            {action : stats, sys-stats, list-inbounds, ping, add-inbound, remove-inbound} 
+                            {action : stats, sys-stats, list-inbounds, ping, add-inbound, remove-inbound, list-nodes} 
                             {--connection=local : The Xray connection name}
                             {--tag= : Tag for remove-inbound}
                             {--port= : Port for add-inbound}';
 
-    /**
-     * The console command description.
-     */
     protected $description = 'Directly interact with Xray-core gRPC API for debugging';
 
-    /**
-     * Execute the console command.
-     */
+    protected NodeMonitorService $monitor;
+
+    public function __construct(NodeMonitorService $monitor)
+    {
+        parent::__construct();
+        $this->monitor = $monitor;
+    }
+
     public function handle()
     {
         $action = $this->argument('action');
         $connection = $this->option('connection');
         
+        if ($action === 'list-nodes') {
+            $this->listNodes();
+            return Command::SUCCESS;
+        }
+
         $this->info("Executing {$action} on connection [{$connection}]...");
 
         try {
@@ -114,5 +120,24 @@ class XrayControlCommand extends Command
         $this->info("Removing inbound [{$tag}]...");
         $xray->removeInbound($tag);
         $this->info("Inbound removed successfully.");
+    }
+
+    protected function listNodes()
+    {
+        $fleet = $this->monitor->getFleetStatus();
+        
+        $rows = [];
+        foreach ($fleet as $name => $info) {
+            $rows[] = [
+                $name,
+                $info['healthy'] ? '✅ ONLINE' : '❌ OFFLINE',
+                $info['hostname'],
+                $info['last_seen'],
+                $info['sync_state']['status'] ?? 'N/A',
+                $info['sync_state']['last_action'] ?? 'NONE',
+            ];
+        }
+
+        $this->table(['Node', 'Status', 'Hostname', 'Last Heartbeat', 'Sync', 'Last Action'], $rows);
     }
 }

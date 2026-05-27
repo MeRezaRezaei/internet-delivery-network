@@ -65,7 +65,7 @@ services:
       - idn-network
 
   mysql:
-...    image: mysql:8.0
+    image: mysql:8.0
     container_name: idn-mysql
     restart: always
     environment:
