@@ -9,6 +9,12 @@
 - Focus: Implementing the 'Hot Reload' mechanism via Redis signaling and gRPC API to manage a global fleet of Xray nodes without restarts.
 
 ## Done
+- **Tailscale API Integration (2026-05-27):**
+    - Implemented `TailscaleService` with support for OAuth2 authentication (Client ID/Secret).
+    - Developed `Tailscale` Facade and `TailscaleServiceProvider` for seamless Laravel integration.
+    - Added comprehensive test suite in `tests/Feature/TailscaleApiTest.php` using `Http::fake()`.
+    - Configured `config/tailscale.php` and updated `.env.example` with required placeholders.
+    - Documented credential setup in `PRIVATE_MEMORY.md`.
 - **IDN Control Plane Foundation (2026-05-27):**
     - Developed `XrayApiClient` with high-level gRPC wrappers for Stats and Handler services.
     - Implemented `ControlPlaneManager` for dual-Redis synchronization and signal processing.

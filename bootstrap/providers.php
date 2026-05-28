@@ -6,4 +6,5 @@ return [
     AppServiceProvider::class,
     App\Providers\IDNServiceProvider::class,
     App\Providers\XrayServiceProvider::class,
+    App\Providers\TailscaleServiceProvider::class,
 ];
