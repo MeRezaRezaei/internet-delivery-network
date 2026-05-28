@@ -132,6 +132,17 @@ class ControlPlaneListenCommand extends Command
         $key = "idn:control-plane:nodes:{$this->nodeName}:registry";
         Redis::hSet($key, 'hostname', gethostname());
         Redis::hSet($key, 'started_at', now()->toIso8601String());
+        
+        // Update database (Auto-Discovery)
+        \App\Models\IDN\Node::updateOrCreate(
+            ['name' => $this->nodeName],
+            [
+                'hostname' => gethostname(),
+                'is_active' => true,
+                'last_heartbeat_at' => now(),
+            ]
+        );
+
         $this->updateHeartbeat();
     }
 
@@ -140,11 +151,22 @@ class ControlPlaneListenCommand extends Command
         $key = "idn:control-plane:nodes:{$this->nodeName}:registry";
         Redis::hSet($key, 'last_heartbeat', now()->toIso8601String());
         Redis::expire($key, 60); 
+
+        // Update database periodically (economical: every minute or so)
+        // For now, every heartbeat is fine in this prototype
+        \App\Models\IDN\Node::where('name', $this->nodeName)->update([
+            'last_heartbeat_at' => now(),
+        ]);
     }
 
     protected function unregisterNode(): void
     {
         Redis::del("idn:control-plane:nodes:{$this->nodeName}:registry");
+        
+        // Update database
+        \App\Models\IDN\Node::where('name', $this->nodeName)->update([
+            'is_active' => false,
+        ]);
     }
 
     public function shutdown(): void

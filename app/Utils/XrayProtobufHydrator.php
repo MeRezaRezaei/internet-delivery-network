@@ -2,7 +2,7 @@
 
 namespace App\Utils;
 
-use Xray\App\Proxyman\InboundHandlerConfig;
+use Xray\Core\InboundHandlerConfig;
 use Xray\App\Proxyman\ReceiverConfig;
 use Xray\Common\Net\IPOrDomain;
 use Xray\Common\Net\PortRange;
@@ -32,16 +32,34 @@ class XrayProtobufHydrator
         $portRange = new PortRange();
         $portRange->setFrom($port);
         $portRange->setTo($port);
-        $receiver->setPortRange($portRange);
 
+        $portList = new \Xray\Common\Net\PortList();
+        $portList->setRange([$portRange]);
+        $receiver->setPortList($portList);
+
+        $listenStr = $config['listen'] ?? '0.0.0.0';
         $listen = new IPOrDomain();
-        $listen->setAddress($config['listen'] ?? '0.0.0.0');
+        if (filter_var($listenStr, FILTER_VALIDATE_IP)) {
+            $listen->setIp(inet_pton($listenStr));
+        } else {
+            $listen->setDomain($listenStr);
+        }
         $receiver->setListen($listen);
 
         // Stream Settings (TLS, Transport)
         if (isset($config['streamSettings'])) {
             $streamConfig = new \Xray\Transport\Internet\StreamConfig();
-            $streamConfig->mergeFromJsonString(json_encode($config['streamSettings']));
+            
+            if (isset($config['streamSettings']['network'])) {
+                $streamConfig->setProtocolName($config['streamSettings']['network']);
+            }
+            if (isset($config['streamSettings']['security'])) {
+                $streamConfig->setSecurityType($config['streamSettings']['security']);
+            }
+            
+            // Note: full TLS/Reality settings hydration requires wrapping in TypedMessage.
+            // This is a simplified version for the prototype.
+            
             $receiver->setStreamSettings($streamConfig);
         }
 
@@ -65,7 +83,34 @@ class XrayProtobufHydrator
         $proxyMessage = self::getProxyMessageForProtocol($protocol);
         
         if (isset($config['settings'])) {
-            $proxyMessage->mergeFromJsonString(json_encode($config['settings']));
+            $settings = $config['settings'];
+            
+            // Special handling for protocols that use 'users' with protocol-specific accounts
+            if ($protocol === 'vless' && isset($settings['users'])) {
+                $users = [];
+                foreach ($settings['users'] as $userData) {
+                    $user = new \Xray\Common\Protocol\User();
+                    $user->setEmail($userData['email'] ?? '');
+                    $user->setLevel($userData['level'] ?? 0);
+                    
+                    $account = new \Xray\Proxy\Vless\Account();
+                    if (isset($userData['id'])) $account->setId($userData['id']);
+                    if (isset($userData['flow'])) $account->setFlow($userData['flow']);
+                    if (isset($userData['encryption'])) $account->setEncryption($userData['encryption']);
+                    
+                    $user->setAccount(self::wrapTypedMessage($account, 'xray.proxy.vless.Account'));
+                    $users[] = $user;
+                }
+                $proxyMessage->setUsers($users);
+                
+                // Merge remaining settings (like decryption)
+                unset($settings['users']);
+                if (!empty($settings)) {
+                    $proxyMessage->mergeFromJsonString(json_encode($settings));
+                }
+            } else {
+                $proxyMessage->mergeFromJsonString(json_encode($settings));
+            }
         }
 
         $inbound->setProxySettings(self::wrapTypedMessage($proxyMessage, "xray.proxy.{$protocol}.ServerConfig"));

@@ -39,7 +39,7 @@ return [
 
         'dry_run' => [
             'host' => 'xray_dry_run',
-            'port' => 10089,
+            'port' => 10085,
             'secure' => false,
         ],
 

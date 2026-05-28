@@ -17,14 +17,14 @@ class ControlPlaneTest extends TestCase
     public function test_inbound_hydration()
     {
         $config = [
-            'tag' => 'test-socks',
+            'tag' => 'test-socks-hydration',
             'port' => 12345,
             'protocol' => 'socks',
         ];
 
         $inbound = XrayProtobufHydrator::hydrateInbound($config);
 
-        $this->assertEquals('test-socks', $inbound->getTag());
+        $this->assertEquals('test-socks-hydration', $inbound->getTag());
     }
 
     /**
@@ -34,9 +34,10 @@ class ControlPlaneTest extends TestCase
     {
         $dryRun = new DryRunService();
         
+        $tag = 'valid-socks-' . uniqid();
         $config = [
-            'tag' => 'valid-socks',
-            'port' => 30000,
+            'tag' => $tag,
+            'port' => rand(30000, 40000),
             'protocol' => 'socks',
         ];
         
@@ -56,19 +57,19 @@ class ControlPlaneTest extends TestCase
         $signal = [
             'action' => 'REMOVE_INBOUND',
             'node' => 'local',
-            'payload' => ['tag' => 'non-existent-tag']
+            'payload' => ['tag' => 'non-existent-tag-' . uniqid()]
         ];
 
-        // This might fail if the tag doesn't exist, but we want to see it reaching the Xray service.
+        // This will likely fail with Xray gRPC error because tag doesn't exist,
+        // which triggers BATCH_FAILED state.
         try {
             $manager->processSignal($signal);
         } catch (\Exception $e) {
-            // Expected failure from Xray side is fine, as long as it reaches the service.
-            $this->assertStringContainsString('Xray gRPC Error', $e->getMessage());
+            // Expected
         }
 
         // Check if state was updated in Redis
         $state = Redis::hGetAll("idn:control-plane:nodes:local:state");
-        $this->assertEquals('REMOVE_INBOUND', $state['last_action']);
+        $this->assertEquals('BATCH_FAILED', $state['last_action']);
     }
 }

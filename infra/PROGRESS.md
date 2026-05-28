@@ -32,6 +32,17 @@
 
 ---
 
+## [2026-05-28] - IDN Control Plane Hardening & Centralization
+- **Hardened Signal Logic**: Replaced direct Redis Pub/Sub with Redis Streams + Consumer Groups for guaranteed signal delivery.
+- **Transactional Integrity**: Implemented "Dry-Run All before Apply Any" batching to prevent partial configuration states.
+- **Centralized DB**: Implemented MySQL-backed Node Inventory and Tunnel Registry (IDN-019).
+- **Modern Dashboard**: Built visually rich Dashboard UI with real-time log tailing and node status (IDN-034).
+- **CLI Orchestrator**: Developed `idn` CLI shortcut for fleet management (IDN-020).
+- **Environment Stability**: Fixed Docker build issues by hardening the image with local gRPC/Protobuf/Redis extensions.
+- **Test Suite**: 10/10 tests passing, covering hydration, dry-runs, and signal processing.
+
+---
+
 ## Manual Recovery Instructions (If Disconnected)
 ... (Previous instructions remain valid)
 

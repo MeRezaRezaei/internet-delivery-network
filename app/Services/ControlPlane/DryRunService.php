@@ -4,7 +4,7 @@ namespace App\Services\ControlPlane;
 
 use App\Facades\Xray;
 use Exception;
-use Xray\App\Proxyman\InboundHandlerConfig;
+use Xray\Core\InboundHandlerConfig;
 
 class DryRunService
 {
