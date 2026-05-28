@@ -4,7 +4,7 @@ namespace App\Services\ControlPlane;
 
 use App\Facades\Xray;
 use Exception;
-use Xray\App\Proxyman\InboundHandlerConfig;
+use Xray\Core\InboundHandlerConfig;
 
 class DryRunService
 {
@@ -13,15 +13,22 @@ class DryRunService
      */
     public function validateInbound(InboundHandlerConfig $inbound): bool
     {
+        $tag = $inbound->getTag();
+        $conn = Xray::connection('dry_run');
+
         try {
             // 1. Perform filesystem pre-checks (Certificates)
             $this->verifyCertificatesExist($inbound);
 
-            // 2. Apply to the dry-run instance
-            Xray::connection('dry_run')->addInbound($inbound);
-            
-            // 3. Immediately remove it to keep the dry-run instance clean
-            Xray::connection('dry_run')->removeInbound($inbound->getTag());
+            // 2. Pre-cleanup (In case a previous session crashed and left the tag)
+            try {
+                $conn->removeInbound($tag);
+            } catch (Exception $e) {
+                // Ignore if it doesn't exist
+            }
+
+            // 3. Apply to the dry-run instance
+            $conn->addInbound($inbound);
             
             return true;
         } catch (Exception $e) {
@@ -30,6 +37,13 @@ class DryRunService
             }
             
             throw new Exception("Dry-run validation failed: " . $e->getMessage());
+        } finally {
+            // 4. Always ensure cleanup
+            try {
+                $conn->removeInbound($tag);
+            } catch (Exception $e) {
+                // Cleanup failed or already removed, ignore
+            }
         }
     }
 

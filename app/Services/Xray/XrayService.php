@@ -10,7 +10,7 @@ use Xray\App\Stats\Command\SysStatsRequest;
 use Xray\App\Proxyman\Command\RemoveInboundRequest;
 use Xray\App\Proxyman\Command\AddInboundRequest;
 use Xray\App\Proxyman\Command\ListInboundsRequest;
-use Xray\App\Proxyman\InboundHandlerConfig;
+use Xray\Core\InboundHandlerConfig;
 use Exception;
 
 class XrayService
@@ -131,7 +131,7 @@ class XrayService
         
         if ($status->code !== 0) return false;
 
-        foreach ($response->getInbound() as $inbound) {
+        foreach ($response->getInbounds() as $inbound) {
             if ($inbound->getTag() === $tag) return true;
         }
 

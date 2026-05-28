@@ -17,7 +17,7 @@ class XrayHydrationTest extends TestCase
             'port' => 443,
             'protocol' => 'vless',
             'settings' => [
-                'clients' => [
+                'users' => [
                     ['id' => '121c2557-410a-48f3-8b77-8d0702d76378', 'flow' => 'xtls-rprx-vision']
                 ],
                 'decryption' => 'none'
@@ -28,8 +28,8 @@ class XrayHydrationTest extends TestCase
                 'tlsSettings' => [
                     'certificates' => [
                         [
-                            'certificateFile' => '/etc/xray/cert.pem',
-                            'keyFile' => '/etc/xray/key.pem'
+                            'certificateFile' => '/tmp/xray/cert.pem',
+                            'keyFile' => '/tmp/xray/key.pem'
                         ]
                     ]
                 ]
@@ -37,19 +37,43 @@ class XrayHydrationTest extends TestCase
         ];
 
         // Create dummy files to pass the filesystem check
-        if (!file_exists('/etc/xray')) {
-            mkdir('/etc/xray', 0777, true);
+        if (!file_exists('/tmp/xray')) {
+            mkdir('/tmp/xray', 0777, true);
         }
-        touch('/etc/xray/cert.pem');
-        touch('/etc/xray/key.pem');
+        touch('/tmp/xray/cert.pem');
+        touch('/tmp/xray/key.pem');
 
         $inbound = XrayProtobufHydrator::hydrateInbound($config);
 
         $this->assertEquals('vless-inbound', $inbound->getTag());
         
         // Clean up
-        unlink('/etc/xray/cert.pem');
-        unlink('/etc/xray/key.pem');
+        unlink('/tmp/xray/cert.pem');
+        unlink('/tmp/xray/key.pem');
+        rmdir('/tmp/xray');
+    }
+
+    /**
+     * Test VMess hydration with 'user' (singular) field and security settings.
+     */
+    public function test_vmess_hydration()
+    {
+        $config = [
+            'tag' => 'vmess-inbound',
+            'port' => 444,
+            'protocol' => 'vmess',
+            'settings' => [
+                'user' => [
+                    'id' => '121c2557-410a-48f3-8b77-8d0702d76378',
+                    'security' => 'aes-128-gcm'
+                ]
+            ]
+        ];
+
+        $inbound = XrayProtobufHydrator::hydrateInbound($config);
+        
+        $this->assertEquals('vmess-inbound', $inbound->getTag());
+        $this->assertNotNull($inbound->getProxySettings());
     }
 
     /**

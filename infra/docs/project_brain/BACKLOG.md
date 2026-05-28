@@ -1,15 +1,20 @@
-# Backlog
+# IDN BACKLOG
 
-## Status Legend
-- todo
-- doing
-- blocked
-- done
+## High Priority
+- [ ] **IDN-040 Advanced Routing Engine**: Generate Xray routing rules based on real-time node metrics.
+- [ ] **IDN-041 Multi-Node Batching**: Support provisioning a single tunnel across multiple hops (Chain) in one atomic transaction.
+- [ ] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard.
 
-## Table
+## Done
 | ID | Priority | Title | Status | Depends On | Done When |
 |---|---:|---|---|---|---|
 | PB-001 | P0 | Bootstrap project brain | done | - | Core docs filled and validated |
+| IDN-018 | P1 | Control Plane Foundation | done | - | Signal/Log dispatchers, Node registry, Xray Protobuf integration |
+| IDN-019 | P1 | Implement Centralized MySQL Config DB | done | IDN-018 | 5NF Relational schema and Laravel models implemented |
+| IDN-034 | P2 | Centralized IDN Dashboard | done | IDN-033 | UI for node fleet monitoring, tunnel management, and real-time log tailing |
+| IDN-020 | P1 | Develop CLI Orchestrator | done | IDN-019 | `idn` CLI shortcut and fleet orchestration logic |
+| IDN-037 | P1 | Integrate Tailscale API | done | - | TailscaleService and Facade implemented with OAuth support |
+| IDN-038 | P0 | Validated Xray Relational Orchestrator | done | IDN-019 | renderer and native validator with mission-based API |
 | IDN-001 | P0 | Verify SSH Access to Server 07 | done | - | Can reliably SSH into Server 07 from WSL |
 | IDN-002 | P0 | Verify Access to Server 09 (US) | done | IDN-001 | Can reach US server via Tailscale from Server 07 |
 | IDN-003 | P1 | Map and Verify "Reverse-Reverse" Tunnel | done | IDN-002 | Full traffic path (01 -> 07 -> 09 -> Internet) verified |
@@ -27,9 +32,6 @@
 | IDN-015 | P0 | Establish Stable SOCKS Outbounds on Domestic Nodes | done | IDN-014 | Verified active SOCKS connections on srv01, srv03, srv04 |
 | IDN-016 | P1 | Reorganize and Clean Up Repository Root | done | - | Files sorted into keys/, configs/, scripts/ and tracked |
 | IDN-017 | P1 | Analyze Misunderstandings & Upgrade Brain with Prompts | done | IDN-016 | Prompts created in PROMPT_LIBRARY.md to block critical pitfalls |
-| IDN-018 | P1 | Centralized Config Database Design | done | IDN-017 | Detailed architectural DB proposal created |
-| IDN-019 | P1 | Implement Centralized MySQL Config DB | done | IDN-018 | 5NF Relational schema and Laravel models implemented |
-| IDN-020 | P1 | Develop CLI Orchestrator (idn-ctl) | todo | IDN-019 | Python script compiles, validates, and deploys configs |
 | IDN-021 | P1 | Multicast Config Generator Alignment | done | IDN-017 | Realigned HAProxy config generator to user's 6-node matrix and compiled all configs |
 | IDN-022 | P0 | Unified Xray Config Compilation | done | IDN-021 | Compiled unified, replicated 2592 scenario Xray JSON config bypassing SOCKS5 |
 | IDN-024 | P0 | Patched HAProxy Regex Sub-Paths | done | IDN-023 | Aligned HAProxy regex filters to match nested path routes and sub-paths |
@@ -42,10 +44,7 @@
 | IDN-031 | P0 | Install Laravel 13 with PHP 8.5 | done | IDN-030 | Laravel functional in root with PHP 8.5 |
 | IDN-032 | P1 | Integrate IDN Scripts as Artisan Commands | done | IDN-031 | Scripts accessible via php artisan idn:* |
 | IDN-033 | P0 | Develop Xray-core gRPC API Laravel Integration | done | IDN-031 | Native Facade Xray:: with multi-core support |
-| IDN-034 | P2 | Build Centralized IDN Dashboard | todo | IDN-033 | Laravel UI to manage tunnels and view health |
 | IDN-036 | P0 | Dockerize Development Environment | doing | - | Laravel, Xray, and multi-core setup running in Docker |
-| IDN-037 | P1 | Integrate Tailscale API | done | - | TailscaleService and Facade implemented with OAuth support |
-| IDN-038 | P0 | Validated Xray Relational Orchestrator | done | IDN-019 | renderer and native validator with mission-based API |
 | IDN-030 | P0 | Create CDN-Optimized Direct VLESS Reverse Portal Config | done | IDN-029 | Design and compile Portal configuration with native port 443 TLS termination |
 | IDN-031 | P0 | Establish and Verify High-Obfuscation SplitHTTP VLESS Reverse Tunnel | done | IDN-030 | Establish test VLESS tunnel over ArvanCloud CDN to Server 01 and measure latency/success |
 | IDN-032 | P0 | Patch 100-Tunnel Generator with Persistence, Fast Connection Rotation, and Debug logging | done | IDN-026 | Generator supports full UUID/SSL reuse, rotates connections after 1k requests, and sets loglevel debug |
@@ -53,5 +52,7 @@
 | IDN-034 | P0 | Execute and Verify Server 04 local loopback tunnel | done | IDN-033 | VLESS reverse tunnel successfully registered and traffic routed locally |
 | IDN-035 | P0 | Setup Xray API Test Environment | done | - | docker-compose.yml and test_api_config.json created and container started |
 
-## WIP Rule
-- Max doing items: 2
+## Future Ideas
+- [ ] **IDN-050 Automatic Failover**: Monitor node health and automatically re-route tunnels if a node goes down.
+- [ ] **IDN-051 Traffic Visualization**: Add Grafana-like charts to the Dashboard.
+- [ ] **IDN-052 Mobile Dashboard**: Responsive UI optimization for mobile management.
