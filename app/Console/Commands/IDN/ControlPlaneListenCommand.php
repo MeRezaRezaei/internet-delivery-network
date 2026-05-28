@@ -102,9 +102,12 @@ class ControlPlaneListenCommand extends Command
                             $this->manager->processSignal($data);
                         }
                         
-                        // Acknowledge and delete (since we don't need history in the stream after successful apply)
+                        // Acknowledge and delete if it's node-specific (Broadcasts are handled by MAXLEN rotation)
                         Redis::executeRaw(['XACK', SignalDispatcher::STREAM_KEY, $this->groupName, $id]);
-                        Redis::executeRaw(['XDEL', SignalDispatcher::STREAM_KEY, $id]);
+                        
+                        if ($targetNode !== 'all') {
+                            Redis::executeRaw(['XDEL', SignalDispatcher::STREAM_KEY, $id]);
+                        }
                         
                         $this->info("Applied successfully.");
                     } catch (\Exception $e) {

@@ -5,12 +5,9 @@
 - **Phase**: Completion & Verification
 
 ## Achievements
-- [x] **IDN-019 Centralized MySQL Config DB**: Schema migrated, Models created, Initial inventory seeded.
-- [x] **Hardened Control Plane**: Transactional batching, Redis Streams for signals/logs, Filesystem-backed state verification.
-- [x] **IDN-034 Centralized Dashboard**: High-fidelity UI with real-time log viewer and tunnel management.
-- [x] **IDN-020 CLI Orchestrator**: `idn` CLI shortcut and `idn:xray-ctl` integration.
-- [x] **Environment Fix**: Docker image hardened with gRPC/Protobuf/Redis extensions.
-- [x] **Testing**: 100% test pass rate (10/10 tests).
+- [x] **Architectural Hardening**: Refactored hydration for VLESS/VMess/SS, implemented try-remove-before-add dry-runs, and safe broadcast signals.
+- [x] **Watchdog Implementation**: Added `idn:node:monitor` to cleanup ghost nodes in the DB.
+- [x] **Testing**: 100% test pass rate (11/11 tests).
 
 ## Active Constraints
 - ALL remote commands MUST include a timeout.

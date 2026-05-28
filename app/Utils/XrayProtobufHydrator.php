@@ -85,26 +85,35 @@ class XrayProtobufHydrator
         if (isset($config['settings'])) {
             $settings = $config['settings'];
             
-            // Special handling for protocols that use 'users' with protocol-specific accounts
-            if ($protocol === 'vless' && isset($settings['users'])) {
+            // Generic handling for protocols that use 'users' or 'user' with protocol-specific accounts
+            if (isset($settings['users']) || isset($settings['clients']) || isset($settings['user'])) {
+                $clients = $settings['users'] ?? $settings['clients'] ?? $settings['user'] ?? [];
+                
+                // If it was 'user' (singular), wrap it in an array if it isn't one
+                if (isset($settings['user']) && !is_array(reset($clients))) {
+                    $clients = [$clients];
+                }
+
                 $users = [];
-                foreach ($settings['users'] as $userData) {
+                foreach ($clients as $userData) {
                     $user = new \Xray\Common\Protocol\User();
                     $user->setEmail($userData['email'] ?? '');
                     $user->setLevel($userData['level'] ?? 0);
                     
-                    $account = new \Xray\Proxy\Vless\Account();
-                    if (isset($userData['id'])) $account->setId($userData['id']);
-                    if (isset($userData['flow'])) $account->setFlow($userData['flow']);
-                    if (isset($userData['encryption'])) $account->setEncryption($userData['encryption']);
-                    
-                    $user->setAccount(self::wrapTypedMessage($account, 'xray.proxy.vless.Account'));
+                    $account = self::getAccountMessageForProtocol($protocol, $userData);
+                    $user->setAccount(self::wrapTypedMessage($account, "xray.proxy.{$protocol}.Account"));
                     $users[] = $user;
                 }
-                $proxyMessage->setUsers($users);
+
+                // Call the correct setter (singular for VMess, plural for others)
+                if (method_exists($proxyMessage, 'setUsers')) {
+                    $proxyMessage->setUsers($users);
+                } elseif (method_exists($proxyMessage, 'setUser')) {
+                    $proxyMessage->setUser($users);
+                }
                 
-                // Merge remaining settings (like decryption)
-                unset($settings['users']);
+                // Merge remaining settings
+                unset($settings['users'], $settings['clients'], $settings['user']);
                 if (!empty($settings)) {
                     $proxyMessage->mergeFromJsonString(json_encode($settings));
                 }
@@ -116,6 +125,28 @@ class XrayProtobufHydrator
         $inbound->setProxySettings(self::wrapTypedMessage($proxyMessage, "xray.proxy.{$protocol}.ServerConfig"));
 
         return $inbound;
+    }
+
+    protected static function getAccountMessageForProtocol(string $protocol, array $data): Message
+    {
+        return match ($protocol) {
+            'vless' => new \Xray\Proxy\Vless\Account([
+                'id' => $data['id'] ?? '',
+                'flow' => $data['flow'] ?? '',
+                'encryption' => $data['encryption'] ?? '',
+            ]),
+            'vmess' => new \Xray\Proxy\Vmess\Account([
+                'id' => $data['id'] ?? '',
+                'security_settings' => isset($data['security']) ? 
+                    new \Xray\Common\Protocol\SecurityConfig(['type' => match($data['security']) {
+                        'aes-128-gcm' => \Xray\Common\Protocol\SecurityType::AES128_GCM,
+                        'chacha20-poly1305' => \Xray\Common\Protocol\SecurityType::CHACHA20_POLY1305,
+                        'auto' => \Xray\Common\Protocol\SecurityType::AUTO,
+                        default => \Xray\Common\Protocol\SecurityType::NONE
+                    }]) : null
+            ]),
+            default => throw new Exception("Account hydration for [{$protocol}] not implemented."),
+        };
     }
 
     /**

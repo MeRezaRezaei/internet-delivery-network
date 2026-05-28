@@ -54,6 +54,29 @@ class XrayHydrationTest extends TestCase
     }
 
     /**
+     * Test VMess hydration with 'user' (singular) field and security settings.
+     */
+    public function test_vmess_hydration()
+    {
+        $config = [
+            'tag' => 'vmess-inbound',
+            'port' => 444,
+            'protocol' => 'vmess',
+            'settings' => [
+                'user' => [
+                    'id' => '121c2557-410a-48f3-8b77-8d0702d76378',
+                    'security' => 'aes-128-gcm'
+                ]
+            ]
+        ];
+
+        $inbound = XrayProtobufHydrator::hydrateInbound($config);
+        
+        $this->assertEquals('vmess-inbound', $inbound->getTag());
+        $this->assertNotNull($inbound->getProxySettings());
+    }
+
+    /**
      * Test that invalid paths throw exceptions.
      */
     public function test_invalid_path_throws_exception()

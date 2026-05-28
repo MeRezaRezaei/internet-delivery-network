@@ -25,8 +25,11 @@ class SignalDispatcher
             'timestamp' => now()->toIso8601String(),
         ];
 
-        // XADD key * field value [field value ...]
-        $id = Redis::executeRaw(['XADD', self::STREAM_KEY, '*', 'node', $node, 'action', $action, 'payload', $message['payload'], 'timestamp', $message['timestamp']]);
+        // XADD key [MAXLEN [~] count] * field value [field value ...]
+        $id = Redis::executeRaw([
+            'XADD', self::STREAM_KEY, 'MAXLEN', '~', '1000', 
+            '*', 'node', $node, 'action', $action, 'payload', $message['payload'], 'timestamp', $message['timestamp']
+        ]);
 
         Log::info("Control Plane Signal Dispatched: {$action} to {$node} (ID: {$id})");
         
