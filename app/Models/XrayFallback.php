@@ -9,6 +9,7 @@ class XrayFallback extends Model
 {
     protected $fillable = [
         'inbound_id',
+        'name',
         'path',
         'alpn',
         'dest_type',

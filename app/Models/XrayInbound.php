@@ -36,6 +36,11 @@ class XrayInbound extends Model
         return $this->morphOne(XrayProtocolVless::class, 'handler');
     }
 
+    public function trojan(): MorphOne
+    {
+        return $this->morphOne(XrayProtocolTrojan::class, 'handler');
+    }
+
     public function xhttp(): MorphOne
     {
         return $this->morphOne(XrayTransportXhttp::class, 'handler');

@@ -100,4 +100,31 @@ class XrayRelationalConfigTest extends TestCase
         $validation = Xray::validateNode($node);
         $this->assertTrue($validation['success']);
     }
+
+    public function test_it_supports_nginx_mimic_fallback()
+    {
+        $node = Node::factory()->create();
+        
+        // Setup a VLESS-REALITY inbound on 443
+        $port = PhysicalPort::create(['node_id' => $node->id, 'port_number' => 443, 'protocol' => 'tcp', 'status' => 'reserved']);
+        $inbound = XrayInbound::create(['physical_port_id' => $port->id, 'tag' => 'reality-mimic']);
+        
+        XrayProtocolVless::create(['handler_id' => $inbound->id, 'handler_type' => XrayInbound::class]);
+        
+        // Add Fallback to Nginx (local port 8080)
+        XrayFallback::create([
+            'inbound_id' => $inbound->id,
+            'name' => 'mimic.example.com',
+            'dest_type' => 'port',
+            'dest_value' => '8080',
+        ]);
+
+        $config = Xray::generateConfig($node);
+
+        // Verify fallback is rendered correctly in the JSON
+        $vlessInbound = collect($config['inbounds'])->firstWhere('tag', 'reality-mimic');
+        $this->assertArrayHasKey('fallbacks', $vlessInbound['settings']);
+        $this->assertEquals(8080, $vlessInbound['settings']['fallbacks'][0]['dest']);
+        $this->assertEquals('mimic.example.com', $vlessInbound['settings']['fallbacks'][0]['name']);
+    }
 }

@@ -14,12 +14,14 @@ class XrayConfigRenderer
             'ports.inbound.sniffing',
             'ports.inbound.policyLevel',
             'ports.inbound.vless.clients.client',
+            'ports.inbound.trojan.clients.client',
             'ports.inbound.xhttp',
             'ports.inbound.grpc',
             'ports.inbound.tls',
             'ports.inbound.reality',
             'ports.inbound.fallbacks',
             'outbounds.vless.clients.client',
+            'outbounds.trojan.clients.client',
             'outbounds.xhttp',
             'outbounds.grpc',
             'outbounds.tls',
@@ -117,12 +119,17 @@ class XrayConfigRenderer
                         'flow' => $c->flow,
                     ]),
                     'decryption' => $inbound->vless->decryption,
-                    'fallbacks' => $inbound->fallbacks->map(fn($f) => [
-                        'path' => $f->path,
-                        'alpn' => $f->alpn,
-                        'dest' => $f->dest_type === 'port' ? (int)$f->dest_value : $f->dest_value,
-                        'xver' => $f->xver,
+                    'fallbacks' => $this->renderFallbacks($inbound),
+                ];
+            } elseif ($inbound->trojan) {
+                $config['protocol'] = 'trojan';
+                $config['settings'] = [
+                    'clients' => $inbound->trojan->clients->map(fn($c) => [
+                        'password' => $c->client->secret,
+                        'email' => $c->client->email,
+                        'flow' => $c->flow,
                     ]),
+                    'fallbacks' => $this->renderFallbacks($inbound),
                 ];
             }
 
@@ -199,6 +206,11 @@ class XrayConfigRenderer
                 
                 // If bridge/reverse logic is needed
                 // This is a simplified version, real IDN uses specific logic
+            } elseif ($outbound->trojan) {
+                $config['protocol'] = 'trojan';
+                $config['settings'] = [
+                    'servers' => [] // Traditional Trojan outbound
+                ];
             } else {
                 // Default to freedom for direct
                 $config['protocol'] = 'freedom';
@@ -246,5 +258,16 @@ class XrayConfigRenderer
             'rules' => $rules,
             'balancers' => $balancers,
         ];
+    }
+
+    protected function renderFallbacks(XrayInbound $inbound): array
+    {
+        return $inbound->fallbacks->map(fn($f) => array_filter([
+            'name' => $f->name,
+            'path' => $f->path,
+            'alpn' => $f->alpn,
+            'dest' => $f->dest_type === 'port' ? (int)$f->dest_value : $f->dest_value,
+            'xver' => $f->xver,
+        ]))->toArray();
     }
 }
