@@ -2,59 +2,40 @@
 
 namespace App\Services\Xray;
 
-use Illuminate\Support\Manager;
-use InvalidArgumentException;
+use App\Models\Node;
 
-class XrayManager extends Manager
+class XrayManager
 {
-    /**
-     * Get a connection instance.
-     *
-     * @param  string|null  $name
-     * @return \App\Services\Xray\XrayService
-     */
-    public function connection($name = null)
+    protected XrayConfigRenderer $renderer;
+    protected XrayValidator $validator;
+
+    public function __construct(XrayConfigRenderer $renderer, XrayValidator $validator)
     {
-        return $this->driver($name);
+        $this->renderer = $renderer;
+        $this->validator = $validator;
     }
 
-    /**
-     * Get the default driver name.
-     *
-     * @return string
-     */
-    public function getDefaultDriver()
+    public function generateConfig(Node $node): array
     {
-        return $this->config->get('xray.default');
+        return $this->renderer->render($node);
     }
 
-    /**
-     * Set the default driver name.
-     *
-     * @param  string  $name
-     * @return void
-     */
-    public function setDefaultDriver($name)
+    public function validateNode(Node $node): array
     {
-        $this->config->set('xray.default', $name);
+        $config = $this->generateConfig($node);
+        return $this->validator->validate($config);
     }
 
-    /**
-     * Create a new driver instance.
-     *
-     * @param  string  $driver
-     * @return mixed
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function createDriver($driver)
+    public function mission(string $name)
     {
-        $config = $this->config->get("xray.connections.{$driver}");
+        $missions = [
+            'portal' => \App\Services\Xray\Missions\PortalMission::class,
+        ];
 
-        if (is_null($config)) {
-            throw new InvalidArgumentException("Xray connection [{$driver}] not configured.");
+        if (!isset($missions[strtolower($name)])) {
+            throw new \Exception("Mission {$name} not found.");
         }
 
-        return new XrayService($config);
+        return new $missions[strtolower($name)]();
     }
 }

@@ -28,7 +28,7 @@
 | IDN-016 | P1 | Reorganize and Clean Up Repository Root | done | - | Files sorted into keys/, configs/, scripts/ and tracked |
 | IDN-017 | P1 | Analyze Misunderstandings & Upgrade Brain with Prompts | done | IDN-016 | Prompts created in PROMPT_LIBRARY.md to block critical pitfalls |
 | IDN-018 | P1 | Centralized Config Database Design | done | IDN-017 | Detailed architectural DB proposal created |
-| IDN-019 | P1 | Implement Centralized MySQL Config DB | todo | IDN-018 | Tables created and populated on srv07 MySQL |
+| IDN-019 | P1 | Implement Centralized MySQL Config DB | done | IDN-018 | 5NF Relational schema and Laravel models implemented |
 | IDN-020 | P1 | Develop CLI Orchestrator (idn-ctl) | todo | IDN-019 | Python script compiles, validates, and deploys configs |
 | IDN-021 | P1 | Multicast Config Generator Alignment | done | IDN-017 | Realigned HAProxy config generator to user's 6-node matrix and compiled all configs |
 | IDN-022 | P0 | Unified Xray Config Compilation | done | IDN-021 | Compiled unified, replicated 2592 scenario Xray JSON config bypassing SOCKS5 |
@@ -45,6 +45,7 @@
 | IDN-034 | P2 | Build Centralized IDN Dashboard | todo | IDN-033 | Laravel UI to manage tunnels and view health |
 | IDN-036 | P0 | Dockerize Development Environment | doing | - | Laravel, Xray, and multi-core setup running in Docker |
 | IDN-037 | P1 | Integrate Tailscale API | done | - | TailscaleService and Facade implemented with OAuth support |
+| IDN-038 | P0 | Validated Xray Relational Orchestrator | done | IDN-019 | renderer and native validator with mission-based API |
 | IDN-030 | P0 | Create CDN-Optimized Direct VLESS Reverse Portal Config | done | IDN-029 | Design and compile Portal configuration with native port 443 TLS termination |
 | IDN-031 | P0 | Establish and Verify High-Obfuscation SplitHTTP VLESS Reverse Tunnel | done | IDN-030 | Establish test VLESS tunnel over ArvanCloud CDN to Server 01 and measure latency/success |
 | IDN-032 | P0 | Patch 100-Tunnel Generator with Persistence, Fast Connection Rotation, and Debug logging | done | IDN-026 | Generator supports full UUID/SSL reuse, rotates connections after 1k requests, and sets loglevel debug |
