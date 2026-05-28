@@ -1,0 +1,44 @@
+Xray 26.2.6 (Xray, Penetrates Everything.) 12ee51e (go1.25.7 linux/amd64)
+A unified platform for anti-censorship.
+2026/05/24 19:48:23.988399 [Info] infra/conf/serial: Reading config: &{Name:verified_client.json Format:json}
+2026/05/24 19:48:23.992297 [Warning] common/errors: The feature VLESS (with no Flow, etc.) is deprecated, not recommended for using and might be removed. Please migrate to VLESS with Flow & Seed as soon as possible.
+2026/05/24 19:48:23.992771 [Debug] app/log: Logger started
+2026/05/24 19:48:23.992834 [Debug] app/proxyman/inbound: creating stream worker on 127.0.0.1:10808
+2026/05/24 19:48:23.997912 [Info] transport/internet/tcp: listening TCP on 127.0.0.1:10808
+2026/05/24 19:48:23.997990 [Info] transport/internet/udp: listening UDP on 127.0.0.1:10808
+2026/05/24 19:48:23.998009 [Warning] core: Xray 26.2.6 started
+2026/05/24 19:48:24.897105 [Info] [801247292] proxy/socks: TCP Connect request to tcp:vscode-sync.trafficmanager.net:443
+2026/05/24 19:48:24.897231 [Info] [801247292] app/dispatcher: default route for tcp:vscode-sync.trafficmanager.net:443
+2026/05/24 19:48:24.897271 [Debug] [801247292] transport/internet/splithttp: XMUX: creating xmuxClient because xmuxClients is empty
+2026/05/24 19:48:24.897292 [Info] [801247292] transport/internet/splithttp: XHTTP is dialing to tcp:127.0.0.1:8443, mode stream-one, HTTP version 2, host iran.ir
+2026/05/24 19:48:24.897349 from tcp:127.0.0.1:52504 accepted tcp:vscode-sync.trafficmanager.net:443
+2026/05/24 19:48:24.897783 [Debug] [801247292] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/05/24 19:48:28.111678 [Info] [801247292] proxy/vless/outbound: tunneling request to tcp:vscode-sync.trafficmanager.net:443 via 127.0.0.1:8443
+2026/05/24 19:48:28.572405 [Info] [3336277126] proxy/socks: TCP Connect request to tcp:127.0.0.1:10808
+2026/05/24 19:48:28.572503 [Info] [3336277126] app/dispatcher: default route for tcp:127.0.0.1:10808
+2026/05/24 19:48:28.572528 [Debug] [3336277126] transport/internet/splithttp: XMUX: creating xmuxClient because maxConcurrency was hit, xmuxClients = 1
+2026/05/24 19:48:28.572537 [Info] [3336277126] transport/internet/splithttp: XHTTP is dialing to tcp:127.0.0.1:8443, mode stream-one, HTTP version 2, host iran.ir
+2026/05/24 19:48:28.572600 from tcp:127.0.0.1:52522 accepted tcp:127.0.0.1:10808
+2026/05/24 19:48:28.572641 [Debug] [3336277126] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/05/24 19:48:29.399651 [Info] [2833721505] proxy/socks: TCP Connect request to tcp:127.0.0.1:10808
+2026/05/24 19:48:29.399706 [Info] [2833721505] app/dispatcher: default route for tcp:127.0.0.1:10808
+2026/05/24 19:48:29.399735 [Debug] [2833721505] transport/internet/splithttp: XMUX: creating xmuxClient because maxConcurrency was hit, xmuxClients = 2
+2026/05/24 19:48:29.399754 [Info] [2833721505] transport/internet/splithttp: XHTTP is dialing to tcp:127.0.0.1:8443, mode stream-one, HTTP version 2, host iran.ir
+2026/05/24 19:48:29.399860 from tcp:127.0.0.1:52530 accepted tcp:127.0.0.1:10808
+2026/05/24 19:48:29.400020 [Debug] [2833721505] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/05/24 19:48:33.685202 [Info] [3336277126] proxy/vless/outbound: tunneling request to tcp:127.0.0.1:10808 via 127.0.0.1:8443
+2026/05/24 19:48:33.685307 [Info] [2833721505] proxy/vless/outbound: tunneling request to tcp:127.0.0.1:10808 via 127.0.0.1:8443
+2026/05/24 19:48:33.689834 [Info] [2202419366] proxy/socks: TCP Connect request to tcp:controlplane.tailscale.com:443
+2026/05/24 19:48:33.689915 [Info] [2202419366] app/dispatcher: default route for tcp:controlplane.tailscale.com:443
+2026/05/24 19:48:33.689937 [Debug] [2202419366] transport/internet/splithttp: XMUX: creating xmuxClient because maxConcurrency was hit, xmuxClients = 3
+2026/05/24 19:48:33.689949 [Info] [2202419366] transport/internet/splithttp: XHTTP is dialing to tcp:127.0.0.1:8443, mode stream-one, HTTP version 2, host iran.ir
+2026/05/24 19:48:33.689961 [Info] [1482352587] proxy/socks: TCP Connect request to tcp:log.tailscale.com:443
+2026/05/24 19:48:33.689971 [Info] [1482352587] app/dispatcher: default route for tcp:log.tailscale.com:443
+2026/05/24 19:48:33.690006 [Debug] [1482352587] transport/internet/splithttp: XMUX: creating xmuxClient because maxConcurrency was hit, xmuxClients = 4
+2026/05/24 19:48:33.690018 [Info] [1482352587] transport/internet/splithttp: XHTTP is dialing to tcp:127.0.0.1:8443, mode stream-one, HTTP version 2, host iran.ir
+2026/05/24 19:48:33.690090 [Debug] [2202419366] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/05/24 19:48:33.690109 [Debug] [1482352587] transport/internet: dialing to tcp:127.0.0.1:8443
+2026/05/24 19:48:33.690154 from tcp:127.0.0.1:55296 accepted tcp:controlplane.tailscale.com:443
+2026/05/24 19:48:33.690223 from tcp:127.0.0.1:55304 accepted tcp:log.tailscale.com:443
+2026/05/24 19:48:34.984984 [Info] [4115971669] app/proxyman/inbound: connection ends > proxy/socks: failed to read request > proxy/socks: failed to read request > EOF
+2026/05/24 19:48:34.985046 from tcp:127.0.0.1:52520 rejected  proxy/socks: failed to read request > EOF

@@ -1,0 +1,8 @@
+#!/bin/bash
+# IDN CLI Orchestrator Shortcut
+
+# Determine the project root
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Forward all arguments to php artisan
+php "$DIR/artisan" idn:"$@"

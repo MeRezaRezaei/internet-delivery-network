@@ -1,0 +1,24 @@
+Xray 26.2.6 (Xray, Penetrates Everything.) 12ee51e (go1.25.7 linux/amd64)
+A unified platform for anti-censorship.
+2026/05/24 19:48:22.996105 [Info] infra/conf/serial: Reading config: &{Name:verified_server.json Format:json}
+2026/05/24 19:48:22.999057 [Warning] common/errors: The feature VLESS (with no Flow, etc.) is deprecated, not recommended for using and might be removed. Please migrate to VLESS with Flow & Seed as soon as possible.
+2026/05/24 19:48:22.999900 [Debug] app/log: Logger started
+2026/05/24 19:48:22.999965 [Debug] app/proxyman/inbound: creating stream worker on 127.0.0.1:8443
+2026/05/24 19:48:23.006430 [Info] transport/internet/splithttp: listening TCP for XHTTP on 127.0.0.1:8443
+2026/05/24 19:48:23.006557 [Warning] core: Xray 26.2.6 started
+2026/05/24 19:48:33.686594 [Info] [2040917521] proxy/vless/inbound: firstLen = 29
+2026/05/24 19:48:33.686719 [Info] [3208405381] proxy/vless/inbound: firstLen = 29
+2026/05/24 19:48:33.686762 [Info] [2040917521] proxy/vless/inbound: received request for tcp:127.0.0.1:10808
+2026/05/24 19:48:33.686786 [Info] [2040917521] app/dispatcher: default route for tcp:127.0.0.1:10808
+2026/05/24 19:48:33.686799 [Info] [2040917521] transport/internet/tcp: dialing TCP to tcp:127.0.0.1:10808
+2026/05/24 19:48:33.686809 [Debug] [2040917521] transport/internet: dialing to tcp:127.0.0.1:10808
+2026/05/24 19:48:33.686969 from 127.0.0.1:40244 accepted tcp:127.0.0.1:10808 [direct]
+2026/05/24 19:48:33.687012 from 127.0.0.1:40250 accepted tcp:127.0.0.1:10808 [direct]
+2026/05/24 19:48:33.687015 [Info] [3208405381] proxy/vless/inbound: received request for tcp:127.0.0.1:10808
+2026/05/24 19:48:33.687055 [Info] [3208405381] app/dispatcher: default route for tcp:127.0.0.1:10808
+2026/05/24 19:48:33.687079 [Info] [3208405381] transport/internet/tcp: dialing TCP to tcp:127.0.0.1:10808
+2026/05/24 19:48:33.687102 [Debug] [3208405381] transport/internet: dialing to tcp:127.0.0.1:10808
+2026/05/24 19:48:33.687307 [Info] [3208405381] proxy/freedom: connection opened to tcp:127.0.0.1:10808, local endpoint 127.0.0.1:55304, remote endpoint 127.0.0.1:10808
+2026/05/24 19:48:33.687384 [Info] [2040917521] proxy/freedom: connection opened to tcp:127.0.0.1:10808, local endpoint 127.0.0.1:55296, remote endpoint 127.0.0.1:10808
+2026/05/24 19:48:33.687403 [Debug] [3208405381] proxy: CopyRawConn (maybe) readv
+2026/05/24 19:48:33.687414 [Debug] [2040917521] proxy: CopyRawConn (maybe) readv

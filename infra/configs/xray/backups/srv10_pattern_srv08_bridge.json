@@ -1,0 +1,29 @@
+{
+    "log": { "loglevel": "warning" },
+    "outbounds": [
+        { "protocol": "freedom", "tag": "direct" },
+        {
+            "protocol": "vless",
+            "tag": "tunnel",
+            "settings": {
+                "address": "i-07.doctel.ir",
+                "port": 443,
+                "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+                "encryption": "none",
+                "flow": "xtls-rprx-vision",
+                "seed": "a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7"
+            },
+            "streamSettings": {
+                "network": "XHTTP",
+                "security": "tls",
+                "tlsSettings": { "allowInsecure": true, "serverName": "i-07.doctel.ir" },
+                "xhttpSettings": { "path": "/24-10-07-06/xtls", "mode": "packet-up" }
+            }
+        }
+    ],
+    "routing": {
+        "rules": [
+            { "type": "field", "port": "0-65535", "outboundTag": "tunnel" }
+        ]
+    }
+}
