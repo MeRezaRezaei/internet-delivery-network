@@ -10,12 +10,26 @@ class Node extends Model
 {
     use HasFactory;
 
+    protected $table = 'idn_nodes';
+
     protected $fillable = [
+        'name',
         'hostname',
-        'internal_ip',
+        'ip',
         'external_ip',
+        'api_port',
+        'role',
+        'is_active',
+        'last_heartbeat_at',
         'os_type',
         'status',
+        'metadata',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'last_heartbeat_at' => 'datetime',
+        'metadata' => 'array',
     ];
 
     public function ports(): HasMany

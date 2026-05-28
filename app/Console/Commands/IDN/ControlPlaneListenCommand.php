@@ -137,7 +137,7 @@ class ControlPlaneListenCommand extends Command
         Redis::hSet($key, 'started_at', now()->toIso8601String());
         
         // Update database (Auto-Discovery)
-        \App\Models\IDN\Node::updateOrCreate(
+        \App\Models\Node::updateOrCreate(
             ['name' => $this->nodeName],
             [
                 'hostname' => gethostname(),
@@ -157,7 +157,7 @@ class ControlPlaneListenCommand extends Command
 
         // Update database periodically (economical: every minute or so)
         // For now, every heartbeat is fine in this prototype
-        \App\Models\IDN\Node::where('name', $this->nodeName)->update([
+        \App\Models\Node::where('name', $this->nodeName)->update([
             'last_heartbeat_at' => now(),
         ]);
     }
@@ -167,7 +167,7 @@ class ControlPlaneListenCommand extends Command
         Redis::del("idn:control-plane:nodes:{$this->nodeName}:registry");
         
         // Update database
-        \App\Models\IDN\Node::where('name', $this->nodeName)->update([
+        \App\Models\Node::where('name', $this->nodeName)->update([
             'is_active' => false,
         ]);
     }

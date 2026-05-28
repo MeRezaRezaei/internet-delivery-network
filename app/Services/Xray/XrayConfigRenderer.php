@@ -32,8 +32,6 @@ class XrayConfigRenderer
         return [
             'log' => [
                 'loglevel' => 'debug',
-                'access' => '/var/log/xray/access.log',
-                'error' => '/var/log/xray/error.log',
             ],
             'api' => [
                 'tag' => 'api',
@@ -92,7 +90,7 @@ class XrayConfigRenderer
             $inbound = $port->inbound;
             $config = [
                 'port' => $port->port_number,
-                'listen' => '0.0.0.0',
+                'listen' => $node->ip ?? '0.0.0.0', // Prioritize Tailscale IP
                 'tag' => $inbound->tag,
             ];
 

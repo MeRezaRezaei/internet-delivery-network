@@ -11,19 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nodes', function (Blueprint $table) {
+        Schema::create('idn_nodes', function (Blueprint $table) {
             $table->id();
-            $table->string('hostname')->unique();
-            $table->string('internal_ip')->unique();
+            $table->string('name')->unique();
+            $table->string('hostname');
+            $table->string('ip')->nullable(); // Tailscale IP
             $table->string('external_ip')->nullable();
+            $table->integer('api_port')->default(10085);
+            $table->string('role')->default('node'); // gateway, node, provider
+            $table->boolean('is_active')->default(true);
+            $table->timestamp('last_heartbeat_at')->nullable();
             $table->string('os_type')->default('linux');
             $table->enum('status', ['active', 'inactive', 'maintenance'])->default('active');
+            $table->json('metadata')->nullable();
             $table->timestamps();
         });
 
         Schema::create('physical_ports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('node_id')->constrained('nodes')->onDelete('cascade');
+            $table->foreignId('node_id')->constrained('idn_nodes')->onDelete('cascade');
             $table->integer('port_number');
             $table->enum('protocol', ['tcp', 'udp'])->default('tcp');
             $table->enum('status', ['listening', 'reserved', 'free'])->default('free');
@@ -38,6 +44,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('physical_ports');
-        Schema::dropIfExists('nodes');
+        Schema::dropIfExists('idn_nodes');
     }
 };

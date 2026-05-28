@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\IDN;
 
 use App\Http\Controllers\Controller;
-use App\Models\IDN\Node;
-use App\Models\IDN\Tunnel;
+use App\Models\Node;
+use App\Models\XrayInbound;
 use App\Services\ControlPlane\SignalDispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

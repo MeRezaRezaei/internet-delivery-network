@@ -24,7 +24,7 @@ return new class extends Migration
 
         Schema::create('xray_balancers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('node_id')->constrained('nodes')->onDelete('cascade');
+            $table->foreignId('node_id')->constrained('idn_nodes')->onDelete('cascade');
             $table->string('tag')->unique();
             $table->text('selector'); // CSV of outbound tags
             $table->string('strategy')->default('random'); // random, leastPing, roundRobin
@@ -33,7 +33,7 @@ return new class extends Migration
 
         Schema::create('xray_routing_rules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('node_id')->constrained('nodes')->onDelete('cascade');
+            $table->foreignId('node_id')->constrained('idn_nodes')->onDelete('cascade');
             $table->integer('priority')->default(0);
             $table->string('type')->default('field');
             $table->text('inbound_tags')->nullable(); // CSV

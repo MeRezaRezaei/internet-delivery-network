@@ -37,7 +37,17 @@ class XrayProtobufHydrator
         $portList->setRange([$portRange]);
         $receiver->setPortList($portList);
 
+        // --- Priority: Use Node Tailscale IP from Database if listen is not explicitly set ---
         $listenStr = $config['listen'] ?? '0.0.0.0';
+        
+        // Glue: If it's a generic listen, check if we have a Tailscale IP for this node
+        if ($listenStr === '0.0.0.0' && isset($config['node_id'])) {
+            $node = \App\Models\Node::find($config['node_id']);
+            if ($node && $node->ip) {
+                $listenStr = $node->ip;
+            }
+        }
+
         $listen = new IPOrDomain();
         if (filter_var($listenStr, FILTER_VALIDATE_IP)) {
             $listen->setIp(inet_pton($listenStr));

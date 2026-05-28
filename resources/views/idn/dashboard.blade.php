@@ -165,6 +165,28 @@
                 </div>
                 
                 <div class="card shadow-sm border-0 mt-4">
+                    <div class="card-header bg-white"><h6 class="mb-0 small fw-bold text-uppercase">DNS Policy Control (Technitium)</h6></div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="small fw-600">Ad-Blocking & Filtering</span>
+                            <form action="{{ route('idn.dns.toggle') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="enabled" value="true">
+                                <button type="submit" class="btn btn-sm btn-success rounded-pill px-3">ENABLE</button>
+                            </form>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="small text-muted">Current: Active</span>
+                            <form action="{{ route('idn.dns.toggle') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="enabled" value="false">
+                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">DISABLE</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 mt-4">
                     <div class="card-header bg-white"><h6 class="mb-0 small fw-bold text-uppercase">Control Shortcuts</h6></div>
                     <div class="card-body">
                         <div class="d-grid gap-2">

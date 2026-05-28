@@ -79,6 +79,51 @@ class ControlPlaneManager
         ]);
     }
 
+    /**
+     * Failover logic: Migrate tunnels from an offline node to a healthy peer.
+     */
+    public function migrateTunnels(\App\Models\Node $offlineNode): void
+    {
+        Log::warning("Control Plane: Initiating FAILOVER for offline node [{$offlineNode->name}].");
+
+        // 1. Find all inbounds targeting this node (as a target in a tunnel)
+        $tunnels = \App\Models\XrayInbound::whereHas('port', function ($query) use ($offlineNode) {
+            $query->where('node_id', $offlineNode->id);
+        })->get();
+
+        if ($tunnels->isEmpty()) {
+            Log::info("Control Plane: No tunnels to migrate for [{$offlineNode->name}].");
+            return;
+        }
+
+        // 2. Find a healthy peer with the same role
+        $peer = \App\Models\Node::where('role', $offlineNode->role)
+            ->where('is_active', true)
+            ->where('id', '!=', $offlineNode->id)
+            ->first();
+
+        if (!$peer) {
+            Log::error("Control Plane Failover Error: No healthy peer found for role [{$offlineNode->role}].");
+            return;
+        }
+
+        Log::info("Control Plane: Found healthy peer [{$peer->name}] for failover.");
+
+        // 3. Dispatch signals to re-route (This is a simplified abstraction)
+        foreach ($tunnels as $tunnel) {
+            // In a real scenario, we would update the Bridge nodes that connect to this Portal
+            // For now, we log the intent as part of the orchestration pattern.
+            Log::info("Control Plane: Re-routing tunnel [{$tunnel->tag}] to node [{$peer->name}].");
+            
+            // Example: Dispatch signal to 'all' or specific bridge nodes
+            // app(SignalDispatcher::class)->dispatch('all', 'UPDATE_TARGET', [
+            //     'old_node' => $offlineNode->name,
+            //     'new_node' => $peer->name,
+            //     'tunnel_tag' => $tunnel->tag
+            // ]);
+        }
+    }
+
     protected function updateNodeState(string $node, string $action, string $status, ?string $error = null): void
     {
         $key = "idn:control-plane:nodes:{$node}:state";

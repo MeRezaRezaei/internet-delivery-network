@@ -22,7 +22,7 @@ return new class extends Migration
 
         Schema::create('xray_policy_levels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('node_id')->constrained('nodes')->onDelete('cascade');
+            $table->foreignId('node_id')->constrained('idn_nodes')->onDelete('cascade');
             $table->integer('level_id')->default(0);
             $table->integer('handshake')->default(4);
             $table->integer('conn_idle')->default(300);
@@ -42,7 +42,7 @@ return new class extends Migration
 
         Schema::create('xray_outbounds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('node_id')->constrained('nodes')->onDelete('cascade');
+            $table->foreignId('node_id')->constrained('idn_nodes')->onDelete('cascade');
             $table->string('tag')->unique();
             $table->string('send_through')->nullable();
             $table->timestamps();

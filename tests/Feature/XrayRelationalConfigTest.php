@@ -23,7 +23,7 @@ class XrayRelationalConfigTest extends TestCase
         // 1. Create a Node
         $node = Node::factory()->create([
             'hostname' => 'edge-portal-ir',
-            'internal_ip' => '10.255.1.1',
+            'ip' => '10.255.1.1',
         ]);
 
         // 2. Create a Physical Port for 443

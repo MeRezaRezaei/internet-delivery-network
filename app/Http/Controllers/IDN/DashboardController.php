@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\IDN;
 
 use App\Http\Controllers\Controller;
-use App\Models\IDN\Node;
-use App\Models\IDN\Tunnel;
+use App\Models\Node;
+use App\Models\XrayInbound;
 use App\Services\ControlPlane\NodeMonitorService;
 use Illuminate\Http\Request;
 
@@ -24,6 +24,28 @@ class DashboardController extends Controller
         $fleetStatus = $this->monitor->getFleetStatus();
 
         return view('idn.dashboard', compact('nodes', 'tunnels', 'fleetStatus'));
+    }
+
+    public function toggleDnsBlocklist(Request $request)
+    {
+        $enabled = $request->input('enabled') === 'true';
+        
+        try {
+            $success = \App\Facades\Technitium::setBlocklist($enabled);
+            
+            if ($success) {
+                // Broadcast to all nodes to update their DNS config if needed
+                app(\App\Services\ControlPlane\SignalDispatcher::class)->dispatch('all', 'UPDATE_DNS_POLICY', [
+                    'ad_blocking' => $enabled
+                ]);
+                
+                return back()->with('success', 'DNS Ad-blocking ' . ($enabled ? 'ENABLED' : 'DISABLED') . ' across the fleet.');
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors(['dns' => $e->getMessage()]);
+        }
+
+        return back()->withErrors(['dns' => 'Failed to update DNS policy.']);
     }
 
     public function logs(Request $request)

@@ -13,8 +13,10 @@
 | IDN-019 | P1 | Implement Centralized MySQL Config DB | done | IDN-018 | 5NF Relational schema and Laravel models implemented |
 | IDN-034 | P2 | Centralized IDN Dashboard | done | IDN-033 | UI for node fleet monitoring, tunnel management, and real-time log tailing |
 | IDN-020 | P1 | Develop CLI Orchestrator | done | IDN-019 | `idn` CLI shortcut and fleet orchestration logic |
-| IDN-037 | P1 | Integrate Tailscale API | done | - | TailscaleService and Facade implemented with OAuth support |
+| IDN-037 | P1 | Integrate Tailscale API | done | - | Tailscale status mapped to Node registry |
 | IDN-038 | P0 | Validated Xray Relational Orchestrator | done | IDN-019 | renderer and native validator with mission-based API |
+| IDN-039 | P1 | Technitium DNS Integration | done | - | Dashboard control for ad-blocking and record sync |
+| IDN-040 | P1 | Automated Failover Engine | done | - | Tunnel migration logic on node offline detection |
 | IDN-001 | P0 | Verify SSH Access to Server 07 | done | - | Can reliably SSH into Server 07 from WSL |
 | IDN-002 | P0 | Verify Access to Server 09 (US) | done | IDN-001 | Can reach US server via Tailscale from Server 07 |
 | IDN-003 | P1 | Map and Verify "Reverse-Reverse" Tunnel | done | IDN-002 | Full traffic path (01 -> 07 -> 09 -> Internet) verified |

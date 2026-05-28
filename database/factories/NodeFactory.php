@@ -12,8 +12,9 @@ class NodeFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => $this->faker->unique()->word(),
             'hostname' => $this->faker->unique()->domainName(),
-            'internal_ip' => $this->faker->unique()->ipv4(),
+            'ip' => $this->faker->unique()->ipv4(),
             'external_ip' => $this->faker->ipv4(),
             'os_type' => 'linux',
             'status' => 'active',

@@ -17,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
                 new \App\Services\Xray\XrayValidator()
             );
         });
+
+        $this->app->singleton('technitium', function ($app) {
+            return new \App\Services\ControlPlane\TechnitiumService();
+        });
     }
 
     /**

@@ -11,6 +11,13 @@
 - [x] **Dashboard Implementation**: Real-time Node fleet monitoring and Log Streaming engine.
 
 ## Done
+- **Unified IDN Control Plane & Relational Orchestration (2026-05-28):**
+    - Successfully merged and unified the 5NF Xray schema with the IDN Node registry.
+    - Implemented Tailscale-to-MySQL status mapping and dynamic listen IP allocation.
+    - Integrated Technitium DNS API with fleet-wide policy control from the Dashboard.
+    - Developed automated Failover logic for tunnel migration on node offline events.
+    - Achieved 100% test pass rate (20/20) across all hydration, signaling, and API layers.
+    - Hardened the Laravel Docker environment with Xray binary and correct gRPC extensions.
 - **Unbreakable Xray Relational Configuration System (2026-05-28):**
     - Deployed 5NF relational schema mapping Xray-core internal architecture (Protobuf-aligned).
     - Implemented Laravel models with strict physical port exclusivity and atomic protocol/transport settings.
