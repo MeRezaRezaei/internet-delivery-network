@@ -1,0 +1,73 @@
+{
+  "log": {
+    "loglevel": "debug"
+  },
+  "inbounds": [
+    {
+      "tag": "IN_REVERSE_PORTAL_TEST",
+      "port": 443,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "d532a842-8783-4d15-93b3-dc8963947be9",
+            "email": "loopback_test@reverse",
+            "reverse": {
+              "tag": "reverse-out-loopback"
+            }
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificate": [
+                "-----BEGIN CERTIFICATE-----\nMIIC3TCCAcWgAwIBAgIUJeuHGukFzoe3ZAvsXnRDVnmfKMwwDQYJKoZIhvcNAQEL\nBQAwGTEXMBUGA1UEAwwOaS0wMS5kb2N0ZWwuaXIwHhcNMjYwNTI2MDQxODA4WhcN\nMzYwNTIzMDQxODA4WjAZMRcwFQYDVQQDDA5pLTAxLmRvY3RlbC5pcjCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK+SydkAAD7jLmf3guUnCN7ibTmCrtrU\nm3ajSVAoXPJm+4sbGCTftngNJcUa6ZDOXpVS4iZFoAondgnWUz0/ndczTiGcpwvH\n8C0TwnQu5g9lbSH7YFF5pSh7l8VLuhp6cuRytVDyksFnUFoQXBZrQNx+McU3fIQy\nOmsMZ8gm+HZJlxYbpQuSYSJqC2sF3RCyBj0SP23/hQk548ZuIJImxeNguB7+/jHp\nVelQmAN8x3tWzEwqilzwRoFJiYXnt9RRc6ghnEH+LBZ/NnkiXGz1HVXCDCqQghLv\nuja38c7H3jYofwhoS+3V9EWwfVzuKJprGnEAkbl2S/AancJnytZaQk0CAwEAAaMd\nMBswGQYDVR0RBBIwEIIOaS0wMS5kb2N0ZWwuaXIwDQYJKoZIhvcNAQELBQADggEB\nAFB3bSr1MQfGZUU+67H1J6ZurzE6SguqF34nDFUXZW9646BFWazTF6PVb94T5/H0\nDESJtVFRDv5BKo4eDYUhcHhmDb4EOk0BENlSpVI9LDVRIEPpNwNv7dFG9ifM0oy6\nb2T6h84FKEYftyGLg9oZkuGoQFeavGMZckXifwGvlqiS07fJL/8XaxEj+MAtYkm/\nFvnTSwifZzemgyyf+CUajsqdeOj7DtfdnwvP6rLgee8P2TQIyTJYyyQSuuea/+TE\nXb4HMr2T1dyupcKZzTfql6vlJUWuUFM8jrugpaGL7g2Nz85SQQTTekpXXGYlBDsj\npdBYqLPv2NBF9FCDx1IV+nY=\n-----END CERTIFICATE-----\n"
+              ],
+              "key": [
+                "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEAr5LJ2QAAPuMuZ/eC5ScI3uJtOYKu2tSbdqNJUChc8mb7ixsY\nJN+2eA0lxRrpkM5elVLiJkWgCid2CdZTPT+d1zNOIZynC8fwLRPCdC7mD2VtIftg\nUXmlKHuXxUu6Gnpy5HK1UPKSwWdQWhBcFmtA3H4xxTd8hDI6awxnyCb4dkmXFhul\nC5JhImoLawXdELIGPRI/bf+FCTnjxm4gkibF42C4Hv7+MelV6VCYA3zHe1bMTCqK\nXPBGgUmJhee31FFzqCGcQf4sFn82eSJcbPUdVcIMKpCCEu+6NrfxzsfeNih/CGhL\n7dX0RbB9XO4ommsacQCRuXZL8BqdwmfK1lpCTQIDAQABAoIBAAprgko8K0eQMRVf\nhae28NpVgtj6bgkzvARG/Zdhxd5nCT/AvGaX1lr6oMa5aao77TYchKpz0GM541ID\nI86LQ4FdnKH3C5zx4UmzlgNSMzovsVHmetlrCEfGSgQeEe33XXE8c5FZzCbpTEYE\nGYsFE4Tigm6rc9repkPrKQ+ibHWMoFz75sFjE+ECQqaowoi/m+OBFyM4SO2bBFV7\n3TfgseAcl3wbALMlVHWD5MNpjcH9ODJuuOHS774ARydI4v1XH6hWrbX5kTkF7pd7\nGlVOfQQY4AOK/ztRR7GG04jnNN9sOIlBcXdx/nrN2l0T2JdVkkwEcRt/NvovX+lw\nwXN7iYECgYEA2CnvzdIjIDY4rQP23AAEBgs0SOmvtfNuTQInz/Fui7c0yI+eydB4\nNbDp2LKoqIVpxARKfRqjn2BiyPWTgyGVt2YYq46E723uUOqT3vFxqdQCW2QTBvHy\nOz3qO7/TGn3/P2vrfXqdYYJVnEgoFKpxN2lWdFBwAh0y5PaWRY/LDsECgYEAz+3l\n5KHdvrIQ8VjZBT560Wxp6oR7PT05WEWxdCdbRnXbd3YzfnMDbtFGHbY7zm3hkVZT\n3wTFdTWh/rEradTaRnIgPJRSwNDFUDiVzufUQTdQx43Je6J8n4gfF2Nzad52D6Gf\naYZxR9ejVYSmo3mfzlMCux1g0rMPEyTTmdxtoo0CgYB1Yoij53pFsswiQGXc4HFO\n6uSwt55Am3oJfaMrC/uxCYMzarKa+4db+L90esiWAyUFWiMtPrseAFSEtr8tVZ6c\n4meBOjq8XqEs9cXpKopD5CqHgJfIjLizLRM28RttZoCm6y8Ni/lNC178KD8Dwe8L\nXTuinE/HBh4uMi42hjiJwQKBgDe6fjw5+fGrTgkxk/Do3wgUM4sMeO9f4me7PiVw\nivEmk2zAPGruroPcCRvbhMn9/0/xwEbsw3N3rXRSzdzulJX+7o7t/gP5sHigwd4T\nmnrkNX1WjiLZ2Ob1F8gv+nXsjt3/pnck9mWX8QnxpKv55A/rhbba1+GA5lBuNVxu\njN/dAoGAR6AR7rhXeMHwn4CvyfEvelFLWTV2AwzHMyYKLsxOiabOzL0AYJ4FGzpu\nD4nMrMuT/gIY3i59YJmUSSZqSICaJ7flTmPY+Z7VSoMVg6O/XMXijkEcZ9xOozvx\nEQoeCcQj3x8az+dAHTt4P+JwAeIlJRgLv3hhNk+21lHeypak9Tg=\n-----END RSA PRIVATE KEY-----\n"
+              ]
+            }
+          ],
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
+        "xhttpSettings": {
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "IN_REVERSE_PORTAL_TEST"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}

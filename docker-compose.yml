@@ -1,0 +1,97 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: idn-laravel-app
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+      - XRAY_HOST=xray
+      - XRAY_PORT=10085
+      - XRAY_SECONDARY_HOST=xray_2
+      - XRAY_SECONDARY_PORT=10087
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=idn_db
+      - DB_USERNAME=idn_user
+      - DB_PASSWORD=idn_password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - xray
+      - xray_2
+      - mysql
+      - redis
+    networks:
+      - idn-network
+
+  xray:
+    image: teddysun/xray
+    container_name: xray-api-test
+    restart: always
+    ports:
+      - "10085:10085"
+      - "10086:10086"
+    volumes:
+      - ./infra/configs/xray/test_api_config.json:/etc/xray/config.json
+    networks:
+      - idn-network
+
+  xray_2:
+    image: teddysun/xray
+    container_name: xray-api-test-2
+    restart: always
+    ports:
+      - "10087:10087"
+    volumes:
+      - ./infra/configs/xray/test_api_config_2.json:/etc/xray/config.json
+    networks:
+      - idn-network
+
+  xray_dry_run:
+    image: teddysun/xray
+    container_name: xray-api-dry-run
+    restart: always
+    ports:
+      - "10089:10089"
+    volumes:
+      - ./infra/configs/xray/test_api_config.json:/etc/xray/config.json
+    networks:
+      - idn-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: idn-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: idn_db
+      MYSQL_USER: idn_user
+      MYSQL_PASSWORD: idn_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - idn-network
+
+  redis:
+    image: redis:alpine
+    container_name: idn-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - idn-network
+
+networks:
+  idn-network:
+    driver: bridge
+
+volumes:
+  mysql_data:

@@ -1,0 +1,180 @@
+global
+    log /dev/log    local0 debug
+    log /dev/log    local1 notice
+    chroot /var/lib/haproxy
+    stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
+    tune.ssl.default-dh-param 2048
+    ca-base /etc/ssl/certs
+    crt-base /etc/ssl/private
+    ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+    ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+    ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+
+defaults
+    log global
+    mode    http
+    option  httplog
+    option  dontlognull
+    # Custom Debug Log Format
+    log-format "%ci:%cp [%tr] %ft %b/%s %TR/%Tw/%Tc/%Tr/%Ta %ST %B %CC %CS %tsc %ac/%fc/%bc/%sc/%rc %sq/%bq %hr %hs %{+Q}r"
+
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+    errorfile 400 /etc/haproxy/errors/400.http
+    errorfile 403 /etc/haproxy/errors/403.http
+    errorfile 408 /etc/haproxy/errors/408.http
+    errorfile 500 /etc/haproxy/errors/500.http
+    errorfile 502 /etc/haproxy/errors/502.http
+    errorfile 503 /etc/haproxy/errors/503.http
+    errorfile 504 /etc/haproxy/errors/504.http
+
+frontend main_http
+    bind :::80 v4v6
+    mode http
+
+    acl path_21_05_xtls path_beg /21-08-07-05/xtls
+    acl path_24_06_xtls path_beg /24-01-07-06/xtls
+    acl path_21_05 path_beg /21-08-07-05
+    acl path_22_06 path_beg /22-04-07-06
+    acl path_23_05 path_beg /23-01-07-05
+    acl path_24_06 path_beg /24-01-07-06
+    acl path_21_06 path_beg /21-08-07-06
+    acl path_10_07 path_beg /c-10-07-05
+
+    http-request redirect scheme https if !{ ssl_fc } !path_21_05_xtls !path_24_06_xtls !path_21_05 !path_22_06 !path_23_05 !path_24_06 !path_21_06
+
+    use_backend bk_21_08_07_05_xtls if path_21_05_xtls
+    use_backend bk_24_01_07_06_xtls if path_24_06_xtls
+    use_backend bk_21_08_07_05 if path_21_05
+    use_backend bk_22_04_07_06 if path_22_06
+    use_backend bk_23_01_07_05 if path_23_05
+    use_backend bk_24_01_07_06 if path_24_06
+    use_backend bk_21_08_07_06 if path_21_06
+    use_backend bk_portal_10 if path_10_07
+
+    acl is_health path_beg /health
+    acl is_healthcheck path_beg /healthcheck
+    use_backend local_nginx_http if is_health || is_healthcheck
+
+    acl is_ehraz hdr(host) -i ehraz.pubg-sell.ir
+    acl is_relay hdr(host) -i relay.surviveservice.shop
+    acl is_sms hdr(host) -i sms.pubg-sell.ir
+    acl is_shaparak hdr(host) -i shaparak.pubg-sell.ir
+    use_backend local_nginx_http if is_ehraz || is_relay || is_sms || is_shaparak
+
+    default_backend bk_forward_http
+
+frontend main_https
+    bind :::443 v4v6 ssl crt /etc/ssl/private/ehraz.pem
+    mode http
+    option httplog
+    option forwardfor
+    http-request set-header X-Forwarded-Host %[hdr(host)]
+    http-request set-header X-Forwarded-Port %[dst_port]
+    http-request set-header X-Forwarded-Proto https
+
+    acl is_marzban hdr(host) -i pg-dash.menudigi.ir
+    acl is_ehraz hdr(host) -i ehraz.pubg-sell.ir
+    acl is_sms hdr(host) -i sms.pubg-sell.ir
+    acl is_shaparak hdr(host) -i shaparak.pubg-sell.ir
+    acl path_21_05_xtls path_beg /21-08-07-05/xtls
+    acl path_24_06_xtls path_beg /24-01-07-06/xtls
+    acl path_21_05 path_beg /21-08-07-05
+    acl path_22_06 path_beg /22-04-07-06
+    acl path_23_05 path_beg /23-01-07-05
+    acl path_24_06 path_beg /24-01-07-06
+    acl path_21_06 path_beg /21-08-07-06
+    acl path_10_07 path_beg /c-10-07-05
+    acl is_dashboard path_beg /dashboard
+    acl is_sub path_beg /sub
+    acl is_statics path_beg /statics
+    acl is_api path_beg /api
+    acl is_arvan hdr(host) -i i-07.doctel.ir
+    acl is_menudigi hdr(host) -i i-07.menudigi.ir
+
+    use_backend bk_marzban if is_marzban
+    use_backend local_nginx_http if is_ehraz || is_sms || is_shaparak
+    use_backend bk_21_08_07_05_xtls if path_21_05_xtls
+    use_backend bk_24_01_07_06_xtls if path_24_06_xtls
+    use_backend bk_21_08_07_05 if path_21_05
+    use_backend bk_22_04_07_06 if path_22_06
+    use_backend bk_23_01_07_05 if path_23_05
+    use_backend bk_24_01_07_06 if path_24_06
+    use_backend bk_21_08_07_06 if path_21_06
+    use_backend bk_portal_10 if path_10_07
+    use_backend bk_dashboard if is_dashboard
+    use_backend bk_dashboard if is_sub
+    use_backend bk_marzban if is_statics
+    use_backend bk_marzban if is_api
+    use_backend bk_portal_10 if is_arvan
+    use_backend bk_portal_08 if is_menudigi
+
+    default_backend bk_forward
+
+backend bk_portal_08
+    mode http
+    server xray_08 127.0.0.1:68443
+
+backend bk_portal_10
+    mode http
+    server xray_10 127.0.0.1:65443
+
+backend bk_self_net
+    mode http
+    server xray_local 127.0.0.1:8877
+
+backend local_nginx_http
+    mode http
+    server nginx_local 127.0.0.1:8080
+
+backend bk_forward_http
+    mode http
+    server doh_node_http 10.255.1.10:80
+
+backend bk_forward
+    mode http
+    server doh_node 10.255.1.10:443 ssl verify none
+
+backend bk_21_08_07_05_xtls
+    mode http
+    server xray_xtls_1 127.0.0.1:5011
+
+backend bk_24_01_07_06_xtls
+    mode http
+    server xray_xtls_2 127.0.0.1:5012
+
+backend bk_21_08_07_05
+    mode http
+    server xray 127.0.0.1:21075
+
+backend bk_22_04_07_06
+    mode http
+    server xray 127.0.0.1:22076
+
+backend bk_23_01_07_05
+    mode http
+    server xray 127.0.0.1:23075
+
+backend bk_24_01_07_06
+    mode http
+    server xray 127.0.0.1:24076
+
+backend bk_21_08_07_06
+    mode http
+    server xray 127.0.0.1:21076
+
+backend bk_marzban
+    mode http
+    server marzban_local 127.0.0.1:2020
+
+backend bk_dashboard
+    mode http
+    server dashboard_local 127.0.0.1:2020
+
+
+

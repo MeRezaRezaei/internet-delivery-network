@@ -1,0 +1,39 @@
+{
+    "log": { "loglevel": "debug" },
+    "outbounds": [
+        { "protocol": "freedom", "tag": "direct" },
+        {
+            "protocol": "vless",
+            "tag": "tunnel",
+            "settings": {
+                "vnext": [{
+                    "address": "i-07.menudigi.ir",
+                    "port": 443,
+                    "users": [{
+                        "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+                        "email": "de08-cf@reverse",
+                        "encryption": "none",
+                        "seed": "a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7",
+                        "reverse": { "tag": "reverse-in-08-cf" }
+                    }]
+                }]
+            },
+            "streamSettings": {
+                "network": "XHTTP",
+                "security": "tls",
+                "tlsSettings": { 
+                    "serverName": "i-07.menudigi.ir",
+                    "allowInsecure": true,
+                    "fingerprint": "chrome",
+                    "alpn": ["h2", "http/1.1"]
+                },
+                "xhttpSettings": { 
+                    "path": "/21-08-07-06",
+                    "mode": "auto"
+                }
+            },
+            "mux": { "enabled": true, "concurrency": 8, "xover": 1 }
+        }
+    ],
+    "routing": { "rules": [{ "type": "field", "inboundTag": ["reverse-in-08-cf"], "outboundTag": "direct" }] }
+}
