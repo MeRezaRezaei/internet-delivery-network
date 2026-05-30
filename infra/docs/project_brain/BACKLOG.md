@@ -11,10 +11,13 @@
 - [x] **IDN-047 Fleet Reconciliation Engine**: Implement a command to sync and reconcile node health status between DB and Redis. [COMPLETED] (2026-05-30)
 - [x] **IDN-053 Failover & Outbound Signaling Hardening**: Fix source node failover logic and enable ADD_OUTBOUND signals. [COMPLETED] (2026-05-30)
 - [x] **IDN-054 Load-Balanced Failover**: Peer selection during failover uses `withCount` to pick the node with the least number of tunnels. [COMPLETED] (2026-05-30)
+- [x] **IDN-055 Tunnel Management Hardening**: Fix missing imports and enhance deletion logic in TunnelController. [COMPLETED] (2026-05-30)
+- [ ] **IDN-056 Deep Cleanup Service**: Implement a service to handle recursive deletion of Xray nested models (Sniffing, Protocols, Transports).
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |
 |---|---:|---|---|---|---|
+| IDN-055 | P1 | Tunnel Management Hardening | done | IDN-053 | Controller fixed and REMOVE_OUTBOUND added |
 | IDN-053 | P1 | Failover & Outbound Signaling Hardening | done | IDN-050 | Source failover signals dispatched and handled |
 | IDN-054 | P2 | Load-Balanced Failover | done | IDN-053 | migrateTunnels picks least-loaded peer |
 | IDN-047 | P1 | Fleet Reconciliation Engine | done | IDN-019 | Command `idn:fleet:reconcile` implemented and verified |

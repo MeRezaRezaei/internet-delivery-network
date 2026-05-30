@@ -1,6 +1,13 @@
 # AI Changelog
 
 ## 2026-05-30
+- **Failover & Outbound Signaling Hardening (IDN-053/054/055)**:
+    - Fixed source node failover logic in `ControlPlaneManager.php` to correctly handle `ADD_OUTBOUND` and `REMOVE_OUTBOUND` signals.
+    - Implemented load-balanced peer selection during failover using `withCount` to pick the least-loaded node.
+    - Enhanced `TunnelController.php` by importing missing `XrayOutbound` model and hardening the `destroy` method.
+    - Updated `destroy` logic to dispatch `REMOVE_OUTBOUND` signals to source nodes and perform basic cleanup of linked `XrayInbound` and `XrayOutbound` models.
+    - Identified and documented the need for a dedicated `Deep Cleanup Service` (IDN-056) for recursive deletion of nested Xray models.
+    - Initiated a background Docker build for the `idn-laravel-app` container (PID 2645004) to finalize the fleet-wide modernization stack.
 - **Model Unification Hardening (5NF ID Linking)**:
     - Created migration to add `inbound_id`, `outbound_id`, `inbound_ul_id`, and `outbound_ul_id` to `idn_tunnels` table.
     - Updated `Tunnel` model to include BelongsTo relationships to `XrayInbound` and `XrayOutbound`.

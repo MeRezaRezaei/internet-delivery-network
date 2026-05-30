@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Node;
 use App\Models\Tunnel;
 use App\Models\XrayInbound;
+use App\Models\XrayOutbound;
 use App\Services\ControlPlane\SignalDispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,16 +92,21 @@ class TunnelController extends Controller
 
     public function destroy(Tunnel $tunnel)
     {
-        $nodeName = $tunnel->targetNode->name;
-        $tag = $tunnel->tag;
+        return DB::transaction(function () use ($tunnel) {
+            $tag = $tunnel->tag;
+            $targetNode = $tunnel->targetNode;
+            $sourceNode = $tunnel->sourceNode;
 
-        return DB::transaction(function () use ($tunnel, $nodeName, $tag) {
+            // Dispatch remove signals
+            $this->dispatcher->dispatch($targetNode->name, 'REMOVE_INBOUND', ['tag' => $tag]);
+            $this->dispatcher->dispatch($sourceNode->name, 'REMOVE_OUTBOUND', ['tag' => "out-to-{$tag}"]);
+
+            // Delete linked models (Basic deletion for now, deep cleanup should be handled by a service)
+            $tunnel->inbound()->delete();
+            $tunnel->outbound()->delete();
             $tunnel->delete();
 
-            // Dispatch remove signal
-            $this->dispatcher->dispatch($nodeName, 'REMOVE_INBOUND', ['tag' => $tag]);
-
-            return redirect()->route('idn.dashboard')->with('success', 'Tunnel deleted and remove signal dispatched.');
+            return redirect()->route('idn.dashboard')->with('success', 'Tunnel deleted and remove signals dispatched.');
         });
     }
 
