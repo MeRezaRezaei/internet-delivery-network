@@ -22,9 +22,41 @@ services:
       - DB_PASSWORD=idn_password
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - PHP_CLI_SERVER_WORKERS=10
+      - GRPC_DNS_RESOLVER=native
     depends_on:
       - xray
       - xray_2
+      - mysql
+      - redis
+    networks:
+      - idn-network
+
+  failover_daemon:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: idn-failover-daemon
+    command: ["php", "artisan", "idn:node:monitor"]
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APP_ENV=local
+      - XRAY_HOST=xray
+      - XRAY_PORT=10085
+      - XRAY_SECONDARY_HOST=xray_2
+      - XRAY_SECONDARY_PORT=10087
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=idn_db
+      - DB_USERNAME=idn_user
+      - DB_PASSWORD=idn_password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - GRPC_DNS_RESOLVER=native
+    depends_on:
+      - app
       - mysql
       - redis
     networks:
