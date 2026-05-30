@@ -41,11 +41,11 @@ class ChainMissionTest extends TestCase
         $this->assertCount(3, $result['routing_rules']);
 
         // Assert Physical Ports are reserved
-        $this->assertDatabaseHas('idn_physical_ports', [
+        $this->assertDatabaseHas('physical_ports', [
             'node_id' => $node1->id,
             'port_number' => 443,
         ]);
-        $this->assertDatabaseHas('idn_physical_ports', [
+        $this->assertDatabaseHas('physical_ports', [
             'node_id' => $node1->id,
             'port_number' => 8443,
         ]);

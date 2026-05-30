@@ -97,7 +97,7 @@ services:
       - idn-network
 
   mysql:
-    image: mysql:8.0
+    image: mariadb:10.6
     container_name: idn-mysql
     restart: always
     environment:
