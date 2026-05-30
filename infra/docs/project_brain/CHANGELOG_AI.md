@@ -1,6 +1,22 @@
 # AI Changelog
 
 ## 2026-05-30
+- **Environment Stabilization & Test Coverage (IDN-057)**:
+    - **Docker Build Completion**: Successfully built and started the `internet-delivery-network-app` container, including complex `grpc` and `protobuf` PHP extension compilation.
+    - **Redis Port Conflict Resolution**: Resolved a critical port conflict on 6379 by remapping the IDN Redis container to host port 6380, allowing coexistence with system-wide Redis services.
+    - **Migration & Schema Repair**:
+        - Fixed type mismatch in `subscriptions` migration where `user_id` (UUID) referenced `users.id` (BigInt).
+        - Standardized naming by renaming `physical_ports` to `idn_physical_ports` and updating all referencing migrations and models.
+        - Made `config` column nullable in `idn_tunnels` to prevent insertion failures during testing and partial provisioning.
+    - **Enum & Factory Hardening**:
+        - Added the missing `EXIT` case to the `NodeRole` enum to support egress node failover logic.
+        - Enhanced `NodeFactory` by switching from `word()` to `slug(3)` for node names, preventing unique constraint violations during parallel test execution.
+    - **Logic & Route Fixes**:
+        - Resolved a Route Model Binding failure in `TunnelController@verify` by switching to explicit ID lookups, ensuring reliable tunnel verification via API.
+        - Fixed file permission issues for `.env` and `storage/` directories within the Docker environment.
+    - **Verification Success**:
+        - Achieved a **100% Pass Rate** across all 26 unit and feature tests.
+        - Validated core system commands: `idn:verify-tunnels` and `idn:fleet:reconcile`.
 - **Deep Cleanup Service Verification (IDN-056)**:
     - Verified `XrayCleanupService` for recursive deletion of nested Xray models.
     - Confirmed correct relationship handling for Sniffing, Protocols (Vless, Trojan), Transports (XHTTP, Split-HTTP, HTTPUpgrade, gRPC), Security (TLS, Reality), and Fallbacks.

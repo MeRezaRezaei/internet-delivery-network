@@ -13,10 +13,12 @@
 - [x] **IDN-054 Load-Balanced Failover**: Peer selection during failover uses `withCount` to pick the node with the least number of tunnels. [COMPLETED] (2026-05-30)
 - [x] **IDN-055 Tunnel Management Hardening**: Fix missing imports and enhance deletion logic in TunnelController. [COMPLETED] (2026-05-30)
 - [x] **IDN-056 Deep Cleanup Service**: Implement a service to handle recursive deletion of Xray nested models (Sniffing, Protocols, Transports). [COMPLETED] (2026-05-30)
+- [x] **IDN-057 Environment Stabilization**: Fixed migrations (PhysicalPort prefix, Subscription type), port conflicts (Redis), and test regressions (NodeRole::EXIT, Factory uniqueness). [COMPLETED] (2026-05-30)
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |
 |---|---:|---|---|---|---|
+| IDN-057 | P1 | Environment Stabilization | done | - | All tests passing and environment stable |
 | IDN-056 | P1 | Deep Cleanup Service | done | IDN-055 | Recursive deletion of nested Xray models implemented and verified |
 | IDN-055 | P1 | Tunnel Management Hardening | done | IDN-053 | Controller fixed and REMOVE_OUTBOUND added |
 | IDN-053 | P1 | Failover & Outbound Signaling Hardening | done | IDN-050 | Source failover signals dispatched and handled |

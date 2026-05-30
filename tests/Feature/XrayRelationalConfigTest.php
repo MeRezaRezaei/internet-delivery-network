@@ -95,7 +95,7 @@ class XrayRelationalConfigTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('xray_inbounds', ['tag' => 'portal-mission-tag']);
-        $this->assertDatabaseHas('physical_ports', ['port_number' => 443, 'node_id' => $node->id]);
+        $this->assertDatabaseHas('idn_physical_ports', ['port_number' => 443, 'node_id' => $node->id]);
 
         $validation = Xray::validateNode($node);
         $this->assertTrue($validation['success']);

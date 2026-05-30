@@ -126,8 +126,9 @@ class TunnelController extends Controller
         });
     }
 
-    public function verify(Tunnel $tunnel, \App\Services\Xray\XrayConfigRenderer $renderer, \App\Services\Xray\XrayValidator $validator)
+    public function verify($tunnelId, \App\Services\Xray\XrayConfigRenderer $renderer, \App\Services\Xray\XrayValidator $validator)
     {
+        $tunnel = Tunnel::findOrFail($tunnelId);
         $tunnel->load(['sourceNode', 'targetNode']);
 
         $sourceConfig = $renderer->render($tunnel->sourceNode);

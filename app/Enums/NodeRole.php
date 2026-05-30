@@ -7,4 +7,5 @@ enum NodeRole: string
     case BRIDGE = 'bridge';
     case EDGE = 'edge';
     case PORTAL = 'portal';
+    case EXIT = 'exit';
 }

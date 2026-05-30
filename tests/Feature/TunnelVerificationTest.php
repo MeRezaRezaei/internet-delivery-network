@@ -8,14 +8,16 @@ use App\Models\XrayInbound;
 use App\Models\XrayOutbound;
 use App\Models\PhysicalPort;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class TunnelVerificationTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithoutMiddleware;
 
     public function test_it_can_verify_a_tunnel_via_api()
     {
+        $this->withoutExceptionHandling();
         $sourceNode = Node::factory()->create(['name' => 'source', 'ip' => '127.0.0.1']);
         $targetNode = Node::factory()->create(['name' => 'target', 'ip' => '127.0.0.1']);
 
@@ -33,6 +35,8 @@ class TunnelVerificationTest extends TestCase
             'protocol' => 'vless',
             'is_active' => true,
         ]);
+
+        // dd($tunnel->source_node_id, $sourceNode->id, $tunnel->sourceNode);
 
         $response = $this->postJson("/idn/tunnels/{$tunnel->id}/verify");
 

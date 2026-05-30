@@ -11,6 +11,8 @@ class PhysicalPort extends Model
 {
     use HasFactory;
 
+    protected $table = 'idn_physical_ports';
+
     protected $fillable = [
         'node_id',
         'port_number',

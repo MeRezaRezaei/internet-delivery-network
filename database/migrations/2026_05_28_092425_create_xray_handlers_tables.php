@@ -33,7 +33,7 @@ return new class extends Migration
 
         Schema::create('xray_inbounds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('physical_port_id')->constrained('physical_ports')->onDelete('cascade');
+            $table->foreignId('physical_port_id')->constrained('idn_physical_ports')->onDelete('cascade');
             $table->string('tag')->unique();
             $table->foreignId('sniffing_id')->nullable()->constrained('xray_sniffing_configs')->onDelete('set null');
             $table->foreignId('policy_level_id')->nullable()->constrained('xray_policy_levels')->onDelete('set null');

@@ -84,7 +84,7 @@ class XrayCleanupServiceTest extends TestCase
 
         // 5. Verify physical port and client still exist (they shouldn't be deleted)
         $this->assertDatabaseHas('idn_nodes', ['id' => $node->id]);
-        $this->assertDatabaseHas('physical_ports', ['id' => $port->id]);
+        $this->assertDatabaseHas('idn_physical_ports', ['id' => $port->id]);
         $this->assertDatabaseHas('xray_clients', ['id' => $client->id]);
     }
 
