@@ -40,7 +40,10 @@
                   ● {{ tunnel.is_active ? 'Active' : 'Inactive' }}
                 </span>
               </td>
-              <td class="px-4 py-3">
+              <td class="px-4 py-3 flex gap-3">
+                <button @click="verifyTunnel(tunnel)" :disabled="verifyingId === tunnel.id" class="text-blue-400 hover:text-blue-300 disabled:opacity-50">
+                  {{ verifyingId === tunnel.id ? '...' : 'Verify' }}
+                </button>
                 <button @click="deleteTunnel(tunnel.id)" class="text-red-400 hover:text-red-300">Delete</button>
               </td>
             </tr>
@@ -121,6 +124,53 @@
         </form>
       </div>
     </div>
+
+    <!-- Verification Modal -->
+    <div v-if="showVerifyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+      <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden">
+        <div class="bg-gray-950 px-6 py-4 border-b border-gray-700 flex justify-between items-center">
+          <h3 class="text-xl font-bold text-gray-200">Tunnel Verification</h3>
+          <button @click="showVerifyModal = false" class="text-gray-400 hover:text-white">✕</button>
+        </div>
+        
+        <div class="p-6 space-y-4">
+          <div v-if="verificationResult">
+             <div class="flex justify-between items-center p-3 bg-gray-900 rounded-lg border border-gray-700">
+               <span class="text-sm font-medium">Source Node Config</span>
+               <span :class="verificationResult.source.success ? 'text-green-500' : 'text-red-500'" class="text-xs font-bold">
+                 {{ verificationResult.source.success ? '✓ VALID' : '✗ INVALID' }}
+               </span>
+             </div>
+             <div v-if="!verificationResult.source.success" class="text-[10px] text-red-400 font-mono bg-red-950/30 p-2 rounded border border-red-900/50 max-h-32 overflow-y-auto">
+                {{ verificationResult.source.output }}
+             </div>
+
+             <div class="flex justify-between items-center p-3 bg-gray-900 rounded-lg border border-gray-700">
+               <span class="text-sm font-medium">Target Node Config</span>
+               <span :class="verificationResult.target.success ? 'text-green-500' : 'text-red-500'" class="text-xs font-bold">
+                 {{ verificationResult.target.success ? '✓ VALID' : '✗ INVALID' }}
+               </span>
+             </div>
+             <div v-if="!verificationResult.target.success" class="text-[10px] text-red-400 font-mono bg-red-950/30 p-2 rounded border border-red-900/50 max-h-32 overflow-y-auto">
+                {{ verificationResult.target.output }}
+             </div>
+
+             <div class="flex justify-between items-center p-3 bg-gray-900 rounded-lg border border-gray-700">
+               <span class="text-sm font-medium">Target Reachability</span>
+               <span :class="verificationResult.reachability ? 'text-green-500' : 'text-red-500'" class="text-xs font-bold">
+                 {{ verificationResult.reachability ? '✓ REACHABLE' : '✗ UNREACHABLE' }}
+               </span>
+             </div>
+          </div>
+        </div>
+        
+        <div class="bg-gray-950 px-6 py-4 border-t border-gray-700 flex justify-end">
+          <button @click="showVerifyModal = false" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded text-sm font-bold transition-colors">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -132,6 +182,10 @@ const nodes = ref([]);
 const tunnels = ref([]);
 const showCreateModal = ref(false);
 const loading = ref(false);
+
+const verificationResult = ref(null);
+const showVerifyModal = ref(false);
+const verifyingId = ref(null);
 
 const form = ref({
   source_node_id: null,
@@ -169,6 +223,19 @@ const createTunnel = async () => {
     alert("Provisioning failed: " + (err.response?.data?.message || err.message));
   } finally {
     loading.value = false;
+  }
+};
+
+const verifyTunnel = async (tunnel) => {
+  verifyingId.value = tunnel.id;
+  try {
+    const res = await axios.post(`/idn/tunnels/${tunnel.id}/verify`);
+    verificationResult.value = res.data.results;
+    showVerifyModal.value = true;
+  } catch (err) {
+    alert("Verification failed: " + (err.response?.data?.message || err.message));
+  } finally {
+    verifyingId.value = null;
   }
 };
 

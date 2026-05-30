@@ -88,4 +88,30 @@ class TunnelController extends Controller
             return redirect()->route('idn.dashboard')->with('success', 'Tunnel deleted and remove signal dispatched.');
         });
     }
+
+    public function verify(Tunnel $tunnel, \App\Services\Xray\XrayConfigRenderer $renderer, \App\Services\Xray\XrayValidator $validator)
+    {
+        $tunnel->load(['sourceNode', 'targetNode']);
+
+        $sourceConfig = $renderer->render($tunnel->sourceNode);
+        $sourceResult = $validator->validate($sourceConfig);
+
+        $targetConfig = $renderer->render($tunnel->targetNode);
+        $targetResult = $validator->validate($targetConfig);
+
+        $pingResult = false;
+        if ($tunnel->targetNode->ip) {
+            exec("ping -c 1 -W 2 {$tunnel->targetNode->ip} 2>&1", $output, $resultCode);
+            $pingResult = ($resultCode === 0);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'results' => [
+                'source' => $sourceResult,
+                'target' => $targetResult,
+                'reachability' => $pingResult,
+            ]
+        ]);
+    }
 }

@@ -16,6 +16,7 @@ Route::get('/idn/api/routing', [DashboardController::class, 'routing'])->name('i
 Route::get('/idn/api/traffic', [DashboardController::class, 'traffic'])->name('idn.api.traffic');
 Route::get('/idn/api/tunnels', [DashboardController::class, 'tunnels'])->name('idn.api.tunnels');
 Route::post('/idn/tunnels', [TunnelController::class, 'store'])->name('idn.tunnels.store');
+Route::post('/idn/tunnels/{tunnel}/verify', [TunnelController::class, 'verify'])->name('idn.tunnels.verify');
 Route::delete('/idn/tunnels/{tunnel}', [TunnelController::class, 'destroy'])->name('idn.tunnels.destroy');
 Route::get('/idn/api/subscriptions/{uuid}', [\App\Http\Controllers\IDN\SubscriptionController::class, 'show'])->name('idn.api.subscriptions.show');
 
