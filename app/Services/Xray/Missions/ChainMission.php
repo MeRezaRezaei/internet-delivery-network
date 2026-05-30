@@ -143,6 +143,10 @@ class ChainMission
                         'source_node_id' => $previousNode->id,
                         'target_node_id' => $node->id,
                         'tag' => "{$previousInboundTagDl}-to-{$inboundTagDl}",
+                        'inbound_id' => $inboundDl->id,
+                        'outbound_id' => $outboundDl->id,
+                        'inbound_ul_id' => $inboundUl->id,
+                        'outbound_ul_id' => $outboundUl->id,
                         'port' => $portNumberDl,
                         'protocol' => 'vless-chain',
                         'config' => [

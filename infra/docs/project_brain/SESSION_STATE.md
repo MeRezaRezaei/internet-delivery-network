@@ -5,6 +5,7 @@
 - **Phase**: Dashboard Enhancement and Epic 2 Completion
 
 ## Achievements
+- [x] **Model Unification**: Reconciled the 5NF `XrayInbound/Outbound` models with the `IDN\Tunnel` model, enabling direct ID linking for xHTTP aggregation (DL/UL paths).
 - [x] **IDN-051 Traffic Visualization**: Added TrafficMonitorCommand to poll Xray gRPC and visualize data using Chart.js in Dashboard.
 - [x] **IDN-052 Mobile Dashboard**: Refactored the Dashboard UI to use TailwindCSS for full mobile responsiveness.
 - [x] **Failover Notification Feed**: Visually added a Failover log tracking panel inside the Dashboard.
@@ -47,9 +48,9 @@
 - MySQL and Redis are core dependencies for the Control Plane.
 
 ## Next Steps for Successor Agent
-1. **Model Unification**: Reconcile the 5NF `XrayInbound/Outbound` models with the `IDN\Node` and `IDN\Tunnel` models.
-2. **Tailscale Glue**: Map Tailscale Peer status to `Node` status in the DB.
-3. **Dashboard Enhancement**: Update Dashboard to use the 5NF relational data for tunnel management.
+1. **TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard, utilizing the newly unified models.
+2. **Dashboard Refactor**: Update the Tunnel management UI to leverage the direct `inbound_id`/`outbound_id` links instead of parsing the JSON `config` blob.
+3. **Automated Connectivity Tests**: Implement a command to verify the 5NF-linked tunnels using `xray -test` and live pings.
 
 ## Handover Metadata
 - **Database**: `idn_db` on `localhost:3306`

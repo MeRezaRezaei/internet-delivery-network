@@ -1,6 +1,11 @@
 # AI Changelog
 
 ## 2026-05-30
+- **Model Unification Hardening (5NF ID Linking)**:
+    - Created migration to add `inbound_id`, `outbound_id`, `inbound_ul_id`, and `outbound_ul_id` to `idn_tunnels` table.
+    - Updated `Tunnel` model to include BelongsTo relationships to `XrayInbound` and `XrayOutbound`.
+    - Refactored `ChainMission` to populate these direct foreign keys during atomic provisioning, moving away from tag-only tracking.
+    - Updated `ChainMissionTest` to assert the presence and correctness of these direct model links.
 - **IDN-041 Multi-Node Batching & Model Unification**:
     - Implemented `ChainMission` to support atomic provisioning of multi-hop tunnels across a chain of nodes in a single database transaction.
     - Achieved **Model Unification** by ensuring that high-level `Tunnel` records are created for each hop, linking the 5NF Xray relational model (`XrayInbound`/`XrayOutbound`) with the IDN Control Plane's legacy tracking system.
