@@ -15,8 +15,8 @@ Track MVP acceptance requirements and prevent premature "MVP complete" claims.
 | Item | Status | Evidence |
 |---|---|---|
 | Runtime states canonical and mapped end-to-end | partial | `idn:fleet:reconcile` command implemented to sync DB/Redis |
-| Strategy schema canonicalized and validated | todo | - |
-| Event/channel contracts fixed and versioned | todo | - |
+| Strategy schema canonicalized and validated | pass | `XrayStrategy` and `XrayDomainStrategy` enums implemented and used in `XrayConfigRenderer` |
+| Event/channel contracts fixed and versioned | pass | `LogsUpdated` and `TrafficUpdated` events fixed and standardized |
 | Determinism rules locked and tested | todo | - |
 | Contract test suite exists | todo | - |
 | MVP out-of-scope boundaries enforced | todo | - |

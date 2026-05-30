@@ -24,6 +24,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www/html
 
+# Install Xray binary for validation
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "x86_64" ]; then XRAY_ARCH="64"; elif [ "$ARCH" = "aarch64" ]; then XRAY_ARCH="arm64-v8a"; else XRAY_ARCH="64"; fi && \
+    curl -L https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-${XRAY_ARCH}.zip -o xray.zip && \
+    unzip xray.zip xray -d /usr/local/bin/ && \
+    chmod +x /usr/local/bin/xray && \
+    rm xray.zip
+
 # Adjust permissions
 RUN chown -R www-data:www-data /var/www/html
 

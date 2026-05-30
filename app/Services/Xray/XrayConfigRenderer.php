@@ -316,7 +316,7 @@ class XrayConfigRenderer
                 'type' => $rule->type,
                 'inboundTag' => $rule->inbound_tags ? explode(',', $rule->inbound_tags) : null,
                 'outboundTag' => $rule->outbound_tag,
-                'domainStrategy' => $rule->domain_strategy,
+                'domainStrategy' => $rule->domain_strategy?->value,
             ];
         }
 
@@ -325,7 +325,7 @@ class XrayConfigRenderer
             $balancers[] = [
                 'tag' => $balancer->tag,
                 'selector' => explode(',', $balancer->selector),
-                'strategy' => ['type' => $balancer->strategy],
+                'strategy' => ['type' => $balancer->strategy?->value ?? 'random'],
             ];
         }
 

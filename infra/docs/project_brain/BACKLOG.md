@@ -5,6 +5,8 @@
 - [x] **IDN-041 Multi-Node Batching**: Support provisioning a single tunnel across multiple hops (Chain) in one atomic transaction. [COMPLETED] (Merged via DE node)
 - [x] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard. [COMPLETED] (2026-05-30)
 - [x] **IDN-045 Automated Connectivity Tests**: Implement a command to verify the 5NF-linked tunnels using `xray -test` and live pings. [COMPLETED] (2026-05-30)
+- [x] **IDN-048 Strategy Schema Canonicalization**: Define enums for Xray strategies and domain strategies. [COMPLETED] (2026-05-30)
+- [x] **IDN-049 Event Contract Fix**: Repair corrupted event files and standardize broadcasting contracts. [COMPLETED] (2026-05-30)
 - [x] **IDN-046 Dashboard Integration for Tunnel Verification**: Add a "Verify" button to the Tunnel management UI that triggers the connectivity test via API. [COMPLETED] (2026-05-30)
 - [x] **IDN-047 Fleet Reconciliation Engine**: Implement a command to sync and reconcile node health status between DB and Redis. [COMPLETED] (2026-05-30)
 

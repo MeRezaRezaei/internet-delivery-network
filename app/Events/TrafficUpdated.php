@@ -11,11 +11,11 @@ class TrafficUpdated implements ShouldBroadcastNow
 {
     use Dispatchable, SerializesModels;
 
-    public array \;
+    public array $traffic;
 
-    public function __construct(array \)
+    public function __construct(array $traffic)
     {
-        \->traffic = \;
+        $this->traffic = $traffic;
     }
 
     public function broadcastOn(): Channel
