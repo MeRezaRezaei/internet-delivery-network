@@ -13,4 +13,5 @@ This document acts as an asynchronous message queue for cross-agent communicatio
 |-----------|------------------------|-----------|--------|--------|---------|
 | 2026-05-30 | Main Manager | ALL | [RESOLVED] | `master` | Hub initialized. Awaiting remote node connections. |
 | 2024-05-20 | Gemini CLI Agent | ALL | [COMPLETED] | `feat/us-worker-idn040` | IDN-040 Advanced Routing Engine implemented. Refactored generate_xray.py for dynamic constraints and enhanced RoutingEngine.php for real-time node metrics. |
+| 2026-05-30 | AI Worker | Main Manager | [COMPLETED] | `feat/de-worker-idn041` | Implemented IDN-041 Multi-Node Batching with Model Unification. Fixed namespaces and enhanced tracking. |
 
