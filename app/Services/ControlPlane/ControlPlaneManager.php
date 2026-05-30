@@ -166,11 +166,22 @@ class ControlPlaneManager
             Log::info("Control Plane: No target tunnels to migrate for [{$offlineNode->name}].");
         } else {
             // Find a healthy peer with the same role, picking the one with the least number of tunnels (load balancing)
+            // Respect Resource Quotas (IDN-052)
             $peer = \App\Models\Node::where('role', $offlineNode->role)
                 ->where('is_active', true)
                 ->where('id', '!=', $offlineNode->id)
+                ->where(function($q) {
+                    $q->whereNull('cpu_usage')->orWhere('cpu_usage', '<', 0.85); // Threshold: 0.85 load
+                })
+                ->where(function($q) {
+                    $q->whereNull('ram_usage')->orWhere('ram_usage', '<', 95.0); // Threshold: 95% RAM
+                })
                 ->withCount(['sourceTunnels', 'targetTunnels'])
-                ->orderByRaw('(source_tunnels_count + target_tunnels_count) ASC')
+                ->get()
+                ->filter(function($node) {
+                    return ($node->source_tunnels_count + $node->target_tunnels_count) < ($node->max_tunnels ?? 100);
+                })
+                ->sortBy(fn($node) => $node->source_tunnels_count + $node->target_tunnels_count)
                 ->first();
 
             if (!$peer) {
@@ -201,11 +212,22 @@ class ControlPlaneManager
             Log::info("Control Plane: No source tunnels to migrate for [{$offlineNode->name}].");
         } else {
             // Find a healthy peer with the same role, picking the one with the least number of tunnels (load balancing)
+            // Respect Resource Quotas (IDN-052)
             $peer = \App\Models\Node::where('role', $offlineNode->role)
                 ->where('is_active', true)
                 ->where('id', '!=', $offlineNode->id)
+                ->where(function($q) {
+                    $q->whereNull('cpu_usage')->orWhere('cpu_usage', '<', 0.85); // Threshold: 0.85 load
+                })
+                ->where(function($q) {
+                    $q->whereNull('ram_usage')->orWhere('ram_usage', '<', 95.0); // Threshold: 95% RAM
+                })
                 ->withCount(['sourceTunnels', 'targetTunnels'])
-                ->orderByRaw('(source_tunnels_count + target_tunnels_count) ASC')
+                ->get()
+                ->filter(function($node) {
+                    return ($node->source_tunnels_count + $node->target_tunnels_count) < ($node->max_tunnels ?? 100);
+                })
+                ->sortBy(fn($node) => $node->source_tunnels_count + $node->target_tunnels_count)
                 ->first();
 
             if (!$peer) {

@@ -1,6 +1,13 @@
 # AI Changelog
 
 ## 2026-05-30
+- **Deep Cleanup Service Verification (IDN-056)**:
+    - Verified `XrayCleanupService` for recursive deletion of nested Xray models.
+    - Confirmed correct relationship handling for Sniffing, Protocols (Vless, Trojan), Transports (XHTTP, Split-HTTP, HTTPUpgrade, gRPC), Security (TLS, Reality), and Fallbacks.
+    - Validated integration in `TunnelController.php` ensuring all linked configurations are purged when a tunnel is destroyed.
+- **Docker Infrastructure & Build Optimization**:
+    - Re-initiated background Docker build for the `app` container (PID 2919852) to address previous timeout.
+    - Monitored `grpc` and `protobuf` compilation progress; identified it as the primary bottleneck for fleet modernization.
 - **Failover & Outbound Signaling Hardening (IDN-053/054/055)**:
     - Fixed source node failover logic in `ControlPlaneManager.php` to correctly handle `ADD_OUTBOUND` and `REMOVE_OUTBOUND` signals.
     - Implemented load-balanced peer selection during failover using `withCount` to pick the least-loaded node.
