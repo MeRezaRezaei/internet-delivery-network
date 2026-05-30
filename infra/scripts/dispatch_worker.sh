@@ -14,15 +14,11 @@ TASK=$3
 
 echo "Dispatching task to $SSH_TARGET in tmux session $SESSION_NAME..."
 
-ssh $SSH_TARGET << EOF
-    # Ensure project is up to date
-    cd /root/projects/internet-delivery-network || exit 1
-    git fetch origin
-    git checkout master
-    git pull origin master
-    
+sshpass -p 'asdfjkl' ssh -o StrictHostKeyChecking=no -J merezarezaei@10.255.1.7 $SSH_TARGET << EOF
     # Spawn the gemini-cli agent inside a detached tmux session
-    tmux new-session -d -s "$SESSION_NAME" "gemini-cli --task '$TASK'"
+    tmux new-session -d -s "$SESSION_NAME" bash
+    tmux send-keys -t "$SESSION_NAME" "source ~/.bashrc && source ~/.profile" C-m
+    tmux send-keys -t "$SESSION_NAME" "gemini -y -p '$TASK'" C-m
     echo "Agent successfully dispatched in tmux."
 EOF
 
