@@ -1,5 +1,14 @@
 # AI Changelog
 
+## 2026-05-30
+- **IDN-041 Multi-Node Batching & Model Unification**:
+    - Implemented `ChainMission` to support atomic provisioning of multi-hop tunnels across a chain of nodes in a single database transaction.
+    - Achieved **Model Unification** by ensuring that high-level `Tunnel` records are created for each hop, linking the 5NF Xray relational model (`XrayInbound`/`XrayOutbound`) with the IDN Control Plane's legacy tracking system.
+    - Enhanced the `idn:tunnel:chain` Artisan command to provide detailed feedback on created inbounds, outbounds, and tunnel records.
+    - Resolved critical namespace errors in `ChainMission`, `ChainProvisionCommand`, and `ChainMissionTest` by reconciling `App\Models\Node`.
+    - Updated `ChainMissionTest` to verify both the low-level Xray configuration and the high-level IDN Tunnel record creation.
+    - Successfully pushed the implementation to the `feat/de-worker-idn041` branch.
+
 ## 2026-05-27
 - **Xray-Laravel API Integration**:
     - Developed a native Laravel library for the Xray-core gRPC API.

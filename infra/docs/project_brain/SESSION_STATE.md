@@ -5,6 +5,7 @@
 - **Phase**: Post-Merge Stabilization
 
 ## Achievements
+- [x] **IDN-041 Multi-Node Batching**: Implemented atomic multi-hop chain provisioning with model unification (Xray Handler -> IDN Tunnel).
 - [x] **Unbreakable Xray Relational Configuration System**: Deployed 5NF relational schema mapping Xray-core internal architecture.
 - [x] **Tailscale API Integration**: Implemented TailscaleService and Facade with OAuth2 support.
 - [x] **Control Plane Hardening**: Redis Streams, Transactional Batching, and Fleet Status monitoring.
