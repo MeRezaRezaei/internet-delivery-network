@@ -15,11 +15,16 @@ class TunnelController extends Controller
 {
     protected SignalDispatcher $dispatcher;
     protected \App\Services\Xray\Missions\PortalMission $portalMission;
+    protected \App\Services\Xray\XrayCleanupService $cleanupService;
 
-    public function __construct(SignalDispatcher $dispatcher, \App\Services\Xray\Missions\PortalMission $portalMission)
-    {
+    public function __construct(
+        SignalDispatcher $dispatcher, 
+        \App\Services\Xray\Missions\PortalMission $portalMission,
+        \App\Services\Xray\XrayCleanupService $cleanupService
+    ) {
         $this->dispatcher = $dispatcher;
         $this->portalMission = $portalMission;
+        $this->cleanupService = $cleanupService;
     }
 
     public function store(Request $request)
@@ -101,9 +106,20 @@ class TunnelController extends Controller
             $this->dispatcher->dispatch($targetNode->name, 'REMOVE_INBOUND', ['tag' => $tag]);
             $this->dispatcher->dispatch($sourceNode->name, 'REMOVE_OUTBOUND', ['tag' => "out-to-{$tag}"]);
 
-            // Delete linked models (Basic deletion for now, deep cleanup should be handled by a service)
-            $tunnel->inbound()->delete();
-            $tunnel->outbound()->delete();
+            // Deep cleanup of Xray models
+            if ($tunnel->inbound) {
+                $this->cleanupService->cleanInbound($tunnel->inbound);
+            }
+            if ($tunnel->outbound) {
+                $this->cleanupService->cleanOutbound($tunnel->outbound);
+            }
+            if ($tunnel->inboundUl) {
+                $this->cleanupService->cleanInbound($tunnel->inboundUl);
+            }
+            if ($tunnel->outboundUl) {
+                $this->cleanupService->cleanOutbound($tunnel->outboundUl);
+            }
+
             $tunnel->delete();
 
             return redirect()->route('idn.dashboard')->with('success', 'Tunnel deleted and remove signals dispatched.');

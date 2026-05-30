@@ -12,7 +12,7 @@
 - [x] **IDN-053 Failover & Outbound Signaling Hardening**: Fix source node failover logic and enable ADD_OUTBOUND signals. [COMPLETED] (2026-05-30)
 - [x] **IDN-054 Load-Balanced Failover**: Peer selection during failover uses `withCount` to pick the node with the least number of tunnels. [COMPLETED] (2026-05-30)
 - [x] **IDN-055 Tunnel Management Hardening**: Fix missing imports and enhance deletion logic in TunnelController. [COMPLETED] (2026-05-30)
-- [ ] **IDN-056 Deep Cleanup Service**: Implement a service to handle recursive deletion of Xray nested models (Sniffing, Protocols, Transports).
+- [x] **IDN-056 Deep Cleanup Service**: Implement a service to handle recursive deletion of Xray nested models (Sniffing, Protocols, Transports). (Implemented XrayCleanupService)
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |
