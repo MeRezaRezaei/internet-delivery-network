@@ -46,6 +46,11 @@ class XrayInbound extends Model
         return $this->morphOne(XrayTransportXhttp::class, 'handler');
     }
 
+    public function splithttp(): MorphOne
+    {
+        return $this->morphOne(XrayTransportSplithttp::class, 'handler');
+    }
+
     public function grpc(): MorphOne
     {
         return $this->morphOne(XrayTransportGrpc::class, 'handler');

@@ -127,4 +127,31 @@ class XrayRelationalConfigTest extends TestCase
         $this->assertEquals(8080, $vlessInbound['settings']['fallbacks'][0]['dest']);
         $this->assertEquals('mimic.example.com', $vlessInbound['settings']['fallbacks'][0]['name']);
     }
+
+    public function test_it_can_render_splithttp_transport()
+    {
+        $node = Node::factory()->create();
+        
+        $port = PhysicalPort::create(['node_id' => $node->id, 'port_number' => 8443, 'protocol' => 'tcp', 'status' => 'reserved']);
+        $inbound = XrayInbound::create(['physical_port_id' => $port->id, 'tag' => 'splithttp-in']);
+        
+        \App\Models\XrayTransportSplithttp::create([
+            'handler_id' => $inbound->id,
+            'handler_type' => XrayInbound::class,
+            'path' => '/split',
+            'host' => 'cdn.example.com',
+            'max_upload_size' => 2000000,
+            'max_concurrent_uploads' => 15,
+        ]);
+
+        $config = Xray::generateConfig($node);
+
+        $inboundConfig = collect($config['inbounds'])->firstWhere('tag', 'splithttp-in');
+        $this->assertArrayHasKey('streamSettings', $inboundConfig);
+        $this->assertEquals('splithttp', $inboundConfig['streamSettings']['network']);
+        $this->assertEquals('/split', $inboundConfig['streamSettings']['splithttpSettings']['path']);
+        $this->assertEquals('cdn.example.com', $inboundConfig['streamSettings']['splithttpSettings']['host']);
+        $this->assertEquals(2000000, $inboundConfig['streamSettings']['splithttpSettings']['maxUploadSize']);
+        $this->assertEquals(15, $inboundConfig['streamSettings']['splithttpSettings']['maxConcurrentUploads']);
+    }
 }

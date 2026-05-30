@@ -16,6 +16,7 @@ class XrayConfigRenderer
             'ports.inbound.vless.clients.client',
             'ports.inbound.trojan.clients.client',
             'ports.inbound.xhttp',
+            'ports.inbound.splithttp',
             'ports.inbound.grpc',
             'ports.inbound.tls',
             'ports.inbound.reality',
@@ -23,6 +24,7 @@ class XrayConfigRenderer
             'outbounds.vless.clients.client',
             'outbounds.trojan.clients.client',
             'outbounds.xhttp',
+            'outbounds.splithttp',
             'outbounds.grpc',
             'outbounds.tls',
             'outbounds.reality',
@@ -144,6 +146,14 @@ class XrayConfigRenderer
                         'xPaddingBytes' => $inbound->xhttp->padding_range,
                         'xPaddingObfsMode' => $inbound->xhttp->obfuscation_enabled,
                     ],
+                ];
+            } elseif ($inbound->splithttp) {
+                $streamSettings['network'] = 'splithttp';
+                $streamSettings['splithttpSettings'] = [
+                    'path' => $inbound->splithttp->path,
+                    'host' => $inbound->splithttp->host ?? '',
+                    'maxUploadSize' => $inbound->splithttp->max_upload_size,
+                    'maxConcurrentUploads' => $inbound->splithttp->max_concurrent_uploads,
                 ];
             } elseif ($inbound->grpc) {
                 $streamSettings['network'] = 'grpc';
