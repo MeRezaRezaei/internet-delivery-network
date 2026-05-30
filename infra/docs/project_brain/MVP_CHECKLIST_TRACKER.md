@@ -18,7 +18,7 @@ Track MVP acceptance requirements and prevent premature "MVP complete" claims.
 | Strategy schema canonicalized and validated | pass | `XrayStrategy` and `XrayDomainStrategy` enums implemented and used in `XrayConfigRenderer` |
 | Event/channel contracts fixed and versioned | pass | `LogsUpdated` and `TrafficUpdated` events fixed and standardized |
 | Determinism rules locked and tested | todo | - |
-| Contract test suite exists | todo | - |
+| Contract test suite exists | pass | `tests/Feature/Contract/` suite covers Events, Xray Config, and Signals |
 | MVP out-of-scope boundaries enforced | todo | - |
 | Risk guard minimum rules implemented | todo | - |
 | Error recovery idempotency tested | todo | - |

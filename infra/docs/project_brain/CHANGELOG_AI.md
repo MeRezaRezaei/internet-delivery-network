@@ -297,3 +297,10 @@
     - Configured XHTTP in **H2 (`stream-up`) mode** over TLS to enable native multiplexing and masquerade as gRPC uplink, bypassing CDN buffer limitations.
     - Set the Bridge `maxConcurrency: 128` to support a high volume of parallel SOCKS streams and connection swaps (`hMaxReusableSecs: 900`, `hMaxRequestTimes: 1500`) to reset GFW's UDP QoS throttling.
     - Integrated system-aligned Tor dialer proxy (`"dialerProxy": "tor"`, port `10110`) to handle large volume connections safely.
+
+## [2026-05-30] - Contract Testing
+- Added Contract Test Suite in `tests/Feature/Contract/`.
+- Implemented `EventContractTest` to verify broadcasting event structures.
+- Implemented `XrayConfigContractTest` to verify core Xray config structure.
+- Implemented `SignalContractTest` to verify Redis signal contracts.
+- Updated MVP Checklist: "Contract test suite exists" marked as `pass`.

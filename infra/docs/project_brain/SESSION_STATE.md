@@ -20,16 +20,18 @@
 - [x] **Verification Success**:
     - Achieved **100% Pass Rate** (26/26 tests) including Chain Missions, Control Plane, and Xray Config Rendering.
     - Verified `idn:verify-tunnels` and `idn:fleet:reconcile` commands are functional.
+- [x] **Contract Testing**:
+    - Implemented `EventContractTest`, `XrayConfigContractTest`, and `SignalContractTest`.
+    - Marked "Contract test suite exists" as pass in MVP checklist.
 
 ## Active Constraints
 - Fake nodes in DB will fail connectivity tests (Expected).
 - `xray_dry_run` container must be running for `ControlPlaneTest`.
 
 ## Next Steps for Successor Agent
-1. **MVP Finalization**: Address remaining TODOs in `MVP_CHECKLIST_TRACKER.md`.
-2. **Contract Testing**: Implement the "Contract test suite" mentioned in the backlog.
-3. **Performance Benchmarking**: Record initial performance metrics for tunnel provisioning.
-4. **Traffic Monitoring**: Verify that `idn:control-plane:listen` correctly updates traffic metrics in the DB.
+1. **MVP Finalization**: Address remaining TODOs in `MVP_CHECKLIST_TRACKER.md` (Determinism rules, Risk guards).
+2. **Performance Benchmarking**: Record initial performance metrics for tunnel provisioning.
+3. **Traffic Monitoring**: Verify that `idn:control-plane:listen` correctly updates traffic metrics in the DB.
 
 ## Handover Metadata
 - **Active Build**: Stable
