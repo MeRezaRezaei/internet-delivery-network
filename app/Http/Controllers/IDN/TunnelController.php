@@ -63,12 +63,27 @@ class TunnelController extends Controller
                 'outbound_id' => $outbound->id,
                 'port' => $validated['port'],
                 'protocol' => $validated['protocol'],
+                'config' => [
+                    'transport' => $validated['transport'] ?? 'tcp',
+                    'transport_params' => $validated['transport_params'] ?? [],
+                    'reality_params' => $validated['reality_params'] ?? [],
+                ],
                 'is_active' => true,
             ]);
 
             // 4. Dispatch signals
-            $this->dispatcher->dispatch($targetNode->name, 'ADD_INBOUND', ['tag' => $validated['tag']]);
-            $this->dispatcher->dispatch($sourceNode->name, 'ADD_OUTBOUND', ['tag' => $outbound->tag]);
+            $this->dispatcher->dispatch($targetNode->name, 'ADD_INBOUND', $tunnel->config + [
+                'tag' => $tunnel->tag,
+                'port' => $tunnel->port,
+                'protocol' => $tunnel->protocol,
+            ]);
+            
+            $this->dispatcher->dispatch($sourceNode->name, 'ADD_OUTBOUND', [
+                'tag' => $outbound->tag,
+                'protocol' => $tunnel->protocol,
+                'address' => $targetNode->ip ?? $targetNode->hostname,
+                'port' => $tunnel->port,
+            ] + $tunnel->config);
 
             return response()->json(['status' => 'success', 'tunnel' => $tunnel]);
         });

@@ -37,6 +37,10 @@ class ControlPlaneManager
                         $inbound = \App\Utils\XrayProtobufHydrator::hydrateInbound($payload);
                         $this->dryRun->validateInbound($inbound);
                         $hydratedNodesSignals[$node][$index] = ['inbound' => $inbound];
+                    } elseif ($action === 'ADD_OUTBOUND') {
+                        $outbound = \App\Utils\XrayProtobufHydrator::hydrateOutbound($payload);
+                        // $this->dryRun->validateOutbound($outbound); // Placeholder if dryRun supports it
+                        $hydratedNodesSignals[$node][$index] = ['outbound' => $outbound];
                     }
                 }
             }
@@ -51,8 +55,14 @@ class ControlPlaneManager
                         case 'ADD_INBOUND':
                             Xray::connection($node)->addInbound($hydratedNodesSignals[$node][$index]['inbound']);
                             break;
+                        case 'ADD_OUTBOUND':
+                            Xray::connection($node)->addOutbound($hydratedNodesSignals[$node][$index]['outbound']);
+                            break;
                         case 'REMOVE_INBOUND':
                             Xray::connection($node)->removeInbound($payload['tag']);
+                            break;
+                        case 'REMOVE_OUTBOUND':
+                            Xray::connection($node)->removeOutbound($payload['tag']);
                             break;
                         default:
                             throw new Exception("Unknown action in multi-node batch: {$action}");
@@ -92,6 +102,9 @@ class ControlPlaneManager
                     $inbound = \App\Utils\XrayProtobufHydrator::hydrateInbound($payload);
                     $this->dryRun->validateInbound($inbound);
                     $hydratedSignals[$index] = ['inbound' => $inbound];
+                } elseif ($action === 'ADD_OUTBOUND') {
+                    $outbound = \App\Utils\XrayProtobufHydrator::hydrateOutbound($payload);
+                    $hydratedSignals[$index] = ['outbound' => $outbound];
                 }
             }
 
@@ -104,8 +117,14 @@ class ControlPlaneManager
                     case 'ADD_INBOUND':
                         Xray::connection($node)->addInbound($hydratedSignals[$index]['inbound']);
                         break;
+                    case 'ADD_OUTBOUND':
+                        Xray::connection($node)->addOutbound($hydratedSignals[$index]['outbound']);
+                        break;
                     case 'REMOVE_INBOUND':
                         Xray::connection($node)->removeInbound($payload['tag']);
+                        break;
+                    case 'REMOVE_OUTBOUND':
+                        Xray::connection($node)->removeOutbound($payload['tag']);
                         break;
                     default:
                         throw new Exception("Unknown action in batch: {$action}");
@@ -161,9 +180,14 @@ class ControlPlaneManager
                     $tunnel->update(['target_node_id' => $peer->id]);
                     Log::info("Control Plane: Re-routing target tunnel [{$tunnel->tag}] to node [{$peer->name}].");
                     
-                    app(SignalDispatcher::class)->dispatch($peer->name, 'ADD_INBOUND', 
-                        $tunnel->config + ['tag' => $tunnel->tag, 'port' => $tunnel->port, 'protocol' => $tunnel->protocol]
-                    );
+                    // Use stored config or rebuild basic inbound payload
+                    $payload = ($tunnel->config ?? []) + [
+                        'tag' => $tunnel->tag, 
+                        'port' => $tunnel->port, 
+                        'protocol' => $tunnel->protocol
+                    ];
+
+                    app(SignalDispatcher::class)->dispatch($peer->name, 'ADD_INBOUND', $payload);
                 }
             }
         }
@@ -189,8 +213,18 @@ class ControlPlaneManager
                     $tunnel->update(['source_node_id' => $peer->id]);
                     Log::info("Control Plane: Re-routing source tunnel [{$tunnel->tag}] to node [{$peer->name}].");
                     
-                    // The source node itself might not need a direct inbound signal in this system 
-                    // based on TunnelController, but we update the association in the DB.
+                    // Signaling the new source node to add the outbound
+                    // We need to send the tag and connection details (target node IP/port)
+                    $targetNode = $tunnel->targetNode;
+                    $payload = [
+                        'tag' => "out-to-{$tunnel->tag}",
+                        'protocol' => $tunnel->protocol,
+                        'address' => $targetNode->ip ?? $targetNode->hostname,
+                        'port' => $tunnel->port,
+                        // Add more config if needed from $tunnel->config (outbound side)
+                    ];
+
+                    app(SignalDispatcher::class)->dispatch($peer->name, 'ADD_OUTBOUND', $payload);
                 }
             }
         }

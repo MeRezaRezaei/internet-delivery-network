@@ -2,30 +2,29 @@
 
 ## Current Focus
 - **Topic**: Fleet-wide Transport Modernization & Stability
-- **Phase**: Environment Hardening & Schema Canonicalization
+- **Phase**: Failover Hardening & Signal Synchronization
 
 ## Achievements
-- [x] **Environment Hardening**: Updated `Dockerfile` to include `xray` binary for configuration validation.
-- [x] **IDN-048 Strategy Schema Canonicalization**: Implemented `XrayStrategy` and `XrayDomainStrategy` enums.
-- [x] **IDN-049 Event Contract Fix**: Fixed corrupted PHP files for `LogsUpdated` and `TrafficUpdated` events.
-- [x] **XrayConfigRenderer Update**: Integrated enums into the configuration rendering logic.
-- [x] **Background Docker Build**: Restarted build with Xray inclusion (PID 2267745).
+- [x] **IDN-053 Failover & Outbound Signaling Hardening**:
+    - Fixed source node failover logic in `ControlPlaneManager`.
+    - Added `ADD_OUTBOUND` and `REMOVE_OUTBOUND` support to signal processing.
+    - Updated `TunnelController` to save full tunnel configuration in the database.
+    - Enhanced signals to include complete configuration payloads.
+- [x] **Background Docker Build**: Continued tracking PID 2439650 for `grpc` compilation.
 
 ## Active Constraints
 - ALL remote commands MUST include a timeout.
-- Gateway (srv07) is the entry point for all insider nodes.
 - MySQL and Redis are core dependencies for the Control Plane.
 - `grpc` compilation is the bottleneck in the Docker build.
 
 ## Next Steps for Successor Agent
-1. **Monitor Docker Build**: Track background PID 2267745. Wait until `grpc` and `protobuf` extensions are fully compiled and the image is ready.
-2. **Database Migration**: Once build is done, run `docker exec idn-laravel-app php artisan migrate --force`.
-3. **Run Verification Tests**: Execute `docker exec idn-laravel-app php artisan test`.
+1. **Finalize Docker Build**: Track background PID 2439650. Ensure the image is successfully built and the `idn-laravel-app` container is started.
+2. **Database Migration**: Run `docker exec idn-laravel-app php artisan migrate --force` to apply updated schema and data.
+3. **Run Verification Tests**: Execute `docker exec idn-laravel-app php artisan test` to verify failover and signaling logic.
 4. **Fleet-wide Verification**: Run `php artisan idn:verify-tunnels` and `php artisan idn:fleet:reconcile --fix`.
-5. **Implement IDN-050**: Start looking into Automatic Failover logic if stability is confirmed.
 
 ## Handover Metadata
-- **Active Build PID**: 2267745
-- **Database**: `idn_db` on `localhost:3306`
+- **Active Build PID**: 2439650
+- **Database**: `idn_db` on `localhost:3307` (Mapped from 3306)
 - **Redis**: `localhost:6379`
 - **Dashboard**: `http://localhost:8000/idn`
