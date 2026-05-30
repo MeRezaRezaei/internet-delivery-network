@@ -17,7 +17,7 @@ return new class extends Migration
             $blueprint->string('hostname');
             $blueprint->string('ip')->nullable();
             $blueprint->integer('api_port')->default(10085);
-            $blueprint->string('role')->default('node'); // gateway, node, provider
+            $blueprint->string('role')->default('core_aggregator'); // edge_relay, core_aggregator, dns_resolver
             $blueprint->boolean('is_active')->default(true);
             $blueprint->timestamp('last_heartbeat_at')->nullable();
             $blueprint->json('metadata')->nullable();

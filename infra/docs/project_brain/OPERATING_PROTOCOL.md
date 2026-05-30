@@ -15,7 +15,11 @@ When an AI agent is tasked with a decision, it must ask:
 2. Does the failure of this logic lead to a "Red State" (network death)?
 3. Is the complexity of the solution proportional to the frequency of the problem?
 
-## 3. Critical Weaknesses & "Silly Mistake" Prevention
+## 3. The Multi-Agent Mandate
+- **Parallelization First:** When facing multiple distinct, unblocked tasks in the `BACKLOG.md`, the Project Manager MUST delegate them to parallel Subagents.
+- **Quota Preservation:** The Project Manager should avoid consuming API quota for direct coding, instead focusing on architectural direction, code review, merging, and tracking the AI Brain.
+
+## 4. Critical Weaknesses & "Silly Mistake" Prevention
 The following patterns are identified as **MODERATE** risk weaknesses (Hardened on 2026-05-28):
 
 | Weakness | Status | Mitigation Implemented |

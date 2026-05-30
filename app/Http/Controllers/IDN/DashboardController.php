@@ -7,89 +7,103 @@ use App\Models\IDN\Node;
 use App\Models\IDN\Tunnel;
 use App\Services\ControlPlane\NodeMonitorService;
 use Illuminate\Http\Request;
+use App\Events\LogsUpdated;
+use App\Events\TrafficUpdated;
 
 class DashboardController extends Controller
 {
-    protected NodeMonitorService $monitor;
+    protected NodeMonitorService ;
 
-    public function __construct(NodeMonitorService $monitor)
+    public function __construct(NodeMonitorService )
     {
-        $this->monitor = $monitor;
+        ->monitor = ;
     }
 
     public function index()
     {
-        $nodes = Node::all();
-        $tunnels = Tunnel::all();
-        $fleetStatus = $this->monitor->getFleetStatus();
+         = Node::all();
+         = Tunnel::all();
+         = ->monitor->getFleetStatus();
 
         return view('idn.dashboard', compact('nodes', 'tunnels', 'fleetStatus'));
     }
 
-    public function routing(Request $request, AppServicesControlPlaneRoutingEngine $engine)
+    public function routing(Request , \App\Services\ControlPlane\RoutingEngine )
     {
-        $data = $engine->generateDynamicRules();
-        return response()->json($data);
+         = ->generateDynamicRules();
+        return response()->json();
     }
 
-    public function logs(Request $request)
+    public function logs(Request )
     {
-        $lastId = $request->input('last_id', '0');
+         = ->input('last_id', '0');
         
-        $raw = \Illuminate\Support\Facades\Redis::executeRaw([
-            'XREAD', 'COUNT', '50', 'BLOCK', '100', 'STREAMS', \App\Services\ControlPlane\LogDispatcher::LOG_STREAM_KEY, $lastId
+         = \Illuminate\Support\Facades\Redis::executeRaw([
+            'XREAD', 'COUNT', '50', 'BLOCK', '100', 'STREAMS', \App\Services\ControlPlane\LogDispatcher::LOG_STREAM_KEY, 
         ]);
 
-        $logs = [];
-        $newLastId = $lastId;
+         = [];
+         = ;
 
-        if (!empty($raw)) {
-            foreach ($raw as $streamData) {
-                $messages = $streamData[1] ?? [];
-                foreach ($messages as $msg) {
-                    $newLastId = $msg[0];
-                    $fields = $msg[1];
-                    $data = $this->parseFields($fields);
-                    $logs[] = [
-                        'id' => $newLastId,
-                        'timestamp' => $data['timestamp'] ?? now()->toIso8601String(),
-                        'node' => $data['node'] ?? 'unknown',
-                        'level' => $data['level'] ?? 'INFO',
-                        'message' => $data['message'] ?? '',
+        if (!empty()) {
+            foreach ( as ) {
+                 = [1] ?? [];
+                foreach ( as ) {
+                     = [0];
+                     = [1];
+                     = ->parseFields();
+                    [] = [
+                        'id' => ,
+                        'timestamp' => ['timestamp'] ?? now()->toIso8601String(),
+                        'node' => ['node'] ?? 'unknown',
+                        'level' => ['level'] ?? 'INFO',
+                        'message' => ['message'] ?? '',
                     ];
                 }
             }
         }
 
+        if (count() > 0) {
+            broadcast(new LogsUpdated(, ));
+        }
+
         return response()->json([
-            'logs' => $logs,
-            'last_id' => $newLastId
+            'status' => 'broadcasted',
+            'count' => count(),
+            'last_id' => 
         ]);
     }
 
-    protected function parseFields(array $fields): array
+    protected function parseFields(array ): array
     {
-        $data = [];
-        for ($i = 0; $i < count($fields); $i += 2) {
-            $data[$fields[$i]] = $fields[$i+1];
+         = [];
+        for ( = 0;  < count();  += 2) {
+            [[]] = [+1];
         }
-        return $data;
+        return ;
     }
 
-    public function traffic(Request $request)
+    public function traffic(Request )
     {
         // Mock traffic data for Grafana-like visualization
-        $tunnelsCount = Tunnel::count();
+         = Tunnel::count();
         // Base traffic based on tunnels
-        $baseTraffic = $tunnelsCount > 0 ? ($tunnelsCount * 15) : 2; 
+         =  > 0 ? ( * 15) : 2; 
         
-        $rx = rand($baseTraffic, $baseTraffic + 30) + (rand(0, 99) / 100);
-        $tx = rand($baseTraffic, $baseTraffic + 20) + (rand(0, 99) / 100);
+         = rand(,  + 30) + (rand(0, 99) / 100);
+         = rand(,  + 20) + (rand(0, 99) / 100);
         
-        return response()->json([
+         = [
             'timestamp' => now()->toIso8601String(),
-            'rx_mbps' => round($rx, 2),
-            'tx_mbps' => round($tx, 2),
+            'rx_mbps' => round(, 2),
+            'tx_mbps' => round(, 2),
+        ];
+
+        broadcast(new TrafficUpdated());
+
+        return response()->json([
+            'status' => 'broadcasted',
+            'data' => 
         ]);
     }
 }

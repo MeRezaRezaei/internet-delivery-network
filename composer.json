@@ -3,10 +3,14 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "denis660/laravel-centrifugo": "^5.3",
         "google/protobuf": "^5.35",
         "grpc/grpc": "^1.80",
         "laravel/framework": "^13.8",

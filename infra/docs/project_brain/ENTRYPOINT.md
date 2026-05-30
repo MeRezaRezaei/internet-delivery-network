@@ -12,12 +12,13 @@
 
 
 ## Mandatory startup (90 seconds)
-1. Read `PROJECT_CONTEXT.md`.
-2. Read `SESSION_STATE.md`.
-3. Read `BACKLOG.md`.
-4. Read `TEST_GATE.md` and `RISK_REGISTER.md`.
-5. Read `ENVIRONMENT_BASELINE.md`.
-6. If MVP is active, read `MVP_CHECKLIST_TRACKER.md`.
+1. Determine Agent Role (Project Manager vs. Subagent Worker). If Subagent, execute assigned prompt strictly and skip broad orchestration.
+2. Read `PROJECT_CONTEXT.md`.
+3. Read `MULTI_AGENT_PROTOCOL.md`.
+4. Read `SESSION_STATE.md` and `BACKLOG.md`.
+5. Read `TEST_GATE.md` and `RISK_REGISTER.md`.
+6. Read `ENVIRONMENT_BASELINE.md`.
+7. If MVP is active, read `MVP_CHECKLIST_TRACKER.md`.
 
 ## Non-negotiable
 - Use highest unblocked backlog item.

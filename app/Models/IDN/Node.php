@@ -21,6 +21,7 @@ class Node extends Model
     ];
 
     protected $casts = [
+        'role' => \App\Enums\NodeRole::class,
         'is_active' => 'boolean',
         'last_heartbeat_at' => 'datetime',
         'metadata' => 'array',

@@ -14,13 +14,15 @@ use Illuminate\Support\Facades\DB;
 class ChainMission
 {
     /**
-     * Provision a single tunnel across multiple hops in one atomic transaction.
+     * Provision a single tunnel across multiple hops in one atomic transaction,
+     * separating download and upload paths for xHTTP aggregation.
      *
      * @param array $hops Array of configurations for each hop.
      *   [
      *     [
      *       'node' => Node model,
-     *       'inbound_port' => int,
+     *       'inbound_port' => int, // Used for download
+     *       'inbound_port_ul' => int, // Used for upload (defaults to inbound_port + 1)
      *       'inbound_tag' => string,
      *     ],
      *     ...
@@ -35,77 +37,115 @@ class ChainMission
             $routingRules = [];
 
             $previousNode = null;
-            $previousInboundTag = null;
+            $previousInboundTagDl = null;
+            $previousInboundTagUl = null;
 
             foreach ($hops as $index => $hop) {
                 /** @var Node $node */
                 $node = $hop['node'];
-                $portNumber = $hop['inbound_port'];
-                $inboundTag = $hop['inbound_tag'] ?? "chain-in-{$index}";
-                $outboundTag = "chain-out-to-" . ($index + 1);
+                $portNumberDl = $hop['inbound_port'];
+                $portNumberUl = $hop['inbound_port_ul'] ?? ($portNumberDl + 1);
+                $baseTag = $hop['inbound_tag'] ?? "chain-in-{$index}";
+                
+                $inboundTagDl = "{$baseTag}-dl";
+                $inboundTagUl = "{$baseTag}-ul";
 
-                // 1. Reserve Physical Port
-                $port = PhysicalPort::firstOrCreate(
-                    ['node_id' => $node->id, 'port_number' => $portNumber, 'protocol' => 'tcp'],
+                // 1. Reserve Physical Ports
+                $portDl = PhysicalPort::firstOrCreate(
+                    ['node_id' => $node->id, 'port_number' => $portNumberDl, 'protocol' => 'tcp'],
+                    ['status' => 'reserved']
+                );
+                $portUl = PhysicalPort::firstOrCreate(
+                    ['node_id' => $node->id, 'port_number' => $portNumberUl, 'protocol' => 'tcp'],
                     ['status' => 'reserved']
                 );
 
-                // 2. Create Sniffing Config (especially useful for portal/entry)
+                // 2. Create Sniffing Config (useful for portal/entry)
                 $sniffing = XraySniffingConfig::create([
                     'enabled' => true,
                     'dest_override' => 'http,tls,quic,fakedns',
                     'metadata_only' => false,
                 ]);
 
-                // 3. Create Inbound
-                $inbound = XrayInbound::create([
-                    'physical_port_id' => $port->id,
-                    'tag' => $inboundTag,
+                // 3. Create Inbounds
+                $inboundDl = XrayInbound::create([
+                    'physical_port_id' => $portDl->id,
+                    'tag' => $inboundTagDl,
                     'sniffing_id' => $sniffing->id,
                 ]);
+                $inboundUl = XrayInbound::create([
+                    'physical_port_id' => $portUl->id,
+                    'tag' => $inboundTagUl,
+                    'sniffing_id' => $sniffing->id, // Sniffing usually for DL/entry, but fine for both
+                ]);
 
-                // 4. Add VLESS to Inbound
+                // 4. Add VLESS to Inbounds
                 XrayProtocolVless::create([
-                    'handler_id' => $inbound->id,
+                    'handler_id' => $inboundDl->id,
+                    'handler_type' => XrayInbound::class,
+                    'decryption' => 'none',
+                ]);
+                XrayProtocolVless::create([
+                    'handler_id' => $inboundUl->id,
                     'handler_type' => XrayInbound::class,
                     'decryption' => 'none',
                 ]);
 
-                $inbounds[] = $inbound;
+                $inbounds[] = $inboundDl;
+                $inbounds[] = $inboundUl;
 
                 // 5. Link previous hop to this hop
                 if ($previousNode) {
-                    $outbound = XrayOutbound::create([
+                    // Outbounds from previous node to this node
+                    $outboundDl = XrayOutbound::create([
                         'node_id' => $previousNode->id,
-                        'tag' => "chain-out-to-{$inboundTag}",
+                        'tag' => "chain-out-to-{$inboundTagDl}",
+                    ]);
+                    $outboundUl = XrayOutbound::create([
+                        'node_id' => $previousNode->id,
+                        'tag' => "chain-out-to-{$inboundTagUl}",
                     ]);
 
                     XrayProtocolVless::create([
-                        'handler_id' => $outbound->id,
+                        'handler_id' => $outboundDl->id,
+                        'handler_type' => XrayOutbound::class,
+                        'decryption' => 'none',
+                    ]);
+                    XrayProtocolVless::create([
+                        'handler_id' => $outboundUl->id,
                         'handler_type' => XrayOutbound::class,
                         'decryption' => 'none',
                     ]);
 
-                    $outbounds[] = $outbound;
+                    $outbounds[] = $outboundDl;
+                    $outbounds[] = $outboundUl;
 
                     // Route from previous inbound to this new outbound
-                    $routingRule = XrayRoutingRule::create([
+                    $routingRules[] = XrayRoutingRule::create([
                         'node_id' => $previousNode->id,
                         'priority' => 10,
                         'type' => 'field',
-                        'inbound_tags' => $previousInboundTag,
-                        'outbound_tag' => $outbound->tag,
+                        'inbound_tags' => $previousInboundTagDl,
+                        'outbound_tag' => $outboundDl->tag,
                     ]);
-
-                    $routingRules[] = $routingRule;
+                    $routingRules[] = XrayRoutingRule::create([
+                        'node_id' => $previousNode->id,
+                        'priority' => 10,
+                        'type' => 'field',
+                        'inbound_tags' => $previousInboundTagUl,
+                        'outbound_tag' => $outboundUl->tag,
+                    ]);
                 }
 
                 $previousNode = $node;
-                $previousInboundTag = $inboundTag;
+                $previousInboundTagDl = $inboundTagDl;
+                $previousInboundTagUl = $inboundTagUl;
             }
 
-            // On the last node, create a direct outbound (freedom) and route traffic to it
+            // On the last node, create direct outbounds (freedom) and route traffic to it
             if ($previousNode) {
+                // Usually direct outbound is unified, but we'll create two or route both to one.
+                // It makes sense to unify them back for internet access.
                 $finalOutboundTag = "chain-out-direct";
                 $outbound = XrayOutbound::create([
                     'node_id' => $previousNode->id,
@@ -114,15 +154,13 @@ class ChainMission
 
                 $outbounds[] = $outbound;
 
-                $routingRule = XrayRoutingRule::create([
+                $routingRules[] = XrayRoutingRule::create([
                     'node_id' => $previousNode->id,
                     'priority' => 10,
                     'type' => 'field',
-                    'inbound_tags' => $previousInboundTag,
+                    'inbound_tags' => "{$previousInboundTagDl},{$previousInboundTagUl}",
                     'outbound_tag' => $finalOutboundTag,
                 ]);
-
-                $routingRules[] = $routingRule;
             }
 
             return [
