@@ -101,23 +101,19 @@ class DashboardController extends Controller
 
     public function traffic(Request $request)
     {
-        // Mock traffic data for Grafana-like visualization
-        $tunnelCount = \App\Models\Tunnel::count();
-        // Base traffic based on tunnels
-        $base = $tunnelCount > 0 ? ($tunnelCount * 15) : 2; 
+        $trafficData = \Illuminate\Support\Facades\Redis::hgetall('idn:traffic:latest');
         
-        $rx = rand($base, $base + 30) + (rand(0, 99) / 100);
-        $tx = rand($base, $base + 20) + (rand(0, 99) / 100);
-        
-        $data = [
-            'timestamp' => now()->toIso8601String(),
-            'rx_mbps' => round($rx, 2),
-            'tx_mbps' => round($tx, 2),
-        ];
+        $formattedData = [];
+        foreach ($trafficData as $node => $json) {
+            $data = json_decode($json, true);
+            if ($data) {
+                $formattedData[] = $data;
+            }
+        }
 
         return response()->json([
-            'status' => 'broadcasted',
-            'data' => $data
+            'status' => 'success',
+            'data' => $formattedData
         ]);
     }
 }

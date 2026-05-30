@@ -1,33 +1,50 @@
 import { ref, onMounted, onUnmounted } from 'vue';
-import { Centrifuge } from 'centrifuge';
+import axios from 'axios';
 
 export function useCentrifugo() {
     const traffic = ref([]);
     const logs = ref([]);
-    let centrifuge = null;
+    let trafficInterval = null;
+    let logsInterval = null;
+    let lastLogId = '0';
 
     onMounted(() => {
-        centrifuge = new Centrifuge('ws://localhost:8001/connection/websocket');
+        // Poll traffic every 3 seconds
+        trafficInterval = setInterval(async () => {
+            try {
+                const res = await axios.get('/idn/api/traffic');
+                if (res.data && res.data.data) {
+                    // Update traffic with the array of node traffic data
+                    traffic.value = res.data.data;
+                }
+            } catch (err) {
+                console.error("Failed to fetch traffic", err);
+            }
+        }, 3000);
 
-        const trafficSub = centrifuge.newSubscription('traffic');
-        trafficSub.on('publication', function (ctx) {
-            traffic.value.push(ctx.data);
-        });
-        trafficSub.subscribe();
-
-        const logsSub = centrifuge.newSubscription('logs');
-        logsSub.on('publication', function (ctx) {
-            logs.value.push(ctx.data);
-        });
-        logsSub.subscribe();
-
-        centrifuge.connect();
+        // Poll logs every 2 seconds
+        logsInterval = setInterval(async () => {
+            try {
+                const res = await axios.get(`/idn/api/logs?last_id=${lastLogId}`);
+                if (res.data && res.data.logs) {
+                    if (res.data.logs.length > 0) {
+                        res.data.logs.forEach(log => logs.value.push(log));
+                        // Keep logs array reasonably sized
+                        if (logs.value.length > 200) {
+                            logs.value = logs.value.slice(logs.value.length - 200);
+                        }
+                    }
+                    lastLogId = res.data.last_id;
+                }
+            } catch (err) {
+                console.error("Failed to fetch logs", err);
+            }
+        }, 2000);
     });
 
     onUnmounted(() => {
-        if (centrifuge) {
-            centrifuge.disconnect();
-        }
+        if (trafficInterval) clearInterval(trafficInterval);
+        if (logsInterval) clearInterval(logsInterval);
     });
 
     return {

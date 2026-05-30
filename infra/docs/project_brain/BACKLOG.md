@@ -55,6 +55,6 @@
 | IDN-035 | P0 | Setup Xray API Test Environment | done | - | docker-compose.yml and test_api_config.json created and container started |
 
 ## Future Ideas
-- [ ] **IDN-050 Automatic Failover**: Monitor node health and automatically re-route tunnels if a node goes down.
-- [ ] **IDN-051 Traffic Visualization**: Add Grafana-like charts to the Dashboard.
-- [ ] **IDN-052 Mobile Dashboard**: Responsive UI optimization for mobile management.
+- [x] **IDN-050 Automatic Failover**: Monitor node health and automatically re-route tunnels if a node goes down. (Completed previously)
+- [x] **IDN-051 Traffic Visualization**: Add Grafana-like charts to the Dashboard.
+- [x] **IDN-052 Mobile Dashboard**: Responsive UI optimization for mobile management.
