@@ -15,10 +15,12 @@
 - [x] **IDN-056 Deep Cleanup Service**: Implement a service to handle recursive deletion of Xray nested models (Sniffing, Protocols, Transports). [COMPLETED] (2026-05-30)
 - [x] **IDN-057 Environment Stabilization**: Fixed migrations (PhysicalPort prefix, Subscription type), port conflicts (Redis), and test regressions (NodeRole::EXIT, Factory uniqueness). [COMPLETED] (2026-05-30)
 - [x] **IDN-058 Contract Test Suite**: Implement contract tests for Events, Xray Config, and Control Plane Signals. [COMPLETED] (2026-05-30)
+- [x] **IDN-059 MVP Checklist Finalization**: Implement tests for error recovery idempotency and record performance benchmarks. [COMPLETED] (2026-05-30)
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |
 |---|---:|---|---|---|---|
+| IDN-059 | P1 | MVP Checklist Finalization | done | IDN-058 | Idempotency and Performance benchmark tests pass and recorded |
 | IDN-058 | P1 | Contract Test Suite | done | IDN-057 | Test suite in `tests/Feature/Contract/` covers core interfaces |
 | IDN-057 | P1 | Environment Stabilization | done | - | All tests passing and environment stable |
 | IDN-056 | P1 | Deep Cleanup Service | done | IDN-055 | Recursive deletion of nested Xray models implemented and verified |

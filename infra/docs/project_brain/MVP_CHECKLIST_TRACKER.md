@@ -21,8 +21,8 @@ Track MVP acceptance requirements and prevent premature "MVP complete" claims.
 | Contract test suite exists | pass | `tests/Feature/Contract/` suite covers Events, Xray Config, and Signals |
 | MVP out-of-scope boundaries enforced | todo | - |
 | Risk guard minimum rules implemented | pass | `RiskGuard::validateConfig` and `NodeObserver` block unsafe bindings and destructive node deletions. Tested in `RiskGuardTest.php`. |
-| Error recovery idempotency tested | todo | - |
-| Performance benchmark recorded | todo | - |
+| Error recovery idempotency tested | pass | `tests/Feature/Safety/ErrorRecoveryIdempotencyTest.php` proves DB transactions rollback and idempotency on retry |
+| Performance benchmark recorded | pass | `tests/Feature/PerformanceBenchmarkTest.php` proves 3-hop setup < 100ms (measured at 64.84ms) |
 | Gap-recovery behavior defined and tested | todo | - |
 
 ## Rule

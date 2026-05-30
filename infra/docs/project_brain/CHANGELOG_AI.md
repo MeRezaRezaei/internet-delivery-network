@@ -298,9 +298,11 @@
     - Set the Bridge `maxConcurrency: 128` to support a high volume of parallel SOCKS streams and connection swaps (`hMaxReusableSecs: 900`, `hMaxRequestTimes: 1500`) to reset GFW's UDP QoS throttling.
     - Integrated system-aligned Tor dialer proxy (`"dialerProxy": "tor"`, port `10110`) to handle large volume connections safely.
 
-## [2026-05-30] - Contract Testing
+## [2026-05-30] - Contract Testing & MVP Verification
 - Added Contract Test Suite in `tests/Feature/Contract/`.
 - Implemented `EventContractTest` to verify broadcasting event structures.
 - Implemented `XrayConfigContractTest` to verify core Xray config structure.
 - Implemented `SignalContractTest` to verify Redis signal contracts.
 - Updated MVP Checklist: "Contract test suite exists" marked as `pass`.
+- **MVP Verification**: Implemented `ErrorRecoveryIdempotencyTest.php` to prove that `ChainMission` correctly rolls back all partial database states on failure, enforcing atomic transactional integrity.
+- **MVP Verification**: Implemented `PerformanceBenchmarkTest.php` to benchmark the `ChainMission` provisioning speed, achieving ~65ms for a 3-hop setup (well under the 1500ms limit). Marked "Error recovery idempotency tested" and "Performance benchmark recorded" as pass in the MVP checklist.
