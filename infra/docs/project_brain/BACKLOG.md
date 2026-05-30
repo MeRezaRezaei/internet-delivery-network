@@ -4,10 +4,12 @@
 - [x] **IDN-040 Advanced Routing Engine**: Generate Xray routing rules based on real-time node metrics. (Merged via US node)
 - [x] **IDN-041 Multi-Node Batching**: Support provisioning a single tunnel across multiple hops (Chain) in one atomic transaction. [COMPLETED] (Merged via DE node)
 - [x] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard. [COMPLETED] (2026-05-30)
+- [x] **IDN-045 Automated Connectivity Tests**: Implement a command to verify the 5NF-linked tunnels using `xray -test` and live pings. [COMPLETED] (2026-05-30)
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |
 |---|---:|---|---|---|---|
+| IDN-045 | P1 | Automated Connectivity Tests | done | IDN-043 | Command `idn:verify-tunnels` implemented and verified |
 | IDN-043 | P1 | Model Unification (5NF -> IDN) | done | IDN-033 | Tunnel model linked to XrayInbound/Outbound IDs |
 | PB-001 | P0 | Bootstrap project brain | done | - | Core docs filled and validated |
 | IDN-018 | P1 | Control Plane Foundation | done | - | Signal/Log dispatchers, Node registry, Xray Protobuf integration |

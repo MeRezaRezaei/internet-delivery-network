@@ -5,11 +5,9 @@
 - **Phase**: Post-Refactor Verification
 
 ## Achievements
+- [x] **IDN-045 Automated Connectivity Tests**: Implemented `idn:verify-tunnels` Artisan command to validate Xray configs and connectivity via 5NF models.
+- [x] **Database Migration Fixes**: Resolved duplicate migration conflicts and updated `NodeRole` enum to support 'portal' role.
 - [x] **IDN-042 TLS/XHTTP Integration**: Implemented XrayTransportSplithttp and XrayTransportHttpupgrade models and migrations.
-- [x] **Relational Dashboard Refactor**: Replaced JSON-blob tunnel management with a unified relational system linked via `inbound_id` and `outbound_id`.
-- [x] **Modern Transport UI**: Developed and integrated `TunnelManager.vue` with support for XHTTP, Split-HTTP, and HTTPUpgrade.
-- [x] **Orchestration Alignment**: Enhanced `PortalMission` to provision modern transports atomically across the fleet.
-- [x] **Model Unification**: Reconciled the 5NF `XrayInbound/Outbound` models with the `IDN\Tunnel` model.
 
 ## Done
 - **Unified IDN Control Plane & Relational Orchestration (2026-05-28):**
@@ -44,9 +42,8 @@
 - MySQL and Redis are core dependencies for the Control Plane.
 
 ## Next Steps for Successor Agent
-1. **TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard, utilizing the newly unified models.
-2. **Dashboard Refactor**: Update the Tunnel management UI to leverage the direct `inbound_id`/`outbound_id` links instead of parsing the JSON `config` blob.
-3. **Automated Connectivity Tests**: Implement a command to verify the 5NF-linked tunnels using `xray -test` and live pings.
+1. **Fleet-wide Verification**: Run `php artisan idn:verify-tunnels` on the production database to identify any misconfigured tunnels.
+2. **Dashboard Integration**: Add a "Verify" button to the Tunnel management UI that triggers the connectivity test via API.
 
 ## Handover Metadata
 - **Database**: `idn_db` on `localhost:3306`
