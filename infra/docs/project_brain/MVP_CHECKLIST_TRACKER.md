@@ -14,7 +14,7 @@ Track MVP acceptance requirements and prevent premature "MVP complete" claims.
 ## Tracker table
 | Item | Status | Evidence |
 |---|---|---|
-| Runtime states canonical and mapped end-to-end | todo | - |
+| Runtime states canonical and mapped end-to-end | partial | `idn:fleet:reconcile` command implemented to sync DB/Redis |
 | Strategy schema canonicalized and validated | todo | - |
 | Event/channel contracts fixed and versioned | todo | - |
 | Determinism rules locked and tested | todo | - |
