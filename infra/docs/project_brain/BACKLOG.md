@@ -3,7 +3,7 @@
 ## High Priority
 - [x] **IDN-040 Advanced Routing Engine**: Generate Xray routing rules based on real-time node metrics. (Merged via US node)
 - [x] **IDN-041 Multi-Node Batching**: Support provisioning a single tunnel across multiple hops (Chain) in one atomic transaction. [COMPLETED] (Merged via DE node)
-- [ ] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard.
+- [x] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard. [COMPLETED] (2026-05-30)
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |

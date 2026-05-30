@@ -1,19 +1,15 @@
 # SESSION STATE: 2026-05-30
 
 ## Current Focus
-- **Topic**: IDN-051 and IDN-052 Implementation (Epic 2)
-- **Phase**: Dashboard Enhancement and Epic 2 Completion
+- **Topic**: Fleet-wide Transport Modernization
+- **Phase**: Post-Refactor Verification
 
 ## Achievements
-- [x] **Model Unification**: Reconciled the 5NF `XrayInbound/Outbound` models with the `IDN\Tunnel` model, enabling direct ID linking for xHTTP aggregation (DL/UL paths).
-- [x] **IDN-051 Traffic Visualization**: Added TrafficMonitorCommand to poll Xray gRPC and visualize data using Chart.js in Dashboard.
-- [x] **IDN-052 Mobile Dashboard**: Refactored the Dashboard UI to use TailwindCSS for full mobile responsiveness.
-- [x] **Failover Notification Feed**: Visually added a Failover log tracking panel inside the Dashboard.
-- [x] **IDN-041 Multi-Node Batching**: Implemented atomic multi-hop chain provisioning with model unification (Xray Handler -> IDN Tunnel).
-- [x] **Unbreakable Xray Relational Configuration System**: Deployed 5NF relational schema mapping Xray-core internal architecture.
-- [x] **Tailscale API Integration**: Implemented TailscaleService and Facade with OAuth2 support.
-- [x] **Control Plane Hardening**: Redis Streams, Transactional Batching, and Fleet Status monitoring.
-- [x] **Dashboard Implementation**: Real-time Node fleet monitoring and Log Streaming engine.
+- [x] **IDN-042 TLS/XHTTP Integration**: Implemented XrayTransportSplithttp and XrayTransportHttpupgrade models and migrations.
+- [x] **Relational Dashboard Refactor**: Replaced JSON-blob tunnel management with a unified relational system linked via `inbound_id` and `outbound_id`.
+- [x] **Modern Transport UI**: Developed and integrated `TunnelManager.vue` with support for XHTTP, Split-HTTP, and HTTPUpgrade.
+- [x] **Orchestration Alignment**: Enhanced `PortalMission` to provision modern transports atomically across the fleet.
+- [x] **Model Unification**: Reconciled the 5NF `XrayInbound/Outbound` models with the `IDN\Tunnel` model.
 
 ## Done
 - **Unified IDN Control Plane & Relational Orchestration (2026-05-28):**

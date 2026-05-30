@@ -13,43 +13,64 @@ use Illuminate\Support\Facades\DB;
 class TunnelController extends Controller
 {
     protected SignalDispatcher $dispatcher;
+    protected \App\Services\Xray\Missions\PortalMission $portalMission;
 
-    public function __construct(SignalDispatcher $dispatcher)
+    public function __construct(SignalDispatcher $dispatcher, \App\Services\Xray\Missions\PortalMission $portalMission)
     {
         $this->dispatcher = $dispatcher;
+        $this->portalMission = $portalMission;
     }
 
     public function store(Request $request)
     {
-        // Pre-process JSON string to array
-        if (is_string($request->input('config'))) {
-            try {
-                $request->merge(['config' => json_decode($request->input('config'), true, 512, JSON_THROW_ON_ERROR)]);
-            } catch (\Exception $e) {
-                return back()->withErrors(['config' => 'Invalid JSON format.'])->withInput();
-            }
-        }
-
         $validated = $request->validate([
             'source_node_id' => 'required|exists:idn_nodes,id',
             'target_node_id' => 'required|exists:idn_nodes,id',
             'tag' => 'required|unique:idn_tunnels,tag',
             'port' => 'required|integer',
             'protocol' => 'required|string',
-            'config' => 'required|array',
+            'transport' => 'nullable|string',
+            'transport_params' => 'nullable|array',
+            'reality_params' => 'nullable|array',
         ]);
 
         return DB::transaction(function () use ($validated) {
-            $tunnel = Tunnel::create($validated);
-
-            // Dispatch signal to the target node
-            $this->dispatcher->dispatch(
-                Node::find($validated['target_node_id'])->name,
-                'ADD_INBOUND',
-                $validated['config'] + ['tag' => $validated['tag'], 'port' => $validated['port'], 'protocol' => $validated['protocol']]
+            $targetNode = Node::findOrFail($validated['target_node_id']);
+            
+            // 1. Provision via PortalMission
+            $inbound = $this->portalMission->setup(
+                $targetNode,
+                $validated['port'],
+                $validated['tag'],
+                $validated['reality_params'] ?? [],
+                $validated['transport'] ?? 'tcp',
+                $validated['transport_params'] ?? []
             );
 
-            return redirect()->route('idn.dashboard')->with('success', 'Tunnel created and signal dispatched.');
+            // 2. Create Outbound on Source Node (simplified for portal)
+            $sourceNode = Node::findOrFail($validated['source_node_id']);
+            $outbound = XrayOutbound::create([
+                'node_id' => $sourceNode->id,
+                'tag' => "out-to-{$validated['tag']}",
+            ]);
+
+            // 3. Link everything in Tunnel record
+            $tunnel = Tunnel::create([
+                'source_node_id' => $sourceNode->id,
+                'target_node_id' => $targetNode->id,
+                'tag' => $validated['tag'],
+                'inbound_id' => $inbound->id,
+                'outbound_id' => $outbound->id,
+                'port' => $validated['port'],
+                'protocol' => $validated['protocol'],
+                'is_active' => true,
+            ]);
+
+            // 4. Dispatch signals
+            $this->dispatcher->dispatch($targetNode->name, 'ADD_INBOUND', ['tag' => $validated['tag']]);
+            $this->dispatcher->dispatch($sourceNode->name, 'ADD_OUTBOUND', ['tag' => $outbound->tag]);
+
+            return response()->json(['status' => 'success', 'tunnel' => $tunnel]);
         });
     }
 

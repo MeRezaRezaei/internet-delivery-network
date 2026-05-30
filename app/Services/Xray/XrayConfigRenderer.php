@@ -16,6 +16,8 @@ class XrayConfigRenderer
             'ports.inbound.vless.clients.client',
             'ports.inbound.trojan.clients.client',
             'ports.inbound.xhttp',
+            'ports.inbound.splithttp',
+            'ports.inbound.httpupgrade',
             'ports.inbound.grpc',
             'ports.inbound.tls',
             'ports.inbound.reality',
@@ -23,6 +25,8 @@ class XrayConfigRenderer
             'outbounds.vless.clients.client',
             'outbounds.trojan.clients.client',
             'outbounds.xhttp',
+            'outbounds.splithttp',
+            'outbounds.httpupgrade',
             'outbounds.grpc',
             'outbounds.tls',
             'outbounds.reality',
@@ -145,6 +149,27 @@ class XrayConfigRenderer
                         'xPaddingObfsMode' => $inbound->xhttp->obfuscation_enabled,
                     ],
                 ];
+            } elseif ($inbound->splithttp) {
+                $streamSettings['network'] = 'splithttp';
+                $streamSettings['splitHttpSettings'] = [
+                    'host' => $inbound->splithttp->host,
+                    'path' => $inbound->splithttp->path,
+                    'mode' => $inbound->splithttp->mode,
+                    'headers' => (object)$inbound->splithttp->headers,
+                ];
+                if ($inbound->splithttp->x_padding_range) {
+                    $streamSettings['splitHttpSettings']['xPaddingBytes'] = $inbound->splithttp->x_padding_range;
+                    $streamSettings['splitHttpSettings']['xPaddingObfsMode'] = $inbound->splithttp->x_padding_obfs_mode;
+                }
+            } elseif ($inbound->httpupgrade) {
+                $streamSettings['network'] = 'httpupgrade';
+                $streamSettings['httpUpgradeSettings'] = [
+                    'host' => $inbound->httpupgrade->host,
+                    'path' => $inbound->httpupgrade->path,
+                    'header' => (object)$inbound->httpupgrade->headers,
+                    'accept_proxy_protocol' => $inbound->httpupgrade->accept_proxy_protocol,
+                    'ed' => $inbound->httpupgrade->ed,
+                ];
             } elseif ($inbound->grpc) {
                 $streamSettings['network'] = 'grpc';
                 $streamSettings['grpcSettings'] = [
@@ -215,6 +240,57 @@ class XrayConfigRenderer
                 // Default to freedom for direct
                 $config['protocol'] = 'freedom';
                 $config['settings'] = (object)[];
+            }
+
+            // Transport
+            $streamSettings = [];
+            if ($outbound->xhttp) {
+                $streamSettings['network'] = 'xhttp';
+                $streamSettings['xhttpSettings'] = [
+                    'path' => $outbound->xhttp->path,
+                    'mode' => $outbound->xhttp->mode,
+                ];
+            } elseif ($outbound->splithttp) {
+                $streamSettings['network'] = 'splithttp';
+                $streamSettings['splitHttpSettings'] = [
+                    'host' => $outbound->splithttp->host,
+                    'path' => $outbound->splithttp->path,
+                    'mode' => $outbound->splithttp->mode,
+                    'headers' => (object)$outbound->splithttp->headers,
+                ];
+            } elseif ($outbound->httpupgrade) {
+                $streamSettings['network'] = 'httpupgrade';
+                $streamSettings['httpUpgradeSettings'] = [
+                    'host' => $outbound->httpupgrade->host,
+                    'path' => $outbound->httpupgrade->path,
+                    'header' => (object)$outbound->httpupgrade->headers,
+                ];
+            } elseif ($outbound->grpc) {
+                $streamSettings['network'] = 'grpc';
+                $streamSettings['grpcSettings'] = [
+                    'serviceName' => $outbound->grpc->service_name,
+                    'multiMode' => $outbound->grpc->multi_mode,
+                ];
+            }
+
+            // Security
+            if ($outbound->tls) {
+                $streamSettings['security'] = 'tls';
+                $streamSettings['tlsSettings'] = [
+                    'serverName' => $outbound->tls->server_name,
+                    'allowInsecure' => $outbound->tls->allow_insecure,
+                ];
+            } elseif ($outbound->reality) {
+                $streamSettings['security'] = 'reality';
+                $streamSettings['realitySettings'] = [
+                    'serverNames' => explode(',', $outbound->reality->server_names),
+                    'publicKey' => $outbound->reality->private_key, // Reusing field for simplicity in this MVP
+                    'shortId' => explode(',', $outbound->reality->short_ids)[0] ?? '',
+                ];
+            }
+
+            if (!empty($streamSettings)) {
+                $config['streamSettings'] = $streamSettings;
             }
 
             $outbounds[] = $config;
