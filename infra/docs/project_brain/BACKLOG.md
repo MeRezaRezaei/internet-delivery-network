@@ -10,11 +10,13 @@
 - [x] **IDN-046 Dashboard Integration for Tunnel Verification**: Add a "Verify" button to the Tunnel management UI that triggers the connectivity test via API. [COMPLETED] (2026-05-30)
 - [x] **IDN-047 Fleet Reconciliation Engine**: Implement a command to sync and reconcile node health status between DB and Redis. [COMPLETED] (2026-05-30)
 - [x] **IDN-053 Failover & Outbound Signaling Hardening**: Fix source node failover logic and enable ADD_OUTBOUND signals. [COMPLETED] (2026-05-30)
+- [x] **IDN-054 Load-Balanced Failover**: Peer selection during failover uses `withCount` to pick the node with the least number of tunnels. [COMPLETED] (2026-05-30)
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |
 |---|---:|---|---|---|---|
 | IDN-053 | P1 | Failover & Outbound Signaling Hardening | done | IDN-050 | Source failover signals dispatched and handled |
+| IDN-054 | P2 | Load-Balanced Failover | done | IDN-053 | migrateTunnels picks least-loaded peer |
 | IDN-047 | P1 | Fleet Reconciliation Engine | done | IDN-019 | Command `idn:fleet:reconcile` implemented and verified |
 | IDN-046 | P1 | Dashboard Integration for Tunnel Verification | done | IDN-045 | "Verify" button added to UI and functional via API |
 | IDN-045 | P1 | Automated Connectivity Tests | done | IDN-043 | Command `idn:verify-tunnels` implemented and verified |

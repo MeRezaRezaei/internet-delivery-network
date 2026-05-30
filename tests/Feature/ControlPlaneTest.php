@@ -72,4 +72,39 @@ class ControlPlaneTest extends TestCase
         $state = Redis::hGetAll("idn:control-plane:nodes:local:state");
         $this->assertEquals('BATCH_FAILED', $state['last_action']);
     }
+
+    /**
+     * Test Failover Load Balancing.
+     */
+    public function test_failover_load_balancing()
+    {
+        $role = \App\Enums\NodeRole::EXIT;
+        
+        $offlineNode = \App\Models\Node::factory()->create(['role' => $role, 'is_active' => false]);
+        
+        // Peer A: 2 tunnels
+        $peerA = \App\Models\Node::factory()->create(['role' => $role, 'is_active' => true, 'name' => 'peer-a']);
+        \App\Models\Tunnel::factory()->count(2)->create(['target_node_id' => $peerA->id]);
+        
+        // Peer B: 1 tunnel
+        $peerB = \App\Models\Node::factory()->create(['role' => $role, 'is_active' => true, 'name' => 'peer-b']);
+        \App\Models\Tunnel::factory()->count(1)->create(['target_node_id' => $peerB->id]);
+        
+        // Peer C: 0 tunnels
+        $peerC = \App\Models\Node::factory()->create(['role' => $role, 'is_active' => true, 'name' => 'peer-c']);
+
+        // Tunnel to migrate
+        $tunnel = \App\Models\Tunnel::factory()->create([
+            'target_node_id' => $offlineNode->id,
+            'is_active' => true,
+            'tag' => 'migrate-me'
+        ]);
+
+        $manager = app(ControlPlaneManager::class);
+        $manager->migrateTunnels($offlineNode);
+
+        // It should pick Peer C (0 tunnels)
+        $tunnel->refresh();
+        $this->assertEquals($peerC->id, $tunnel->target_node_id);
+    }
 }

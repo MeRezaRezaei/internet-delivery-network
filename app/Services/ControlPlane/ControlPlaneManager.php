@@ -165,10 +165,12 @@ class ControlPlaneManager
         if ($targetTunnels->isEmpty()) {
             Log::info("Control Plane: No target tunnels to migrate for [{$offlineNode->name}].");
         } else {
-            // Find a healthy peer with the same role
+            // Find a healthy peer with the same role, picking the one with the least number of tunnels (load balancing)
             $peer = \App\Models\Node::where('role', $offlineNode->role)
                 ->where('is_active', true)
                 ->where('id', '!=', $offlineNode->id)
+                ->withCount(['sourceTunnels', 'targetTunnels'])
+                ->orderByRaw('(source_tunnels_count + target_tunnels_count) ASC')
                 ->first();
 
             if (!$peer) {
@@ -198,10 +200,12 @@ class ControlPlaneManager
         if ($sourceTunnels->isEmpty()) {
             Log::info("Control Plane: No source tunnels to migrate for [{$offlineNode->name}].");
         } else {
-            // Find a healthy peer with the same role
+            // Find a healthy peer with the same role, picking the one with the least number of tunnels (load balancing)
             $peer = \App\Models\Node::where('role', $offlineNode->role)
                 ->where('is_active', true)
                 ->where('id', '!=', $offlineNode->id)
+                ->withCount(['sourceTunnels', 'targetTunnels'])
+                ->orderByRaw('(source_tunnels_count + target_tunnels_count) ASC')
                 ->first();
 
             if (!$peer) {
