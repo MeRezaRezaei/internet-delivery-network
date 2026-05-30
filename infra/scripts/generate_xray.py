@@ -5,8 +5,8 @@ Author: Antigravity
 
 This script generates a highly optimized, dynamic, single-port CDN-style Xray JSON configuration
 for the IDN mesh. It eliminates TCP port bloat by consolidating listeners:
-1. IN_REVERSE_PORTAL (Port 10001) - Loopback VLESS inbound for all 384 bridge reverse tunnels.
-2. IN_XTLS_USER (Port 20001) - Loopback VLESS inbound for all 384 user XTLS connections.
+1. IN_REVERSE_PORTAL (Port 10001) - Loopback VLESS inbound for all bridge reverse tunnels.
+2. IN_XTLS_USER (Port 20001) - Loopback VLESS inbound for all user XTLS connections.
 
 Traffic is dynamically routed in memory based on client emails:
 - Users matching `{T}_{O}_{I}_{C}@user` route to `reverse-out-{T}_{O}_{I}_{C}`.
@@ -15,28 +15,17 @@ Traffic is dynamically routed in memory based on client emails:
 
 import os
 import json
-
-# ===================================================================
-# INVENTORY CONFIGURATION (Active Matrix matching generate_haproxy)
-# ===================================================================
-TUNNEL_IDS = [f"{i:02d}" for i in range(1, 25)]
-OUTSIDE_SERVERS = ["01", "03"]
-INSIDE_SERVERS = ["01", "03", "04", "05"]
-CDNS = ["01", "05"]
-
-# Common Credentials
-UUID = "58764c09-99c3-4496-9591-9cff83e4c7b7"
-SEED = "a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7"
+import argparse
 
 # ===================================================================
 # CONFIG GENERATOR
 # ===================================================================
-def generate_unified_xray():
+def generate_unified_xray(tunnel_ids, outside_servers, inside_servers, cdns, uuid, seed):
     combinations = []
-    for t in TUNNEL_IDS:
-        for o in OUTSIDE_SERVERS:
-            for i in INSIDE_SERVERS:
-                for c in CDNS:
+    for t in tunnel_ids:
+        for o in outside_servers:
+            for i in inside_servers:
+                for c in cdns:
                     combinations.append((t, o, i, c))
 
     print(f"[*] Generating dynamic configuration for {len(combinations)} active scenario combinations...")
@@ -53,9 +42,9 @@ def generate_unified_xray():
 
         # 1. Add Bridge Reverse Portal client object
         reverse_clients.append({
-            "id": UUID,
+            "id": uuid,
             "email": f"{tag_suffix}@reverse",
-            "seed": SEED,
+            "seed": seed,
             "reverse": {
                 "tag": outbound_tag
             }
@@ -63,9 +52,9 @@ def generate_unified_xray():
 
         # 2. Add User VLESS client object
         user_clients.append({
-            "id": UUID,
+            "id": uuid,
             "email": f"{tag_suffix}@user",
-            "seed": SEED
+            "seed": seed
         })
 
         # 3. User Routing Rule: Map user email to its dynamic reverse outbound tag
@@ -151,10 +140,29 @@ def generate_unified_xray():
 # MAIN INVOCATION ENTRYPOINT
 # ===================================================================
 if __name__ == "__main__":
-    out_dir = os.path.abspath("configs/xray/generated")
+    parser = argparse.ArgumentParser(description="Generate Xray Unified Config")
+    parser.add_argument("--outside", type=str, default="01,03", help="Comma-separated list of active outside servers")
+    parser.add_argument("--inside", type=str, default="01,03,04,05", help="Comma-separated list of active inside servers")
+    parser.add_argument("--cdns", type=str, default="01,05", help="Comma-separated list of active CDNs")
+    parser.add_argument("--tunnels", type=str, default=",".join([f"{i:02d}" for i in range(1, 25)]), help="Comma-separated list of tunnel IDs")
+    parser.add_argument("--uuid", type=str, default="58764c09-99c3-4496-9591-9cff83e4c7b7", help="VLESS UUID")
+    parser.add_argument("--seed", type=str, default="a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7", help="VLESS Seed")
+    parser.add_argument("--output", type=str, default="configs/xray/generated", help="Output directory")
+    
+    args = parser.parse_args()
+
+    outside_servers = args.outside.split(",")
+    inside_servers = args.inside.split(",")
+    cdns = args.cdns.split(",")
+    tunnel_ids = args.tunnels.split(",")
+
+    out_dir = os.path.abspath(args.output)
     os.makedirs(out_dir, exist_ok=True)
     
-    config, excludes = generate_unified_xray()
+    config, excludes = generate_unified_xray(
+        tunnel_ids, outside_servers, inside_servers, cdns, 
+        args.uuid, args.seed
+    )
     
     # 1. Save unified Xray config
     config_file = os.path.join(out_dir, "xray_unified.json")

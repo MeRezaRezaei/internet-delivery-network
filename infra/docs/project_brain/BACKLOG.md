@@ -1,7 +1,7 @@
 # IDN BACKLOG
 
 ## High Priority
-- [ ] **IDN-040 Advanced Routing Engine**: Generate Xray routing rules based on real-time node metrics.
+- [x] **IDN-040 Advanced Routing Engine**: Generate Xray routing rules based on real-time node metrics.
 - [ ] **IDN-041 Multi-Node Batching**: Support provisioning a single tunnel across multiple hops (Chain) in one atomic transaction.
 - [ ] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard.
 
