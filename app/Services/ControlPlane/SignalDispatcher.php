@@ -43,4 +43,12 @@ class SignalDispatcher
     {
         return $this->dispatch($node, 'BATCH_TRANSACTION', ['signals' => $signals]);
     }
+    /**
+     * Dispatch a multi-node batch transactionally to the central control plane.
+     */
+    public function dispatchMultiNodeBatch(array $multiNodeBatch): string
+    {
+        // 'control-plane' acts as a special virtual node handled by the central orchestrator
+        return $this->dispatch('control-plane', 'MULTI_NODE_BATCH_TRANSACTION', ['multi_node_batch' => $multiNodeBatch]);
+    }
 }

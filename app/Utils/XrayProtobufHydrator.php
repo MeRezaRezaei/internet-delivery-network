@@ -13,6 +13,38 @@ use Exception;
 class XrayProtobufHydrator
 {
     /**
+     * Convert a configuration array into a fully hydrated OutboundHandlerConfig.
+     */
+    public static function hydrateOutbound(array $config): \Xray\Core\OutboundHandlerConfig
+    {
+        $outbound = new \Xray\Core\OutboundHandlerConfig();
+        $outbound->setTag($config['tag'] ?? throw new Exception("Outbound 'tag' is mandatory."));
+
+        $sender = new \Xray\App\Proxyman\SenderConfig();
+        $outbound->setSenderSettings(new \Xray\Common\Serial\TypedMessage([
+            'type' => 'type.googleapis.com/xray.app.proxyman.SenderConfig',
+            'value' => $sender->serializeToString(),
+        ]));
+
+        return $outbound;
+    }
+
+    /**
+     * Convert a configuration array into a fully hydrated RoutingRule.
+     */
+    public static function hydrateRoutingRule(array $config): \Xray\App\Router\RoutingRule
+    {
+        $rule = new \Xray\App\Router\RoutingRule();
+        if (isset($config['inbound_tag'])) {
+            $rule->setInboundTag([$config['inbound_tag']]);
+        }
+        if (isset($config['outbound_tag'])) {
+            $rule->setTargetTag($config['outbound_tag']);
+        }
+        return $rule;
+    }
+
+    /**
      * Convert a configuration array into a fully hydrated InboundHandlerConfig.
      * 
      * @param array $config Must contain 'tag', 'port', 'protocol', and optionally 'settings', 'streamSettings', 'sniffing'.
@@ -61,7 +93,44 @@ class XrayProtobufHydrator
             $streamConfig = new \Xray\Transport\Internet\StreamConfig();
             
             if (isset($config['streamSettings']['network'])) {
-                $streamConfig->setProtocolName($config['streamSettings']['network']);
+                $network = $config['streamSettings']['network'];
+                // Handle alias for httpupgrade
+                if ($network === 'xhttp') {
+                    $network = 'httpupgrade';
+                }
+                
+                $streamConfig->setProtocolName($network);
+                
+                $transportConfig = new \Xray\Transport\Internet\TransportConfig();
+                $transportConfig->setProtocolName($network);
+                
+                $settingsMessage = null;
+                $settingsType = '';
+                
+                if ($network === 'httpupgrade') {
+                    $settingsMessage = new \Xray\Transport\Internet\Httpupgrade\Config();
+                    if (isset($config['streamSettings']['httpupgradeSettings'])) {
+                        $settingsMessage->mergeFromJsonString(json_encode($config['streamSettings']['httpupgradeSettings']));
+                    }
+                    $settingsType = 'type.googleapis.com/xray.transport.internet.httpupgrade.Config';
+                } elseif ($network === 'splithttp') {
+                    $settingsMessage = new \Xray\Transport\Internet\Splithttp\Config();
+                    if (isset($config['streamSettings']['splithttpSettings'])) {
+                        $settingsMessage->mergeFromJsonString(json_encode($config['streamSettings']['splithttpSettings']));
+                    }
+                    $settingsType = 'type.googleapis.com/xray.transport.internet.splithttp.Config';
+                } elseif ($network === 'grpc') {
+                    $settingsMessage = new \Xray\Transport\Internet\Grpc\Encoding\Config();
+                    if (isset($config['streamSettings']['grpcSettings'])) {
+                        $settingsMessage->mergeFromJsonString(json_encode($config['streamSettings']['grpcSettings']));
+                    }
+                    $settingsType = 'type.googleapis.com/xray.transport.internet.grpc.encoding.Config';
+                }
+                
+                if ($settingsMessage) {
+                    $transportConfig->setSettings(self::wrapTypedMessage($settingsMessage, $settingsType));
+                    $streamConfig->setTransportSettings([$transportConfig]);
+                }
             }
             if (isset($config['streamSettings']['security'])) {
                 $streamConfig->setSecurityType($config['streamSettings']['security']);

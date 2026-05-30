@@ -4,6 +4,7 @@ namespace App\Http\Controllers\IDN;
 
 use App\Http\Controllers\Controller;
 use App\Models\Node;
+use App\Models\Tunnel;
 use App\Models\XrayInbound;
 use App\Services\ControlPlane\NodeMonitorService;
 use Illuminate\Http\Request;
@@ -90,5 +91,33 @@ class DashboardController extends Controller
             $data[$fields[$i]] = $fields[$i+1];
         }
         return $data;
+    }
+
+    public function routing(Request $request, \App\Services\ControlPlane\RoutingEngine $engine)
+    {
+        $data = $engine->generateDynamicRules();
+        return response()->json($data);
+    }
+
+    public function traffic(Request $request)
+    {
+        // Mock traffic data for Grafana-like visualization
+        $tunnelCount = \App\Models\Tunnel::count();
+        // Base traffic based on tunnels
+        $base = $tunnelCount > 0 ? ($tunnelCount * 15) : 2; 
+        
+        $rx = rand($base, $base + 30) + (rand(0, 99) / 100);
+        $tx = rand($base, $base + 20) + (rand(0, 99) / 100);
+        
+        $data = [
+            'timestamp' => now()->toIso8601String(),
+            'rx_mbps' => round($rx, 2),
+            'tx_mbps' => round($tx, 2),
+        ];
+
+        return response()->json([
+            'status' => 'broadcasted',
+            'data' => $data
+        ]);
     }
 }

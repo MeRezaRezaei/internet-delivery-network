@@ -17,6 +17,60 @@ class ControlPlaneManager
     }
 
     /**
+     * Process a multi-node batch of control signals transactionally.
+     * All signals for all nodes are dry-run before any are applied.
+     */
+    public function processMultiNodeBatch(array $multiNodeBatch): void
+    {
+        Log::info("Control Plane: Starting MULTI-NODE TRANSACTIONAL batch for " . count($multiNodeBatch) . " nodes.");
+
+        try {
+            // 1. Dry Run Phase (Validate all signals across all nodes)
+            $hydratedNodesSignals = [];
+            foreach ($multiNodeBatch as $node => $signals) {
+                $hydratedNodesSignals[$node] = [];
+                foreach ($signals as $index => $signalData) {
+                    $action = $signalData['action'] ?? null;
+                    $payload = $signalData['payload'] ?? [];
+                    
+                    if ($action === 'ADD_INBOUND') {
+                        $inbound = \App\Utils\XrayProtobufHydrator::hydrateInbound($payload);
+                        $this->dryRun->validateInbound($inbound);
+                        $hydratedNodesSignals[$node][$index] = ['inbound' => $inbound];
+                    }
+                }
+            }
+
+            // 2. Execution Phase (Apply all)
+            foreach ($multiNodeBatch as $node => $signals) {
+                foreach ($signals as $index => $signalData) {
+                    $action = $signalData['action'] ?? null;
+                    $payload = $signalData['payload'] ?? [];
+
+                    switch ($action) {
+                        case 'ADD_INBOUND':
+                            Xray::connection($node)->addInbound($hydratedNodesSignals[$node][$index]['inbound']);
+                            break;
+                        case 'REMOVE_INBOUND':
+                            Xray::connection($node)->removeInbound($payload['tag']);
+                            break;
+                        default:
+                            throw new Exception("Unknown action in multi-node batch: {$action}");
+                    }
+                }
+                $this->updateNodeState($node, "MULTI_BATCH_APPLIED", "SUCCESS");
+                Log::info("Control Plane: Multi-Node Batch successfully applied to {$node}.");
+            }
+        } catch (Exception $e) {
+            Log::error("Control Plane Multi-Node Transaction Failed: " . $e->getMessage());
+            foreach (array_keys($multiNodeBatch) as $node) {
+                $this->updateNodeState($node, "MULTI_BATCH_FAILED", "FAILED", $e->getMessage());
+            }
+            throw $e;
+        }
+    }
+
+    /**
      * Process a batch of control signals transactionally.
      * Every signal in the batch is dry-run before ANY are applied to production.
      */
@@ -86,41 +140,59 @@ class ControlPlaneManager
     {
         Log::warning("Control Plane: Initiating FAILOVER for offline node [{$offlineNode->name}].");
 
-        // 1. Find all inbounds targeting this node (as a target in a tunnel)
-        $tunnels = \App\Models\XrayInbound::whereHas('port', function ($query) use ($offlineNode) {
-            $query->where('node_id', $offlineNode->id);
-        })->get();
+        // Migrate tunnels where the offline node is the target
+        $targetTunnels = \App\Models\Tunnel::where('target_node_id', $offlineNode->id)->where('is_active', true)->get();
 
-        if ($tunnels->isEmpty()) {
-            Log::info("Control Plane: No tunnels to migrate for [{$offlineNode->name}].");
-            return;
+        if ($targetTunnels->isEmpty()) {
+            Log::info("Control Plane: No target tunnels to migrate for [{$offlineNode->name}].");
+        } else {
+            // Find a healthy peer with the same role
+            $peer = \App\Models\Node::where('role', $offlineNode->role)
+                ->where('is_active', true)
+                ->where('id', '!=', $offlineNode->id)
+                ->first();
+
+            if (!$peer) {
+                Log::error("Control Plane Failover Error: No healthy peer found for role [{$offlineNode->role}] to replace target node.");
+            } else {
+                Log::info("Control Plane: Found healthy peer [{$peer->name}] to replace target node.");
+
+                foreach ($targetTunnels as $tunnel) {
+                    $tunnel->update(['target_node_id' => $peer->id]);
+                    Log::info("Control Plane: Re-routing target tunnel [{$tunnel->tag}] to node [{$peer->name}].");
+                    
+                    app(SignalDispatcher::class)->dispatch($peer->name, 'ADD_INBOUND', 
+                        $tunnel->config + ['tag' => $tunnel->tag, 'port' => $tunnel->port, 'protocol' => $tunnel->protocol]
+                    );
+                }
+            }
         }
 
-        // 2. Find a healthy peer with the same role
-        $peer = \App\Models\Node::where('role', $offlineNode->role)
-            ->where('is_active', true)
-            ->where('id', '!=', $offlineNode->id)
-            ->first();
+        // Migrate tunnels where the offline node is the source
+        $sourceTunnels = \App\Models\Tunnel::where('source_node_id', $offlineNode->id)->where('is_active', true)->get();
 
-        if (!$peer) {
-            Log::error("Control Plane Failover Error: No healthy peer found for role [{$offlineNode->role}].");
-            return;
-        }
+        if ($sourceTunnels->isEmpty()) {
+            Log::info("Control Plane: No source tunnels to migrate for [{$offlineNode->name}].");
+        } else {
+            // Find a healthy peer with the same role
+            $peer = \App\Models\Node::where('role', $offlineNode->role)
+                ->where('is_active', true)
+                ->where('id', '!=', $offlineNode->id)
+                ->first();
 
-        Log::info("Control Plane: Found healthy peer [{$peer->name}] for failover.");
+            if (!$peer) {
+                Log::error("Control Plane Failover Error: No healthy peer found for role [{$offlineNode->role}] to replace source node.");
+            } else {
+                Log::info("Control Plane: Found healthy peer [{$peer->name}] to replace source node.");
 
-        // 3. Dispatch signals to re-route (This is a simplified abstraction)
-        foreach ($tunnels as $tunnel) {
-            // In a real scenario, we would update the Bridge nodes that connect to this Portal
-            // For now, we log the intent as part of the orchestration pattern.
-            Log::info("Control Plane: Re-routing tunnel [{$tunnel->tag}] to node [{$peer->name}].");
-            
-            // Example: Dispatch signal to 'all' or specific bridge nodes
-            // app(SignalDispatcher::class)->dispatch('all', 'UPDATE_TARGET', [
-            //     'old_node' => $offlineNode->name,
-            //     'new_node' => $peer->name,
-            //     'tunnel_tag' => $tunnel->tag
-            // ]);
+                foreach ($sourceTunnels as $tunnel) {
+                    $tunnel->update(['source_node_id' => $peer->id]);
+                    Log::info("Control Plane: Re-routing source tunnel [{$tunnel->tag}] to node [{$peer->name}].");
+                    
+                    // The source node itself might not need a direct inbound signal in this system 
+                    // based on TunnelController, but we update the association in the DB.
+                }
+            }
         }
     }
 

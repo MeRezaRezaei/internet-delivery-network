@@ -1,59 +1,15 @@
+
 {
     "log": {
         "loglevel": "debug"
     },
     "outbounds": [
-        // 1. Direct egress to the internet (used to deliver users' traffic)
         {
             "protocol": "freedom",
             "tag": "direct"
         },
-        // 2. High-performance, CDN-optimized VLESS reverse outbound
         {
-            "protocol": "vless",
-            "tag": "tunnel_direct_cdn",
-            "settings": {
-                "address": "i-01.doctel.ir",
-                "port": 443,
-                "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
-                "email": "de08@reverse",
-                "encryption": "none",
-                "reverse": {
-                    "tag": "bridge-in-direct"
-                }
-            },
-            "streamSettings": {
-                "network": "xhttp",
-                "security": "tls",
-                "tlsSettings": {
-                    "allowInsecure": false,
-                    "serverName": "i-01.doctel.ir",
-                    "alpn": ["h2"]
-                },
-                "xhttpSettings": {
-                    "path": "/",
-                    "mode": "stream-up",
-                    "extra": {
-                        "xmux": {
-                            "maxConcurrency": 128,
-                            "maxConnections": 0,
-                            "cMaxReuseTimes": 0,
-                            "hMaxRequestTimes": 1500,
-                            "hMaxReusableSecs": 900,
-                            "hKeepAlivePeriod": 0
-                        }
-                    }
-                },
-                "sockopt": {
-                    "dialerProxy": "tor",
-                    "tcpKeepAliveIdle": 30,
-                    "tcpKeepAliveInterval": 15
-                }
-            }
-        },
-        // 3. Tor SOCKS dialer proxy to protect the active connections
-        {
-            "tag": "tor",
+            "tag": "warp",
             "protocol": "socks",
             "settings": {
                 "servers": [
@@ -63,15 +19,51 @@
                     }
                 ]
             }
+        },
+        {
+            "protocol": "vless",
+            "tag": "tunnel-loopback",
+            "settings": {
+                "address": "i-08.menudigi.ir",
+                "port": 2096,
+                "id": "d532a842-8783-4d15-93b3-dc8963947be9",
+                "email": "loopback_test@reverse",
+                "encryption": "none",
+                "reverse": {
+                    "tag": "reverse-bridge-test"
+                }
+            },
+            
+            "streamSettings": {
+                "network": "ws",
+                "security": "tls",
+                "tlsSettings": {
+                    "allowInsecure": true
+                },
+                "wsSettings": {
+                    "path": "/"
+                }
+            },
+            "mux": {
+                "enabled": false,
+                "concurrency": 100,
+                "xudpConcurrency": 100
+            }
         }
     ],
     "routing": {
         "domainStrategy": "AsIs",
         "rules": [
-            // Route all egress traffic returning from the reverse tunnel to the internet directly
             {
                 "type": "field",
-                "inboundTag": ["bridge-in-direct"],
+                "inboundTag": [
+                    "reverse-bridge-test"
+                ],
+                "outboundTag": "warp"
+            },
+            {
+                "type": "field",
+                "port": "0-65535",
                 "outboundTag": "direct"
             }
         ]

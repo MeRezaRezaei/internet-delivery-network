@@ -27,6 +27,7 @@ class Node extends Model
     ];
 
     protected $casts = [
+        'role' => \App\Enums\NodeRole::class,
         'is_active' => 'boolean',
         'last_heartbeat_at' => 'datetime',
         'metadata' => 'array',
@@ -55,5 +56,15 @@ class Node extends Model
     public function policyLevels(): HasMany
     {
         return $this->hasMany(XrayPolicyLevel::class);
+    }
+
+    public function sourceTunnels(): HasMany
+    {
+        return $this->hasMany(Tunnel::class, 'source_node_id');
+    }
+
+    public function targetTunnels(): HasMany
+    {
+        return $this->hasMany(Tunnel::class, 'target_node_id');
     }
 }

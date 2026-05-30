@@ -95,7 +95,10 @@ class ControlPlaneListenCommand extends Command
                     $this->info("[{$id}] Signal: {$data['action']}");
                     
                     try {
-                        if ($data['action'] === 'BATCH_TRANSACTION') {
+                        if ($data['action'] === 'MULTI_NODE_BATCH_TRANSACTION') {
+                            $payload = json_decode($data['payload'], true);
+                            $this->manager->processMultiNodeBatch($payload['multi_node_batch'] ?? []);
+                        } elseif ($data['action'] === 'BATCH_TRANSACTION') {
                             $payload = json_decode($data['payload'], true);
                             $this->manager->processBatch(['node' => $this->nodeName, 'signals' => $payload['signals'] ?? []]);
                         } else {

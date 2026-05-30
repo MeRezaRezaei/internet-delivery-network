@@ -14,8 +14,8 @@ class XrayServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('xray', function ($app) {
-            return new XrayManager($app);
+        $this->app->singleton('xray.manager', function ($app) {
+            return $app->make(XrayManager::class);
         });
     }
 

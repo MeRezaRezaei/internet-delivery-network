@@ -4,6 +4,7 @@ namespace App\Http\Controllers\IDN;
 
 use App\Http\Controllers\Controller;
 use App\Models\Node;
+use App\Models\Tunnel;
 use App\Models\XrayInbound;
 use App\Services\ControlPlane\SignalDispatcher;
 use Illuminate\Http\Request;

@@ -75,6 +75,7 @@ class XrayManager
     {
         $missions = [
             'portal' => \App\Services\Xray\Missions\PortalMission::class,
+            'chain'  => \App\Services\Xray\Missions\ChainMission::class,
         ];
 
         if (!isset($missions[strtolower($name)])) {

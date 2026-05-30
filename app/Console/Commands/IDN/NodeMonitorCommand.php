@@ -34,6 +34,7 @@ class NodeMonitorCommand extends Command
 
     protected function checkNodes(\App\Services\Tailscale\TailscaleService $tailscale)
     {
+        // 1. Tailscale Sync
         try {
             $devices = $tailscale->devices();
             $onlineHostnames = [];
@@ -64,7 +65,30 @@ class NodeMonitorCommand extends Command
             $this->error("Tailscale Sync Error: " . $e->getMessage());
         }
 
+        // 2. Heartbeat Zombie Check
         $threshold = now()->subSeconds(90);
-        // ... rest of heartbeat logic if needed ...
+
+        // Find nodes that were active but haven't pulsed recently
+        $zombies = Node::where('is_active', true)
+            ->where(function ($query) use ($threshold) {
+                $query->where('last_heartbeat_at', '<', $threshold)
+                      ->orWhereNull('last_heartbeat_at');
+            })
+            ->get();
+
+        foreach ($zombies as $node) {
+            $node->update(['is_active' => false]);
+            $msg = "ALERT: Node [{$node->name}] has gone OFFLINE (No heartbeat since {$node->last_heartbeat_at})";
+            $this->warn($msg);
+            Log::warning($msg);
+
+            // Trigger failover for IDN-050
+            try {
+                app(\App\Services\ControlPlane\ControlPlaneManager::class)->migrateTunnels($node);
+            } catch (\Exception $e) {
+                Log::error("Failover failed for node [{$node->name}]: " . $e->getMessage());
+                $this->error("Failover failed for node [{$node->name}]");
+            }
+        }
     }
 }

@@ -61,7 +61,7 @@
           }
         },
         "sockopt": {
-          "dialerProxy": "warp",
+          //"dialerProxy": "warp",
           "domainStrategy": "AsIs",
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15

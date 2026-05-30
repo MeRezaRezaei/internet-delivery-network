@@ -4,32 +4,30 @@ namespace App\Console\Commands\IDN;
 
 use Illuminate\Console\Command;
 
+use App\Services\ControlPlane\RoutingEngine;
+
 class GenerateXrayCommand extends IDNBaseCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'idn:generate-xray {--output= : Path to output the generated JSON}';
+    protected $description = 'Generate Xray configuration files dynamically based on real-time node metrics';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Generate Xray configuration files using the infra generator script';
-
-    /**
-     * Execute the console command.
-     */
-    public function handle(): int
+    public function handle(RoutingEngine $engine): int
     {
-        $args = [];
+        $this->info("Calculating dynamic routing matrix from real-time node metrics...");
+        $data = $engine->generateDynamicRules();
+        
+        $args = [
+            '--outside=' . implode(',', $data['active_outside']),
+            '--inside=' . implode(',', $data['active_inside']),
+            '--cdns=' . implode(',', $data['active_cdn'])
+        ];
+
         if ($this->option('output')) {
             $args[] = '--output';
             $args[] = $this->option('output');
         }
+
+        $this->info("Invoking generator with dynamic constraints: " . implode(' ', $args));
 
         return $this->executeInfraScript(
             'generate_xray.py',
