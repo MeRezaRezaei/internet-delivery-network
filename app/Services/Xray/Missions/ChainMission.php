@@ -2,8 +2,9 @@
 
 namespace App\Services\Xray\Missions;
 
-use App\Models\IDN\Node;
+use App\Models\Node;
 use App\Models\PhysicalPort;
+use App\Models\Tunnel;
 use App\Models\XrayInbound;
 use App\Models\XrayOutbound;
 use App\Models\XrayProtocolVless;
@@ -35,6 +36,7 @@ class ChainMission
             $inbounds = [];
             $outbounds = [];
             $routingRules = [];
+            $tunnels = [];
 
             $previousNode = null;
             $previousInboundTagDl = null;
@@ -76,7 +78,7 @@ class ChainMission
                 $inboundUl = XrayInbound::create([
                     'physical_port_id' => $portUl->id,
                     'tag' => $inboundTagUl,
-                    'sniffing_id' => $sniffing->id, // Sniffing usually for DL/entry, but fine for both
+                    'sniffing_id' => $sniffing->id,
                 ]);
 
                 // 4. Add VLESS to Inbounds
@@ -135,6 +137,22 @@ class ChainMission
                         'inbound_tags' => $previousInboundTagUl,
                         'outbound_tag' => $outboundUl->tag,
                     ]);
+
+                    // 6. Create IDN Tunnel record for this hop
+                    $tunnels[] = Tunnel::create([
+                        'source_node_id' => $previousNode->id,
+                        'target_node_id' => $node->id,
+                        'tag' => "{$previousInboundTagDl}-to-{$inboundTagDl}",
+                        'port' => $portNumberDl,
+                        'protocol' => 'vless-chain',
+                        'config' => [
+                            'inbound_dl_tag' => $inboundTagDl,
+                            'inbound_ul_tag' => $inboundTagUl,
+                            'outbound_dl_tag' => $outboundDl->tag,
+                            'outbound_ul_tag' => $outboundUl->tag,
+                        ],
+                        'is_active' => true,
+                    ]);
                 }
 
                 $previousNode = $node;
@@ -144,8 +162,6 @@ class ChainMission
 
             // On the last node, create direct outbounds (freedom) and route traffic to it
             if ($previousNode) {
-                // Usually direct outbound is unified, but we'll create two or route both to one.
-                // It makes sense to unify them back for internet access.
                 $finalOutboundTag = "chain-out-direct";
                 $outbound = XrayOutbound::create([
                     'node_id' => $previousNode->id,
@@ -167,6 +183,7 @@ class ChainMission
                 'inbounds' => $inbounds,
                 'outbounds' => $outbounds,
                 'routing_rules' => $routingRules,
+                'tunnels' => $tunnels,
             ];
         });
     }

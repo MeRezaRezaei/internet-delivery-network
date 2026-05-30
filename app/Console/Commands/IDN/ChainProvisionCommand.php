@@ -4,7 +4,7 @@ namespace App\Console\Commands\IDN;
 
 use Illuminate\Console\Command;
 use App\Facades\Xray;
-use App\Models\IDN\Node;
+use App\Models\Node;
 
 class ChainProvisionCommand extends Command
 {
@@ -47,7 +47,7 @@ class ChainProvisionCommand extends Command
         try {
             $result = Xray::mission('chain')->setup($hops);
             $this->info("Chain provisioned successfully.");
-            $this->line("Created " . count($result['inbounds']) . " inbounds and " . count($result['outbounds']) . " outbounds.");
+            $this->line("Created " . count($result['inbounds']) . " inbounds, " . count($result['outbounds']) . " outbounds, and " . count($result['tunnels']) . " IDN tunnels.");
         } catch (\Exception $e) {
             $this->error("Failed to provision chain: " . $e->getMessage());
             return Command::FAILURE;

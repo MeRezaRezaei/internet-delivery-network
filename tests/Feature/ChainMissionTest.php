@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\IDN\Node;
+use App\Models\Node;
 use App\Models\PhysicalPort;
 use App\Models\XrayInbound;
 use App\Models\XrayOutbound;
@@ -71,6 +71,14 @@ class ChainMissionTest extends TestCase
             'node_id' => $node1->id,
             'inbound_tags' => 'entry-dl',
             'outbound_tag' => 'chain-out-to-exit-dl',
+        ]);
+
+        // Assert IDN Tunnels are created
+        $this->assertCount(1, $result['tunnels']);
+        $this->assertDatabaseHas('idn_tunnels', [
+            'source_node_id' => $node1->id,
+            'target_node_id' => $node2->id,
+            'protocol' => 'vless-chain',
         ]);
     }
 }
