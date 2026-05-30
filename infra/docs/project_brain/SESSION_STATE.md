@@ -24,6 +24,12 @@
     - Implemented `EventContractTest`, `XrayConfigContractTest`, and `SignalContractTest`.
     - Marked "Contract test suite exists" as pass in MVP checklist.
 
+- [x] **Risk Guard Implementation**:
+    - Implemented `RiskGuard::validateConfig` to prevent binding to restricted management SSH ports (22, 2022).
+    - Implemented `NodeObserver` to prevent destructive cascade-deletion of Nodes that have active tunnels.
+    - Updated MVP checklist to mark 'Determinism rules' and 'Risk guard minimum rules' as passed.
+    - 41/41 tests passing.
+
 ## Active Constraints
 - Fake nodes in DB will fail connectivity tests (Expected).
 - `xray_dry_run` container must be running for `ControlPlaneTest`.

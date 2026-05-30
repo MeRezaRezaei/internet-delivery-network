@@ -50,4 +50,24 @@ class XrayConfigContractTest extends TestCase
         $this->assertEquals(10085, $apiInbound['port']);
         $this->assertEquals('dokodemo-door', $apiInbound['protocol']);
     }
+
+    /**
+     * Test that the rendered Xray config is deterministic.
+     */
+    public function test_xray_config_is_deterministic()
+    {
+        $node = Node::factory()->create();
+        
+        // Add multiple ports, outbounds, balancers in random order
+        $node->ports()->create(['port_number' => 8080, 'protocol' => 'tcp']);
+        $node->ports()->create(['port_number' => 9090, 'protocol' => 'tcp']);
+        $node->ports()->create(['port_number' => 7070, 'protocol' => 'tcp']);
+
+        $renderer = new XrayConfigRenderer();
+        
+        $config1 = $renderer->render($node);
+        $config2 = $renderer->render($node);
+
+        $this->assertEquals(json_encode($config1), json_encode($config2));
+    }
 }

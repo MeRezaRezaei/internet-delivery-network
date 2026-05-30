@@ -90,7 +90,8 @@ class XrayConfigRenderer
             'tag' => 'api',
         ];
 
-        foreach ($node->ports as $port) {
+        // Sort ports by port number for determinism
+        foreach ($node->ports->sortBy('port_number') as $port) {
             if (!$port->inbound) continue;
             
             $inbound = $port->inbound;
@@ -117,22 +118,22 @@ class XrayConfigRenderer
             if ($inbound->vless) {
                 $config['protocol'] = 'vless';
                 $config['settings'] = [
-                    'clients' => $inbound->vless->clients->map(fn($c) => [
+                    'clients' => $inbound->vless->clients->sortBy(fn($c) => $c->client->email)->map(fn($c) => [
                         'id' => $c->client->uuid,
                         'email' => $c->client->email,
                         'flow' => $c->flow,
-                    ]),
+                    ])->values(),
                     'decryption' => $inbound->vless->decryption,
                     'fallbacks' => $this->renderFallbacks($inbound),
                 ];
             } elseif ($inbound->trojan) {
                 $config['protocol'] = 'trojan';
                 $config['settings'] = [
-                    'clients' => $inbound->trojan->clients->map(fn($c) => [
+                    'clients' => $inbound->trojan->clients->sortBy(fn($c) => $c->client->email)->map(fn($c) => [
                         'password' => $c->client->secret,
                         'email' => $c->client->email,
                         'flow' => $c->flow,
-                    ]),
+                    ])->values(),
                     'fallbacks' => $this->renderFallbacks($inbound),
                 ];
             }
@@ -210,7 +211,7 @@ class XrayConfigRenderer
     {
         $outbounds = [];
 
-        foreach ($node->outbounds as $outbound) {
+        foreach ($node->outbounds->sortBy('tag') as $outbound) {
             $config = [
                 'tag' => $outbound->tag,
             ];
@@ -321,7 +322,7 @@ class XrayConfigRenderer
         }
 
         $balancers = [];
-        foreach ($node->balancers as $balancer) {
+        foreach ($node->balancers->sortBy('tag') as $balancer) {
             $balancers[] = [
                 'tag' => $balancer->tag,
                 'selector' => explode(',', $balancer->selector),

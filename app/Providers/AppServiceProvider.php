@@ -11,10 +11,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->singleton(\App\Services\Safety\RiskGuard::class, function ($app) {
+            return new \App\Services\Safety\RiskGuard();
+        });
+
         $this->app->singleton('xray.manager', function ($app) {
             return new \App\Services\Xray\XrayManager(
                 new \App\Services\Xray\XrayConfigRenderer(),
-                new \App\Services\Xray\XrayValidator()
+                new \App\Services\Xray\XrayValidator(),
+                $app->make(\App\Services\Safety\RiskGuard::class)
             );
         });
 
@@ -28,6 +33,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \App\Models\Node::observe(\App\Observers\NodeObserver::class);
     }
 }
