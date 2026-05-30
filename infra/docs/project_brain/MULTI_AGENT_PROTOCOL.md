@@ -30,3 +30,19 @@ The IDN project operates using a heavily parallelized AI development environment
 
 ## 4. The Multi-Agent Mandate
 If there are multiple non-dependent tasks in the BACKLOG.md, the Project Manager MUST invoke parallel subagents rather than executing sequentially. This is to maximize development velocity.
+
+## 5. Distributed Tmux Multi-Machine Architecture
+The IDN AI ecosystem supports massive horizontal scaling across physical VPS nodes. The Main Project Manager (Local PC) orchestrates Remote AI Workers securely over SSH.
+
+### Core Mechanisms
+- **Persistence via Tmux:** All remote agents MUST be spawned inside a detached `tmux` session. If the Local PC goes offline, remote agents continue their tasks until completion.
+- **Git-Backed Asynchronous Hub:** Remote nodes cannot communicate via real-time system messages. All cross-agent communication happens via Git.
+- **Scheduler Agent:** A specialized local subagent, known as the Scheduler, loops in the background using `/schedule`. It SSHs into remote nodes, reads the `tmux capture-pane`, and writes summaries back to the Main Project Manager via `send_message`.
+
+### Spawning a Remote Agent
+To fire up an agent on a remote server, the Main Manager issues the following sequence:
+1. `ssh user@remote_ip "cd /path/to/project && git pull"`
+2. `ssh user@remote_ip "tmux new-session -d -s worker_1 'gemini-cli --task \"Execute BACKLOG item X. Push to branch feat/worker-1 and update COMMUNICATION_HUB.md\"'"`
+
+### Cross-Agent Synchronization (The Hub)
+Remote agents push their progress to `infra/docs/project_brain/COMMUNICATION_HUB.md` along with their isolated code branches. The Main Manager then pulls this code, evaluates it, and merges it back into `master`.
