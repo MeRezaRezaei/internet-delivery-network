@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('physical_ports', function (Blueprint $table) {
+        Schema::create('idn_physical_ports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('node_id')->constrained('idn_nodes')->onDelete('cascade');
             $table->integer('port_number');
@@ -43,7 +43,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('physical_ports');
+        Schema::dropIfExists('idn_physical_ports');
         Schema::dropIfExists('idn_nodes');
     }
 };

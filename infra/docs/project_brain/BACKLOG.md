@@ -1,13 +1,39 @@
 # IDN BACKLOG
 
+> [!WARNING]
+> Both remote workers ran out of Gemini API quota on May 31. Please be aware of quota limitations when running in infinite loop.
+
 ## High Priority
 - [x] **IDN-040 Advanced Routing Engine**: Generate Xray routing rules based on real-time node metrics. (Merged via US node)
 - [x] **IDN-041 Multi-Node Batching**: Support provisioning a single tunnel across multiple hops (Chain) in one atomic transaction. [COMPLETED] (Merged via DE node)
-- [x] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard.
+- [x] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard. [COMPLETED] (2026-05-30)
+- [x] **IDN-045 Automated Connectivity Tests**: Implement a command to verify the 5NF-linked tunnels using `xray -test` and live pings. [COMPLETED] (2026-05-30)
+- [x] **IDN-048 Strategy Schema Canonicalization**: Define enums for Xray strategies and domain strategies. [COMPLETED] (2026-05-30)
+- [x] **IDN-049 Event Contract Fix**: Repair corrupted event files and standardize broadcasting contracts. [COMPLETED] (2026-05-30)
+- [x] **IDN-046 Dashboard Integration for Tunnel Verification**: Add a "Verify" button to the Tunnel management UI that triggers the connectivity test via API. [COMPLETED] (2026-05-30)
+- [x] **IDN-047 Fleet Reconciliation Engine**: Implement a command to sync and reconcile node health status between DB and Redis. [COMPLETED] (2026-05-30)
+- [x] **IDN-053 Failover & Outbound Signaling Hardening**: Fix source node failover logic and enable ADD_OUTBOUND signals. [COMPLETED] (2026-05-30)
+- [x] **IDN-054 Load-Balanced Failover**: Peer selection during failover uses `withCount` to pick the node with the least number of tunnels. [COMPLETED] (2026-05-30)
+- [x] **IDN-055 Tunnel Management Hardening**: Fix missing imports and enhance deletion logic in TunnelController. [COMPLETED] (2026-05-30)
+- [x] **IDN-056 Deep Cleanup Service**: Implement a service to handle recursive deletion of Xray nested models (Sniffing, Protocols, Transports). [COMPLETED] (2026-05-30)
+- [x] **IDN-057 Environment Stabilization**: Fixed migrations (PhysicalPort prefix, Subscription type), port conflicts (Redis), and test regressions (NodeRole::EXIT, Factory uniqueness). [COMPLETED] (2026-05-30)
+- [x] **IDN-058 Contract Test Suite**: Implement contract tests for Events, Xray Config, and Control Plane Signals. [COMPLETED] (2026-05-30)
+- [x] **IDN-059 MVP Checklist Finalization**: Implement tests for error recovery idempotency and record performance benchmarks. [COMPLETED] (2026-05-30)
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |
 |---|---:|---|---|---|---|
+| IDN-059 | P1 | MVP Checklist Finalization | done | IDN-058 | Idempotency and Performance benchmark tests pass and recorded |
+| IDN-058 | P1 | Contract Test Suite | done | IDN-057 | Test suite in `tests/Feature/Contract/` covers core interfaces |
+| IDN-057 | P1 | Environment Stabilization | done | - | All tests passing and environment stable |
+| IDN-056 | P1 | Deep Cleanup Service | done | IDN-055 | Recursive deletion of nested Xray models implemented and verified |
+| IDN-055 | P1 | Tunnel Management Hardening | done | IDN-053 | Controller fixed and REMOVE_OUTBOUND added |
+| IDN-053 | P1 | Failover & Outbound Signaling Hardening | done | IDN-050 | Source failover signals dispatched and handled |
+| IDN-054 | P2 | Load-Balanced Failover | done | IDN-053 | migrateTunnels picks least-loaded peer |
+| IDN-047 | P1 | Fleet Reconciliation Engine | done | IDN-019 | Command `idn:fleet:reconcile` implemented and verified |
+| IDN-046 | P1 | Dashboard Integration for Tunnel Verification | done | IDN-045 | "Verify" button added to UI and functional via API |
+| IDN-045 | P1 | Automated Connectivity Tests | done | IDN-043 | Command `idn:verify-tunnels` implemented and verified |
+| IDN-043 | P1 | Model Unification (5NF -> IDN) | done | IDN-033 | Tunnel model linked to XrayInbound/Outbound IDs |
 | PB-001 | P0 | Bootstrap project brain | done | - | Core docs filled and validated |
 | IDN-018 | P1 | Control Plane Foundation | done | - | Signal/Log dispatchers, Node registry, Xray Protobuf integration |
 | IDN-019 | P1 | Implement Centralized MySQL Config DB | done | IDN-018 | 5NF Relational schema and Laravel models implemented |

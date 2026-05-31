@@ -37,6 +37,10 @@ class ControlPlaneManager
                         $inbound = \App\Utils\XrayProtobufHydrator::hydrateInbound($payload);
                         $this->dryRun->validateInbound($inbound);
                         $hydratedNodesSignals[$node][$index] = ['inbound' => $inbound];
+                    } elseif ($action === 'ADD_OUTBOUND') {
+                        $outbound = \App\Utils\XrayProtobufHydrator::hydrateOutbound($payload);
+                        // $this->dryRun->validateOutbound($outbound); // Placeholder if dryRun supports it
+                        $hydratedNodesSignals[$node][$index] = ['outbound' => $outbound];
                     }
                 }
             }
@@ -51,8 +55,14 @@ class ControlPlaneManager
                         case 'ADD_INBOUND':
                             Xray::connection($node)->addInbound($hydratedNodesSignals[$node][$index]['inbound']);
                             break;
+                        case 'ADD_OUTBOUND':
+                            Xray::connection($node)->addOutbound($hydratedNodesSignals[$node][$index]['outbound']);
+                            break;
                         case 'REMOVE_INBOUND':
                             Xray::connection($node)->removeInbound($payload['tag']);
+                            break;
+                        case 'REMOVE_OUTBOUND':
+                            Xray::connection($node)->removeOutbound($payload['tag']);
                             break;
                         default:
                             throw new Exception("Unknown action in multi-node batch: {$action}");
@@ -92,6 +102,9 @@ class ControlPlaneManager
                     $inbound = \App\Utils\XrayProtobufHydrator::hydrateInbound($payload);
                     $this->dryRun->validateInbound($inbound);
                     $hydratedSignals[$index] = ['inbound' => $inbound];
+                } elseif ($action === 'ADD_OUTBOUND') {
+                    $outbound = \App\Utils\XrayProtobufHydrator::hydrateOutbound($payload);
+                    $hydratedSignals[$index] = ['outbound' => $outbound];
                 }
             }
 
@@ -104,8 +117,14 @@ class ControlPlaneManager
                     case 'ADD_INBOUND':
                         Xray::connection($node)->addInbound($hydratedSignals[$index]['inbound']);
                         break;
+                    case 'ADD_OUTBOUND':
+                        Xray::connection($node)->addOutbound($hydratedSignals[$index]['outbound']);
+                        break;
                     case 'REMOVE_INBOUND':
                         Xray::connection($node)->removeInbound($payload['tag']);
+                        break;
+                    case 'REMOVE_OUTBOUND':
+                        Xray::connection($node)->removeOutbound($payload['tag']);
                         break;
                     default:
                         throw new Exception("Unknown action in batch: {$action}");
@@ -146,10 +165,23 @@ class ControlPlaneManager
         if ($targetTunnels->isEmpty()) {
             Log::info("Control Plane: No target tunnels to migrate for [{$offlineNode->name}].");
         } else {
-            // Find a healthy peer with the same role
+            // Find a healthy peer with the same role, picking the one with the least number of tunnels (load balancing)
+            // Respect Resource Quotas (IDN-052)
             $peer = \App\Models\Node::where('role', $offlineNode->role)
                 ->where('is_active', true)
                 ->where('id', '!=', $offlineNode->id)
+                ->where(function($q) {
+                    $q->whereNull('cpu_usage')->orWhere('cpu_usage', '<', 0.85); // Threshold: 0.85 load
+                })
+                ->where(function($q) {
+                    $q->whereNull('ram_usage')->orWhere('ram_usage', '<', 95.0); // Threshold: 95% RAM
+                })
+                ->withCount(['sourceTunnels', 'targetTunnels'])
+                ->get()
+                ->filter(function($node) {
+                    return ($node->source_tunnels_count + $node->target_tunnels_count) < ($node->max_tunnels ?? 100);
+                })
+                ->sortBy(fn($node) => $node->source_tunnels_count + $node->target_tunnels_count)
                 ->first();
 
             if (!$peer) {
@@ -161,9 +193,14 @@ class ControlPlaneManager
                     $tunnel->update(['target_node_id' => $peer->id]);
                     Log::info("Control Plane: Re-routing target tunnel [{$tunnel->tag}] to node [{$peer->name}].");
                     
-                    app(SignalDispatcher::class)->dispatch($peer->name, 'ADD_INBOUND', 
-                        $tunnel->config + ['tag' => $tunnel->tag, 'port' => $tunnel->port, 'protocol' => $tunnel->protocol]
-                    );
+                    // Use stored config or rebuild basic inbound payload
+                    $payload = ($tunnel->config ?? []) + [
+                        'tag' => $tunnel->tag, 
+                        'port' => $tunnel->port, 
+                        'protocol' => $tunnel->protocol
+                    ];
+
+                    app(SignalDispatcher::class)->dispatch($peer->name, 'ADD_INBOUND', $payload);
                 }
             }
         }
@@ -174,10 +211,23 @@ class ControlPlaneManager
         if ($sourceTunnels->isEmpty()) {
             Log::info("Control Plane: No source tunnels to migrate for [{$offlineNode->name}].");
         } else {
-            // Find a healthy peer with the same role
+            // Find a healthy peer with the same role, picking the one with the least number of tunnels (load balancing)
+            // Respect Resource Quotas (IDN-052)
             $peer = \App\Models\Node::where('role', $offlineNode->role)
                 ->where('is_active', true)
                 ->where('id', '!=', $offlineNode->id)
+                ->where(function($q) {
+                    $q->whereNull('cpu_usage')->orWhere('cpu_usage', '<', 0.85); // Threshold: 0.85 load
+                })
+                ->where(function($q) {
+                    $q->whereNull('ram_usage')->orWhere('ram_usage', '<', 95.0); // Threshold: 95% RAM
+                })
+                ->withCount(['sourceTunnels', 'targetTunnels'])
+                ->get()
+                ->filter(function($node) {
+                    return ($node->source_tunnels_count + $node->target_tunnels_count) < ($node->max_tunnels ?? 100);
+                })
+                ->sortBy(fn($node) => $node->source_tunnels_count + $node->target_tunnels_count)
                 ->first();
 
             if (!$peer) {
@@ -189,8 +239,18 @@ class ControlPlaneManager
                     $tunnel->update(['source_node_id' => $peer->id]);
                     Log::info("Control Plane: Re-routing source tunnel [{$tunnel->tag}] to node [{$peer->name}].");
                     
-                    // The source node itself might not need a direct inbound signal in this system 
-                    // based on TunnelController, but we update the association in the DB.
+                    // Signaling the new source node to add the outbound
+                    // We need to send the tag and connection details (target node IP/port)
+                    $targetNode = $tunnel->targetNode;
+                    $payload = [
+                        'tag' => "out-to-{$tunnel->tag}",
+                        'protocol' => $tunnel->protocol,
+                        'address' => $targetNode->ip ?? $targetNode->hostname,
+                        'port' => $tunnel->port,
+                        // Add more config if needed from $tunnel->config (outbound side)
+                    ];
+
+                    app(SignalDispatcher::class)->dispatch($peer->name, 'ADD_OUTBOUND', $payload);
                 }
             }
         }

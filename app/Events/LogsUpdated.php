@@ -11,13 +11,13 @@ class LogsUpdated implements ShouldBroadcastNow
 {
     use Dispatchable, SerializesModels;
 
-    public array \;
-    public string \;
+    public array $logs;
+    public string $lastId;
 
-    public function __construct(array \, string \)
+    public function __construct(array $logs, string $lastId)
     {
-        \->logs = \;
-        \->lastId = \;
+        $this->logs = $logs;
+        $this->lastId = $lastId;
     }
 
     public function broadcastOn(): Channel

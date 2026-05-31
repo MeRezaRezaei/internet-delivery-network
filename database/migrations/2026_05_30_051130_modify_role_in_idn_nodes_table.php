@@ -16,7 +16,7 @@ return new class extends Migration
         });
 
         Schema::table('idn_nodes', function (Blueprint $table) {
-            $table->enum('role', ['dns', 'bridge', 'edge'])->default('bridge')->after('api_port');
+            $table->enum('role', ['dns', 'bridge', 'edge', 'portal', 'exit'])->default('bridge')->after('api_port');
         });
     }
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $blueprint->string('tag')->unique();
             $blueprint->integer('port');
             $blueprint->string('protocol')->default('vless');
-            $blueprint->json('config');
+            $blueprint->json('config')->nullable();
             $blueprint->boolean('is_active')->default(true);
             $blueprint->timestamps();
         });

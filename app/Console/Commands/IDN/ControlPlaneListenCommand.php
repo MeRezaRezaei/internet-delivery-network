@@ -154,15 +154,50 @@ class ControlPlaneListenCommand extends Command
 
     protected function updateHeartbeat(): void
     {
+        $metrics = $this->getMetrics();
         $key = "idn:control-plane:nodes:{$this->nodeName}:registry";
         Redis::hSet($key, 'last_heartbeat', now()->toIso8601String());
+        Redis::hSet($key, 'cpu_usage', (string)$metrics['cpu']);
+        Redis::hSet($key, 'ram_usage', (string)$metrics['ram']);
         Redis::expire($key, 60); 
 
         // Update database periodically (economical: every minute or so)
         // For now, every heartbeat is fine in this prototype
         \App\Models\Node::where('name', $this->nodeName)->update([
             'last_heartbeat_at' => now(),
+            'cpu_usage' => $metrics['cpu'],
+            'ram_usage' => $metrics['ram'],
         ]);
+    }
+
+    protected function getMetrics(): array
+    {
+        // Simple CPU load average (1 min)
+        $load = function_exists('sys_getloadavg') ? sys_getloadavg() : [0, 0, 0];
+        $cpu = (float) ($load[0] ?? 0.0);
+
+        // Simple RAM usage via /proc/meminfo or free command
+        $ram = 0.0;
+        try {
+            $free = shell_exec('free -m');
+            if ($free) {
+                $lines = explode("\n", trim($free));
+                $memLine = preg_replace('/\s+/', ' ', $lines[1]);
+                $parts = explode(' ', $memLine);
+                if (count($parts) >= 3) {
+                    $total = (float)$parts[1];
+                    $used = (float)$parts[2];
+                    $ram = $total > 0 ? ($used / $total * 100) : 0.0;
+                }
+            }
+        } catch (\Exception $e) {
+            // Fallback to 0
+        }
+
+        return [
+            'cpu' => $cpu,
+            'ram' => $ram,
+        ];
     }
 
     protected function unregisterNode(): void

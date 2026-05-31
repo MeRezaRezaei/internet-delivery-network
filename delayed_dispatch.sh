@@ -1,0 +1,2 @@
+#!/bin/bash
+nohup bash -c 'sleep 28800 && /mnt/c/Users/MeRezaRezaei/Documents/projects/internet-delivery-network/infra/scripts/dispatch_worker.sh merezarezaei@100.100.5.100 us-worker "Quota reset. Sync with master and review the BACKLOG.md." && /mnt/c/Users/MeRezaRezaei/Documents/projects/internet-delivery-network/infra/scripts/dispatch_worker.sh merezarezaei@100.100.3.100 de-worker "Quota reset. Sync with master and review the BACKLOG.md."' > /mnt/c/Users/MeRezaRezaei/Documents/projects/internet-delivery-network/delayed_dispatch.log 2>&1 &

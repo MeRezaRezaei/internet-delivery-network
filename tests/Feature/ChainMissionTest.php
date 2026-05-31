@@ -75,9 +75,15 @@ class ChainMissionTest extends TestCase
 
         // Assert IDN Tunnels are created
         $this->assertCount(1, $result['tunnels']);
+        $tunnel = $result['tunnels'][0];
         $this->assertDatabaseHas('idn_tunnels', [
+            'id' => $tunnel->id,
             'source_node_id' => $node1->id,
             'target_node_id' => $node2->id,
+            'inbound_id' => $result['inbounds'][2]->id, // DL inbound on node2
+            'outbound_id' => $result['outbounds'][0]->id, // DL outbound on node1
+            'inbound_ul_id' => $result['inbounds'][3]->id, // UL inbound on node2
+            'outbound_ul_id' => $result['outbounds'][1]->id, // UL outbound on node1
             'protocol' => 'vless-chain',
         ]);
     }

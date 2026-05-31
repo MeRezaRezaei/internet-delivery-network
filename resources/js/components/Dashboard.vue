@@ -109,6 +109,7 @@
 <script setup>
 import { computed, ref, watch, nextTick } from 'vue';
 import { useCentrifugo } from '../composables/useCentrifugo';
+import TunnelManager from './TunnelManager.vue';
 import {
   Chart as ChartJS,
   CategoryScale,

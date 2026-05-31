@@ -116,4 +116,28 @@ class DashboardController extends Controller
             'data' => $formattedData
         ]);
     }
+
+    public function tunnels()
+    {
+        $tunnels = Tunnel::with(['sourceNode', 'targetNode'])->get()->map(function($t) {
+            return [
+                'id' => $t->id,
+                'tag' => $t->tag,
+                'source_node_name' => $t->sourceNode->name,
+                'target_node_name' => $t->targetNode->name,
+                'port' => $t->port,
+                'protocol' => $t->protocol,
+                'is_active' => $t->is_active,
+                // Add transport type if it exists in relationships
+                'transport_type' => $t->inbound?->xhttp ? 'xhttp' : ($t->inbound?->splithttp ? 'splithttp' : ($t->inbound?->httpupgrade ? 'httpupgrade' : 'tcp')),
+            ];
+        });
+
+        $nodes = Node::all(['id', 'name']);
+
+        return response()->json([
+            'tunnels' => $tunnels,
+            'nodes' => $nodes
+        ]);
+    }
 }

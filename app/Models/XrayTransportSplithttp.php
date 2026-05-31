@@ -16,6 +16,15 @@ class XrayTransportSplithttp extends Model
         'host',
         'max_upload_size',
         'max_concurrent_uploads',
+        'mode',
+        'headers',
+        'x_padding_range',
+        'x_padding_obfs_mode',
+    ];
+
+    protected $casts = [
+        'headers' => 'array',
+        'x_padding_obfs_mode' => 'boolean',
     ];
 
     public function handler(): MorphTo

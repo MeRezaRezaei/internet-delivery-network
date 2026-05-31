@@ -17,6 +17,7 @@ class XrayConfigRenderer
             'ports.inbound.trojan.clients.client',
             'ports.inbound.xhttp',
             'ports.inbound.splithttp',
+            'ports.inbound.httpupgrade',
             'ports.inbound.grpc',
             'ports.inbound.tls',
             'ports.inbound.reality',
@@ -25,6 +26,7 @@ class XrayConfigRenderer
             'outbounds.trojan.clients.client',
             'outbounds.xhttp',
             'outbounds.splithttp',
+            'outbounds.httpupgrade',
             'outbounds.grpc',
             'outbounds.tls',
             'outbounds.reality',
@@ -88,7 +90,8 @@ class XrayConfigRenderer
             'tag' => 'api',
         ];
 
-        foreach ($node->ports as $port) {
+        // Sort ports by port number for determinism
+        foreach ($node->ports->sortBy('port_number') as $port) {
             if (!$port->inbound) continue;
             
             $inbound = $port->inbound;
@@ -115,22 +118,22 @@ class XrayConfigRenderer
             if ($inbound->vless) {
                 $config['protocol'] = 'vless';
                 $config['settings'] = [
-                    'clients' => $inbound->vless->clients->map(fn($c) => [
+                    'clients' => $inbound->vless->clients->sortBy(fn($c) => $c->client->email)->map(fn($c) => [
                         'id' => $c->client->uuid,
                         'email' => $c->client->email,
                         'flow' => $c->flow,
-                    ]),
+                    ])->values(),
                     'decryption' => $inbound->vless->decryption,
                     'fallbacks' => $this->renderFallbacks($inbound),
                 ];
             } elseif ($inbound->trojan) {
                 $config['protocol'] = 'trojan';
                 $config['settings'] = [
-                    'clients' => $inbound->trojan->clients->map(fn($c) => [
+                    'clients' => $inbound->trojan->clients->sortBy(fn($c) => $c->client->email)->map(fn($c) => [
                         'password' => $c->client->secret,
                         'email' => $c->client->email,
                         'flow' => $c->flow,
-                    ]),
+                    ])->values(),
                     'fallbacks' => $this->renderFallbacks($inbound),
                 ];
             }
@@ -149,11 +152,26 @@ class XrayConfigRenderer
                 ];
             } elseif ($inbound->splithttp) {
                 $streamSettings['network'] = 'splithttp';
-                $streamSettings['splithttpSettings'] = [
+                $streamSettings['splitHttpSettings'] = [
                     'path' => $inbound->splithttp->path,
                     'host' => $inbound->splithttp->host ?? '',
                     'maxUploadSize' => $inbound->splithttp->max_upload_size,
                     'maxConcurrentUploads' => $inbound->splithttp->max_concurrent_uploads,
+                    'mode' => $inbound->splithttp->mode,
+                    'headers' => (object)$inbound->splithttp->headers,
+                ];
+                if ($inbound->splithttp->x_padding_range) {
+                    $streamSettings['splitHttpSettings']['xPaddingBytes'] = $inbound->splithttp->x_padding_range;
+                    $streamSettings['splitHttpSettings']['xPaddingObfsMode'] = $inbound->splithttp->x_padding_obfs_mode;
+                }
+            } elseif ($inbound->httpupgrade) {
+                $streamSettings['network'] = 'httpupgrade';
+                $streamSettings['httpUpgradeSettings'] = [
+                    'host' => $inbound->httpupgrade->host,
+                    'path' => $inbound->httpupgrade->path,
+                    'header' => (object)$inbound->httpupgrade->headers,
+                    'accept_proxy_protocol' => $inbound->httpupgrade->accept_proxy_protocol,
+                    'ed' => $inbound->httpupgrade->ed,
                 ];
             } elseif ($inbound->grpc) {
                 $streamSettings['network'] = 'grpc';
@@ -195,7 +213,7 @@ class XrayConfigRenderer
     {
         $outbounds = [];
 
-        foreach ($node->outbounds as $outbound) {
+        foreach ($node->outbounds->sortBy('tag') as $outbound) {
             $config = [
                 'tag' => $outbound->tag,
             ];
@@ -227,6 +245,57 @@ class XrayConfigRenderer
                 $config['settings'] = (object)[];
             }
 
+            // Transport
+            $streamSettings = [];
+            if ($outbound->xhttp) {
+                $streamSettings['network'] = 'xhttp';
+                $streamSettings['xhttpSettings'] = [
+                    'path' => $outbound->xhttp->path,
+                    'mode' => $outbound->xhttp->mode,
+                ];
+            } elseif ($outbound->splithttp) {
+                $streamSettings['network'] = 'splithttp';
+                $streamSettings['splitHttpSettings'] = [
+                    'host' => $outbound->splithttp->host,
+                    'path' => $outbound->splithttp->path,
+                    'mode' => $outbound->splithttp->mode,
+                    'headers' => (object)$outbound->splithttp->headers,
+                ];
+            } elseif ($outbound->httpupgrade) {
+                $streamSettings['network'] = 'httpupgrade';
+                $streamSettings['httpUpgradeSettings'] = [
+                    'host' => $outbound->httpupgrade->host,
+                    'path' => $outbound->httpupgrade->path,
+                    'header' => (object)$outbound->httpupgrade->headers,
+                ];
+            } elseif ($outbound->grpc) {
+                $streamSettings['network'] = 'grpc';
+                $streamSettings['grpcSettings'] = [
+                    'serviceName' => $outbound->grpc->service_name,
+                    'multiMode' => $outbound->grpc->multi_mode,
+                ];
+            }
+
+            // Security
+            if ($outbound->tls) {
+                $streamSettings['security'] = 'tls';
+                $streamSettings['tlsSettings'] = [
+                    'serverName' => $outbound->tls->server_name,
+                    'allowInsecure' => $outbound->tls->allow_insecure,
+                ];
+            } elseif ($outbound->reality) {
+                $streamSettings['security'] = 'reality';
+                $streamSettings['realitySettings'] = [
+                    'serverNames' => explode(',', $outbound->reality->server_names),
+                    'publicKey' => $outbound->reality->private_key, // Reusing field for simplicity in this MVP
+                    'shortId' => explode(',', $outbound->reality->short_ids)[0] ?? '',
+                ];
+            }
+
+            if (!empty($streamSettings)) {
+                $config['streamSettings'] = $streamSettings;
+            }
+
             $outbounds[] = $config;
         }
 
@@ -250,16 +319,16 @@ class XrayConfigRenderer
                 'type' => $rule->type,
                 'inboundTag' => $rule->inbound_tags ? explode(',', $rule->inbound_tags) : null,
                 'outboundTag' => $rule->outbound_tag,
-                'domainStrategy' => $rule->domain_strategy,
+                'domainStrategy' => $rule->domain_strategy?->value,
             ];
         }
 
         $balancers = [];
-        foreach ($node->balancers as $balancer) {
+        foreach ($node->balancers->sortBy('tag') as $balancer) {
             $balancers[] = [
                 'tag' => $balancer->tag,
                 'selector' => explode(',', $balancer->selector),
-                'strategy' => ['type' => $balancer->strategy],
+                'strategy' => ['type' => $balancer->strategy?->value ?? 'random'],
             ];
         }
 
