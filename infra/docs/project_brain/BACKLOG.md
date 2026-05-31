@@ -6,6 +6,7 @@
 ## High Priority
 - [x] **IDN-040 Advanced Routing Engine**: Generate Xray routing rules based on real-time node metrics. (Merged via US node)
 - [x] **IDN-041 Multi-Node Batching**: Support provisioning a single tunnel across multiple hops (Chain) in one atomic transaction. [COMPLETED] (Merged via DE node)
+
 - [x] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard. [COMPLETED] (2026-05-30)
 - [x] **IDN-045 Automated Connectivity Tests**: Implement a command to verify the 5NF-linked tunnels using `xray -test` and live pings. [COMPLETED] (2026-05-30)
 - [x] **IDN-048 Strategy Schema Canonicalization**: Define enums for Xray strategies and domain strategies. [COMPLETED] (2026-05-30)
@@ -19,6 +20,7 @@
 - [x] **IDN-057 Environment Stabilization**: Fixed migrations (PhysicalPort prefix, Subscription type), port conflicts (Redis), and test regressions (NodeRole::EXIT, Factory uniqueness). [COMPLETED] (2026-05-30)
 - [x] **IDN-058 Contract Test Suite**: Implement contract tests for Events, Xray Config, and Control Plane Signals. [COMPLETED] (2026-05-30)
 - [x] **IDN-059 MVP Checklist Finalization**: Implement tests for error recovery idempotency and record performance benchmarks. [COMPLETED] (2026-05-30)
+
 
 ## Done
 | ID | Priority | Title | Status | Depends On | Done When |
@@ -73,6 +75,7 @@
 | IDN-032 | P1 | Integrate IDN Scripts as Artisan Commands | done | IDN-031 | Scripts accessible via php artisan idn:* |
 | IDN-033 | P0 | Develop Xray-core gRPC API Laravel Integration | done | IDN-031 | Native Facade Xray:: with multi-core support |
 | IDN-036 | P0 | Dockerize Development Environment | done | - | Laravel, Xray, and multi-core setup running in Docker |
+| IDN-053b | P0 | Fix CI/CD Docker and Migration Instability | done | IDN-036 | Dockerfile updated with Xray binary, conflicting migrations deleted, tests passing |
 | IDN-030 | P0 | Create CDN-Optimized Direct VLESS Reverse Portal Config | done | IDN-029 | Design and compile Portal configuration with native port 443 TLS termination |
 | IDN-031 | P0 | Establish and Verify High-Obfuscation SplitHTTP VLESS Reverse Tunnel | done | IDN-030 | Establish test VLESS tunnel over ArvanCloud CDN to Server 01 and measure latency/success |
 | IDN-032 | P0 | Patch 100-Tunnel Generator with Persistence, Fast Connection Rotation, and Debug logging | done | IDN-026 | Generator supports full UUID/SSL reuse, rotates connections after 1k requests, and sets loglevel debug |

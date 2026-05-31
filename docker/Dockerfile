@@ -22,6 +22,13 @@ RUN curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases
 # Install Composer directly via curl to bypass broken docker registry mirrors
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Install Xray binary for validation
+RUN curl -sL "https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip" -o xray.zip && \
+    unzip -q xray.zip xray && \
+    mv xray /usr/local/bin/ && \
+    chmod +x /usr/local/bin/xray && \
+    rm xray.zip
+
 WORKDIR /var/www/html
 
 # Install Xray binary for validation
