@@ -1,5 +1,13 @@
 # AI Changelog
 
+## 2026-06-03
+- **IDN-054 IDN/Xray Model Access Unification**:
+    - Added `Node::inbounds()` as a `HasManyThrough` relationship via `PhysicalPort`, allowing dashboard/control-plane code to query node-local Xray inbounds without manually walking port records.
+    - Added `Node::activeSourceTunnels()` and `Node::activeTargetTunnels()` helpers for active tunnel queries.
+    - Added `Tunnel` resolver methods for chain-generated Xray handlers: `targetDownloadInbound()`, `targetUploadInbound()`, `sourceDownloadOutbound()`, and `sourceUploadOutbound()`.
+    - Extended `ChainMissionTest` to prove high-level `Tunnel` records resolve the generated low-level Xray inbound/outbound records.
+    - Rebuilt the Docker app image to refresh the bundled `xray` binary and verified `docker compose run --rm app php artisan test` passes with 23 tests and 69 assertions.
+
 ## 2026-05-30
 - **IDN-041 Multi-Node Batching & Model Unification**:
     - Implemented `ChainMission` to support atomic provisioning of multi-hop tunnels across a chain of nodes in a single database transaction.

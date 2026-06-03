@@ -80,5 +80,16 @@ class ChainMissionTest extends TestCase
             'target_node_id' => $node2->id,
             'protocol' => 'vless-chain',
         ]);
+
+        $tunnel = $result['tunnels'][0]->refresh();
+        $this->assertSame('exit-dl', $tunnel->targetDownloadInbound()?->tag);
+        $this->assertSame('exit-ul', $tunnel->targetUploadInbound()?->tag);
+        $this->assertSame('chain-out-to-exit-dl', $tunnel->sourceDownloadOutbound()?->tag);
+        $this->assertSame('chain-out-to-exit-ul', $tunnel->sourceUploadOutbound()?->tag);
+
+        $this->assertTrue($node2->inbounds()->where('tag', 'exit-dl')->exists());
+        $this->assertTrue($node1->outbounds()->where('tag', 'chain-out-to-exit-dl')->exists());
+        $this->assertTrue($node1->activeSourceTunnels()->whereKey($tunnel->id)->exists());
+        $this->assertTrue($node2->activeTargetTunnels()->whereKey($tunnel->id)->exists());
     }
 }

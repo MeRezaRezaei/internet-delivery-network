@@ -48,6 +48,7 @@
 | IDN-033 | P0 | Develop Xray-core gRPC API Laravel Integration | done | IDN-031 | Native Facade Xray:: with multi-core support |
 | IDN-036 | P0 | Dockerize Development Environment | done | - | Laravel, Xray, and multi-core setup running in Docker |
 | IDN-053 | P0 | Fix CI/CD Docker and Migration Instability | done | IDN-036 | Dockerfile updated with Xray binary, conflicting migrations deleted, tests passing |
+| IDN-054 | P1 | IDN/Xray Model Access Unification | done | IDN-041 | `Node` exposes Xray inbounds through physical ports; `Tunnel` resolves chain Xray inbound/outbound handlers; full Docker test suite passes |
 | IDN-030 | P0 | Create CDN-Optimized Direct VLESS Reverse Portal Config | done | IDN-029 | Design and compile Portal configuration with native port 443 TLS termination |
 | IDN-031 | P0 | Establish and Verify High-Obfuscation SplitHTTP VLESS Reverse Tunnel | done | IDN-030 | Establish test VLESS tunnel over ArvanCloud CDN to Server 01 and measure latency/success |
 | IDN-032 | P0 | Patch 100-Tunnel Generator with Persistence, Fast Connection Rotation, and Debug logging | done | IDN-026 | Generator supports full UUID/SSL reuse, rotates connections after 1k requests, and sets loglevel debug |

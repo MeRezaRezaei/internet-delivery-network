@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Node extends Model
 {
@@ -38,6 +39,16 @@ class Node extends Model
         return $this->hasMany(PhysicalPort::class);
     }
 
+    public function inbounds(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            XrayInbound::class,
+            PhysicalPort::class,
+            'node_id',
+            'physical_port_id'
+        );
+    }
+
     public function outbounds(): HasMany
     {
         return $this->hasMany(XrayOutbound::class);
@@ -66,5 +77,15 @@ class Node extends Model
     public function targetTunnels(): HasMany
     {
         return $this->hasMany(Tunnel::class, 'target_node_id');
+    }
+
+    public function activeSourceTunnels(): HasMany
+    {
+        return $this->sourceTunnels()->where('is_active', true);
+    }
+
+    public function activeTargetTunnels(): HasMany
+    {
+        return $this->targetTunnels()->where('is_active', true);
     }
 }

@@ -1,10 +1,11 @@
-# SESSION STATE: 2026-05-30
+# SESSION STATE: 2026-06-03
 
 ## Current Focus
-- **Topic**: Epic 1 Completion (IDN-050, IDN-042, IDN-036)
-- **Phase**: Transport expansion and daemon stability
+- **Topic**: IDN model unification and dashboard/control-plane readiness
+- **Phase**: Relational model cleanup after Epic 1 completion
 
 ## Achievements
+- [x] **IDN-054 IDN/Xray Model Access Unification**: Added direct `Node::inbounds()` access through `PhysicalPort`, active source/target tunnel helpers, and `Tunnel` resolver methods for chain-provisioned Xray inbound/outbound handlers. Updated `ChainMissionTest` to verify the IDN tunnel record can resolve its generated Xray handlers. Rebuilt the Docker app image so the bundled `xray` binary is available, then verified all 23 tests pass with 69 assertions.
 - [x] **IDN-053 Fix CI/CD Docker and Migration Instability**: Fixed CPU instruction set errors in docker-compose, resolved conflicting migrations (`physical_ports` and `idn_nodes`), fixed composer lock file permission issue, and bundled `xray` binary directly in Laravel Dockerfile to allow `xray -test` validation to pass natively in tests. All 23 tests now passing.
 - [x] **IDN-050 Automatic Failover Daemon**: Dockerized `idn:node:monitor` to continuously poll node health and automate tunnel routing.
 - [x] **IDN-042 TLS/XHTTP Integration**: Created Split-HTTP models, migrations, and hydrated them into `XrayConfigRenderer`.
@@ -51,9 +52,9 @@
 - MySQL and Redis are core dependencies for the Control Plane.
 
 ## Next Steps for Successor Agent
-1. **Model Unification**: Reconcile the 5NF `XrayInbound/Outbound` models with the `IDN\Node` and `IDN\Tunnel` models.
-2. **Tailscale Glue**: Map Tailscale Peer status to `Node` status in the DB.
-3. **Dashboard Enhancement**: Update Dashboard to use the 5NF relational data for tunnel management.
+1. **Tailscale Glue**: Map Tailscale Peer status to `Node` status in the DB and verify with a focused service/controller test using `Http::fake()`.
+2. **Dashboard Enhancement**: Update Dashboard to use the 5NF relational data for tunnel management, preferring the new `Node::inbounds()` and tunnel handler resolver methods.
+3. **Acceptance Check**: Run `docker compose run --rm app php artisan test` after rebuilding the app image if validation reports `xray: not found`.
 
 ## Handover Metadata
 - **Database**: `idn_db` on `localhost:3306`
