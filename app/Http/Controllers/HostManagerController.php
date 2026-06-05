@@ -9,7 +9,10 @@ class HostManagerController extends Controller
 {
     public function index()
     {
-        return SubHost::all();
+        return [
+            'hosts' => SubHost::all(),
+            'marzban_hosts' => \App\Models\Marzban\Host::where('is_disabled', 0)->get(),
+        ];
     }
 
     public function store(Request $request)
@@ -28,7 +31,14 @@ class HostManagerController extends Controller
             'extra' => 'nullable|array',
             'type' => 'nullable|string',
             'is_active' => 'nullable|boolean',
+            'is_template' => 'nullable|boolean',
             'remark_prefix' => 'nullable|string',
+            'download_address' => 'nullable|string',
+            'download_port' => 'nullable|integer',
+            'download_sni' => 'nullable|string',
+            'is_reverse' => 'nullable|boolean',
+            'cert_pem' => 'nullable|string',
+            'pcs' => 'nullable|string',
         ]);
 
         return SubHost::create($validated);
@@ -55,7 +65,14 @@ class HostManagerController extends Controller
             'extra' => 'nullable|array',
             'type' => 'string',
             'is_active' => 'boolean',
+            'is_template' => 'boolean',
             'remark_prefix' => 'nullable|string',
+            'download_address' => 'nullable|string',
+            'download_port' => 'nullable|integer',
+            'download_sni' => 'nullable|string',
+            'is_reverse' => 'nullable|boolean',
+            'cert_pem' => 'nullable|string',
+            'pcs' => 'nullable|string',
         ]);
 
         $subHost->update($validated);

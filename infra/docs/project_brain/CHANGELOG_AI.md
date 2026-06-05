@@ -317,3 +317,33 @@
 - Updated MVP Checklist: "Contract test suite exists" marked as `pass`.
 - **MVP Verification**: Implemented `ErrorRecoveryIdempotencyTest.php` to prove that `ChainMission` correctly rolls back all partial database states on failure, enforcing atomic transactional integrity.
 - **MVP Verification**: Implemented `PerformanceBenchmarkTest.php` to benchmark the `ChainMission` provisioning speed, achieving ~65ms for a 3-hop setup (well under the 1500ms limit). Marked "Error recovery idempotency tested" and "Performance benchmark recorded" as pass in the MVP checklist.
+
+## [2026-06-05]
+### Added
+- Created migration to add 'is_template' to 'sub_hosts' table.
+- Added 'is_template' support to SubHost model and HostManagerController.
+- Enhanced MarzbanSubscriptionController with robust browser detection and template mapping.
+- Upgraded sub.show view with modern UI, QR codes, and import buttons.
+- Displayed Marzban active nodes in Host Manager UI.
+
+### Fixed
+- Fixed 'h2 error' (PROTOCOL_ERROR) on assets by tuning HAProxy 'tune.h2.initial-window-size' to 131072.
+- Optimized Nginx sub-service configuration with logging and improved cache headers.
+
+### Changed
+- Host Manager index now returns both SubHosts and Marzban Hosts.
+- Subscription endpoint now defaults to HTML for browsers and Base64 for VPN clients.
+
+### [2026-06-05 - Session Part 2]
+#### Refactored
+- COMPREHENSIVE REWRITE: MarzbanSubscriptionController now follows SubHost Primacy rule.
+- Banned direct Marzban host generation to prevent legacy config leaks.
+- Implemented complex XHTTP extra object construction (downloadSettings, certificates, xmux).
+- Split logic between REVERSE (with pcs and certs) and DIRECT connection types.
+
+#### Added
+- Migration for advanced XHTTP fields: download_address, download_port, download_sni, is_reverse, cert_pem, pcs.
+- UI fields in Host Manager for managing these new attributes.
+
+#### Removed
+- getActiveInboundTags and dependency on marzban.hosts table for URI generation.

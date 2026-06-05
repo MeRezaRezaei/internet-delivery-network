@@ -6,19 +6,18 @@
 
 ## Achievements
 - [x] Baremetal deployment at /opt/sub-service.
-- [x] Marzban DB read-only integration.
-- [x] Initial Host Manager UI (Vue.js).
-- [x] Marzban token verification logic implemented.
+- [x] Marzban DB integration (UUID extraction only).
+- [x] Full rewrite of `MarzbanSubscriptionController` following Xray v1.8.8+ standards.
+- [x] Implementation of advanced XHTTP logic (Direct vs Reverse) with Split-Domain mapping.
+- [x] Host Manager UI upgraded to support advanced XHTTP fields (PCS, Download Settings, Certs).
+- [x] UI Protocol error fixed via HAProxy H2 tuning.
+- [x] Beautiful "Marzban-like but better" subscription page with QR codes and deep links.
 
 ## Active Constraints
-- "h2 error" on assets in browser.
-- UI shows white page despite 200 OK.
-- Subscription logic needs to handle browser vs v2ray requests.
-- Host manager needs to dynamically apply templates to Marzban hosts.
+- Reverse proxy certificates must be manually pasted into the Host Manager (automated fetch from srv07 later?).
+- Monitoring of GFW blocking on srv07 is mandatory.
 
 ## Next Steps for Successor Agent
-1. Fix UI asset protocol error (Nginx/HAProxy tuning).
-2. Implement dual-mode subscription:
-   - Browser -> HTML Page (Marzban-like but better).
-   - V2Ray/Client -> Base64 URIs.
-3. Link Host Manager to Marzban's hosts table to automatically generate configs for all active nodes.
+1. Implement automated certificate fetching for Reverse SubHosts.
+2. Add "Usage History" charts to the subscription page.
+3. Implement bulk-actions in Host Manager (e.g., "Change Mode for all nodes").

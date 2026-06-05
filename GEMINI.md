@@ -46,3 +46,55 @@ Maintain synchronization between the codebase and the documentation in `infra/do
 ## Autonomous Connectivity
 Agents MUST use `sshpass` and documented credentials from `PRIVATE_MEMORY.md` or `NETWORK_AND_ARCHITECTURE.md` to avoid interactive password prompts and ensure execution speed.
 
+
+
+
+
+
+
+
+
+
+
+
+
+hey this is new command ::
+
+
+
+
+ROLE: Expert Laravel & Proxy Infrastructure Developer.
+
+CONTEXT: The current `MarzbanSubscriptionController` is fundamentally flawed. It relies on outdated Marzban host generation logic. My infrastructure uses advanced Xray features (xhttp split-domain mapping for upload/download, pinned certificates for reverse proxies, and xmux). Marzban's database does NOT support these new Xray v1.8.8+ objects. 
+
+OBJECTIVE: Rewrite the `MarzbanSubscriptionController` completely. 
+
+STRICT RULES:
+1. BAN MARZBAN HOSTS: You must COMPLETELY REMOVE `$this->getActiveInboundTags()` and the logic that queries `MarzbanHost`. Do not read from Marzban's host tables. 
+2. UUID ONLY: The ONLY interaction with Marzban's database is to extract the user's `UUID` from the VLESS proxy settings.
+3. SUBHOST PRIMACY: All generation MUST happen exclusively by looping over our custom Laravel model: `SubHost::where('is_active', true)->get()`.
+4. THE EXTRA OBJECT: The core issue is the `extra` parameter in the VLESS URI. You must build the `$params['extra']` array in PHP so that when it is `json_encode`d, it matches the exact latest Xray standards.
+
+XHTTP LOGIC REQUIREMENTS:
+I have two main connection types that you must dynamically handle based on the SubHost type (Direct vs. Reverse):
+
+A. REVERSE (Ports like 2096, 2083):
+- The base URI requires `pcs` (PinnedPeerCertSha256).
+- The `$extra` array MUST contain a `downloadSettings` object.
+- Inside `downloadSettings`, it must define the download-specific `address`, `port`, `serverName` (SNI), and critically, a `certificates` array containing the raw PEM strings.
+
+B. DIRECT (Port 8443):
+- Usually behind Cloudflare. No `pcs` required in the base URI.
+- The `$extra` array still uses `downloadSettings` to route download traffic through a different domain (e.g., `i-09.myavestar.ir`) while the main connection goes through the upload domain (e.g., `i-09.menudigi.ir`).
+
+Both types MUST include the following in their `$extra` array:
+- `headers` (User-Agent)
+- `xPaddingBytes` (e.g., "100-500")
+- `scMaxEachPostBytes`, `scMinPostsIntervalMs`
+- `xmux` object (with maxConcurrency, cMaxReuseTimes, etc.)
+
+ACTION:
+Rewrite the `generateUris` and `buildVlessUri` functions to build this complex array structure dynamically based on the `$host` attributes from our custom database. Assume the `$host` model contains necessary fields (like `download_address`, `is_reverse`, `cert_pem`, `pcs`) or parse them from a JSON column.
+
+OUTPUT MANDATE:
+Output the FULL, complete PHP file from `<?php` to the end. No placeholders, no skipped functions, no comments like `// ... existing code ...`. I need a copy-paste ready file.
