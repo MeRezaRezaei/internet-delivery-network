@@ -8,7 +8,7 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'marzban-arvan'),
+            'database' => env('DB_DATABASE', 'marzban'),
             'username' => env('DB_USERNAME', 'marzban'),
             'password' => env('DB_PASSWORD', 'Marzban9011438678'),
             'charset' => 'utf8mb4',

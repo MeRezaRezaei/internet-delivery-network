@@ -5,12 +5,8 @@ namespace Tests\Feature;
 use App\Models\SubHost;
 use Tests\TestCase;
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-
 class SubHostCrudTest extends TestCase
 {
-    use WithoutMiddleware;
-
     /**
      * Test that guest cannot access the dashboard.
      */
@@ -25,7 +21,6 @@ class SubHostCrudTest extends TestCase
      */
     public function test_admin_can_create_sub_host(): void
     {
-        $this->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
         $this->withSession(['is_admin' => true]);
 
         $hostData = [
@@ -46,7 +41,6 @@ class SubHostCrudTest extends TestCase
      */
     public function test_admin_can_update_sub_host(): void
     {
-        $this->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
         $this->withSession(['is_admin' => true]);
 
         $host = SubHost::first() ?? SubHost::create([

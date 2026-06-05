@@ -5,12 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Support\Facades\File;
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-
 class AdminAuthTest extends TestCase
 {
-    use WithoutMiddleware;
-
     /**
      * Test that the login page is accessible.
      */
@@ -26,8 +22,6 @@ class AdminAuthTest extends TestCase
      */
     public function test_admin_can_login_with_valid_credentials(): void
     {
-        $this->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
-
         $path = '/opt/Marzban/.env';
         if (!File::exists($path)) {
             $this->markTestSkipped('Marzban .env not found for testing.');
@@ -62,8 +56,6 @@ class AdminAuthTest extends TestCase
      */
     public function test_admin_cannot_login_with_invalid_credentials(): void
     {
-        $this->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
-
         $response = $this->post('/sub/admin/login', [
             'username' => 'wrong_user',
             'password' => 'wrong_password',
@@ -79,9 +71,7 @@ class AdminAuthTest extends TestCase
      */
     public function test_admin_can_logout(): void
     {
-        $this->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
-        
-        session(['is_admin' => true]);
+        $this->withSession(['is_admin' => true]);
 
         $response = $this->post('/sub/admin/logout');
 
