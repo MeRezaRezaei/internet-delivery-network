@@ -1,0 +1,10 @@
+vendor
+node_modules
+.git
+storage/*.key
+.env
+.phpunit.result.cache
+docker-compose.override.yml
+tmp_xray
+tmp_protoc
+infra/backups

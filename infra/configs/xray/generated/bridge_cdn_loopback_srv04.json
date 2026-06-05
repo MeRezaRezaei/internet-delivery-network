@@ -1,0 +1,117 @@
+{
+  "log": {
+    "loglevel": "debug"
+  },
+  "inbounds": [
+    {
+      "tag": "socks-in-test",
+      "port": 10801,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    },
+    {
+      "protocol": "socks",
+      "tag": "socks-out",
+      "settings": {
+        "servers": [
+          {
+            "address": "10.255.1.7",
+            "port": 5080,
+            "users": [
+              {
+                "user": "MeRezaRezaei",
+                "pass": "Rez@9011438678"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "protocol": "vless",
+      "tag": "tunnel-loopback",
+      "settings": {
+        "address": "127.0.0.1",
+        "port": 8443,
+        "id": "d532a842-8783-4d15-93b3-dc8963947be9",
+        "email": "loopback_test@reverse",
+        "encryption": "none",
+        "reverse": {
+          "tag": "reverse-bridge-test"
+        }
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "i-04.doctel.ir",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
+        "xhttpSettings": {
+          "path": "/",
+          "mode": "packet-up",
+          "extra": {
+            "xmux": {
+              "maxConcurrency": 8,
+              "maxConnections": 0,
+              "cMaxReuseTimes": 0,
+              "hMaxRequestTimes": 1000,
+              "hMaxReusableSecs": 90,
+              "hKeepAlivePeriod": 15
+            },
+            "xPaddingPlacement": "header",
+            "xPaddingHeader": "X-Padding",
+            "xPaddingBytes": "500-1500",
+            "xPaddingObfsMode": true
+          }
+        },
+        "sockopt": {
+          "domainStrategy": "AsIs",
+          "tcpKeepAliveIdle": 30,
+          "tcpKeepAliveInterval": 15
+        }
+      }
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "domain": [
+          "google.com",
+          "domain:google.com"
+        ],
+        "outboundTag": "socks-out"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "socks-in-test"
+        ],
+        "outboundTag": "tunnel-loopback"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "reverse-bridge-test"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}

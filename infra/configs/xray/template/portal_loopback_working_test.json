@@ -1,0 +1,116 @@
+{
+  "log": {
+    "loglevel": "debug"
+  },
+  "inbounds": [
+    {
+      "tag": "IN_REVERSE_PORTAL",
+      "port": 8443,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "d532a842-8783-4d15-93b3-dc8963947be9",
+            "email": "loopback_test@reverse",
+            "reverse": {
+              "tag": "portal"
+            }
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificate": [
+                "-----BEGIN CERTIFICATE-----\nMIIC3TCCAcWgAwIBAgIUSfO31r3tBXaOd1ZDxhxso+wrPtwwDQYJKoZIhvcNAQEL\nBQAwGTEXMBUGA1UEAwwOaS0wNC5kb2N0ZWwuaXIwHhcNMjYwNTI2MDQxNzU1WhcN\nMzYwNTIzMDQxNzU1WjAZMRcwFQYDVQQDDA5pLTA0LmRvY3RlbC5pcjCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBALqazi++55GS0ZG042RhOAdr3BiBt3JZ\nevXALAc61xIjQj7J5Cf6x37fiOdQEhKMCumiIgSBWqUnkCCL13anYH0LA3bMAXZo\ntlMLdYDPF/tbev9smBNVbQ/uDszeh8LWp9vY6DoTziARuILoHOboOE0P2kzyf7uQ\nP5Y8ostMRTQHK7BSU8b+Vzck7UNKZnWF/EN3ApD08DvaBonRSIjqPfyUCvKLiDFq\nrxmVh8NZkr+Jwe0iTLsxef+KchxL1wvQoQ9XhOEYvqLWYVrsozj2A2SoAdD3EHzd\nTwPW9lfXBuuIqEAapZWIBixi2awk8QP/b6YNBT8p58/+Tp7dgpyCsL0CAwEAAaMd\nMBswGQYDVR0RBBIwEIIOaS0wNC5kb2N0ZWwuaXIwDQYJKoZIhvcNAQELBQADggEB\nAByVryyDQ+Mg+D8rK95198cJ/x3/zzfKKe8JLs2V7DFoHw6bJAJBZh2B4aF1o0PE\nPeAC2WWEMxU3iIzVi4N48lPDulRu0GexSOFUkX3tu5xj0s6FUL+PLQAgtLnzB2BJ\nIRRQh4Wnv9aApVvPrZ8Hzjl58m4ywTr1ht7KfE0IwQ38pbLAfDpC+RilD4083ljN\n2C+h0aZ2NS90RYj0d6L7s6YcOqsVetcCTzAFQjyoecs/mLwI+0P9slMW85z0ZrVc\nhqDcOz2unzutw581U2OR4Irz1T92Ph9Om24o7qot4KFQopi1uErqJl6I/ZTdfU6T\nQCgU6mJLXyBjBJrNYSgYplg=\n-----END CERTIFICATE-----\n"
+              ],
+              "key": [
+                "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAuprOL77nkZLRkbTjZGE4B2vcGIG3cll69cAsBzrXEiNCPsnk\nJ/rHft+I51ASEowK6aIiBIFapSeQIIvXdqdgfQsDdswBdmi2Uwt1gM8X+1t6/2yY\nE1VtD+4OzN6Hwtan29joOhPOIBG4gugc5ug4TQ/aTPJ/u5A/ljyiy0xFNAcrsFJT\nxv5XNyTtQ0pmdYX8Q3cCkPTwO9oGidFIiOo9/JQK8ouIMWqvGZWHw1mSv4nB7SJM\nuzF5/4pyHEvXC9ChD1eE4Ri+otZhWuyjOPYDZKgB0PcQfN1PA9b2V9cG64ioQBql\nlYgGLGLZrCTxA/9vpg0FPynnz/5Ont2CnIKwvQIDAQABAoIBAACM03rHwOSbxP5j\nxOykB+3aeL87WRBMCNUpbqr+yc+F4K+3f9kWUvkIYHdXs+K8gvO5XjxN9urYH2nZ\nJhaoqHVcT1nngNszTjl+DFsHp6k+b2Uwkfb/03h7Wfo31bkFuCz2I++EsdQQxhus\nr3+Gw7ogB9a31RfEDxi6r26Sy2MIReKMI5vodPeXc0Bgt+AVAN/MnG6j2H+PG5ka\nHtyeUkxmCrt1lbzQKTAypSqVk7YVJCm1D9QgC32ro+cjTH/p1shjEZwey1mPMA9j\naVlDrLvFHq1io2j0a+i3d9jriTa4NGPAeRUxGpV6k1URV07wqFWKfTDQWQXIu9uC\nS5QIQMkCgYEA8BIvU8MBW4EonhYqizrS9hb/XlAdbT2LfqQPmRbyguoM6ZT0dOg4\n6HgRWMV93DVCUupI6O72x8wJN0RdIE3BnjsLOpN/s5JbWlnoU0G/3yInYd7W86IK\nQd2lTA+oyR0oHg/evS2jDJGFBc58VTgfIwJK1GPFeQDsco0XsMdtKgMCgYEAxvxy\n025vXjr/bqzmR1plbx0/rsk4DqXJBcOtl6zSeXSpJK0z9zKJwepZkHn1St3z5SQ1\nKxpPWHmPC7Nb2S1xu4HPvVUDOC1zDSGEqSxykR6nyJ46nrgQ+q4srXpKJ7yY16EL\noUwWCLvIFQBHHc8Z+SnStkkwLXEMgR07GoqTHj8CgYEAxa5jtDhWDNAs7wfXnnAg\nuK01OKcFpCdSj0Ru56OCrBQn78tNBFsYSSxdNFjjC4n7hCURRmVHZjv3tr+fY3ND\npJR/6Yr9U5OHj72K1cvFP+pyvV9uZo2enp/xddFLLdfJaf+tbN+AbGADRkXCEbY1\nxXEkxwEk4T/Gc4kE4fdFR5sCgYEAiRbdiRrZcUMWPcqyr8/weBffiuyoSTcggm8o\nhomTTAf6jAEj/xd7XvS0ldvgCZ9Wa7SBSNvMdHjy+y2rhrlPVM5/L8KFAEwXqqFA\nA0lS+PX0xDt2yWiokfwzXaUVt8CwUEZse8iumX+9vfI+DKRlEYsl114e6f+rjLx1\nvrhf2QMCgYAGz9J/hU5faOnrk24ucNhTt5PpcsQNqjCeqeJzp0DmSCvNuZ1s9Rfo\nX1jHqTvNPK9Tb1kbr4XfZxSQKEIPovSSdQTZWg9RRivRrpC6FaQtSjaZjTmyQgP8\nzbr7kx0sT+n73EOTU1bp1g/4lWKHv9ZM6PB9KqFEa2GVr28K95SakA==\n-----END RSA PRIVATE KEY-----\n"
+              ]
+            }
+          ],
+          "alpn": [
+            "h2"
+          ]
+        },
+        "xhttpSettings": {
+          "path": "/",
+          "mode": "packet-up",
+          "xPaddingPlacement": "header",
+          "xPaddingHeader": "X-Padding",
+          "xPaddingBytes": "500-1500",
+          "xPaddingObfsMode": true
+        }
+      }
+    },
+    {
+      "tag": "IN_REVERSE",
+      "port": 9443,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "d532a842-8783-4d15-93b3-dc8963947be9",
+            "email": "loopback_test@reverse",
+            "reverse": {
+              "tag": "portal"
+            }
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificate": [
+                "-----BEGIN CERTIFICATE-----\nMIIC3TCCAcWgAwIBAgIUSfO31r3tBXaOd1ZDxhxso+wrPtwwDQYJKoZIhvcNAQEL\nBQAwGTEXMBUGA1UEAwwOaS0wNC5kb2N0ZWwuaXIwHhcNMjYwNTI2MDQxNzU1WhcN\nMzYwNTIzMDQxNzU1WjAZMRcwFQYDVQQDDA5pLTA0LmRvY3RlbC5pcjCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBALqazi++55GS0ZG042RhOAdr3BiBt3JZ\nevXALAc61xIjQj7J5Cf6x37fiOdQEhKMCumiIgSBWqUnkCCL13anYH0LA3bMAXZo\ntlMLdYDPF/tbev9smBNVbQ/uDszeh8LWp9vY6DoTziARuILoHOboOE0P2kzyf7uQ\nP5Y8ostMRTQHK7BSU8b+Vzck7UNKZnWF/EN3ApD08DvaBonRSIjqPfyUCvKLiDFq\nrxmVh8NZkr+Jwe0iTLsxef+KchxL1wvQoQ9XhOEYvqLWYVrsozj2A2SoAdD3EHzd\nTwPW9lfXBuuIqEAapZWIBixi2awk8QP/b6YNBT8p58/+Tp7dgpyCsL0CAwEAAaMd\nMBswGQYDVR0RBBIwEIIOaS0wNC5kb2N0ZWwuaXIwDQYJKoZIhvcNAQELBQADggEB\nAByVryyDQ+Mg+D8rK95198cJ/x3/zzfKKe8JLs2V7DFoHw6bJAJBZh2B4aF1o0PE\nPeAC2WWEMxU3iIzVi4N48lPDulRu0GexSOFUkX3tu5xj0s6FUL+PLQAgtLnzB2BJ\nIRRQh4Wnv9aApVvPrZ8Hzjl58m4ywTr1ht7KfE0IwQ38pbLAfDpC+RilD4083ljN\n2C+h0aZ2NS90RYj0d6L7s6YcOqsVetcCTzAFQjyoecs/mLwI+0P9slMW85z0ZrVc\nhqDcOz2unzutw581U2OR4Irz1T92Ph9Om24o7qot4KFQopi1uErqJl6I/ZTdfU6T\nQCgU6mJLXyBjBJrNYSgYplg=\n-----END CERTIFICATE-----\n"
+              ],
+              "key": [
+                "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAuprOL77nkZLRkbTjZGE4B2vcGIG3cll69cAsBzrXEiNCPsnk\nJ/rHft+I51ASEowK6aIiBIFapSeQIIvXdqdgfQsDdswBdmi2Uwt1gM8X+1t6/2yY\nE1VtD+4OzN6Hwtan29joOhPOIBG4gugc5ug4TQ/aTPJ/u5A/ljyiy0xFNAcrsFJT\nxv5XNyTtQ0pmdYX8Q3cCkPTwO9oGidFIiOo9/JQK8ouIMWqvGZWHw1mSv4nB7SJM\nuzF5/4pyHEvXC9ChD1eE4Ri+otZhWuyjOPYDZKgB0PcQfN1PA9b2V9cG64ioQBql\nlYgGLGLZrCTxA/9vpg0FPynnz/5Ont2CnIKwvQIDAQABAoIBAACM03rHwOSbxP5j\nxOykB+3aeL87WRBMCNUpbqr+yc+F4K+3f9kWUvkIYHdXs+K8gvO5XjxN9urYH2nZ\nJhaoqHVcT1nngNszTjl+DFsHp6k+b2Uwkfb/03h7Wfo31bkFuCz2I++EsdQQxhus\nr3+Gw7ogB9a31RfEDxi6r26Sy2MIReKMI5vodPeXc0Bgt+AVAN/MnG6j2H+PG5ka\nHtyeUkxmCrt1lbzQKTAypSqVk7YVJCm1D9QgC32ro+cjTH/p1shjEZwey1mPMA9j\naVlDrLvFHq1io2j0a+i3d9jriTa4NGPAeRUxGpV6k1URV07wqFWKfTDQWQXIu9uC\nS5QIQMkCgYEA8BIvU8MBW4EonhYqizrS9hb/XlAdbT2LfqQPmRbyguoM6ZT0dOg4\n6HgRWMV93DVCUupI6O72x8wJN0RdIE3BnjsLOpN/s5JbWlnoU0G/3yInYd7W86IK\nQd2lTA+oyR0oHg/evS2jDJGFBc58VTgfIwJK1GPFeQDsco0XsMdtKgMCgYEAxvxy\n025vXjr/bqzmR1plbx0/rsk4DqXJBcOtl6zSeXSpJK0z9zKJwepZkHn1St3z5SQ1\nKxpPWHmPC7Nb2S1xu4HPvVUDOC1zDSGEqSxykR6nyJ46nrgQ+q4srXpKJ7yY16EL\noUwWCLvIFQBHHc8Z+SnStkkwLXEMgR07GoqTHj8CgYEAxa5jtDhWDNAs7wfXnnAg\nuK01OKcFpCdSj0Ru56OCrBQn78tNBFsYSSxdNFjjC4n7hCURRmVHZjv3tr+fY3ND\npJR/6Yr9U5OHj72K1cvFP+pyvV9uZo2enp/xddFLLdfJaf+tbN+AbGADRkXCEbY1\nxXEkxwEk4T/Gc4kE4fdFR5sCgYEAiRbdiRrZcUMWPcqyr8/weBffiuyoSTcggm8o\nhomTTAf6jAEj/xd7XvS0ldvgCZ9Wa7SBSNvMdHjy+y2rhrlPVM5/L8KFAEwXqqFA\nA0lS+PX0xDt2yWiokfwzXaUVt8CwUEZse8iumX+9vfI+DKRlEYsl114e6f+rjLx1\nvrhf2QMCgYAGz9J/hU5faOnrk24ucNhTt5PpcsQNqjCeqeJzp0DmSCvNuZ1s9Rfo\nX1jHqTvNPK9Tb1kbr4XfZxSQKEIPovSSdQTZWg9RRivRrpC6FaQtSjaZjTmyQgP8\nzbr7kx0sT+n73EOTU1bp1g/4lWKHv9ZM6PB9KqFEa2GVr28K95SakA==\n-----END RSA PRIVATE KEY-----\n"
+              ]
+            }
+          ],
+          "alpn": [
+            "h2"
+          ]
+        },
+        "xhttpSettings": {
+          "path": "/",
+          "mode": "packet-up"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "IN_REVERSE"
+        ],
+        "outboundTag": "portal"
+      },
+      {
+        "type": "field",
+        "port": "0-65535",
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}

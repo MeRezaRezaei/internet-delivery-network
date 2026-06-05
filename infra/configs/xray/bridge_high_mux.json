@@ -1,0 +1,80 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "outbounds": [
+        // 1. Direct egress to the internet (used to deliver users' traffic)
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        // 2. High-performance VLESS reverse outbound with extreme XMUX multiplexing
+        {
+            "protocol": "vless",
+            "tag": "tunnel_high_mux",
+            "settings": {
+                "address": "i-07.menudigi.ir",
+                "port": 443,
+                "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+                "email": "de08-cf@reverse",
+                "encryption": "none",
+                "reverse": {
+                    "tag": "reverse-in-08-cf"
+                }
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "tls",
+                "tlsSettings": {
+                    "allowInsecure": true,
+                    "serverName": "i-07.menudigi.ir",
+                    "alpn": ["h2"]
+                },
+                "xhttpSettings": {
+                    "path": "/21-08-07-06",
+                    "mode": "stream-up",
+                    "extra": {
+                        "xmux": {
+                            "maxConcurrency": 1000,
+                            "maxConnections": 0,
+                            "cMaxReuseTimes": 0,
+                            "hMaxRequestTimes": 10000,
+                            "hMaxReusableSecs": 900,
+                            "hKeepAlivePeriod": 15
+                        }
+                    }
+                },
+                "sockopt": {
+                    "dialerProxy": "warp",
+                    "tcpKeepAliveIdle": 30,
+                    "tcpKeepAliveInterval": 15
+                }
+            }
+        },
+        // 3. Cloudflare Warp SOCKS5 dialer proxy to protect active connections
+        // Masking VM cloud IP behind Cloudflare whitelisted network
+        {
+            "tag": "warp",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 10808
+                    }
+                ]
+            }
+        }
+    ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            // Route all egress traffic returning from the reverse tunnel to the internet directly
+            {
+                "type": "field",
+                "inboundTag": ["reverse-in-08-cf"],
+                "outboundTag": "direct"
+            }
+        ]
+    }
+}

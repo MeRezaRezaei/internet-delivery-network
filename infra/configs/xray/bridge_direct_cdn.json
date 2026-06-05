@@ -1,0 +1,71 @@
+
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "tag": "warp",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 10110
+                    }
+                ]
+            }
+        },
+        {
+            "protocol": "vless",
+            "tag": "tunnel-loopback",
+            "settings": {
+                "address": "i-08.menudigi.ir",
+                "port": 2096,
+                "id": "d532a842-8783-4d15-93b3-dc8963947be9",
+                "email": "loopback_test@reverse",
+                "encryption": "none",
+                "reverse": {
+                    "tag": "reverse-bridge-test"
+                }
+            },
+            
+            "streamSettings": {
+                "network": "ws",
+                "security": "tls",
+                "tlsSettings": {
+                    "allowInsecure": true
+                },
+                "wsSettings": {
+                    "path": "/"
+                }
+            },
+            "mux": {
+                "enabled": false,
+                "concurrency": 100,
+                "xudpConcurrency": 100
+            }
+        }
+    ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "reverse-bridge-test"
+                ],
+                "outboundTag": "warp"
+            },
+            {
+                "type": "field",
+                "port": "0-65535",
+                "outboundTag": "direct"
+            }
+        ]
+    }
+}

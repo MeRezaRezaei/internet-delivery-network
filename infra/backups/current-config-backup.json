@@ -1,0 +1,717 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "inbounds": [
+        {
+            "tag": "IN_01_01_01_01_XTLS",
+            "port": 6011,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/c-01-01-01-01/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_01_02_XTLS",
+            "port": 6012,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/c-01-01-01-02/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_01_03_XTLS",
+            "port": 6013,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/c-01-01-01-03/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_01_04_XTLS",
+            "port": 6014,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/c-01-01-01-04/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_01_05_XTLS",
+            "port": 6015,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/c-01-01-01-05/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_04_01_XTLS",
+            "port": 6041,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/16-01-04-01/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_04_02_XTLS",
+            "port": 6042,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/c-01-01-04-02/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_04_03_XTLS",
+            "port": 6043,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/c-01-01-04-03/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_04_04_XTLS",
+            "port": 6044,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/c-01-01-04-04/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_01_01_04_05_XTLS",
+            "port": 6045,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/20-01-04-05/xtls",
+                    "mode": "auto"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "OUT_01_01_01_01_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1081,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_01_02_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1082,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_01_03_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1083,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_01_04_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1084,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_01_05_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1085,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_04_01_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1081,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_04_02_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1082,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_04_03_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1083,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_04_04_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1084,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_01_01_04_05_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 1085,
+                        "level": 1,
+                        "users": [
+                            {
+                                "user": "MeRezaRezaei",
+                                "pass": "Rez@9011438678",
+                                "level": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "protocol": "freedom",
+            "tag": "DIRECT"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "BLOCK"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_01_01_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_01_01_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_01_02_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_01_02_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_01_03_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_01_03_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_01_04_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_01_04_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_01_05_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_01_05_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_04_01_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_04_01_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_04_02_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_04_02_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_04_03_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_04_03_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_04_04_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_04_04_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_01_01_04_05_XTLS"
+                ],
+                "outboundTag": "OUT_01_01_04_05_SOCKS"
+            },
+            {
+                "type": "field",
+                "port": "0-65535",
+                "outboundTag": "DIRECT"
+            }
+        ]
+    }
+}

@@ -1,0 +1,151 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "inbounds": [
+        {
+            "tag": "IN_21_08_07_05_XTLS",
+            "port": 5011,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/21-08-07-05/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_24_01_07_06_XTLS",
+            "port": 5012,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/24-01-07-06/xtls",
+                    "mode": "auto"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "OUT_21_08_07_05_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 21081,
+                        "level": 1
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "OUT_24_01_07_06_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "ota": false,
+                        "udp": true,
+                        "allowTransparent": false,
+                        "port": 24081,
+                        "level": 1
+                    }
+                ]
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "protocol": "freedom",
+            "tag": "DIRECT"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "BLOCK"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_21_08_07_05_XTLS"
+                ],
+                "outboundTag": "OUT_21_08_07_05_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "IN_24_01_07_06_XTLS"
+                ],
+                "outboundTag": "OUT_24_01_07_06_SOCKS"
+            },
+            {
+                "type": "field",
+                "port": "0-65535",
+                "outboundTag": "BLOCK"
+            }
+        ]
+    }
+}

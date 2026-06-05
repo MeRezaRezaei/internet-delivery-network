@@ -1,0 +1,32 @@
+{
+  "api": {
+    "tag": "api",
+    "services": [
+      "HandlerService",
+      "StatsService"
+    ]
+  },
+  "stats": {},
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": 10087,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1"
+      },
+      "tag": "api"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "type": "field"
+      }
+    ]
+  }
+}

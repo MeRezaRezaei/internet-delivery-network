@@ -1,0 +1,115 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "reverse": {},
+    "inbounds": [
+        {
+            "tag": "wg-in",
+            "port": 5100,
+            "listen": "127.0.0.1",
+            "protocol": "dokodemo-door",
+            "settings": {
+                "address": "91.99.27.189",
+                "port": 6100,
+                "network": "udp"
+            }
+        },
+       {
+            "tag": "vless-in",
+            "listen": "0.0.0.0",
+            "port": 9443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+                        "level": 0,
+                        "flow": "xtls-rprx-vision",
+                        "seed": "a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7",
+                        "email": "bridge@usa"
+                        
+                    }
+                ],
+                "decryption": "mlkem768x25519plus.native.600s.CC8WaKtmYoT11uNTdF-PNfiBE_DRv4fNHf0_dfhFUUo"
+            },
+            "streamSettings": {
+                "network": "XHTTP",
+                "security": "tls",
+                "tlsSettings": {
+                    "certificates": [
+                        {
+                            "certificateFile": "/etc/ssl/certs/server.crt",
+                            "keyFile": "/etc/ssl/private/server.key"
+                        }
+                    ]
+                },
+                "xhttpSettings": {
+                    "path": "/"
+                }
+            },
+            "mux": {
+                "enabled": false,
+                "concurrency": -1
+            }
+        },
+        {
+            "listen": "0.0.0.0",
+            "port": 8443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+                        "level": 0,
+                        "flow": "xtls-rprx-vision",
+                        "seed": "a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7",
+                        "email": "bridge@usa",
+                        "reverse": {
+                            "tag": "portal"
+                        }
+                    }
+                ],
+                "decryption": "mlkem768x25519plus.native.600s.CC8WaKtmYoT11uNTdF-PNfiBE_DRv4fNHf0_dfhFUUo"
+            },
+            "streamSettings": {
+                "network": "XHTTP",
+                "security": "tls",
+                "tlsSettings": {
+                    "certificates": [
+                        {
+                            "certificateFile": "/etc/ssl/certs/server.crt",
+                            "keyFile": "/etc/ssl/private/server.key"
+                        }
+                    ]
+                },
+                "xhttpSettings": {
+                    "path": "/"
+                }
+            },
+            "mux": {
+                "enabled": false,
+                "concurrency": -1
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "direct",
+            "protocol": "freedom"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "UseIPv6v4",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "wg-in",
+                    "vless-in"
+                ],
+                "outboundTag": "portal"
+            }
+        ]
+    }
+}

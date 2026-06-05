@@ -1,0 +1,156 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "inbounds": [
+        {
+            "tag": "IN_21_08_07_05_XTLS",
+            "port": 5011,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": ["http", "tls", "quic"]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/21-08-07-05/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_24_01_07_06_XTLS",
+            "port": 5012,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": ["http", "tls", "quic"]
+            },
+            "settings": {
+                "clients": [],
+                "udp": true,
+                "udpOverTcp": true,
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/24-01-07-06/xtls",
+                    "mode": "auto"
+                }
+            }
+        },
+        {
+            "tag": "IN_10_SOCKS",
+            "port": 21010,
+            "listen": "127.0.0.1",
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true
+            }
+        },
+        {
+            "tag": "IN_10_REVERSE_PORTAL",
+            "port": 65443,
+            "listen": "127.0.0.1",
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "58764c09-99c3-4496-9591-9cff83e4c7b7",
+                        "email": "de10@reverse",
+                        "seed": "a3f5c8d2e9b1f4a7c6d8e2f1b5a9c3d7",
+                        "reverse": { "tag": "reverse-out-10" }
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "security": "none",
+                "xhttpSettings": {
+                    "path": "/24-10-07-06",
+                    "mode": "auto"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "OUT_21_08_07_05_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 21081,
+                        "udp": true
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "OUT_24_01_07_06_SOCKS",
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 24081,
+                        "udp": true
+                    }
+                ]
+            }
+        },
+        {
+            "protocol": "freedom",
+            "tag": "DIRECT"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "BLOCK"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": ["IN_21_08_07_05_XTLS"],
+                "outboundTag": "OUT_21_08_07_05_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": ["IN_24_01_07_06_XTLS"],
+                "outboundTag": "OUT_24_01_07_06_SOCKS"
+            },
+            {
+                "type": "field",
+                "inboundTag": ["IN_10_SOCKS"],
+                "outboundTag": "reverse-out-10"
+            },
+            {
+                "type": "field",
+                "inboundTag": ["reverse-out-10"],
+                "outboundTag": "DIRECT"
+            },
+            {
+                "type": "field",
+                "port": "0-65535",
+                "outboundTag": "BLOCK"
+            }
+        ]
+    }
+}
