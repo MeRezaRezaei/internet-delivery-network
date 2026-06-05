@@ -11,5 +11,6 @@
 - [x] Full Rewrite of `MarzbanSubscriptionController` (XHTTP/SplitHTTP).
 - [x] SUBHOST PRIMACY: Removal of Marzban host dependency.
 - [x] Advanced XHTTP Logic (Reverse vs Direct).
+- [x] **Blade-based Admin Panel** with Marzban `.env` auth.
 - [x] Fix UI Protocol Error (HAProxy tuning).
 - [x] Improved Sub Page with QR Codes.

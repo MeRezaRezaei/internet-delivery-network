@@ -9,13 +9,15 @@
 - [x] Marzban DB integration (UUID extraction only).
 - [x] Full rewrite of `MarzbanSubscriptionController` following Xray v1.8.8+ standards.
 - [x] Implementation of advanced XHTTP logic (Direct vs Reverse) with Split-Domain mapping.
-- [x] Host Manager UI upgraded to support advanced XHTTP fields (PCS, Download Settings, Certs).
+- [x] Host Manager UI (Vue.js) upgraded for advanced XHTTP fields.
+- [x] **New Blade-based Admin Panel** implemented with Marzban `.env` authentication.
 - [x] UI Protocol error fixed via HAProxy H2 tuning.
 - [x] Beautiful "Marzban-like but better" subscription page with QR codes and deep links.
 
 ## Active Constraints
 - Reverse proxy certificates must be manually pasted into the Host Manager (automated fetch from srv07 later?).
 - Monitoring of GFW blocking on srv07 is mandatory.
+- Admin Panel relies on `/opt/Marzban/.env` for SUDO credentials.
 
 ## Next Steps for Successor Agent
 1. Implement automated certificate fetching for Reverse SubHosts.

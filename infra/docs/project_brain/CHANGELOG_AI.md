@@ -347,3 +347,11 @@
 
 #### Removed
 - getActiveInboundTags and dependency on marzban.hosts table for URI generation.
+
+### [2026-06-05 - Session Part 3]
+#### Added
+- New Blade-based Admin Panel at /sub/admin/dashboard.
+- Admin authentication via Marzban SUDO_USERNAME/SUDO_PASSWORD from /opt/Marzban/.env.
+- AdminMiddleware for session protection.
+- SubHostAdminController with full CRUD support.
+- Bootstrap 5 powered views for Login and Dashboard.

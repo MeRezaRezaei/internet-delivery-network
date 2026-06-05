@@ -98,3 +98,25 @@ Rewrite the `generateUris` and `buildVlessUri` functions to build this complex a
 
 OUTPUT MANDATE:
 Output the FULL, complete PHP file from `<?php` to the end. No placeholders, no skipped functions, no comments like `// ... existing code ...`. I need a copy-paste ready file.
+
+ROLE: Expert Laravel Developer.
+
+CONTEXT: The user subscription generation works, but the admin panel at `/sub/admin` returns a 500 error because it lacks controllers, middleware, and views. I need a fully functional, simple Admin Panel to perform CRUD operations on the `SubHost` model.
+
+STRICT RULES FOR AUTHENTICATION:
+1. DO NOT use the default Laravel User model or a database table for admin authentication.
+2. Read the Marzban environment file, which is located exactly at `/opt/Marzban/.env`.
+3. Parse the `SUDO_USERNAME` and `SUDO_PASSWORD` string values from that file.
+4. Compare the login request credentials against these parsed values. If they match, use Laravel sessions (e.g., `session(['is_admin' => true])`) to authenticate the session.
+
+REQUIRED FILES TO GENERATE:
+1. `AdminAuthController`: Methods to show the login view, process the login (parsing the .env file), and logout.
+2. `AdminMiddleware`: Protect the dashboard routes by verifying the `is_admin` session flag.
+3. `SubHostAdminController`: Full CRUD logic (index, store, update, destroy) to manage the custom hosts.
+4. `routes/web.php` additions: Provide the exact route grouping applying the middleware.
+5. Views (Blade): Provide two complete, single-file Blade templates using Bootstrap 5 via CDN:
+   - `admin/login.blade.php`: A simple login form.
+   - `admin/dashboard.blade.php`: A unified page containing the HTML table of current `SubHost` records and a modal or form to add/edit records (handling fields like type, address, port, sni, extra json, etc.).
+
+ZERO TOLERANCE MANDATE:
+Output the FULL, complete code for every requested file from start to finish. NO partial snippets. NO placeholders like `// ... existing code ...`. The provided code must be directly copy-pasteable and instantly functional.
