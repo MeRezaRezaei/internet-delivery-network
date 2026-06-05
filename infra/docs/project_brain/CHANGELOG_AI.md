@@ -392,3 +392,13 @@
 
 #### Documented
 - Formalized Database Architecture in GEMINI.md and AI Brain: App DB (marzban) vs Native DB (marzban-arvan).
+
+### [2026-06-05 - Session Part 8]
+#### Added
+- Support for 'flow' setting in SubHost model and Admin UI, integrated into XHTTP URI generation.
+- Robust Feature Test 'SubscriptionConsistencyTest' to verify that all active database records are correctly and uniquely reflected in the subscription dashboard.
+- Automated extra JSON verification in tests to ensure Padding, XMUX, and SC settings are perfectly accurate.
+
+#### Fixed
+- Unified database configuration: Consolidated application and native data into a single 'marzban' database to prevent connection issues.
+- Resolved discrepancy between DB records and subscription output by refining URI uniqueness and filtering logic.

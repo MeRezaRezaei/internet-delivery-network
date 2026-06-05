@@ -25,7 +25,7 @@
         <env name="CACHE_STORE" value="array"/>
         <env name="DB_CONNECTION" value="mysql"/>
         <env name="DB_DATABASE" value="marzban"/>
-        <env name="MARZBAN_DATABASE_NAME" value="marzban-arvan"/>
+        <env name="MARZBAN_DATABASE_NAME" value="marzban"/>
         <env name="DB_USERNAME" value="marzban"/>
         <env name="DB_PASSWORD" value="Marzban9011438678"/>
         <env name="REDIS_CLIENT" value="phpredis"/>

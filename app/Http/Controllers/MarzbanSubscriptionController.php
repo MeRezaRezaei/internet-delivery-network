@@ -76,15 +76,12 @@ class MarzbanSubscriptionController extends Controller
     protected function generateUris($uuid, $user)
     {
         $uris = [];
-        // Only get non-template hosts for the list, but allow templates if specifically active?
-        // Actually, the user says "only shows three" because of array_unique and generic fields.
         $hosts = SubHost::where('is_active', true)->where('is_template', false)->get();
 
         foreach ($hosts as $host) {
             $uris[] = $this->buildVlessUri($uuid, $host);
         }
 
-        // We want unique strings, but different names make them unique.
         return array_values(array_unique($uris));
     }
 
@@ -155,8 +152,11 @@ class MarzbanSubscriptionController extends Controller
             'host' => $host->host ?: ($host->sni ?: $host->address),
             'path' => $host->path ?: '/',
             'mode' => $host->mode ?: 'packet-up',
+            'flow' => $host->flow ?: '',
             'extra' => json_encode($extra),
         ];
+
+        if (!$params['flow']) unset($params['flow']);
 
         if ($host->is_reverse && $host->pcs) {
             $params['pcs'] = $host->pcs;

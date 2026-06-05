@@ -52,6 +52,7 @@ class SubHostAdminController extends Controller
             'download_sni' => 'nullable|string|max:255',
             'cert_pem' => 'nullable|string',
             'pcs' => 'nullable|string|max:255',
+            'flow' => 'nullable|string|max:255',
             'padding' => 'nullable|string',
             'sc_max_each_post_bytes' => 'nullable|string',
             'sc_min_posts_interval_ms' => 'nullable|string',

@@ -181,6 +181,10 @@
                                         <input type="text" name="alpn" id="alpn" class="form-control" value="h2">
                                     </div>
                                     <div class="col-md-6">
+                                        <label class="form-label small">Flow</label>
+                                        <input type="text" name="flow" id="flow" class="form-control" placeholder="xtls-rprx-vision">
+                                    </div>
+                                    <div class="col-md-12">
                                         <label class="form-label small">Mode</label>
                                         <select name="mode" id="mode" class="form-select">
                                             <option value="packet-up">packet-up</option>
@@ -343,6 +347,7 @@
             document.getElementById('sni').value = host.sni || '';
             document.getElementById('path').value = host.path || '/';
             document.getElementById('alpn').value = host.alpn || 'h2';
+            document.getElementById('flow').value = host.flow || '';
             document.getElementById('mode').value = host.mode || 'packet-up';
             
             // Download

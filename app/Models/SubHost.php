@@ -12,7 +12,7 @@ class SubHost extends Model
         'download_address', 'download_port', 'download_sni', 'is_reverse', 'cert_pem', 'pcs',
         'padding', 'no_grpc_header', 'sc_max_each_post_bytes', 'sc_min_posts_interval_ms',
         'xmux_max_concurrency', 'xmux_max_connections', 'xmux_c_max_reuse_times',
-        'xmux_h_max_request_times', 'xmux_h_max_reusable_secs', 'is_cdn'
+        'xmux_h_max_request_times', 'xmux_h_max_reusable_secs', 'is_cdn', 'flow'
     ];
 
     protected $casts = [
