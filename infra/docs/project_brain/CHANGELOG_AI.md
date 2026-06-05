@@ -355,3 +355,9 @@
 - AdminMiddleware for session protection.
 - SubHostAdminController with full CRUD support.
 - Bootstrap 5 powered views for Login and Dashboard.
+
+### [2026-06-05 - Session Part 4]
+#### Fixed
+- Fixed 500 Error on subscription endpoint by correcting permissions on .env file (chmod 644) so www-data can read it.
+- Fixed 404 Error on /sub/admin by adding a proper redirect to /sub/admin/login in web.php.
+- Corrected storage and cache directory ownership (merezarezaei:www-data) and permissions (775).

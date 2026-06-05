@@ -14,6 +14,10 @@ Route::get('/sub/admin-vue', function () {
 });
 
 // 2. New Blade-based Admin Panel
+Route::get('/sub/admin', function () {
+    return redirect()->route('admin.login');
+});
+
 Route::prefix('sub/admin')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
     Route::post('/login', [AdminAuthController::class, 'login']);
