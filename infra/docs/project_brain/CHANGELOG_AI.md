@@ -361,3 +361,15 @@
 - Fixed 500 Error on subscription endpoint by correcting permissions on .env file (chmod 644) so www-data can read it.
 - Fixed 404 Error on /sub/admin by adding a proper redirect to /sub/admin/login in web.php.
 - Corrected storage and cache directory ownership (merezarezaei:www-data) and permissions (775).
+
+### [2026-06-05 - Session Part 5]
+#### Added
+- Automated Feature Tests for Admin Authentication, Subscriptions, and SubHost CRUD.
+- Standalone 'scripts/sanity_check.sh' for live infrastructure verification.
+
+#### Fixed
+- Resolved Cloudflare 520 / Origin 500 errors caused by database connection mismatch (system env var overrides).
+- Renamed MARZBAN_DB_DATABASE to MARZBAN_DATABASE_NAME to prevent shell env variable collision.
+- Unified sub_hosts and migrations tables into 'marzban-arvan' database.
+- Fixed potential crash in login view when rendering without error bag.
+- Enhanced Subscription Controller to support VMess proxies if VLESS is unavailable.

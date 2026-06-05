@@ -34,15 +34,15 @@ class MarzbanSubscriptionController extends Controller
             return response()->json(['error' => 'Account is ' . $user->status], 403);
         }
 
-        // 2. Extract UUID from Marzban (Strict Rule: UUID ONLY)
-        $vlessProxy = $user->proxies()->where('type', 'VLESS')->first();
-        if (!$vlessProxy) {
-            return response()->json(['error' => 'VLESS proxy not found for user'], 404);
+        // 2. Extract UUID from Marzban (Support VLESS or VMess)
+        $proxy = $user->proxies()->whereIn('type', ['VLESS', 'VMess', 'trojan'])->first();
+        if (!$proxy) {
+            return response()->json(['error' => 'No compatible proxy found for user'], 404);
         }
 
-        $uuid = $vlessProxy->settings['id'] ?? null;
+        $uuid = $proxy->settings['id'] ?? ($proxy->settings['password'] ?? null);
         if (!$uuid) {
-            return response()->json(['error' => 'UUID not found'], 500);
+            return response()->json(['error' => 'UUID/Password not found'], 500);
         }
 
         // 3. Generate URIs based on SUBHOST PRIMACY

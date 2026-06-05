@@ -21,7 +21,7 @@
             <p class="text-secondary small uppercase tracking-wider">Subscription Infrastructure</p>
         </div>
 
-        @if($errors->has('login'))
+        @if(isset($errors) && $errors->has('login'))
             <div class="alert alert-danger py-2 small mb-4">
                 {{ $errors->first('login') }}
             </div>
