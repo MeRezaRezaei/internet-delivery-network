@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Dashboard from '../components/Dashboard.vue';
+import HostManager from '../components/HostManager.vue';
 
 const routes = [
     {
-        path: '/idn',
-        name: 'Dashboard',
-        component: Dashboard
+        path: '/sub/admin',
+        name: 'HostManager',
+        component: HostManager
     }
 ];
 

@@ -1,25 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HostManagerController;
+use App\Http\Controllers\MarzbanSubscriptionController;
 
-use App\Http\Controllers\IDN\DashboardController;
-use App\Http\Controllers\IDN\TunnelController;
-
-Route::get('/', function () {
-    return view('welcome');
+// 1. Specific Admin Routes
+Route::get('/sub/admin', function () {
+    return view('sub.admin');
 });
 
-Route::get('/idn', [DashboardController::class, 'index'])->name('idn.dashboard.index');
-Route::post('/idn/dns/toggle', [DashboardController::class, 'toggleDnsBlocklist'])->name('idn.dns.toggle');
-Route::get('/idn/api/logs', [DashboardController::class, 'logs'])->name('idn.api.logs');
-Route::get('/idn/api/routing', [DashboardController::class, 'routing'])->name('idn.api.routing');
-Route::get('/idn/api/traffic', [DashboardController::class, 'traffic'])->name('idn.api.traffic');
-Route::get('/idn/api/tunnels', [DashboardController::class, 'tunnels'])->name('idn.api.tunnels');
-Route::post('/idn/tunnels', [TunnelController::class, 'store'])->name('idn.tunnels.store');
-Route::post('/idn/tunnels/{tunnel}/verify', [TunnelController::class, 'verify'])->name('idn.tunnels.verify');
-Route::delete('/idn/tunnels/{tunnel}', [TunnelController::class, 'destroy'])->name('idn.tunnels.destroy');
-Route::get('/idn/api/subscriptions/{uuid}', [\App\Http\Controllers\IDN\SubscriptionController::class, 'show'])->name('idn.api.subscriptions.show');
-Route::get('/sub/{token}', [\App\Http\Controllers\MarzbanSubscriptionController::class, 'show'])->name('marzban.sub.show');
+Route::prefix('sub/admin')->group(function () {
+    Route::get('/hosts', [HostManagerController::class, 'index']);
+    Route::post('/hosts', [HostManagerController::class, 'store']);
+    Route::get('/hosts/{subHost}', [HostManagerController::class, 'show']);
+    Route::put('/hosts/{subHost}', [HostManagerController::class, 'update']);
+    Route::delete('/hosts/{subHost}', [HostManagerController::class, 'destroy']);
+    
+    // Vue SPA catch-all (nested)
+    Route::get('/{any}', function () {
+        return view('sub.admin');
+    })->where('any', '.*');
+});
 
-// Catch all for Vue SPA
-Route::get('/idn/{any?}', [DashboardController::class, 'index'])->where('any', '.*')->name('idn.dashboard');
+// 2. Subscription Route
+Route::get('/sub/{token}', [MarzbanSubscriptionController::class, 'show'])
+    ->where('token', '^(?!admin$).*')
+    ->name('marzban.sub.show');

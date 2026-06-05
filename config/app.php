@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => 'https://sub.menudigi.ir',
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'key' => env('APP_KEY'),
+    'key' => 'base64:EJluL9941SjjSH4501xkelQVVvnC/SY6Tax742OWh0M=',
 
     'previous_keys' => [
         ...array_filter(
