@@ -402,3 +402,8 @@
 #### Fixed
 - Unified database configuration: Consolidated application and native data into a single 'marzban' database to prevent connection issues.
 - Resolved discrepancy between DB records and subscription output by refining URI uniqueness and filtering logic.
+
+### [2026-06-05 - Session Part 9]
+#### Changed
+- EMERGENCY FALLBACK: Modified HAProxy configuration to route all subscription host traffic (sub.menudigi.ir, etc.) directly to the native Marzban backend (127.0.0.1:2020).
+- The new Laravel sub-service is now idle but fully functional for testing/admin purposes at its local port (8085).

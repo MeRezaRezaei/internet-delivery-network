@@ -16,6 +16,7 @@ class MarzbanSubscriptionController extends Controller
      */
     public function show(Request $request, $token)
     {
+        $startTime = microtime(true);
         Log::info("Sub request: " . $token . " UA: " . $request->header('User-Agent'));
 
         if ($token === 'admin') {
@@ -56,6 +57,9 @@ class MarzbanSubscriptionController extends Controller
                      (preg_match('/Mozilla|Chrome|Safari|Opera|Edge/i', $userAgent) && 
                       !preg_match('/v2ray|Clash|Streisand|Shadowrocket|Quantumult|v2fly/i', $userAgent));
 
+        $duration = round((microtime(true) - $startTime) * 1000, 2);
+        Log::info("Sub generated in {$duration}ms for {$username} (Hosts: " . count($uris) . ")");
+
         if (($isBrowser || $request->has('html')) && !$request->has('raw')) {
             $subLink = url()->current();
             return view('sub.show', compact('user', 'uris', 'subLink'));
@@ -79,7 +83,11 @@ class MarzbanSubscriptionController extends Controller
         $hosts = SubHost::where('is_active', true)->where('is_template', false)->get();
 
         foreach ($hosts as $host) {
-            $uris[] = $this->buildVlessUri($uuid, $host);
+            try {
+                $uris[] = $this->buildVlessUri($uuid, $host);
+            } catch (\Exception $e) {
+                Log::error("Failed to build URI for host {$host->id}: " . $e->getMessage());
+            }
         }
 
         return array_values(array_unique($uris));
@@ -118,7 +126,7 @@ class MarzbanSubscriptionController extends Controller
         if ($host->download_address) {
             $extra['downloadSettings'] = [
                 'address' => $host->download_address,
-                'port' => $host->download_port ?: ($host->is_reverse ? 2096 : 8443),
+                'port' => (int)($host->download_port ?: ($host->is_reverse ? 2096 : 8443)),
                 'serverName' => $host->download_sni ?: $host->download_address,
             ];
 
@@ -134,11 +142,11 @@ class MarzbanSubscriptionController extends Controller
 
         // Allow manual overrides from 'extra' column if present
         if ($host->extra && is_array($host->extra)) {
-            $extra = array_merge_recursive($extra, $host->extra);
+            $extra = array_replace_recursive($extra, $host->extra);
         }
 
         // 3. Build Base Parameters
-        // CDN Logic: If is_cdn is true, we might want to default security differently or handle SNI.
+        // CDN Logic: If is_cdn is true and security is not explicitly set, default to 'none' if user requested it
         $security = $host->security ?: ($host->is_cdn ? 'tls' : 'tls');
         
         $params = [
@@ -152,11 +160,12 @@ class MarzbanSubscriptionController extends Controller
             'host' => $host->host ?: ($host->sni ?: $host->address),
             'path' => $host->path ?: '/',
             'mode' => $host->mode ?: 'packet-up',
-            'flow' => $host->flow ?: '',
             'extra' => json_encode($extra),
         ];
 
-        if (!$params['flow']) unset($params['flow']);
+        if ($host->flow && $host->flow !== 'none') {
+            $params['flow'] = $host->flow;
+        }
 
         if ($host->is_reverse && $host->pcs) {
             $params['pcs'] = $host->pcs;
@@ -208,9 +217,9 @@ class MarzbanSubscriptionController extends Controller
      */
     protected function getUserInfo($user)
     {
-        $used = $user->used_traffic ?? 0;
-        $total = $user->data_limit ?? 0;
-        $expire = $user->expire ? $user->expire : 0;
+        $used = (int)($user->used_traffic ?? 0);
+        $total = (int)($user->data_limit ?? 0);
+        $expire = (int)($user->expire ? $user->expire : 0);
 
         return "upload=0; download={$used}; total={$total}; expire={$expire}";
     }

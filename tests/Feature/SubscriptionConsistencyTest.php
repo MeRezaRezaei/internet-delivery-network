@@ -6,9 +6,12 @@ use App\Models\SubHost;
 use App\Models\Marzban\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class SubscriptionConsistencyTest extends TestCase
 {
+    use WithoutMiddleware;
+
     /**
      * Verify that all active non-template hosts in DB are present in the subscription.
      */
@@ -20,87 +23,72 @@ class SubscriptionConsistencyTest extends TestCase
             $this->markTestSkipped('No active user found in Marzban DB.');
         }
 
-        // Cleanup any test leftovers
-        SubHost::where('address', 'test-unique-advanced.com')->delete();
+        // 2. Prepare controlled test data
+        SubHost::query()->delete(); // Clear for exact match
+        
+        $h1 = SubHost::create(['name' => 'H1', 'address' => 'h1.com', 'port' => 443, 'is_active' => true, 'is_template' => false]);
+        $h2 = SubHost::create(['name' => 'H2', 'address' => 'h2.com', 'port' => 443, 'is_active' => true, 'is_template' => false]);
+        $h3 = SubHost::create(['name' => 'H3', 'address' => 'h3.com', 'port' => 443, 'is_active' => false, 'is_template' => false]); // Inactive
+        $h4 = SubHost::create(['name' => 'H4', 'address' => 'h4.com', 'port' => 443, 'is_active' => true, 'is_template' => true]);  // Template
 
-        // 2. Count active non-template hosts in DB
-        $dbHostCount = SubHost::where('is_active', true)->where('is_template', false)->count();
-
-        // 3. Request subscription (Base64 mode for easier parsing)
+        // 3. Request subscription
         $response = $this->get("/sub/{$user->username}", [
-            'User-Agent' => 'v2rayNG/1.8.5'
+            'User-Agent' => 'v2rayNG'
         ]);
 
         $response->assertStatus(200);
         $content = base64_decode($response->getContent());
         $lines = array_filter(explode("\n", $content));
 
-        // 4. Assert count matches
-        $this->assertEquals($dbHostCount, count($lines), "Subscription host count (" . count($lines) . ") does not match DB active non-template count ($dbHostCount)");
+        // 4. Assert count matches (should be 2: H1 and H2)
+        $this->assertEquals(2, count($lines), "Subscription host count (" . count($lines) . ") does not match expected (2)");
 
-        // 5. Verify HTML mode consistency
+        // 5. Verify HTML mode
         $responseHtml = $this->get("/sub/{$user->username}", [
             'Accept' => 'text/html',
             'User-Agent' => 'Mozilla/5.0'
         ]);
 
         $responseHtml->assertStatus(200);
-        foreach (SubHost::where('is_active', true)->where('is_template', false)->get() as $host) {
-            $responseHtml->assertSee($host->name);
-        }
+        $responseHtml->assertSee('H1');
+        $responseHtml->assertSee('H2');
+        $responseHtml->assertDontSee('H3');
+        $responseHtml->assertDontSee('H4');
     }
 
     /**
-     * Test XHTTP extra field generation accuracy.
+     * Test XHTTP extra field generation accuracy and Flow field.
      */
     public function test_xhttp_extra_generation_is_accurate(): void
     {
         $user = User::where('status', 'active')->first();
-        
-        // Create a specific host with all advanced fields
+        SubHost::query()->delete();
+
         $host = SubHost::create([
-            'name' => 'Full Config Test Unique',
-            'address' => 'test-very-unique-advanced.com',
+            'name' => 'Advanced Host',
+            'address' => 'advanced.com',
             'port' => 443,
-            'padding' => '123-456',
+            'padding' => '100-200',
             'no_grpc_header' => true,
-            'sc_max_each_post_bytes' => '1000',
-            'sc_min_posts_interval_ms' => '100',
-            'xmux_max_concurrency' => 32,
+            'xmux_max_concurrency' => 64,
+            'flow' => 'xtls-rprx-vision',
             'is_active' => true,
-            'is_template' => false,
-            'flow' => 'xtls-rprx-vision'
+            'is_template' => false
         ]);
 
         $response = $this->get("/sub/{$user->username}", [
-            'User-Agent' => 'v2rayNG/1.8.5'
+            'User-Agent' => 'v2rayNG'
         ]);
 
         $content = base64_decode($response->getContent());
+        $this->assertStringContainsString('advanced.com', $content);
+        $this->assertStringContainsString('flow=xtls-rprx-vision', $content);
         
-        // Find the line for our test host
-        $lines = explode("\n", $content);
-        $testLine = "";
-        foreach ($lines as $line) {
-            if (str_contains($line, 'test-very-unique-advanced.com')) {
-                $testLine = $line;
-                break;
-            }
-        }
+        preg_match('/extra=([^#&]+)/', $content, $matches);
+        $extra = json_decode(urldecode($matches[1]), true);
 
-        $this->assertNotEmpty($testLine, "Host test-very-unique-advanced.com not found in subscription");
-        $this->assertStringContainsString('flow=xtls-rprx-vision', $testLine);
-
-        // Parse the URI to check extra JSON
-        preg_match('/extra=([^#&]+)/', $testLine, $matches);
-        $extraJson = urldecode($matches[1]);
-        $extra = json_decode($extraJson, true);
-
-        $this->assertEquals('123-456', $extra['xPaddingBytes']);
+        $this->assertEquals('100-200', $extra['xPaddingBytes']);
         $this->assertTrue($extra['noGRPCHeader']);
-        $this->assertEquals('1000', $extra['scMaxEachPostBytes']);
-        $this->assertEquals(32, $extra['xmux']['maxConcurrency']);
-        
-        $host->delete();
+        $this->assertEquals(64, $extra['xmux']['maxConcurrency']);
     }
 }

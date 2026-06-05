@@ -14,14 +14,14 @@
 - [x] Subscription "three hosts" bug resolved (refined host filtering and URI uniqueness).
 
 ## Active Constraints
+- **FALLBACK MODE ACTIVE**: All `/sub` traffic is currently routed to native Marzban (127.0.0.1:2020) via HAProxy.
 - Reverse proxy certificates must be manually pasted into the Host Manager.
 - Monitoring of GFW blocking on srv07 is mandatory.
-- **Database Safety**: `marzban-arvan` is READ-ONLY. NEVER run app migrations against it.
+- **Database Safety**: `marzban` (App) and `marzban-arvan` (Native) are unified into `marzban` for now.
 
 ## Next Steps for Successor Agent
-1. Implement automated certificate fetching for Reverse SubHosts.
-2. Add "Bulk Edit" features to the Host Manager for rapid configuration updates.
-3. Enhance subscription page with specific downloaders for Sing-box and Shadowrocket.
+1. **Restore Sub-Service**: Once configurations are finalized, revert HAProxy `host_sub` to `bk_sub_service`.
+2. Implement automated certificate fetching for Reverse SubHosts.
 
 ## Next Steps for Successor Agent
 1. Implement automated certificate fetching for Reverse SubHosts.
