@@ -34,7 +34,7 @@ class MarzbanSubscriptionController extends Controller
             return response()->json(['error' => 'Account is ' . $user->status], 403);
         }
 
-        // 2. Extract UUID from Marzban (Support VLESS or VMess)
+        // 2. Extract UUID/Password from Marzban (Support VLESS, VMess, Trojan)
         $proxy = $user->proxies()->whereIn('type', ['VLESS', 'VMess', 'trojan'])->first();
         if (!$proxy) {
             return response()->json(['error' => 'No compatible proxy found for user'], 404);
@@ -76,12 +76,15 @@ class MarzbanSubscriptionController extends Controller
     protected function generateUris($uuid, $user)
     {
         $uris = [];
-        $hosts = SubHost::where('is_active', true)->get();
+        // Only get non-template hosts for the list, but allow templates if specifically active?
+        // Actually, the user says "only shows three" because of array_unique and generic fields.
+        $hosts = SubHost::where('is_active', true)->where('is_template', false)->get();
 
         foreach ($hosts as $host) {
             $uris[] = $this->buildVlessUri($uuid, $host);
         }
 
+        // We want unique strings, but different names make them unique.
         return array_values(array_unique($uris));
     }
 
@@ -90,26 +93,31 @@ class MarzbanSubscriptionController extends Controller
      */
     protected function buildVlessUri($uuid, $host)
     {
-        // 1. Prepare the Extra Object (XHTTP logic)
+        // 1. Prepare Automated Extra Object
         $extra = [
-            'headers' => $host->extra['headers'] ?? [
+            'headers' => [
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
             ],
-            'xPaddingBytes' => $host->extra['xPaddingBytes'] ?? '100-500',
-            'noGRPCHeader' => $host->extra['noGRPCHeader'] ?? false,
-            'scMaxEachPostBytes' => $host->extra['scMaxEachPostBytes'] ?? '1000000-2000000',
-            'scMinPostsIntervalMs' => $host->extra['scMinPostsIntervalMs'] ?? '50-150',
-            'xmux' => $host->extra['xmux'] ?? [
-                'maxConcurrency' => '8-16',
-                'maxConnections' => 0,
-                'cMaxReuseTimes' => '10-20',
-                'hMaxRequestTimes' => '100-300',
-                'hMaxReusableSecs' => '120-240',
-                'hKeepAlivePeriod' => 0
-            ]
+            'xPaddingBytes' => $host->padding ?: '100-500',
+            'noGRPCHeader' => (bool)$host->no_grpc_header,
         ];
 
-        // 2. Add downloadSettings (The core of Split-Domain Mapping)
+        if ($host->sc_max_each_post_bytes) $extra['scMaxEachPostBytes'] = $host->sc_max_each_post_bytes;
+        if ($host->sc_min_posts_interval_ms) $extra['scMinPostsIntervalMs'] = $host->sc_min_posts_interval_ms;
+
+        // XMUX Logic
+        if ($host->xmux_max_concurrency || $host->xmux_max_connections) {
+            $extra['xmux'] = [
+                'maxConcurrency' => $host->xmux_max_concurrency ?: '16-32',
+                'maxConnections' => $host->xmux_max_connections ?: 0,
+                'cMaxReuseTimes' => $host->xmux_c_max_reuse_times ?: '64-128',
+                'hMaxRequestTimes' => $host->xmux_h_max_request_times ?: '800-900',
+                'hMaxReusableSecs' => $host->xmux_h_max_reusable_secs ?: '120-240',
+                'hKeepAlivePeriod' => 0
+            ];
+        }
+
+        // 2. Add downloadSettings (Split-Domain Mapping)
         if ($host->download_address) {
             $extra['downloadSettings'] = [
                 'address' => $host->download_address,
@@ -117,9 +125,7 @@ class MarzbanSubscriptionController extends Controller
                 'serverName' => $host->download_sni ?: $host->download_address,
             ];
 
-            // Add certificates for REVERSE hosts
             if ($host->is_reverse && $host->cert_pem) {
-                // Split PEM if multiple exist
                 $certs = array_filter(explode('-----END CERTIFICATE-----', $host->cert_pem));
                 $formattedCerts = [];
                 foreach ($certs as $cert) {
@@ -129,10 +135,18 @@ class MarzbanSubscriptionController extends Controller
             }
         }
 
+        // Allow manual overrides from 'extra' column if present
+        if ($host->extra && is_array($host->extra)) {
+            $extra = array_merge_recursive($extra, $host->extra);
+        }
+
         // 3. Build Base Parameters
+        // CDN Logic: If is_cdn is true, we might want to default security differently or handle SNI.
+        $security = $host->security ?: ($host->is_cdn ? 'tls' : 'tls');
+        
         $params = [
             'encryption' => 'none',
-            'security' => $host->security ?: 'tls',
+            'security' => $security,
             'sni' => $host->sni ?: $host->address,
             'alpn' => $host->alpn ?: 'h2',
             'insecure' => $host->insecure ? 1 : 0,
@@ -144,7 +158,6 @@ class MarzbanSubscriptionController extends Controller
             'extra' => json_encode($extra),
         ];
 
-        // 4. Handle PCS for Reverse Proxy
         if ($host->is_reverse && $host->pcs) {
             $params['pcs'] = $host->pcs;
         }

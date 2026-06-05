@@ -43,8 +43,15 @@ Maintain synchronization between the codebase and the documentation in `infra/do
 - **Commit & Push**: After updating the AI Brain, ALWAYS commit and push the changes.
 
 
-## Autonomous Connectivity
-Agents MUST use `sshpass` and documented credentials from `PRIVATE_MEMORY.md` or `NETWORK_AND_ARCHITECTURE.md` to avoid interactive password prompts and ensure execution speed.
+## Database Architecture
+- **Primary App DB**: `marzban` (Stores Laravel migrations and `sub_hosts` table).
+- **Native Marzban DB**: `marzban-arvan` (READ-ONLY access for `users`, `proxies`, etc.).
+- **Mandate**: NEVER run migrations against `marzban-arvan`. Use `MARZBAN_DATABASE_NAME` env var for the read-only connection.
+
+## XHTTP / V2RayN Configuration Mandate
+- **Automated Extra Logic**: The `extra` JSON must be generated automatically based on granular form fields (e.g., `xmux`, `padding`).
+- **CDN/SSL Dependency**: If a host is behind a CDN, SSL should be optional/configurable to avoid breakage.
+- **Flow/Config Standards**: Align with V2RayN's config edit behavior for XHTTP/SplitHTTP.
 
 
 

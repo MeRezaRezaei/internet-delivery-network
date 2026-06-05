@@ -380,3 +380,15 @@
 - Reverted DB_DATABASE environment configuration to 'marzban' to store local 'migrations' and 'sub_hosts'.
 - Cleaned up the live 'marzban-arvan' database by safely dropping incorrectly migrated 'migrations' and 'sub_hosts' tables.
 - Bypassed CSRF validation on admin endpoints in bootstrap/app.php to stabilize testing suite without overriding environment logic.
+
+### [2026-06-05 - Session Part 7]
+#### Added
+- Automated XHTTP 'extra' generation: Replaced manual JSON entry with granular DB fields for Padding, XMUX, and SC settings.
+- CDN Logic: Added 'is_cdn' flag and integrated into URI generation to handle SSL/SNI dependencies.
+- Expanded SubHost Admin UI with two-column layout for better management of Core vs Advanced settings.
+
+#### Fixed
+- Resolved 'Only Three Hosts' bug: Discovered that duplicate address/port combinations and 'is_template' hosts were being merged incorrectly. Refined filtering and uniqueness logic.
+
+#### Documented
+- Formalized Database Architecture in GEMINI.md and AI Brain: App DB (marzban) vs Native DB (marzban-arvan).
