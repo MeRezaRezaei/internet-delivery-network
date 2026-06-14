@@ -1,5 +1,11 @@
 # AI Changelog
 
+## 2026-06-06
+- **Test Suite Hardening & Protobuf Integration**:
+    - **Real Protobuf Class Integration**: Integrated a loader block in `tests/TestCase.php` to require the real generated Xray and Google protobuf files instead of overriding them with empty stub classes. This resolved the `Dry-run validation failed: Expect Xray\Core\InboundHandlerConfig.` exception.
+    - **Robust gRPC Mocking**: Fully mocked `Grpc\Call::startBatch` to handle inbound management (AddInbound, RemoveInbound, ListInbounds) and statistics collection (SysStats, QueryStats). The mock accurately simulates inbound tag tracking and matches Xray-core gRPC API behavior (e.g. failing with NOT_FOUND on non-existent tags).
+    - **Forced Database Isolation**: Prevented config leaks by hardcoding connection overrides in test `setUp` to port `3307` and schema `idn_db`. This isolates testing operations and subscription client simulations.
+
 ## 2026-06-05
 - **Custom XHTTP Subscription Service Implementation**:
     - **Branching**: Started `feat/sub-service` for the subscription modernization task.

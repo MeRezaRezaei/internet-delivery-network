@@ -24,10 +24,20 @@
         <env name="BROADCAST_CONNECTION" value="null"/>
         <env name="CACHE_STORE" value="array"/>
         <env name="DB_CONNECTION" value="mysql"/>
-        <env name="DB_DATABASE" value="marzban"/>
-        <env name="MARZBAN_DATABASE_NAME" value="marzban"/>
-        <env name="DB_USERNAME" value="marzban"/>
-        <env name="DB_PASSWORD" value="Marzban9011438678"/>
+        <env name="DB_DRIVER" value="mysql"/>
+        <env name="DB_HOST" value="127.0.0.1"/>
+        <env name="DB_PORT" value="3307"/>
+        <env name="DB_DATABASE" value="idn_db"/>
+        <env name="DB_USERNAME" value="idn_user"/>
+        <env name="DB_PASSWORD" value="idn_password"/>
+        <env name="DB_PREFIX" value=""/>
+        <env name="DB_FOREIGN_KEYS" value="false"/>
+        <env name="MARZBAN_DB_HOST" value="127.0.0.1"/>
+        <env name="MARZBAN_DB_PORT" value="3307"/>
+        <env name="MARZBAN_DB_DRIVER" value="mysql"/>
+        <env name="MARZBAN_DATABASE_NAME" value="idn_db"/>
+        <env name="MARZBAN_DB_USERNAME" value="idn_user"/>
+        <env name="MARZBAN_DB_PASSWORD" value="idn_password"/>
         <env name="REDIS_CLIENT" value="phpredis"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>

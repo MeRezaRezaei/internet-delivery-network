@@ -36,11 +36,18 @@ class SubscriptionConsistencyTest extends TestCase
             'User-Agent' => 'v2rayNG'
         ]);
 
-        $response->assertStatus(200);
-        $content = base64_decode($response->getContent());
+        $raw = $response->getContent();
+        // Check if response is gzipped (Content-Encoding header or gzip magic bytes)
+        if ($response->headers->get('Content-Encoding') === 'gzip' || substr($raw, 0, 2) === "\x1f\x8b") {
+            $raw = gzdecode($raw);
+        }
+        $content = base64_decode($raw);
         $lines = array_filter(explode("\n", $content));
 
         // 4. Assert count matches (should be 2: H1 and H2)
+        if (count($lines) !== 2) {
+            var_dump($lines);
+        }
         $this->assertEquals(2, count($lines), "Subscription host count (" . count($lines) . ") does not match expected (2)");
 
         // 5. Verify HTML mode

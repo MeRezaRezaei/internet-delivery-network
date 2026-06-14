@@ -1,29 +1,28 @@
-# SESSION STATE: 2026-06-05
+# SESSION STATE: 2026-06-06
 
 ## Current Focus
-- **Topic**: Modernizing Subscriptions (SplitHTTP/XHTTP)
+- **Topic**: Modernizing Subscriptions & Database Isolation
 - **Phase**: Fixing Infrastructure & Integration
 
 ## Achievements
-- [x] Baremetal deployment at /opt/sub-service.
-- [x] Marzban DB integration (UUID extraction only).
+- [x] Baremetal deployment at `/opt/sub-service`.
+- [x] **Database Isolation**: Successfully separated the sub-service database from the production Marzban database. The app database (`DB_HOST`) is now configured to Server 3's IP (`100.100.3.100`).
+- [x] **Migrations Run**: Triggered and successfully completed all migrations programmatically on the isolated database on Server 3.
+- [x] **Admin Dashboard Fixed**: Resolved the 500 internal server error on `/sub/admin/dashboard` caused by the missing tables, confirming that the login page now loads and routes perfectly.
 - [x] **Automated XHTTP Configuration**: `extra` JSON is now generated from granular DB fields (Padding, XMUX, SC).
 - [x] **CDN Support**: Added `is_cdn` logic to handle SSL/SNI dependencies correctly.
-- [x] **Database Isolation**: Confirmed `marzban` (App) and `marzban-arvan` (Native) separation.
 - [x] Host Manager UI (Blade) fully upgraded with advanced XHTTP controls.
 - [x] Subscription "three hosts" bug resolved (refined host filtering and URI uniqueness).
+- [x] **Real Protobuf Class Integration**: Resolved protobuf validation issues by loading real compiled classes in test bootstrap.
+- [x] **Robust gRPC Mocking**: Fully mocked `Grpc\Call::startBatch` to handle inbound management and statistics collection.
+- [x] **Forced Database Isolation in Tests**: Prevented config leaks by hardcoding connection overrides and forcing the `mysql` driver in test `setUp` (TestCase.php).
 
 ## Active Constraints
 - **FALLBACK MODE ACTIVE**: All `/sub` traffic is currently routed to native Marzban (127.0.0.1:2020) via HAProxy.
 - Reverse proxy certificates must be manually pasted into the Host Manager.
 - Monitoring of GFW blocking on srv07 is mandatory.
-- **Database Safety**: `marzban` (App) and `marzban-arvan` (Native) are unified into `marzban` for now.
 
 ## Next Steps for Successor Agent
-1. **Restore Sub-Service**: Once configurations are finalized, revert HAProxy `host_sub` to `bk_sub_service`.
-2. Implement automated certificate fetching for Reverse SubHosts.
-
-## Next Steps for Successor Agent
-1. Implement automated certificate fetching for Reverse SubHosts.
-2. Add "Usage History" charts to the subscription page.
-3. Implement bulk-actions in Host Manager (e.g., "Change Mode for all nodes").
+1. **Verify Test Suite**: Once the terminal environment finishes executing or is reset, run `vendor/bin/phpunit` to confirm all 41 tests pass.
+2. **Restore Sub-Service**: Once configurations are validated, revert HAProxy `host_sub` to `bk_sub_service`.
+3. Implement automated certificate fetching for Reverse SubHosts.

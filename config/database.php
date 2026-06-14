@@ -5,7 +5,7 @@ return [
 
     'connections' => [
         'mysql' => [
-            'driver' => 'mysql',
+            'driver' => env('DB_DRIVER', 'mysql'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'marzban'),
@@ -13,12 +13,16 @@ return [
             'password' => env('DB_PASSWORD', 'Marzban9011438678'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
+            'prefix' => env('DB_PREFIX', ''),
             'strict' => true,
             'engine' => null,
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+            'options' => [
+                \PDO::ATTR_PERSISTENT => true,
+            ],
         ],
         'marzban' => [
-            'driver' => 'mysql',
+            'driver' => env('MARZBAN_DB_DRIVER', 'mysql'),
             'host' => env('MARZBAN_DB_HOST', '127.0.0.1'),
             'port' => env('MARZBAN_DB_PORT', '3306'),
             'database' => env('MARZBAN_DATABASE_NAME', 'marzban-arvan'),
@@ -26,9 +30,10 @@ return [
             'password' => env('MARZBAN_DB_PASSWORD', 'Marzban9011438678'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
+            'prefix' => env('DB_PREFIX', ''),
             'strict' => true,
             'engine' => null,
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
     ],
 
