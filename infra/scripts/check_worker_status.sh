@@ -12,12 +12,11 @@ SESSION_NAME=$2
 
 echo "Checking status of $SESSION_NAME on $SSH_TARGET..."
 
-ssh $SSH_TARGET << EOF
-    if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-        echo "Status: RUNNING"
-        echo "--- Latest Output ---"
-        tmux capture-pane -p -t "$SESSION_NAME" | tail -n 20
-    else
-        echo "Status: STOPPED / FINISHED"
-    fi
-EOF
+if ! sshpass -p 'asdfjkl' ssh -o StrictHostKeyChecking=no -J merezarezaei@10.255.1.7 $SSH_TARGET "tmux has-session -t $SESSION_NAME 2>/dev/null"; then
+    echo "Status: STOPPED / FINISHED"
+    exit 0
+fi
+
+echo "Status: RUNNING"
+echo "--- Latest Output ---"
+sshpass -p 'asdfjkl' ssh -o StrictHostKeyChecking=no -J merezarezaei@10.255.1.7 $SSH_TARGET "tmux capture-pane -pt $SESSION_NAME | tail -n 20"
