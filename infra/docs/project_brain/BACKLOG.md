@@ -2,9 +2,12 @@
 
 > [!WARNING]
 > Both remote workers ran out of Gemini API quota on May 31. Please be aware of quota limitations when running in infinite loop.
-
 ## High Priority
+- [x] **IDN-060 Remote Work Capture & Cleanup**: Consolidated unpushed Marzban sub-service features from srv03 into `feat/marzban-sub-things` and cleaned remote. [COMPLETED] (2026-06-14)
+- [x] **IDN-061 Local Docker Migration**: Restore infrastructure on Marzban branch and launch containerized PHP 8.5 environment. [COMPLETED] (2026-06-14)
+- [ ] **IDN-062 Marzban Subscription Verification**: Verify rewritten controller logic and Admin Panel CRUD against Xray v1.8.8+ standards.
 - [x] **IDN-040 Advanced Routing Engine**: Generate Xray routing rules based on real-time node metrics. (Merged via US node)
+...
 - [x] **IDN-041 Multi-Node Batching**: Support provisioning a single tunnel across multiple hops (Chain) in one atomic transaction. [COMPLETED] (Merged via DE node)
 
 - [x] **IDN-042 TLS/XHTTP Integration**: Add support for modern Xray transports (XHTTP, Split-HTTP) in the Dashboard. [COMPLETED] (2026-05-30)

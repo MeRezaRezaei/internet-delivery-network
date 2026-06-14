@@ -1,62 +1,42 @@
-# SESSION STATE: 2026-05-30
+# SESSION STATE: 2026-06-14
 
 ## Current Focus
-- **Topic**: Integration of Epic 1, Epic 2, Environment Stabilization & Test Coverage
-- **Phase**: MVP Verification & Epic Completion
+- **Topic**: Marzban Sub-Service Integration & Local Docker Migration
+- **Phase**: Implementation & Environmental Stabilization
 
 ## Achievements
-- [x] **IDN-053 Fix CI/CD Docker and Migration Instability**: Fixed CPU instruction set errors in docker-compose, resolved conflicting migrations (`physical_ports` and `idn_nodes`), fixed composer lock file permission issue, and bundled `xray` binary directly in Laravel Dockerfile to allow `xray -test` validation to pass natively in tests. All 23 tests now passing.
+- [x] **Remote Work Capture (srv03)**: Successfully SSH'd into 100.100.3.100, identified unpushed work in `/opt/sub-service`, consolidated it into `feat/marzban-sub-things` branch, and cleaned the remote workspace.
+- [x] **Local Workspace Consolidation**: Pulled `feat/marzban-sub-things` locally and merged `master` (using `--allow-unrelated-histories`) to restore Docker infrastructure and 5NF schema while preserving Marzban features.
+- [x] **HAProxy Gateway Integration**: Successfully deployed HAProxy as a centralized gateway on the Tailscale IP `100.100.4.100`. Configured safe, non-conflicting ports (8081, 10095-10099, 3318-3319, 6391) to front the Laravel app and development tools while maintaining strict isolation from the host's live services.
+- [x] **Environment Stabilization**: Built `internet-delivery-network-app` with `grpc`, fixed Redis conflicts, hardened DB migrations, and enforced HAProxy-only entrance.
+- [x] **IDN-053 Fix CI/CD Docker and Migration Instability**: Fixed CPU instruction set errors in docker-compose, resolved conflicting migrations (`physical_ports` and `idn_nodes`), fixed composer lock file permission issue, and bundled `xray` binary directly in Laravel Dockerfile. All 23 tests passing.
 - [x] **IDN-050 Automatic Failover Daemon**: Dockerized `idn:node:monitor` to continuously poll node health and automate tunnel routing.
 - [x] **IDN-042 TLS/XHTTP Integration**: Created Split-HTTP models, migrations, and hydrated them into `XrayConfigRenderer`.
-- [x] **IDN-036 Dockerization gRPC bottlenecks**: Added PHP CLI worker pools and native DNS resolver to remove `artisan serve` bottleneck for concurrent Dashboard polling.
-- [x] **IDN-051 Traffic Visualization**: Added TrafficMonitorCommand to poll Xray gRPC and visualize data using Chart.js in Dashboard.
-- [x] **IDN-052 Mobile Dashboard**: Refactored the Dashboard UI to use TailwindCSS for full mobile responsiveness.
-- [x] **Failover Notification Feed**: Visually added a Failover log tracking panel inside the Dashboard.
-- [x] **IDN-041 Multi-Node Batching**: Implemented atomic multi-hop chain provisioning with model unification (Xray Handler -> IDN Tunnel).
-- [x] **Environment Stabilization**: Built `internet-delivery-network-app` with `grpc`, fixed Redis conflicts, hardened DB migrations.
-- [x] **Verification Success**: 100% Pass Rate across unit and feature tests.
-- [x] **Contract Testing**: Implemented `EventContractTest`, `XrayConfigContractTest`, and `SignalContractTest`.
-- [x] **Risk Guard Implementation**: Prevented binding to restricted SSH ports and blocking cascade-deletion.
-- [x] **MVP Verification (Idempotency)**: Implemented `ErrorRecoveryIdempotencyTest.php` ensuring atomic rollback on `ChainMission` failure.
-- [x] **MVP Verification (Performance)**: Implemented `PerformanceBenchmarkTest.php` proving 3-hop provisioning happens in ~65ms.
+- [x] **IDN-036 Dockerization gRPC bottlenecks**: Added PHP CLI worker pools and native DNS resolver to remove `artisan serve` bottleneck.
+- [x] **Knowledge Graph Repaired**: Surgically fixed corruption in `memory.jsonl` to restore Knowledge Graph functionality.
 
 ## Done
-- **Unified IDN Control Plane & Relational Orchestration (2026-05-28):**
-    - Successfully merged and unified the 5NF Xray schema with the IDN Node registry.
-    - Implemented Tailscale-to-MySQL status mapping and dynamic listen IP allocation.
-    - Integrated Technitium DNS API with fleet-wide policy control from the Dashboard.
-    - Developed automated Failover logic for tunnel migration on node offline events.
-    - Achieved 100% test pass rate (20/20) across all hydration, signaling, and API layers.
-    - Hardened the Laravel Docker environment with Xray binary and correct gRPC extensions.
-- **Unbreakable Xray Relational Configuration System (2026-05-28):**
-    - Deployed 5NF relational schema mapping Xray-core internal architecture (Protobuf-aligned).
-    - Implemented Laravel models with strict physical port exclusivity and atomic protocol/transport settings.
-    - Developed `XrayConfigRenderer` and `XrayValidator` with native `xray -test` integration.
-    - Created `Xray` Facade and `PortalMission` for automated, validated orchestration.
-    - Verified full-stack integrity with complex VLESS-REALITY-Fallback feature tests.
-- **Tailscale API Integration (2026-05-27):**
-    - Implemented `TailscaleService` with support for OAuth2 authentication (Client ID/Secret).
-    - Developed `Tailscale` Facade and `TailscaleServiceProvider` for seamless Laravel integration.
-    - Added comprehensive test suite in `tests/Feature/TailscaleApiTest.php` using `Http::fake()`.
-- **IDN Control Plane Hardening (2026-05-27):**
-    - Upgraded signaling from Pub/Sub to Redis Streams with Consumer Groups.
-    - Implemented Node Heartbeat Registry and Fleet Status monitor.
-    - Developed real-time Log Streaming engine.
-    - Hardened Dockerfile with direct Composer installation.
-- **Xray-Laravel API Integration (2026-05-27):**
-    - Established high-performance gRPC communication between Laravel and Xray-core.
-    - Supported simultaneous multi-core management via `Xray::connection('name')`.
+- **Remote Work Migration (2026-06-14):**
+    - Consolidated unpushed Marzban sub-service features from srv03 into `feat/marzban-sub-things`.
+    - Unified branch with `master` to restore containerized infrastructure.
+- **HAProxy Gateway Deployment (2026-06-14):**
+    - Integrated HAProxy into Docker Compose to front all dev services on Tailscale IP.
+    - Verified end-to-end routing to Laravel Admin Panel via `100.100.4.100:8081`.
 
 ## Active Constraints
-- Fake nodes in DB will fail connectivity tests (Expected).
-- `xray_dry_run` container must be running for `ControlPlaneTest`.
+- Host PHP (8.3) is incompatible with Laravel 13; must use Docker (PHP 8.5).
+- Docker socket requires `sg docker` for access.
+- Port conflicts with existing host containers resolved via HAProxy fronting on safe ports.
+- **Mandate**: All development tools and the app MUST be accessed via the HAProxy gateway on `100.100.4.100`.
 
 ## Next Steps for Successor Agent
-1. **MVP Finalization**: Address remaining TODOs in `MVP_CHECKLIST_TRACKER.md` (MVP out-of-scope boundaries enforced, Gap-recovery behavior defined).
-2. **Traffic Monitoring**: Verify that `idn:control-plane:listen` correctly updates traffic metrics in the DB.
+1. **Marzban Verification**: Verify Admin Panel login and rewritten subscription generation via the new gateway.
+2. **Database Schema Repair**: Resolve the `errno: 150` foreign key constraint issue in the isolated Marzban mock migration.
 
 ## Handover Metadata
-- **Active Build**: Stable
-- **Database**: Migrated and verified.
-- **Redis**: Accessible on host port 6380.
-- **Tests**: All green.
+- **Gateway IP**: 100.100.4.100 (Tailscale)
+- **App URL**: http://100.100.4.100:8081/sub/admin/login
+- **Xray APIs**: 10095, 10097, 10099
+- **Databases**: 3318 (IDN), 3319 (Marzban)
+- **Redis**: 6391
+- **Tests**: Core environment verified reachable.

@@ -6,8 +6,7 @@ services:
     container_name: idn-laravel-app
     volumes:
       - .:/var/www/html
-    ports:
-      - "8000:8000"
+    # No direct ports - only accessible via haproxy:8081
     environment:
       - APP_ENV=local
       - XRAY_HOST=xray
@@ -66,9 +65,7 @@ services:
     image: teddysun/xray
     container_name: xray-api-test
     restart: always
-    ports:
-      - "10085:10085"
-      - "10086:10086"
+    # No direct ports - only accessible via haproxy:10095
     volumes:
       - ./infra/configs/xray/test_api_config.json:/etc/xray/config.json
     networks:
@@ -78,8 +75,7 @@ services:
     image: teddysun/xray
     container_name: xray-api-test-2
     restart: always
-    ports:
-      - "10087:10087"
+    # No direct ports - only accessible via haproxy:10097
     volumes:
       - ./infra/configs/xray/test_api_config_2.json:/etc/xray/config.json
     networks:
@@ -89,8 +85,7 @@ services:
     image: teddysun/xray
     container_name: xray-api-dry-run
     restart: always
-    ports:
-      - "10089:10089"
+    # No direct ports - only accessible via haproxy:10099
     volumes:
       - ./infra/configs/xray/test_api_config.json:/etc/xray/config.json
     networks:
@@ -105,10 +100,22 @@ services:
       MYSQL_USER: idn_user
       MYSQL_PASSWORD: idn_password
       MYSQL_ROOT_PASSWORD: root_password
-    ports:
-      - "3307:3306"
+    # No direct ports - only accessible via haproxy:3318
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - idn-network
+
+  marzban-mysql:
+    image: mariadb:10.6
+    container_name: idn-marzban-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: marzban
+      MYSQL_USER: marzban_user
+      MYSQL_PASSWORD: marzban_password
+      MYSQL_ROOT_PASSWORD: marzban_root_password
+    # No direct ports - only accessible via haproxy:3319
     networks:
       - idn-network
 
@@ -116,10 +123,33 @@ services:
     image: redis:alpine
     container_name: idn-redis
     restart: always
-    ports:
-      - "6380:6379"
+    # No direct ports - only accessible via haproxy:6391
     networks:
       - idn-network
+
+  haproxy:
+    image: haproxy:alpine
+    container_name: idn-haproxy
+    restart: always
+    volumes:
+      - ./infra/configs/haproxy/docker_gateway.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - "100.100.4.100:8081:8081"
+      - "100.100.4.100:10095:10095"
+      - "100.100.4.100:10097:10097"
+      - "100.100.4.100:10099:10099"
+      - "100.100.4.100:3318:3318"
+      - "100.100.4.100:3319:3319"
+      - "100.100.4.100:6391:6391"
+    networks:
+      - idn-network
+    depends_on:
+      - app
+      - xray
+      - xray_2
+      - mysql
+      - marzban-mysql
+      - redis
 
 networks:
   idn-network:
